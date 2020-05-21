@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
     title:  String,
     image:  [String],
     author: String,
-    authorId: String,
+    authorId: {type: Schema.Types.ObjectId, ref: 'user'},
     body:   String,
     comments: [{ body: String, date: Date }],
     date: { type: Date, default: Date.now },

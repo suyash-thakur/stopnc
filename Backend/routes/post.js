@@ -11,7 +11,7 @@ const router = express.Router();
 const app = express();
 
 router.get("/blogs:id", (req, res, next) => {
-  Blog.findById(req.params.id).then( blog => {
+  Blog.findById(req.params.id).populate('authorId').then( blog => {
     if(blog) {
       res.status(200).json(blog);
     } else {
@@ -21,7 +21,7 @@ router.get("/blogs:id", (req, res, next) => {
 });
 
 router.get("/allBlog", (req, res, next) => {
-  Blog.find().then ( blog => {
+  Blog.find().populate('authorId').then ( blog => {
     if(blog) {
       res.status(200).json(blog);
     } else {

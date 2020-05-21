@@ -4,24 +4,24 @@
       <a (click)="onPreviousClick()">  < </a>
     </div>
     <div>
-    <img [src] = 'slides[currentSlide].src' class="blog-img" >
+    <img [src] = 'slides[currentSlide]' class="blog-img" >
   </div>
   <div class="arrow" style="margin-left: -35px;">
       <a (click)="onNextClick()">  > </a>
   </div>
   </div>
   <div style="padding-left: 40px; padding-top: 10px;">
-    <p class="Title"><b>The Spring Refresh Edit</b></p>
+    <p class="Title"><b>{{ this.blogservice.currentBlog.title }}</b></p>
     <div style="display: flex;">
       <div>
         <img src="assets\final-1.png" alt="">
       </div>
       <div style="text-align: left !important; margin-top: auto; margin-bottom: auto;">
         <div class="Name">
-          Kevin Smith
+          {{ this.blogservice.currentBlog.authorId.name }}
         </div>
         <div class="discription">
-          Blogger From NewZeland
+          {{ this.blogservice.currentBlog.authorId.about }}
         </div>
       </div>
       <div style=" align-items: center;
@@ -38,16 +38,7 @@
       </div>
     </div>
     <div class="content">
-      The new girl in town: Delvaux! Not long ago this Belgium born luxury leather brand opened its doors on 5th Avenue, and I was one of the lucky few to be there, and lunch amongst the prettiest to celebrate!
-
-
-It’s no secret I love bags. Luxury leather handbags are an absolute obsession, and I will never have enough of them. I still remember dreaming of owning one – about 8 years ago – but until the moment I actually had one I could call “mine”, I carried around anything that resembled the real deal. With always an extreme critical eye for detail; I would never leave the house with a bag made of anything else than leather – unless it was a bag meant to be from some sort of fabric other than leather, as in a “trend”, obviously. Quality has ALWAYS played a huge part in what I bought and wore, and especially nowadays, when I have access to the best quality products, I won’t settle for less.. Yet, I like trends, and I do follow them, but always in my own way…
-
-I’m very specific when it comes to what I think looks good and what doesn’t. This is of course just my opinion, and there are countless other options that matter equally as much as mine, but this is how I define my personal style. And you do yours. I do like to think, though, that I can also tell you what looks good on YOU, or what YOU should invest in now, or save up for. One of those things is a “Delvaux bag”.
-
-Delvaux originates from the 1829s and is with that one of the oldest fine leather luxury good houses in the world! And inventor of the handbag, and close to home – for me: from the Kingdom of Belgium. And especially that last part is something I’m proudly supporting. Brands like Delvaux, how have been around for that long, delivering only the finest products, and with a brand new store on Fifth Avenue in New York, need some spotlight!
-
-The new girl in town: Delvaux! Not long ago this Belgium born luxury leather brand opened its doors on 5th Avenue, and I was one of the lucky few to be there, and lunch amongst the prettiest to celebrate!
+      {{ this.blogservice.currentBlog.body }}
 
     </div>
   </div>

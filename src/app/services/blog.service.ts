@@ -12,6 +12,7 @@ import { UserDataService } from './user-data.service';
 })
 export class BlogService {
   selectBlog: any;
+  currentBlog: any;
 
   constructor(private http: HttpClient,
               private router: Router, private userService: UserDataService, private authService: AuthenticationService) { }
@@ -37,8 +38,20 @@ export class BlogService {
   getBlogs() {
     this.http.get('http://localhost:3000/api/blog/allBlog').subscribe (
       responce => {
-        console.log(responce);
         this.selectBlog = responce;
+        console.log(this.selectBlog);
+
+      }
+    );
+  }
+
+  getOneBlog( id: any) {
+    this.http.get('http://localhost:3000/api/blog/blogs' +  id).subscribe (
+      responce => {
+        this.currentBlog = responce;
+        console.log(this.currentBlog);
+        this.router.navigate(['/blog']);
+
       }
     );
   }
