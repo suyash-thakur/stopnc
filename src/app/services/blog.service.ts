@@ -49,10 +49,18 @@ export class BlogService {
     this.http.get('http://localhost:3000/api/blog/blogs' +  id).subscribe (
       responce => {
         this.currentBlog = responce;
-        console.log(this.currentBlog);
-        this.router.navigate(['/blog']);
+        return responce;
 
       }
     );
   }
+  // comment(body, id) {
+  //   const Comment = {
+  //     body: body,
+  //     postedBy: this.authService.id
+
+  //   };
+  //   this.http.
+  // }
 }
+

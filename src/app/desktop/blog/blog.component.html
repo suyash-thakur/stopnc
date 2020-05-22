@@ -11,17 +11,17 @@
   </div>
   </div>
   <div style="padding-left: 40px; padding-top: 10px;">
-    <p class="Title"><b>{{ this.blogservice.currentBlog.title }}</b></p>
+    <p class="Title"><b>{{ this.blog.blog.title }}</b></p>
     <div style="display: flex;">
       <div>
         <img src="assets\final-1.png" alt="">
       </div>
       <div style="text-align: left !important; margin-top: auto; margin-bottom: auto;">
         <div class="Name">
-          {{ this.blogservice.currentBlog.authorId.name }}
+          {{ this.blog.blog.authorId.name }}
         </div>
         <div class="discription">
-          {{ this.blogservice.currentBlog.authorId.about }}
+          {{ this.blog.blog.authorId.about }}
         </div>
       </div>
       <div style=" align-items: center;
@@ -38,7 +38,7 @@
       </div>
     </div>
     <div class="content">
-      {{ this.blogservice.currentBlog.body }}
+      {{ this.blog.blog.body }}
 
     </div>
   </div>

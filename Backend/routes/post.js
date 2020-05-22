@@ -51,4 +51,23 @@ router.post("/createBlog", checkAuth, (req, res, next) => {
   });
 });
 
+
+router.post("/comment:id", (req, res, next) => {
+  Blog.findOneAndUpdate({_id: req.params.id},
+    {$push: {"comments": {'body': req.body.comment, 'postedBy': req.body.authorId}}}, {safe: true, upsert: true}, function (err, model) {
+      if(err) {
+        res.status(500).json({
+          error: err
+        });
+
+      }
+      else {
+          res.status(201).json({
+            message: 'Comment Created',
+            result: model
+          });
+      }
+    }
+    );
+});
 module.exports = router;

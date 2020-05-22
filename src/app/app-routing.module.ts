@@ -21,6 +21,7 @@ import { FeedComponent } from './feed/feed.component';
 import { FeedMobileComponent } from './feed/feed-mobile/feed-mobile.component';
 import { SectionMenuComponent } from './desktop/section-menu/section-menu.component';
 import { SectionMenuMobileComponent } from './app-header-mobile/section-menu-mobile/section-menu-mobile.component';
+import { APIResolver } from './blog.resolver';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -38,7 +39,9 @@ const routes: Routes = [
   {path: 'create', component: CreateComponent, pathMatch: 'full'},
   {path: 'mobile/home', component: HomeMobileComponent, pathMatch: 'full'},
   {path: 'blog', component: BlogComponent},
+  {path: 'blog/:id', component: BlogComponent, resolve: {blog: APIResolver}},
   {path: 'mobile/blog', component: BlogMobileComponent},
+  {path: 'mobile/blog/:id', component: BlogMobileComponent},
   {path: 'feed', component: FeedComponent},
   {path: 'mobile/feed', component: FeedMobileComponent},
   {path: 'section', component: SectionMenuComponent},

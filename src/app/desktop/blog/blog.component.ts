@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BlogService } from 'src/app/services/blog.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-blog',
@@ -9,19 +9,27 @@ import { Router } from '@angular/router';
 })
 export class BlogComponent implements OnInit {
   public currentSlide = 0;
+  id: number;
+  private sub: any;
+  data: any;
   public slides = [
 
   ];
   blog: any;
   comment= 'I enjoyed this read, thank you for explaining so clearly. I would argue tho that the gig economy is not so different from the auto industry’s cycle of layoffs as supply and demand fluctuate. There is also evidence that building (buying) market share is a longterm strategy that yields intangable gains. Amazon took over a decade to turn a profit but what it earned in marketshare in that period is price.  ';
-  constructor(public blogservice: BlogService, public router: Router) {
+  constructor(public blogservice: BlogService, public router: Router, private route: ActivatedRoute) {
+
     if (window.innerWidth  <= 991 ) {
       this.router.navigate(['mobile/blog']);
     }
+  //  this.route.data.subscribe(() => {
+
+  //  })
    }
 
   ngOnInit() {
-    this.slides = this.blogservice.currentBlog.image;
+    this.route.data.subscribe(data => this.blog = data);
+    this.slides = this.blog.blog.image;
   }
   onPreviousClick() {
     const previous = this.currentSlide - 1;

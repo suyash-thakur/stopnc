@@ -23,5 +23,8 @@ public blogs: any;
   ngOnInit() {
     console.log(this.blogServie.selectBlog);
   }
+  blogClick(id) {
+    this.router.navigate(['/blog', id]);
+  }
 
 }

@@ -130,7 +130,7 @@
         <div class="description">
           {{ item.body | truncate: 320  }}
         </div>
-        <div  class="ReadNow" (click)="this.blogServie.getOneBlog(item._id)">
+        <div  class="ReadNow" (click)="this.blogClick(item._id)">
           <div>
           READNOW
           </div>
