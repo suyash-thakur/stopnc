@@ -62,11 +62,24 @@
   </div>
   <br>
   <div style="  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.16); background-color: #ffffff; display: flex; padding-top: 7px; padding-left: 7px; margin-bottom: 30px; ">
-    <div style="justify-content: center; align-items: center;">
+    <div style="justify-content: center; align-items: center;  margin-bottom: 3px;" *ngIf="!isFocus">
       <img src="../../../assets/final-1.png" style="width: 50px;">
     </div>
-    <div style="flex-grow: 1;">
-      <textarea type="text" class="input" placeholder="Write a response ..."></textarea>
+    <div style="flex-grow: 1;" >
+      <div style="display: flex"  *ngIf="isFocus">
+        <div style="justify-content: center; align-items: center;">
+          <img src="../../../assets/final-1.png" style="width: 50px;">
+        </div>
+        <div>
+          <div class="Name" style="transform: translateY(5px);">
+            Kevin Smith
+          </div>
+        </div>
+      </div>
+      <textarea type="text" class="input" placeholder="Write a response ..." (focus)="onFocus()" (focusout)="onFocusOut()" id="inpC" [(ngModel)]="CommentInput"></textarea><br>
+      <div style="margin-top: 15px; margin-bottom: 15px; width: fit-content;" class="Subbutton" *ngIf="isFocus">
+        Submit
+      </div>
     </div>
   </div>
   <div style="  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.16); background-color: #ffffff; display: flex; padding-top: 7px; padding-left: 7px;  padding-bottom: 10px;">
@@ -177,7 +190,7 @@
         <div style="display: flex; align-items: center; justify-content: center;">
 
           <div>
-            <img src="assets\Uniqlo-x-J-W-Anderson-5-1044x1566.jpg"  class="image-small">
+            <img src="assets\Uniqlo-x-J-W-Anderson-5-1044x1566.jpg"  class="image-small" >
           </div>
         </div>
         <div style="display: flex; justify-content: center;">

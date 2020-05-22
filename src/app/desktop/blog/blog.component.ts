@@ -10,8 +10,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class BlogComponent implements OnInit {
   public currentSlide = 0;
   id: number;
+  isFocus: boolean;
+  CommentInput: any;
   private sub: any;
   data: any;
+  UserComment: any = [];
   public slides = [
 
   ];
@@ -30,6 +33,8 @@ export class BlogComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(data => this.blog = data);
     this.slides = this.blog.blog.image;
+    this.UserComment = this.blog.blog.comments;
+    console.log(this.UserComment);
   }
   onPreviousClick() {
     const previous = this.currentSlide - 1;
@@ -41,5 +46,19 @@ export class BlogComponent implements OnInit {
     const next = this.currentSlide + 1;
     this.currentSlide = next === this.slides.length ? 0 : next;
     console.log("next clicked, new current slide is: ", this.currentSlide);
+  }
+  onFocus() {
+    this.isFocus = true;
+    const box = (<HTMLTextAreaElement>document.getElementById('inpC'));
+    box.rows = 10;
+    console.log(this.isFocus);
+  }
+  onFocusOut() {
+    if (this.CommentInput == null || this.CommentInput == '') {
+      this.isFocus = false;
+      const box = (<HTMLTextAreaElement>document.getElementById('inpC'));
+      box.rows = 1;
+    }
+    console.log(this.CommentInput);
   }
 }
