@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Blog } from '../models/blog.model';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { VirtualTimeScheduler } from 'rxjs';
+import { VirtualTimeScheduler, Observable } from 'rxjs';
 import { AuthenticationService } from './authentication.service';
 import { UserDataService } from './user-data.service';
 
@@ -54,13 +54,19 @@ export class BlogService {
       }
     );
   }
-  // comment(body, id) {
-  //   const Comment = {
-  //     body: body,
-  //     postedBy: this.authService.id
+  comment(body, id) {
+    const Comment = {
+      body: body,
+      postedBy: this.authService.id
 
-  //   };
-  //   this.http.
-  // }
+    };
+    console.log(Comment);
+    this.http.post('http://localhost:3000/api/blog/comment' + id, Comment).subscribe (
+      responce => {
+        console.log(responce);
+        return responce;
+      }
+    );
+  }
 }
 

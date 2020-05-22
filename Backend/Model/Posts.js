@@ -7,7 +7,6 @@ var mongoose = require('mongoose');
     author: String,
     authorId: {type: Schema.Types.ObjectId, ref: 'user'},
     body:   String,
-    comments: [{ body: String, date: {type: Date, default: Date.now}, postedBy: {type: Schema.Types.ObjectId, ref: 'user' } }],
     date: { type: Date, default: Date.now },
     favs:  Number
   });

@@ -11,17 +11,17 @@
   </div>
   </div>
   <div style="padding-left: 40px; padding-top: 10px;">
-    <p class="Title"><b>{{ this.blog.blog.title }}</b></p>
+    <p class="Title"><b>{{ this.blog.blog.Blog.title }}</b></p>
     <div style="display: flex;">
       <div>
         <img src="assets\final-1.png" alt="">
       </div>
       <div style="text-align: left !important; margin-top: auto; margin-bottom: auto;">
         <div class="Name">
-          {{ this.blog.blog.authorId.name }}
+          {{ this.blog.blog.Blog.authorId.name }}
         </div>
         <div class="discription">
-          {{ this.blog.blog.authorId.about }}
+          {{ this.blog.blog.Blog.authorId.about }}
         </div>
       </div>
       <div style=" align-items: center;
@@ -38,7 +38,7 @@
       </div>
     </div>
     <div class="content">
-      {{ this.blog.blog.body }}
+      {{ this.blog.blog.Blog.body }}
 
     </div>
   </div>
@@ -76,27 +76,27 @@
           </div>
         </div>
       </div>
-      <textarea type="text" class="input" placeholder="Write a response ..." (focus)="onFocus()" (focusout)="onFocusOut()" id="inpC" [(ngModel)]="CommentInput"></textarea><br>
-      <div style="margin-top: 15px; margin-bottom: 15px; width: fit-content;" class="Subbutton" *ngIf="isFocus">
+      <textarea type="text" class="input" style="resize: none;"placeholder="Write a response ..." (focus)="onFocus()" (focusout)="onFocusOut()" id="inpC" [(ngModel)]="CommentInput"></textarea><br>
+      <div style="margin-top: 15px; margin-bottom: 15px; width: fit-content;" class="Subbutton" *ngIf="isFocus" (click)="onComment()">
         Submit
       </div>
     </div>
   </div>
-  <div style="  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.16); background-color: #ffffff; display: flex; padding-top: 7px; padding-left: 7px;  padding-bottom: 10px;">
+  <div style="  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.16); background-color: #ffffff; display: flex; padding-top: 7px; padding-left: 7px;  padding-bottom: 10px;" *ngFor="let item of UserComment">
     <div style="justify-content: center; align-items: center;">
       <img src="../../../assets/final-1.png" style="width: 50px;">
     </div>
     <div style="flex-grow: 1; text-align: left;">
       <div class="Name">
-        Kevin Smith
+        {{ item.author.name }}
       </div>
       <div style="display: flex;">
-        <div class="discription">April 10</div>
+        <div class="discription">{{ item.date| date:'shortDate' }}</div>
         <div style="width: 10px; height: 10px; background-color: #84BEE0; border: none; border-radius: 50%; margin-left: 5px;  transform: translateY(4px);"></div>
         <div class="discription" style="margin-left: 5px !important;"> 10 Likes</div>
       </div>
       <div class="comment">
-        {{ comment   }}
+        {{ item.body   }}
       </div>
 
       <div style="margin-left: 15px; margin-top: 15px;" class="discription">
