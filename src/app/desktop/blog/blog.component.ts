@@ -74,8 +74,18 @@ export class BlogComponent implements OnInit {
     this.http.post('http://localhost:3000/api/blog/comment' + this.blog.blog.Blog._id, Comment).subscribe (
       responce => {
         console.log(responce);
-        let res = responce;
-        this.UserComment = res;
+        // this.UserComment.push(res.);
+        this.http.get('http://localhost:3000/api/blog/comment' + this.blog.blog.Blog._id).subscribe(
+          responce => {
+            var com: any = responce;
+            this.isFocus = false;
+            this.UserComment = com.comment;
+            console.log(this.UserComment);
+            const box = (<HTMLTextAreaElement>document.getElementById('inpC'));
+            box.rows = 1;
+            this.CommentInput = null;
+          }
+        );
       }
     );
   }

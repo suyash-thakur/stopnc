@@ -25,7 +25,17 @@ router.get("/blogs:id", (req, res, next) => {
     }
   });
 });
-
+router.get("/comment:id", (req, res, next) => {
+  Comment.find({'blog': req.params.id}).populate('author').exec(function(err, comment) {
+    if(err) {
+      res.status(500).json(err);
+    } else {
+      res.status(201).json({
+        comment
+      });
+    }
+  });
+})
 router.get("/allBlog", (req, res, next) => {
   Blog.find().populate('authorId').then ( blog => {
     if(blog) {
