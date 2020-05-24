@@ -90,5 +90,18 @@ router.put("/userUpdate:id",checkAuth, (req, res, next) => {
  });
 });
 
+router.put("/follow:id", checkAuth, (req, res, next) => {
+  console.log(req.params.id);
+  console.log(req.body.followerId);
+  User.findOneAndUpdate({_id: req.params.id}, {$push: {follower: req.body.followerId}}).then(result => {
+    User.findOneAndUpdate({_id: req.body.followerId}, {$push: {following: req.params.id}}).then(result => {
+      if(result){
+        res.status(200).json({message: "Followed Successfully"});
+      } else {
+        res.status(500).json({message: "Error Following This Person"})
+      }
+    })
+  })
+})
 
 module.exports = router;

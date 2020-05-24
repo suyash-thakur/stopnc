@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
 
 const userSchema = mongoose.Schema({
@@ -7,6 +8,8 @@ const userSchema = mongoose.Schema({
   password: { type: String, required: true },
   discription: { type: String},
   about: { type: String },
+  follower: [{type: Schema.Types.ObjectId, ref: "User"}],
+  following: [{type: Schema.Types.ObjectId, ref: "User"}]
 
 });
 

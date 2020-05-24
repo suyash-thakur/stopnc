@@ -144,6 +144,8 @@ getUser(id: string) {
     name: string;
     discription: string;
     about: string;
+    follower: any;
+    following: any;
 
   }>('http://localhost:3000/api/user/userInfo' + id);
 }
@@ -158,6 +160,17 @@ async googleLogin( id: string, email: string, name: string ) {
   await this.createUser(email, id, name);
   this.login(email, id).then((data) => {
     console.log('email done' + data);
+  });
+}
+
+follow(followerId) {
+  const Id = {
+    followerId: this.id
+  };
+  console.log(followerId);
+  console.log(Id);
+  this.http.put('http://localhost:3000/api/user/follow' + followerId, Id).subscribe (responce => {
+    console.log(responce);
   });
 }
 }

@@ -37,7 +37,7 @@ export class BlogComponent implements OnInit {
     this.route.data.subscribe(data => this.blog = data);
     this.slides = this.blog.blog.Blog.image;
     this.UserComment = this.blog.blog.Comment;
-    console.log(this.UserComment);
+    console.log(this.blog.blog.Blog.authorId._id);
   }
   onPreviousClick() {
     const previous = this.currentSlide - 1;
@@ -88,5 +88,8 @@ export class BlogComponent implements OnInit {
         );
       }
     );
+  }
+  onFollow() {
+    this.authService.follow(this.blog.blog.Blog.authorId._id);
   }
 }
