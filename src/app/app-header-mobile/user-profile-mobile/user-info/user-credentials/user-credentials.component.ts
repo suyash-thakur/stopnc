@@ -28,7 +28,9 @@ ngOnInit() {
     this.User = {
       Name: userdata.name,
       discription: userdata.discription,
-      about: userdata.about
+      about: userdata.about,
+      follower: userdata.follower,
+      following: userdata.following
     };
     this.Name = this.User.Name;
     this.userData.User = this.User;

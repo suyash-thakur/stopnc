@@ -30,7 +30,9 @@ export class UserProfileMobileComponent implements OnInit {
         this.User = {
           Name: userData.name,
           discription: userData.discription,
-          about: userData.about
+          about: userData.about,
+          follower: userData.follower,
+        following: userData.following
         };
         this.Name = this.User.Name;
         this.UserData.User = this.User;

@@ -46,7 +46,7 @@ router.get("/allBlog", (req, res, next) => {
   });
 });
 
-router.post("/createBlog", checkAuth, (req, res, next) => {
+router.post("/createBlog", checkAuth, async function (req, res)  {
   const blog = new Blog ({
     title: req.body.title,
     image: req.body.image,
