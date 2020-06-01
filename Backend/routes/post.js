@@ -1,7 +1,8 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-
+const User  = require("../Model/user");
+const Notification = require("../Model/Notification");
 const Blog  = require("../Model/Posts");
 const checkAuth = require("../middleware/check-auth");
 
@@ -47,6 +48,7 @@ router.get("/allBlog", (req, res, next) => {
 });
 
 router.post("/createBlog", checkAuth, async function (req, res)  {
+
   const blog = new Blog ({
     title: req.body.title,
     image: req.body.image,
@@ -54,11 +56,38 @@ router.post("/createBlog", checkAuth, async function (req, res)  {
     body: req.body.body,
     authorId: req.body.authorId
   });
-  blog.save().then( result => {
-    res.status(201).json({
-      message: "Blog Created",
-      result: result
+  blog.save().then( async function (result) {
+    let user =  await User.findById(req.body.authorId).populate('follower').exec();
+    let blog = result;
+    console.log(user.follower.length)
+    if(user.follower.length != 0){
+
+
+    for(const follower of user.follower) {
+      console.log(follower);
+
+      let newNotification = new Notification({
+        message: 'posted a new blog',
+        recipient: follower._id,
+        refId: blog._id,
+        type: 'Post',
+      })
+    newNotification.save().then(result => {
+      console.log(result);
+        res.status(201).json({
+          message: "Created a new blog and notification",
+          result: blog
+        });
+      }).catch(err => {
+        res.status(500).json({
+      error: err
     });
+
+      });
+    }
+
+    }
+
   }).catch(err => {
     res.status(500).json({
       error: err

@@ -10,5 +10,5 @@ var notificationSchema = new Schema ({
   isRead: {type: Boolean, default: false}
 });
 
-module.exports = mongoose.model('', blogSchema);
+module.exports = mongoose.model('', notificationSchema);
 
