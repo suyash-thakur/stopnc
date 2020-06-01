@@ -59,7 +59,6 @@ router.post("/createBlog", checkAuth, async function (req, res)  {
   blog.save().then( async function (result) {
     let user =  await User.findById(req.body.authorId).populate('follower').exec();
     let blog = result;
-    console.log(user.follower.length)
     if(user.follower.length != 0){
 
 

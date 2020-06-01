@@ -1,6 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const Notification = require("../Model/Notification");
 
 const User  = require("../Model/user");
 const checkAuth = require("../middleware/check-auth");
@@ -69,8 +70,11 @@ router.post("/login",(req, res, next) => {
     });
 });
 router.get("/userInfo:id",checkAuth, (req, res, next) => {
- User.findById(req.params.id).then(user => {
+ User.findById(req.params.id).then(async function(user) {
    if (user) {
+     console.log(req.params.id);
+     const notification = await Notification.findById({recipient: req.params.id}).exec();
+     console.log(notification);
      res.status(200).json(user);
    } else {
      res.status(404).json({ message: "Post not found!" });
