@@ -76,10 +76,24 @@
         <div class="col-md-6">
           <input type="text" placeholder="Search...">
           </div>
-        <div class="col-md-3">
-          <img src="assets\Nortification.svg" alt="" class="text-right nortification">
+        <div class="col-md-3 dropdown" style="  margin-left: 50px;">
+          <a href="" class="dropdown-toggle " data-toggle="dropdown" (click)="notificationClick()">
+            <div style="display: flex;">
+              <div>
+                <img src="assets\Nortification.svg" alt="" class="text-right nortification">
+              </div>
+              <div *ngIf="numberNot !== 0" style="background-color: rgba(212, 19, 13, 1); color: white; height: 30px; padding: 5px; border-radius: 25px; font-size: 18px; padding-left: 10px; padding-right: 10px; transform: translateX(-15px) translateY(-5px);">
+                {{ numberNot }}
+              </div>
+            </div>
+          </a>
+          <br>
+          <div class="dropdown-menu " style="overflow: visible !important; width: 250px !important; right: -100px !important;">
+              <a class="dropdown-list" style="padding-left: 10px;" *ngFor="let n of NOtification"><b>{{ n.refId.author }}</b> &nbsp;{{ n.message }} <br>                  <hr class="dropdown-line">
+              </a></div>
+
         </div>
-        <div class="col-md-3 dropdown">
+        <div class="col-md-3 dropdown" style="  margin-left: -50px;">
           <a href="" class="dropdown-toggle " data-toggle="dropdown">
             <img src="assets\final-1.png" alt="" class="text-right profile ">
           </a>
@@ -122,7 +136,7 @@
       <div class="col-md-8" style="height: 150px; z-index: 1;">
         <h1 class="text-left main-title">STOPNC</h1>
         <br>
-        <p class = "text-left main-slogan">Style your Everyday Life</p>
+        <p class = "text-left main-slogan">A style for every story</p>
 
       </div>
     </div>

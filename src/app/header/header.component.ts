@@ -5,6 +5,7 @@ import { RouterModule, Router } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
 import { User } from '../models/user.model';
 import { UserDataService } from '../services/user-data.service';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -20,10 +21,11 @@ export class HeaderComponent implements OnInit {
   userId: string;
   User: User;
   Name = ' ';
+  NOtification: Array<any>;
+  numberNot = 0;
 
 
-
-  constructor( private router: Router, public authService: AuthenticationService, public userData: UserDataService) {
+  constructor( public authService: AuthenticationService, public userData: UserDataService, private http: HttpClient) {
     this.loggedin = this.authService.Userlogin;
     this.userId = this.authService.id;
 }
@@ -40,23 +42,38 @@ signOut() {
 
   ngOnInit() {
     if (this.loggedin) {
-      this.authService.getUser(this.userId).subscribe(userData => {
+      this.http.get('http://localhost:3000/api/user/userInfo' + this.userId).subscribe((userData:any) => {
+        let data  = userData;
+        console.log(data);
+
         this.User = {
-          Name: userData.name,
-          discription: userData.discription,
-          about: userData.about,
-          follower: userData.follower,
-          following: userData.following
+          Name: userData.User.name,
+          discription: userData.User.discription,
+          about: userData.User.about,
+          follower: userData.User.follower,
+          following: userData.User.following
         };
         this.Name = this.User.Name;
         this.userData.User = this.User;
-        console.log(this.userData.User);
-
-
+        this.NOtification = data.Notification;
+        this.NOtification.forEach(n => {
+          if (!n.isRead)
+          this.numberNot = this.numberNot + 1;
+        });
+        console.log(this.numberNot);
 
 
       });
     }
   }
+notificationClick(){
+  if(this.numberNot != 0){
+    this.http.post('http://localhost:3000/api/user/notficationSeen' + this.authService.id, null).subscribe(result => {
+      console.log(result);
+      this.numberNot = 0;
+    });
 
+  }
+
+}
 }

@@ -73,9 +73,9 @@ router.get("/userInfo:id",checkAuth, (req, res, next) => {
  User.findById(req.params.id).then(async function(user) {
    if (user) {
      console.log(req.params.id);
-     const notification = await Notification.findById({recipient: req.params.id}).exec();
+     const notification = await Notification.find({recipient: req.params.id}).populate("refId").exec();
      console.log(notification);
-     res.status(200).json(user);
+     res.status(200).json({User: user, Notification: notification});
    } else {
      res.status(404).json({ message: "Post not found!" });
    }
@@ -107,5 +107,9 @@ router.put("/follow:id", checkAuth, (req, res, next) => {
     })
   })
 })
-
+router.post("/notficationSeen:id", (req, res, next)=> {
+  Notification.updateMany({recipient: req.params.id, isRead: false}, {isRead: true}, function(result, err) {
+    res.status(201).json('Notification Updated');
+  });
+});
 module.exports = router;
