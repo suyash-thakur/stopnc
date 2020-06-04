@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit {
   numberNot = 0;
 
 
-  constructor( public authService: AuthenticationService, public userData: UserDataService, private http: HttpClient) {
+  constructor( public authService: AuthenticationService, public userData: UserDataService, private http: HttpClient,  private router: Router) {
     this.loggedin = this.authService.Userlogin;
     this.userId = this.authService.id;
 }
@@ -75,5 +75,11 @@ notificationClick(){
 
   }
 
+}
+clickEachNotification(type, id) {
+  console.log(type);
+  if (type === 'Post') {
+  this.router.navigate(['/blog', id]);
+  }
 }
 }

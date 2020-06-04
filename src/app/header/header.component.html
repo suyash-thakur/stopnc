@@ -89,7 +89,7 @@
           </a>
           <br>
           <div class="dropdown-menu " style="overflow: visible !important; width: 250px !important; right: -100px !important;">
-              <a class="dropdown-list" style="padding-left: 10px;" *ngFor="let n of NOtification"><b>{{ n.refId.author }}</b> &nbsp;{{ n.message }} <br>                  <hr class="dropdown-line">
+              <a class="dropdown-list" style="padding-left: 10px;" *ngFor="let n of NOtification" (click)="clickEachNotification(n.type, n.refId._id)"><b>{{ n.refId.author }}</b> &nbsp;{{ n.message }} <br>                  <hr class="dropdown-line">
               </a></div>
 
         </div>
