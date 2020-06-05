@@ -6,7 +6,44 @@
     </ul>
     <div class="tab-content">
       <div id="home" class="tab-pane fade in active">
-        Profile
+        <div class="row">
+
+        <div class="col-md-6" *ngFor="let item of Blogs" style="">
+          <div class="content">
+            <div style="flex: 1;  background-size: cover;" [style.background-image]="'url(' + item.image  + ')'">
+            </div>
+            <div style="width: 100%;  flex: 1;">
+              <div style="display: flex; justify-content: space-between; padding-top: 10px; padding-right: 10px;">
+                <div>
+                  <div class="Name">
+                  {{ item.authorId.name }}
+                  </div>
+                </div>
+
+
+                  <div style="" class="date">{{ item.date | date:'shortDate' }}</div>
+              </div>
+              <div class="blogTitle">
+                {{ item.authorId.about }}
+
+              </div>
+              <div class="head">
+                <b>
+                {{ item.title }}
+              </b>
+              </div>
+              <div class="description">
+                {{ item.body | truncate: 320  }}
+              </div>
+              <div  class="ReadNow" (click)="this.blogClick(item._id)">
+                <div>
+                READNOW
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       </div>
       <div id="menu1" class="tab-pane fade ">
           Responces
