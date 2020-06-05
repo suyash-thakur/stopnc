@@ -3,6 +3,7 @@ import { UserDataService } from 'src/app/services/user-data.service';
 import { User } from 'src/app/models/user.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile',
@@ -24,8 +25,8 @@ export class UserProfileComponent implements OnInit {
   Name: string = '';
   Blogs: any;
 
-  constructor(public userData: UserDataService, public authService: AuthenticationService, private http: HttpClient) {
-    this.userId = this.authService.id;
+  constructor(public userData: UserDataService, public authService: AuthenticationService, private http: HttpClient, private route: ActivatedRoute) {
+    this.userId =  this.route.snapshot.paramMap.get('id');
     console.log(this.userId);
 
   }

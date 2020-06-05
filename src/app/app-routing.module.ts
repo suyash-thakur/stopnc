@@ -27,7 +27,7 @@ import { FeedResolver } from './feed.resolver';
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: '', component: HomeComponent},
-  {path: 'user', component: UserProfileComponent, children: [{path: '', component: UserInfoComponent, outlet: 'user-info'}]},
+  {path: 'user/:id', component: UserProfileComponent, children: [{path: '', component: UserInfoComponent, outlet: 'user-info'}]},
   {path: 'login/email', component: EmailLoginComponent, pathMatch: 'full'},
   {path: 'mobile/login', component: LoginMobileComponent, pathMatch: 'full'},
   {path: 'mobile/login/email', component: EmailLoginMobileComponent, pathMatch: 'full'},
