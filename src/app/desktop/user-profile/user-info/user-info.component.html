@@ -55,7 +55,7 @@
       </div>
       <div id="menu1" class="tab-pane fade ">
           <div style="display: flex; justify-content: center;" *ngFor="let item of blogService.Useromment">
-            <div class="content" style="width: 50%; display: block !important; margin-top: 50px;">
+            <div class="content" style="width: 50%; display: block !important; margin-top: 50px; cursor: pointer;" (click)="blogClick(item.blog._id)">
               <div class="blogTitle" style="font-size: 23px;">
                 {{ item.blog.title }}
               </div>
