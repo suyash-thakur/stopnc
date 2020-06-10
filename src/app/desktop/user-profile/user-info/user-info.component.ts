@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { BlogService } from 'src/app/services/blog.service';
 
 @Component({
   selector: 'app-user-info',
@@ -10,9 +11,10 @@ import { Router } from '@angular/router';
 })
 export class UserInfoComponent implements OnInit {
   userId: string;
-  Blogs: Array<any>;
+  Blogs: Array<any> = [];
+  comment: any;
 
-  constructor(public authService: AuthenticationService, private http: HttpClient, public router: Router) {
+  constructor(public authService: AuthenticationService, private http: HttpClient, public router: Router, public blogService: BlogService) {
     this.userId = this.authService.id;
     console.log(this.userId);
   }
@@ -22,6 +24,7 @@ export class UserInfoComponent implements OnInit {
       this.Blogs = userBlog.Blog;
       console.log(this.Blogs);
     });
+    this.blogService.getComment(this.userId);
   }
   blogClick(id) {
     this.router.navigate(['/blog', id]);

@@ -5,9 +5,9 @@
       <li><a data-toggle="tab" href="#menu2" class="navigation-tab">Likes</a></li>
     </ul>
     <div class="tab-content">
-      <div id="home" class="tab-pane fade in active">
+      <div id="home" class="tab-pane fade in active" style="height: 100%; background-color: #A2CABE;">
         <div class="row">
-
+          <div>
         <div class="col-md-6" *ngFor="let item of Blogs" style="">
           <div class="content">
             <div style="flex: 1;  background-size: cover;" [style.background-image]="'url(' + item.image  + ')'">
@@ -43,6 +43,14 @@
             </div>
           </div>
         </div>
+      </div>
+      <div *ngIf="Blogs.length == 0">
+        <div style="display: flex; align-items: center; justify-content: center; margin-top: 40px; margin-bottom: 40px;">
+          <div>
+            <h1 class="info">No Blogs To Show</h1>
+          </div>
+        </div>
+      </div>
       </div>
       </div>
       <div id="menu1" class="tab-pane fade ">

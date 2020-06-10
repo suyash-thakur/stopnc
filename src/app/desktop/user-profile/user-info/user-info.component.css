@@ -84,6 +84,11 @@ a {
   margin-bottom: 10px;
 
 }
+.info {
+  font-family: Regular;
+  color: #2D4A86;
+  font-size: 30px;
+}
 .ReadNow {
   display: flex;
   text-align: center;

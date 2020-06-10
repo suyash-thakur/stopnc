@@ -2,6 +2,7 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Notification = require("../Model/Notification");
+const Comment = require("../Model/Comment");
 
 const User  = require("../Model/user");
 const checkAuth = require("../middleware/check-auth");
@@ -72,9 +73,7 @@ router.post("/login",(req, res, next) => {
 router.get("/userInfo:id",checkAuth, (req, res, next) => {
  User.findById(req.params.id).then(async function(user) {
    if (user) {
-     console.log(req.params.id);
      const notification = await Notification.find({recipient: req.params.id}).populate("refId").exec();
-     console.log(notification);
      res.status(200).json({User: user, Notification: notification});
    } else {
      res.status(404).json({ message: "Post not found!" });
@@ -88,15 +87,12 @@ router.put("/userUpdate:id",checkAuth, (req, res, next) => {
    discription: req.body.cridential,
    about: req.body.about
  });
- console.log(user);
  User.updateOne({_id: req.params.id}, user).then(result => {
    res.status(200).json({ message: "Update successful!" });
  });
 });
 
 router.put("/follow:id", checkAuth, (req, res, next) => {
-  console.log(req.params.id);
-  console.log(req.body.followerId);
   User.findOneAndUpdate({_id: req.params.id}, {$push: {follower: req.body.followerId}}).then(result => {
     User.findOneAndUpdate({_id: req.body.followerId}, {$push: {following: req.params.id}}).then(result => {
       if(result){
@@ -112,4 +108,19 @@ router.post("/notficationSeen:id", (req, res, next)=> {
     res.status(201).json('Notification Updated');
   });
 });
+router.get("/commentUser:id", (req, res, next) => {
+  console.log("User");
+
+  Comment.find({'author': req.params.id }).populate('blog', 'title').exec(function(err, comment) {
+    if(err) {
+      res.status(500).json(err);
+    } else {
+      console.log(comment);
+      res.status(201).json({
+        comment
+      });
+    }
+  });
+});
+
 module.exports = router;

@@ -13,6 +13,7 @@ import { UserDataService } from './user-data.service';
 export class BlogService {
   selectBlog: any;
   currentBlog: any;
+  Useromment: any;
 
   constructor(private http: HttpClient,
               private router: Router, private userService: UserDataService, private authService: AuthenticationService) { }
@@ -67,6 +68,14 @@ export class BlogService {
         return responce;
       }
     );
+  }
+
+  getComment(id) {
+    console.log(id);
+    this.http.get('http://localhost:3000/api/user/commentUser' + id).subscribe(comment => {
+      this.Useromment = comment;
+      console.log(this.Useromment);
+  });
   }
 }
 

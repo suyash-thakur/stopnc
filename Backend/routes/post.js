@@ -34,6 +34,7 @@ router.get("/userBlog:id", (req, res, next) => {
   }).catch(err => res.status(404).json({ err }));
 });
 router.get("/comment:id", (req, res, next) => {
+  console.log("comment");
   Comment.find({'blog': req.params.id}).populate('author').exec(function(err, comment) {
     if(err) {
       res.status(500).json(err);
@@ -43,7 +44,8 @@ router.get("/comment:id", (req, res, next) => {
       });
     }
   });
-})
+});
+
 router.get("/allBlog", (req, res, next) => {
   Blog.find().populate('authorId').then ( blog => {
     if(blog) {
@@ -70,7 +72,6 @@ router.post("/createBlog", checkAuth, async function (req, res)  {
 
 
     for(const follower of user.follower) {
-      console.log(follower);
 
       let newNotification = new Notification({
         message: 'posted a new blog',
@@ -79,7 +80,6 @@ router.post("/createBlog", checkAuth, async function (req, res)  {
         type: 'Post',
       })
     newNotification.save().then(result => {
-      console.log(result);
         res.status(201).json({
           message: "Created a new blog and notification",
           result: blog
