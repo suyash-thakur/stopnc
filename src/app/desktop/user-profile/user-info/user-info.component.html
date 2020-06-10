@@ -54,7 +54,26 @@
       </div>
       </div>
       <div id="menu1" class="tab-pane fade ">
-          Responces
+          <div style="display: flex; justify-content: center;" *ngFor="let item of blogService.Useromment">
+            <div class="content" style="width: 50%; display: block !important; margin-top: 50px;">
+              <div class="blogTitle" style="font-size: 23px;">
+                {{ item.blog.title }}
+              </div>
+              <div class="head" style="font-size: 15px; margin-top: 5px; margin-bottom: 2px;">
+                <b>
+                  Comment Added
+              </b>
+              </div>
+              <div class="description" style="margin-top: 5px; padding-top: 10px; margin-left: 25px;  border-left: 2px solid #d3d3d3; margin-bottom: 5px; border-radius: 2px; padding-left: 10px;">
+                {{ item.body }}
+              </div>
+              <div style="font-size: 12px; margin-left: 25px; margin-bottom: 10px;" class="date">{{ item.date | date:'short' }}</div>
+
+            </div>
+
+          </div>
+          <br>
+          <br>
         </div>
         <div id="menu2" class="tab-pane fade ">
             Likes

@@ -72,8 +72,8 @@ export class BlogService {
 
   getComment(id) {
     console.log(id);
-    this.http.get('http://localhost:3000/api/user/commentUser' + id).subscribe(comment => {
-      this.Useromment = comment;
+    this.http.get('http://localhost:3000/api/user/commentUser' + id).subscribe((comment: any) => {
+      this.Useromment = comment.comment;
       console.log(this.Useromment);
   });
   }
