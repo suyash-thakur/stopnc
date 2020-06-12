@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Notification = require("../Model/Notification");
 const Comment = require("../Model/Comment");
+const Blog  = require("../Model/Posts");
 
 const User  = require("../Model/user");
 const checkAuth = require("../middleware/check-auth");
@@ -123,4 +124,34 @@ router.get("/commentUser:id", (req, res, next) => {
   });
 });
 
+router.put("/like:id", (req, res, next) => {
+  Blog.findOneAndUpdate({_id: req.params.id},{$push: {like: req.body.userId}}).then(responce => {
+    if (res){
+      res.status(201).json({
+        message: "Liked",
+        result: responce
+      });
+    } else {
+      res.status(500).json({
+        message: "Error"
+      });
+    }
+
+  });
+});
+router.put("/unlike:id", (req, res, next) => {
+  Blog.findOneAndUpdate({_id: req.params.id},{$pull: {like: req.body.userId}}).then(responce => {
+    if (res){
+      res.status(201).json({
+        message: "UnLiked",
+        result: responce
+      });
+    } else {
+      res.status(500).json({
+        message: "Error"
+      });
+    }
+
+  });
+});
 module.exports = router;

@@ -43,9 +43,18 @@
     </div>
   </div>
   <div>
-    <div style="display: flex; flex-flow: column; margin-top: 30px;">
-      <div style="position: sticky;">
-        <img src="../../../assets/like.png" style="width: 50px;">
+    <div style="display: flex; flex-flow: column; margin-top: 30px; padding-right: 20px;">
+
+      <div style="display: flex;">
+        <div>
+       <a (click)="unlike(this.blog.blog.Blog._id)"> <img src="../../../assets/heart.svg" style="width: 40px;" *ngIf="isLiked" ></a>
+      </div>
+      <div>
+       <a (click)="like(this.blog.blog.Blog._id)"><img src="../../../assets/heart2.svg" style="width: 40px;" *ngIf="!isLiked" ></a>
+      </div>
+      <div class="likes">
+        {{ this.likes.length }}
+      </div>
       </div>
       <div>
         <img src="../../../assets/bookmark.png" style="width: 50px;">

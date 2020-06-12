@@ -8,7 +8,8 @@ var mongoose = require('mongoose');
     authorId: {type: Schema.Types.ObjectId, ref: 'user'},
     body:   String,
     date: { type: Date, default: Date.now },
-    favs:  Number
+    favs:  Number,
+    like: [{type: Schema.Types.ObjectId, ref: 'user'}]
   });
 
   module.exports = mongoose.model('Post', blogSchema);

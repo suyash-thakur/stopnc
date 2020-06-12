@@ -13,6 +13,8 @@ export class BlogComponent implements OnInit {
   public currentSlide = 0;
   id: number;
   isFocus: boolean;
+  isLiked: boolean = false;
+  likes: Array<any>;
   CommentInput: any;
   private sub: any;
   data: any;
@@ -37,7 +39,11 @@ export class BlogComponent implements OnInit {
     this.route.data.subscribe(data => this.blog = data);
     this.slides = this.blog.blog.Blog.image;
     this.UserComment = this.blog.blog.Comment;
-    console.log(this.blog.blog.Blog.authorId._id);
+    this.likes = this.blog.blog.Blog.like;
+
+    if(this.likes.indexOf(this.authService.id) > -1) {
+      this.isLiked = true;
+    }
   }
   onPreviousClick() {
     const previous = this.currentSlide - 1;
@@ -55,6 +61,33 @@ export class BlogComponent implements OnInit {
     const box = (<HTMLTextAreaElement>document.getElementById('inpC'));
     box.rows = 10;
     console.log(this.isFocus);
+  }
+  like(id) {
+    console.log("Like");
+    console.log(id);
+    const data = {
+      userId: this.authService.id
+    };
+    this.http.put('http://localhost:3000/api/user/like' + id, data).subscribe((res: Response) => {
+      console.log(res);
+        this.isLiked = !this.isLiked;
+        this.likes.push(this.authService.id);
+
+    });
+
+  }
+  unlike(id) {
+
+    const data = {
+      userId: this.authService.id
+    };
+    this.http.put('http://localhost:3000/api/user/unlike' + id, data).subscribe((res: Response) => {
+      console.log(res);
+
+        this.isLiked = !this.isLiked;
+        this.likes.splice(this.likes.indexOf(this.authService.id), 1);
+
+    });
   }
   onFocusOut() {
     if (this.CommentInput == null || this.CommentInput == '') {
