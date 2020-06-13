@@ -11,6 +11,26 @@ const checkAuth = require("../middleware/check-auth");
 
 const router = express.Router();
 
+router.put("/bookmark:id", checkAuth, (req, res, next) => {
+  User.findOneAndUpdate({_id: req.params.id}, {$push: {bookmarked: req.body.postId}}).then(result => {
+    if(result){
+      res.status(200).json({message: "Bookmarked"});
+    } else {
+      res.status(500).json({message: "Error Bookmarked"});
+    }
+  });
+
+});
+router.put("/removebookmark:id", checkAuth, (req, res, next) => {
+  User.findOneAndUpdate({_id: req.params.id}, {$pull: {bookmarked: req.body.postId}}).then(result => {
+    if(result){
+      res.status(200).json({message: "Bookmark Removed"});
+    } else {
+      res.status(500).json({message: "Error Removing"});
+    }
+  });
+
+});
 router.post("/signup", (req, res, next) => {
 
  bcrypt.hash(req.body.password, 10).then(hash => {

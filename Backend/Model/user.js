@@ -9,7 +9,8 @@ const userSchema = mongoose.Schema({
   discription: { type: String},
   about: { type: String },
   follower: [{type: Schema.Types.ObjectId, ref: "User"}],
-  following: [{type: Schema.Types.ObjectId, ref: "User"}]
+  following: [{type: Schema.Types.ObjectId, ref: "User"}],
+  bookmarked: [{type: Schema.Types.ObjectId, ref: "Post"}]
 
 });
 

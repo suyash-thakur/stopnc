@@ -16,6 +16,7 @@ export class BlogComponent implements OnInit {
   isLiked: boolean = false;
   likes: Array<any>;
   CommentInput: any;
+  isBookmarked: any = false;
   private sub: any;
   data: any;
   UserComment: any;
@@ -23,7 +24,6 @@ export class BlogComponent implements OnInit {
 
   ];
   blog: any;
-  comment= 'I enjoyed this read, thank you for explaining so clearly. I would argue tho that the gig economy is not so different from the auto industry’s cycle of layoffs as supply and demand fluctuate. There is also evidence that building (buying) market share is a longterm strategy that yields intangable gains. Amazon took over a decade to turn a profit but what it earned in marketshare in that period is price.  ';
   constructor(public blogservice: BlogService, public router: Router, private route: ActivatedRoute,
     private authService: AuthenticationService, private http: HttpClient,) {
 
@@ -40,10 +40,14 @@ export class BlogComponent implements OnInit {
     this.slides = this.blog.blog.Blog.image;
     this.UserComment = this.blog.blog.Comment;
     this.likes = this.blog.blog.Blog.like;
-
     if(this.likes.indexOf(this.authService.id) > -1) {
       this.isLiked = true;
     }
+    if(this.authService.userdata.bookmarked.indexOf(this.blog.blog.Blog._id) > -1) {
+      this.isBookmarked = true;
+    }
+
+
   }
   onPreviousClick() {
     const previous = this.currentSlide - 1;
@@ -75,6 +79,26 @@ export class BlogComponent implements OnInit {
 
     });
 
+  }
+  bookmark() {
+    const data = {
+      postId: this.blog.blog.Blog._id
+    };
+
+    this.http.put('http://localhost:3000/api/user/bookmark' + this.authService.id, data).subscribe( res => {
+      console.log(res);
+      this.isBookmarked = true;
+    });
+  }
+  removebookmark() {
+    const data = {
+      postId: this.blog.blog.Blog._id
+    };
+
+    this.http.put('http://localhost:3000/api/user/removebookmark' + this.authService.id, data).subscribe( res => {
+      console.log(res);
+      this.isBookmarked = false;
+    });
   }
   unlike(id) {
 

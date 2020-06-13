@@ -18,6 +18,7 @@ export class AuthenticationService {
   Userlogin: boolean;
   private tokenTimer: any;
   timer: any;
+  userdata: any;
 
 
   private token: string;

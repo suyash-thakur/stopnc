@@ -57,10 +57,9 @@
       </div>
       </div>
       <div>
-        <img src="../../../assets/bookmark.png" style="width: 50px;">
-      </div>
-      <div>
-        <img src="../../../assets/facebook-black-social-button-circle.png" style="width: 50px;">
+        <img src="../../../assets/bookmark.png" style="width: 50px;" *ngIf="isBookmarked === false" (click)= "bookmark()">
+        <img src="../../../assets/bookmark.svg" style="width: 50px; padding-right: 7px;" *ngIf="isBookmarked === true" (click)= "removebookmark()">
+
       </div>
     </div>
   </div>

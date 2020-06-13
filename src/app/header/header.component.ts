@@ -45,7 +45,8 @@ signOut() {
       this.http.get('http://localhost:3000/api/user/userInfo' + this.userId).subscribe((userData:any) => {
         let data  = userData;
         console.log(data);
-
+      this.authService.userdata = userData.User;
+      console.log(this.authService.userdata);
         this.User = {
           Name: userData.User.name,
           discription: userData.User.discription,
