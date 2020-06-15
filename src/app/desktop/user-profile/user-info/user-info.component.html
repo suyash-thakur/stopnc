@@ -54,7 +54,7 @@
       </div>
       </div>
       <div id="menu1" class="tab-pane fade ">
-          <div style="display: flex; justify-content: center;" *ngFor="let item of blogService.Useromment">
+          <div style="display: flex; justify-content: center;" *ngFor="let item of Useromment">
             <div class="content" style="width: 50%; display: block !important; margin-top: 50px; cursor: pointer;" (click)="blogClick(item.blog._id)">
               <div class="blogTitle" style="font-size: 23px;">
                 {{ item.blog.title }}
@@ -76,7 +76,57 @@
           <br>
         </div>
         <div id="menu2" class="tab-pane fade ">
-            Likes
+          <div class="row">
+            <div>
+          <div class="col-md-6" *ngFor="let item of userBookmark" style="">
+            <div class="content">
+              <div style="flex: 1;  background-size: cover;" [style.background-image]="'url(' + item.image  + ')'">
+              </div>
+              <div style="width: 100%;  flex: 1;">
+                <div style="display: flex; justify-content: space-between; padding-top: 10px; padding-right: 10px;">
+                  <div>
+                    <div class="Name">
+                    {{ item.authorId.name }}
+                    </div>
+                  </div>
+
+
+                    <div style="" class="date">{{ item.date | date:'shortDate' }}</div>
+                </div>
+                <div class="blogTitle">
+                  {{ item.authorId.about }}
+
+                </div>
+                <div class="head">
+                  <b>
+                  {{ item.title }}
+                </b>
+                </div>
+                <div class="description">
+                  {{ item.body | truncate: 320  }}
+                </div>
+                <div  class="ReadNow" (click)="this.blogClick(item._id)">
+                  <div>
+                  READNOW
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <div *ngIf="Blogs.length == 0">
+          <div style="display: flex; align-items: center; justify-content: center; margin-top: 40px; margin-bottom: 40px;">
+            <div>
+              <h1 class="info">No Blogs To Show</h1>
+            </div>
+          </div>
+        </div>
+        <br>
+          <br>
+        </div>
           </div>
       </div>
   </div>

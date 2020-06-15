@@ -13,10 +13,17 @@ export class UserInfoComponent implements OnInit {
   userId: string;
   Blogs: Array<any> = [];
   comment: any;
+  Useromment: Array<any> = [];
+  userBookmark: any;
 
   constructor(public authService: AuthenticationService, private http: HttpClient, public router: Router, public blogService: BlogService) {
     this.userId = this.authService.id;
-    console.log(this.userId);
+    this.userBookmark = this.authService.userdata.bookmarked;
+    console.log(this.userBookmark);
+
+    this.getComment(this.userId);
+
+
   }
 
   ngOnInit() {
@@ -24,9 +31,15 @@ export class UserInfoComponent implements OnInit {
       this.Blogs = userBlog.Blog;
       console.log(this.Blogs);
     });
-    this.blogService.getComment(this.userId);
   }
   blogClick(id) {
     this.router.navigate(['/blog', id]);
+  }
+  getComment(id) {
+    console.log(id);
+    this.http.get('http://localhost:3000/api/user/commentUser' + id).subscribe((comment: any) => {
+      this.Useromment = comment.comment;
+      console.log(this.Useromment);
+  });
   }
 }

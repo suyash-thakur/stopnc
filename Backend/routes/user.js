@@ -7,6 +7,7 @@ const Blog  = require("../Model/Posts");
 
 const User  = require("../Model/user");
 const checkAuth = require("../middleware/check-auth");
+const { populate } = require("../Model/user");
 
 
 const router = express.Router();
@@ -92,7 +93,7 @@ router.post("/login",(req, res, next) => {
     });
 });
 router.get("/userInfo:id",checkAuth, (req, res, next) => {
- User.findById(req.params.id).then(async function(user) {
+ User.findById(req.params.id).populate('follower').populate('following').populate({path: 'bookmarked', model: 'Post', populate: { path: 'authorId', model: 'user'}}).then(async function(user) {
    if (user) {
      const notification = await Notification.find({recipient: req.params.id}).populate("refId").exec();
      res.status(200).json({User: user, Notification: notification});

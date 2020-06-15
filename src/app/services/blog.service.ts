@@ -11,6 +11,9 @@ import { UserDataService } from './user-data.service';
   providedIn: 'root'
 })
 export class BlogService {
+  getComment(userId: string) {
+    throw new Error("Method not implemented.");
+  }
   selectBlog: any;
   currentBlog: any;
   Useromment: any;
@@ -71,12 +74,6 @@ export class BlogService {
     );
   }
 
-  getComment(id) {
-    console.log(id);
-    this.http.get('http://localhost:3000/api/user/commentUser' + id).subscribe((comment: any) => {
-      this.Useromment = comment.comment;
-      console.log(this.Useromment);
-  });
-  }
+
 }
 
