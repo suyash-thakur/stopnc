@@ -17,6 +17,7 @@ export class BlogComponent implements OnInit {
   likes: Array<any>;
   CommentInput: any;
   isBookmarked: any = false;
+  isFollowing: boolean = false;
   private sub: any;
   data: any;
   UserComment: any;
@@ -40,13 +41,18 @@ export class BlogComponent implements OnInit {
     this.slides = this.blog.blog.Blog.image;
     this.UserComment = this.blog.blog.Comment;
     this.likes = this.blog.blog.Blog.like;
+    console.log();
+    if (this.blog.blog.Blog.authorId.follower.indexOf(this.authService.id) > -1) {
+      this.isFollowing = true;
+      console.log(this.isFollowing);
+    }
     if(this.likes.indexOf(this.authService.id) > -1) {
       this.isLiked = true;
     }
+    console.log(this.authService.userdata);
     if(this.authService.userdata.bookmarked.indexOf(this.blog.blog.Blog._id) > -1) {
       this.isBookmarked = true;
     }
-
 
   }
   onPreviousClick() {

@@ -27,7 +27,14 @@
       <div style=" align-items: center;
       justify-content: center; display:flex;">
         <a>
-        <div class="follow-button" (click) = "onFollow()">
+        <div class="follow-button-sec" (click) = "onFollow()" *ngIf="isFollowing === true">
+          <div>
+
+          Unfollow
+        </div>
+
+        </div>
+        <div class="follow-button" (click) = "onFollow()" *ngIf="isFollowing === false">
           <div>
 
           Follow

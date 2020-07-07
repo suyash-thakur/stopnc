@@ -168,6 +168,20 @@ a {
 
 
 }
+.follow-button-sec {
+  display: flex;
+  border: 2px solid #2D4A86;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 30px;
+  color: #ffffff !important;
+  font-family: Regular;
+  cursor: pointer !important;
+  margin-left: 15px;
+  background-color: #2D4A86;
+
+
+}
 .follow-button :hover {
   cursor: pointer !important;
 }
