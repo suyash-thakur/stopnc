@@ -70,9 +70,10 @@ export class BlogComponent implements OnInit {
     console.log("Like");
     console.log(id);
     const data = {
-      userId: this.authService.id
+      userId: this.authService.id,
+      authId: this.blog.blog.Blog.authorId._id
     };
-    this.http.put('http://localhost:3000/api/user/like' + id, data).subscribe((res: Response) => {
+    this.http.put('http://localhost:3000/api/blog/like' + id, data).subscribe((res: Response) => {
       console.log(res);
         this.isLiked = !this.isLiked;
         this.likes.push(this.authService.id);

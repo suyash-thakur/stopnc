@@ -27,7 +27,7 @@ router.get("/blogs:id", (req, res, next) => {
   });
 });
 router.get("/userBlog:id", (req, res, next) => {
-  Blog.find({authorId: req.params.id}).then(blog => {
+  Blog.find({authorId: req.params.id}).populate('authorId').then(blog => {
     res.status(201).json({
       Blog: blog
     });
@@ -119,5 +119,32 @@ router.post("/comment:id", (req, res, next) => {
     });
   });
 });
+router.put("/like:id", (req, res, next) => {
+  Blog.findOneAndUpdate({_id: req.params.id},{$push: {like: req.body.userId}}).then( function(responce) {
+    if (responce){
+      let newNotification = new Notification({
+        message: 'liked your blog',
+        recipient: req.body.authId,
+        refId: req.params.id,
+        type: 'Post',
+      });
+      newNotification.save().then( function (resp){
+        res.status(201).json({
+          message: "Liked",
+          result: responce
+        });
+      });
 
+    } else {
+      res.status(500).json({
+        message: "Error"
+      });
+    }
+
+  }).catch(err => {
+    res.status(500).json({
+      error: err
+    });
+  });
+});
 module.exports = router;
