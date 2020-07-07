@@ -154,6 +154,11 @@ export class BlogComponent implements OnInit {
     );
   }
   onFollow() {
+    this.isFollowing = true;
     this.authService.follow(this.blog.blog.Blog.authorId._id);
+  }
+  onUnFollow() {
+    this.isFollowing = false;
+    this.authService.unfollow(this.blog.blog.Blog.authorId._id);
   }
 }

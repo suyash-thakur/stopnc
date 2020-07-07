@@ -174,4 +174,14 @@ follow(followerId) {
     console.log(responce);
   });
 }
+unfollow(followerId) {
+  const Id = {
+    followerId: this.id
+  };
+  console.log(followerId);
+  console.log(Id);
+  this.http.put('http://localhost:3000/api/user/unfollow' + followerId, Id).subscribe (responce => {
+    console.log(responce);
+  });
+}
 }

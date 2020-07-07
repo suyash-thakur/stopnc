@@ -125,6 +125,18 @@ router.put("/follow:id", checkAuth, (req, res, next) => {
     })
   })
 })
+
+router.put("/unfollow:id", checkAuth, (req, res, next) => {
+  User.findOneAndUpdate({_id: req.params.id}, {$pull: {follower: req.body.followerId}}).then(result => {
+    User.findOneAndUpdate({_id: req.body.followerId}, {$pull: {following: req.params.id}}).then(result => {
+      if(result){
+        res.status(200).json({message: "Followed Successfully"});
+      } else {
+        res.status(500).json({message: "Error Following This Person"})
+      }
+    })
+  })
+})
 router.post("/notficationSeen:id", (req, res, next)=> {
   Notification.updateMany({recipient: req.params.id, isRead: false}, {isRead: true}, function(result, err) {
     res.status(201).json('Notification Updated');
