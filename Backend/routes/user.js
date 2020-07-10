@@ -32,6 +32,7 @@ router.put("/removebookmark:id", checkAuth, (req, res, next) => {
   });
 
 });
+
 router.post("/signup", (req, res, next) => {
 
  bcrypt.hash(req.body.password, 10).then(hash => {
@@ -172,5 +173,16 @@ router.put("/unlike:id", (req, res, next) => {
     }
 
   });
+});
+router.get("/getBookmark:id", checkAuth, (req, res, next) => {
+  User.findOne({_id: req.params.id}, "bookmarked").then (result => {
+    if (result) {
+      res.status(200).json({bookmark: result});
+
+    }else {
+      res.status(500).json({message: "Error Getting Bookmark"});
+    }
+  });
+
 });
 module.exports = router;
