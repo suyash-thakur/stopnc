@@ -165,4 +165,15 @@ export class BlogComponent implements OnInit {
     this.isFollowing = false;
     this.authService.unfollow(this.blog.blog.Blog.authorId._id);
   }
+  onCommentLike(id, authorId) {
+    const Data  = {
+      authId: authorId,
+      refId: this.blog.blog.Blog._id,
+      userId: this.authService.id
+    };
+    this.http.put('http://localhost:3000/api/blog/Commentlike' + id, Data).subscribe(responce => {
+      console.log(responce);
+    });
+
+  }
 }

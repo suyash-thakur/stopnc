@@ -108,18 +108,18 @@
       <div style="display: flex;">
         <div class="discription">{{ item.date| date:'shortDate' }}</div>
         <div style="width: 10px; height: 10px; background-color: #84BEE0; border: none; border-radius: 50%; margin-left: 5px;  transform: translateY(4px);"></div>
-        <div class="discription" style="margin-left: 5px !important;"> 10 Likes</div>
+        <div class="discription" style="margin-left: 5px !important;"> {{item.like.length}} Likes</div>
       </div>
       <div class="comment">
         {{ item.body   }}
       </div>
-
-      <div style="margin-left: 15px; margin-top: 15px;" class="discription">
+      <a (click)="onCommentLike(item._id, item.author._id)">
+      <div style="margin-left: 15px; margin-top: 15px;" class="discription" *ngIf="item.like.indexOf(this.authService.id) > -1">
         <img src="../../../assets/like.png" style="width: 30px;">
-        Like
+        Liked
       </div>
+    </a>
       </div>
-
   </div>
 
   <br>

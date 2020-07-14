@@ -147,5 +147,33 @@ router.put("/like:id", (req, res, next) => {
     });
   });
 });
+router.put("/Commentlike:id", (req, res, next) => {
+  Comment.findOneAndUpdate({_id: req.params.id},{$push: {like: req.body.userId}}).then( function(responce) {
+    if (responce){
+      let newNotification = new Notification({
+        message: 'liked your comment',
+        recipient: req.body.authId,
+        refId: req.body.refId,
+        type: 'Post',
+      });
+      newNotification.save().then( function (resp){
+        res.status(201).json({
+          message: "Liked",
+          result: responce
+        });
+      });
+
+    } else {
+      res.status(500).json({
+        message: "Error"
+      });
+    }
+
+  }).catch(err => {
+    res.status(500).json({
+      error: err
+    });
+  });
+});
 
 module.exports = router;
