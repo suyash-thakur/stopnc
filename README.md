@@ -91,8 +91,8 @@ This is a social media blogging platform where user can follow other bloggers to
 
 }
 ```
-  -Every comment have a time-stamp automatically applied by the database
-  -Comment have an array of likes as attribute which stores user-id corresponding to every like on the comment
+  -Every comment have a time-stamp automatically applied by the database.
+  -Comment have an array of likes as attribute which stores user-id corresponding to every like on the comment.
  
 ## Future Features
 - Adding categories to the blog
