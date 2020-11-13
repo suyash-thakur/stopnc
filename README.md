@@ -65,7 +65,34 @@ This is a social media blogging platform where user can follow other bloggers to
   - Once the notification is read `isread` is assigned value false
   - `Refid` contains id of Object to which user will be redirected to according to the type of the source of notification.
   
-  
+-Comment
+  -Every comment is a seperate entity with following schema:
+    ```javascript
+    {
+    body: {
+        type: String
+    },
+    author: {
+        type: Schema.Types.ObjectId,
+        ref: 'user'
+    },
+    date: {
+        type: Date,
+        default: Date.now
+    },
+    blog: {
+        type: Schema.Types.ObjectId,
+        ref: 'Post'
+    },
+    like: [{
+        type: Schema.Types.ObjectId,
+        ref: 'user'
+    }]
+
+}
+    ```
+    -Every comment have a time-stamp automatically applied by the database
+    -Comment have an array of likes as attribute which stores user-id corresponding to every like on the comment
 ## Future Features
 - Adding categories to the blog
 - Personalized feed according the the user's interest
