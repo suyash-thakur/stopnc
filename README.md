@@ -66,7 +66,7 @@ This is a social media blogging platform where user can follow other bloggers to
   - `Refid` contains id of Object to which user will be redirected to according to the type of the source of notification.
   
 -Comment
-  -Every comment is a seperate entity with following schema:
+  - Every comment is a seperate entity with following schema:
    ```javascript
     {
     body: {
@@ -91,8 +91,8 @@ This is a social media blogging platform where user can follow other bloggers to
 
 }
 ```
--Every comment have a time-stamp automatically applied by the database.
--Comment have an array of likes as attribute which stores user-id corresponding to every like on the comment.
+- Every comment have a time-stamp automatically applied by the database.
+- Comment have an array of likes as attribute which stores user-id corresponding to every like on the comment.
 
  
 ## Future Features
