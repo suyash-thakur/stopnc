@@ -62,12 +62,12 @@ This is a social media blogging platform where user can follow other bloggers to
     }
 }
 ```
-  - Once the notification is read `isread` is assigned value false
+  - Once the notification is read `isread` is assigned value false.
   - `Refid` contains id of Object to which user will be redirected to according to the type of the source of notification.
   
 -Comment
   -Every comment is a seperate entity with following schema:
-   ```javascrip
+   ```javascript
     {
     body: {
         type: String
