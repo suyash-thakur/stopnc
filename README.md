@@ -67,7 +67,7 @@ This is a social media blogging platform where user can follow other bloggers to
   
 -Comment
   -Every comment is a seperate entity with following schema:
-    ```javascript
+   ```javascrip
     {
     body: {
         type: String
