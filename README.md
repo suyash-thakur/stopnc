@@ -101,7 +101,10 @@ This is a social media blogging platform where user can follow other bloggers to
 - Adding catching layer to the backend using redis
 - Searching blogs using elastic-search.
 
+## What the app looks like 
+![Home Page](https://github.com/suyash-thakur/stopnc/blob/master/homepage.png)
 
+![Home Page Mobile](https://github.com/suyash-thakur/stopnc/blob/master/Screenshot%20(904).png)
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
