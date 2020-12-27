@@ -45,7 +45,9 @@ export class UserProfileComponent implements OnInit {
       };
       this.followerNo = this.User.follower.length;
       this.followingNo = this.User.following.length;
-      console.log(this.User);
+      this.authService.follower = this.User.follower;
+      this.authService.following = this.User.following;
+
 
 
 

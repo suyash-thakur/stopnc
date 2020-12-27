@@ -19,7 +19,8 @@ export class AuthenticationService {
   private tokenTimer: any;
   timer: any;
   userdata: any;
-
+  follower: any;
+  following: any;
 
   private token: string;
   private authStatusListener = new Subject<boolean>();
