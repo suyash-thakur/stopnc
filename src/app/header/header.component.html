@@ -1,11 +1,82 @@
 <div style="height: 375px; overflow: hidden;">
 <div style="display: flex">
-    <div style=" " class="side-panel">
-
+    <div style=" " class="side-panel" style="padding-top: 15px;">
+      <div style="display: flex; justify-content:space-evenly;">
+        <div style="flex:1">
+          <div class="text-center">
+            <a style="text-decoration: none;">
+              <img src="assets\Path 1.svg" style="width:40px" alt=""><br>
+              <p class="nav-text-2">Casual</p>
+            </a>
+          </div>
+        </div>
+        <div style="flex:1">
+          <div class="text-center">
+            <a style="text-decoration: none;">
+              <img src="assets\Path 3.svg" style="width:40px; margin-bottom: 10px;"class= ""alt=""><br>
+              <p class="nav-text-2">Formal</p>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div style="display: flex; justify-content:space-evenly;">
+        <div style="flex:1">
+          <div class="text-center">
+            <a style="text-decoration: none;">
+              <img src="assets\Path 5.svg" class= ""alt="" style="width:40px"><br>
+              <p class="nav-text-2">Date</p>
+            </a>
+          </div>
+        </div>
+        <div style="flex:1" >
+          <div class="text-center">
+            <a style="text-decoration: none;">
+              <img src="assets\Path 7.svg" class= ""alt="" style="width:30px"><br
+              ><p class="nav-text-2">Sports</p>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div style="display: flex; justify-content:space-evenly;">
+        <div style="flex:1">
+          <div class="text-center">
+            <a style="text-decoration: none;">
+              <img src="assets\Path 2.svg" alt="" style="width:40px"><br>
+              <p class="nav-text-2">Outdoor</p>
+            </a>
+        </div>
+        </div>
+        <div style="flex:1">
+          <div class="text-center">
+            <a style="text-decoration: none;">
+              <img src="assets\Path 4.svg" alt="" style="width:25px"><br>
+              <p class="nav-text-2">Clubing</p>
+            </a>
+        </div>
+        </div>
+      </div >
+      <div style="display: flex; justify-content:space-evenly;">
+        <div style="flex:1">
+          <div class="text-center">
+            <a style="text-decoration: none;">
+              <img src="assets\Path 6.svg" alt="" style="width:40px" ><br>
+              <p class="nav-text-2">Travel</p>
+            </a>
+        </div>
+        </div>
+        <div style="flex:1">
+          <div class="text-center">
+            <a style="text-decoration: none;">
+              <img src="assets\Path 8.svg" alt="" style="width:40px; transform: translateY(10px);"><br>
+              <p class="nav-text-2 " style="transform: translateY(20px);">Accessories</p>
+            </a>
+        </div>
+        </div>
+      </div>
     </div>
     <div style="flex-grow: 1;" class="main-panel">
       <div style="display: flex; justify-content: space-between; margin-top: 5px; padding-left: 5px; padding-right: 5px;">
-        <div>
+        <div >
           <p class="nav-text text-center"><a class="nav-link">HOME</a></p>
         </div>
         <div>
@@ -58,6 +129,17 @@
 
 
           </div>
+          <div class="loginButton" *ngIf="!loggedin">
+            <a class="loginLink" style="cursor: pointer" [routerLink]="['/login']">LOGIN</a>
+           </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-10">
+          <h1 class="text-left main-title">STOPNC</h1>
+          <br>
+          <p class = "text-left main-slogan">Style your Everyday Life</p>
 
         </div>
       </div>

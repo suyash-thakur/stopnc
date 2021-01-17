@@ -39,6 +39,7 @@ input {
   width: 35px;
   position: absolute;
   right: 15px;
+  top: 5px;
 }
 
 .profile {
@@ -46,7 +47,6 @@ input {
   right: 10px;
   height: 40px;
   width: 40px;
-  transform: translateY(-5px);
 }
 .nav-text-2 {
   font-family: Enhance;
@@ -168,7 +168,7 @@ a:active {
     font-size: 18px;
   }
   .nav-text {
-    font-size: 30px;
+    font-size: 25px;
   }
   .main-title {
     font-size: 100px;

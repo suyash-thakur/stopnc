@@ -16,7 +16,8 @@ a {
   cursor: pointer;
   z-index: 10;
 }
-html, body {
+html,
+body {
   max-width: 100% !important;
   overflow-x: hidden !important;
 }
@@ -27,4 +28,8 @@ html, body {
   overflow-x: hidden !important;
 
   -webkit-overflow-scrolling: touch;
+}
+textarea:focus,
+input:focus {
+  outline: none;
 }
