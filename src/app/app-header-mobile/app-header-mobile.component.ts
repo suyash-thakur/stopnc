@@ -5,6 +5,9 @@ import {Input} from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
+import { User } from '../models/user.model';
+import { HttpClient } from '@angular/common/http';
+import { UserDataService } from '../services/user-data.service';
 
 @Component({
   selector: 'app-mobile',
@@ -15,8 +18,12 @@ export class AppHeaderMobileComponent implements OnInit {
   userLogin = false;
   authListenerSub: Subscription;
   currentRoute: Router;
-
-  constructor(public authService: AuthenticationService, private router: Router ) {
+  userId: string;
+  User: User;
+  Name = ' ';
+  NOtification: Array<any>;
+  numberNot = 0;
+  constructor(public authService: AuthenticationService, private router: Router, private http: HttpClient, public userData: UserDataService) {
 
     this.userLogin = this.authService.Userlogin;
   }
@@ -34,9 +41,9 @@ export class AppHeaderMobileComponent implements OnInit {
 
   displaySearchbar = false;
 
-  @ViewChild('reference', {static: false}) nameField: ElementRef;
+  @ViewChild('reference', { static: false }) nameField: ElementRef;
 
-  @ViewChild('sidenav', {static: false}) sidenav: MatSidenav;
+  @ViewChild('sidenav', { static: false }) sidenav: MatSidenav;
 
   // Put Input bar in focus when search field is erased
   inputFocus(): void {
@@ -66,75 +73,97 @@ export class AppHeaderMobileComponent implements OnInit {
     this.DisplayCategories = true;
 
   }
-    allTrue(event) {
-      this.SearchInputEmpty = true;
-
-    }
-
-  // Change value of DisplayCategories value to false when Input tag is in focus
-       focusoutHandler(event) {
-    this.DisplayCategories = false;
-    console.log('Focus In');
-    console.log('Display' + this.DisplayCategories);
-    }
-
-  // Change value of DisplayCategories value to true when Input tag is out of focus
-    private focusinHandler(event) {
-      this.DisplayCategories = true;
-      console.log('Focus Out');
-      console.log('Display' + this.DisplayCategories);
-      }
-
-  // Change the value of SearchInputEmpty to false when Input is typed and true When Input is reased
-      onKey(event) {
-        const inputValue = event.target.value;
-        if (inputValue === '') {
-          this.SearchInputEmpty = true;
-          this.displaySearchbar = false;
-          console.log('SearchInput' + this.SearchInputEmpty);
-
-        } else {
-          this.SearchInputEmpty = false;
-          this.displaySearchbar = true;
-          console.log('SearchInput' + this.SearchInputEmpty);
-        }
-      }
-    // Change the value of variables when input is passed in second search bar
-      onKeySecond(event) {
-        const inputValue = event.target.value;
-        if (inputValue === '') {
-          this.SearchInputEmpty = true;
-          this.inputInSecondarySearch = false;
-          console.log('SearchInput' + this.SearchInputEmpty);
-          console.log('secondarysearch' + this.inputInSecondarySearch);
-
-        } else {
-          this.inputInSecondarySearch = true;
-          this.SearchInputEmpty = false;
-          console.log('SearchInput' + this.SearchInputEmpty);
-          console.log('secondarysearch' + this.inputInSecondarySearch);
-
-        }
-      }
-  ngOnInit() {
-    this.currentRoute = this.router;
-    this.authListenerSub = this.authService.getauthStatusListener().subscribe(isAuthenticated => {
-      this.userLogin = isAuthenticated;
-
-    });
+  allTrue(event) {
+    this.SearchInputEmpty = true;
 
   }
 
+  // Change value of DisplayCategories value to false when Input tag is in focus
+  focusoutHandler(event) {
+    this.DisplayCategories = false;
+    console.log('Focus In');
+    console.log('Display' + this.DisplayCategories);
+  }
+
+  // Change value of DisplayCategories value to true when Input tag is out of focus
+  private focusinHandler(event) {
+    this.DisplayCategories = true;
+    console.log('Focus Out');
+    console.log('Display' + this.DisplayCategories);
+  }
+
+  // Change the value of SearchInputEmpty to false when Input is typed and true When Input is reased
+  onKey(event) {
+    const inputValue = event.target.value;
+    if (inputValue === '') {
+      this.SearchInputEmpty = true;
+      this.displaySearchbar = false;
+      console.log('SearchInput' + this.SearchInputEmpty);
+
+    } else {
+      this.SearchInputEmpty = false;
+      this.displaySearchbar = true;
+      console.log('SearchInput' + this.SearchInputEmpty);
+    }
+  }
+  // Change the value of variables when input is passed in second search bar
+  onKeySecond(event) {
+    const inputValue = event.target.value;
+    if (inputValue === '') {
+      this.SearchInputEmpty = true;
+      this.inputInSecondarySearch = false;
+      console.log('SearchInput' + this.SearchInputEmpty);
+      console.log('secondarysearch' + this.inputInSecondarySearch);
+
+    } else {
+      this.inputInSecondarySearch = true;
+      this.SearchInputEmpty = false;
+      console.log('SearchInput' + this.SearchInputEmpty);
+      console.log('secondarysearch' + this.inputInSecondarySearch);
+
+    }
+  }
+  ngOnInit() {
+    this.currentRoute = this.router;
+    this.userLogin = this.authService.Userlogin;
+    this.userId = this.authService.id;
+    console.log(this.userId);
+
+    if (this.userLogin) {
+      this.http.get('http://localhost:3000/api/user/userInfo' + this.userId).subscribe((userData: any) => {
+        let data = userData;
+        console.log(data);
+        this.authService.userdata = userData.User;
+        console.log(this.authService.userdata);
+        this.User = {
+          Name: userData.User.name,
+          discription: userData.User.discription,
+          about: userData.User.about,
+          follower: userData.User.follower,
+          following: userData.User.following
+        };
+        this.userData.emitConfig(this.User);
+        this.Name = this.User.Name;
+        this.userData.User = this.User;
+        this.NOtification = data.Notification;
+        this.NOtification.forEach(n => {
+          if (!n.isRead)
+            this.numberNot = this.numberNot + 1;
+        });
+        console.log(this.numberNot);
+      });
 
 
 
 
 
 
+
+    }
+
+
+  }
 }
-
-
-
 
 
 

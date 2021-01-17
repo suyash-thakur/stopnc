@@ -25,24 +25,10 @@ export class UserProfileMobileComponent implements OnInit {
    }
 
   ngOnInit() {
-    if (this.loggedin) {
-      this.authService.getUser(this.userId).subscribe(userData => {
-        this.User = {
-          Name: userData.name,
-          discription: userData.discription,
-          about: userData.about,
-          follower: userData.follower,
-        following: userData.following
-        };
-        this.Name = this.User.Name;
-        this.UserData.User = this.User;
-
-
-
-
-
-      });
-    }
+    this.UserData.configObservable.subscribe(val => {
+      this.User = val;
+     this.Name = this.User.Name;
+    });
   }
   logout() {
     this.authService.logout();
