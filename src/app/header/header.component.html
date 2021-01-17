@@ -1,83 +1,24 @@
-<div style="height: 375px;">
-<div class="row">
-    <div class="side-panel col-md-3 hidden-xs hidden-sm">
-      <div class="row" style="margin-top: 20px;">
-      <div class="col-md-6">
-        <div class="text-center" >
-        <a style="text-decoration: none;">
-          <img src="assets\Path 1.svg" class= "" style="width: 40px;" alt=""><br>
-          <p class="nav-text-2">Casual</p>
-        </a>
-      </div>
-      <div class="text-center">
-          <a style="text-decoration: none;">
-            <img src="assets\Path 3.svg" class= "" style="width: 40px;" alt=""><br>
-            <p class="nav-text-2">Formal</p>
-          </a>
-        </div>
-      <div class="text-center">
-          <a style="text-decoration: none;">
-            <img src="assets\Path 5.svg" class= "" style="width: 40px;" alt=""><br>
-            <p class="nav-text-2">Date</p>
-          </a>
-      </div>
-        <div class="text-center">
-            <a style="text-decoration: none;">
-              <img src="assets\Path 7.svg" class= ""alt="" style="width: 30px;"><br
-              ><p class="nav-text-2">Sports</p>
-            </a>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="text-center">
-            <a style="text-decoration: none;">
-              <img src="assets\Path 2.svg" alt="" style="width: 40px;"><br>
-              <p class="nav-text-2" style="transform: translateY(6px);">Outdoor</p>
-            </a>
-        </div>
-        <div class="text-center">
-            <a style="text-decoration: none;">
-              <img src="assets\Path 4.svg" alt="" style="width: 23px;"><br>
-              <p class="nav-text-2">Clubing</p>
-            </a>
-        </div>
-        <div class="text-center" style="transform: translateY(3px);">
-            <a style="text-decoration: none;">
-              <img src="assets\Path 6.svg" alt="" style="width: 30px;"><br>
-              <p class="nav-text-2" style="transform: translateY(3px);">Travel</p>
-            </a>
-        </div>
-        <div class="text-center ">
-            <a style="text-decoration: none;">
-              <img src="assets\Path 8.svg" alt="" style="transform: translateY(20px); width: 40px;"><br>
-              <p class="nav-text-2 " style="transform: translateY(30px);">Accessories</p>
-            </a>
-        </div>
-      </div>
-    </div>
-    </div>
+<div style="height: 375px; overflow: hidden;">
+<div style="display: flex">
+    <div style=" " class="side-panel">
 
-
-  <div class=" main-panel col-md-9 col-sm-12 col-xs-12" >
-    <div class="main-container">
-    <div *ngIf="loggedin" class="row " style="margin-top: 15px; transform: translateX(-60px);">
-      <div class="col-md-8">
-        <div class="col-md-4">
-            <p class="nav-text text-center"><a class="nav-link">HOME</a></p>
+    </div>
+    <div style="flex-grow: 1;" class="main-panel">
+      <div style="display: flex; justify-content: space-between; margin-top: 5px; padding-left: 5px; padding-right: 5px;">
+        <div>
+          <p class="nav-text text-center"><a class="nav-link">HOME</a></p>
         </div>
-        <div class="col-md-4">
-            <p class="nav-text text-center"><a class="nav-link">FEED</a></p>
+        <div>
+          <p class="nav-text text-center"><a class="nav-link">FEED</a></p>
         </div>
-        <div class="col-md-4">
-            <p class="nav-text text-center"><a class="nav-link">DISCOVER</a></p>
+        <div>
+          <p class="nav-text text-center"><a class="nav-link">DISCOVER</a></p>
         </div>
-      </div>
-      <div class="col-md-4" >
-        <div class="col-md-6">
+        <div>
           <input type="text" placeholder="Search...">
-          </div>
-        <div class="col-md-3 dropdown" style="  margin-left: 50px;">
-          <a href="" class="dropdown-toggle " data-toggle="dropdown" (click)="notificationClick()">
+        </div>
+        <div class='dropdown'>
+          <a href="" class=" " id="dropdownMenuButton" data-toggle="dropdown" (click)="notificationClick()">
             <div style="display: flex;">
               <div>
                 <img src="assets\Nortification.svg" alt="" class="text-right nortification">
@@ -87,55 +28,39 @@
               </div>
             </div>
           </a>
-          <br>
-          <div class="dropdown-menu " style="overflow: visible !important; width: 250px !important; right: -100px !important;">
-              <a class="dropdown-list" style="padding-left: 10px;" *ngFor="let n of NOtification" (click)="clickEachNotification(n.type, n.refId._id)"><b>{{ n.refId.author }}</b> &nbsp;{{ n.message }} <br>                  <hr class="dropdown-line">
-              </a></div>
 
+          <div class="dropdown-menu " style="width: 300px; margin-top: 55px;" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-list" style="padding-left: 10px;" *ngFor="let n of NOtification" (click)="clickEachNotification(n.type, n.refId._id)"><b>{{ n.refId.author }}</b> &nbsp;{{ n.message }} <br>                  <hr class="dropdown-line">
+            </a></div>
         </div>
-        <div class="col-md-3 dropdown" style="  margin-left: -50px;">
-          <a href="" class="dropdown-toggle " data-toggle="dropdown">
+        <div class="dropdown" >
+          <a href="" class=" " data-toggle="dropdown" id="dropdownMenuButton2">
             <img src="assets\final-1.png" alt="" class="text-right profile ">
           </a>
-          <br>
-          <br>
-          <div class="dropdown-menu ">
-              <a class="dropdown-item" [routerLink]="['/user', userId]">
-                <div class="dropdown-name ">
 
-                    <img src="assets\final-1.png" alt="" class="dropdown-image ">
-                    <p class="font-weight-bold dropdown-name-text">{{ Name | titlecase }}   &nbsp;></p>
-                </div>
-              </a><hr class="dropdown-line">
+          <div class="dropdown-menu " style="margin-top: 55px;" aria-labelledby="dropdownMenuButton2">
+            <a class="dropdown-item" [routerLink]="['/user', userId]">
+              <div class="dropdown-name ">
 
-                  <a class="dropdown-item" [routerLink]="['/create']" routerLinkActive="router-link-active"  routerLinkActive="router-link-active" ><div class="dropdown-list-item">
-                      <P class="dropdown-list" >Become A Blogger</P></div></a>
-                  <a class="dropdown-item"  ><div class="dropdown-list-item">
-                      <P class="dropdown-list" >Settings</P></div></a>
-                      <a class="dropdown-item" ><div class="dropdown-list-item">
-                          <P class="dropdown-list">Help</P></div></a>
-                          <a class="dropdown-item"  routerLinkActive="router-link-active" (click)="signOut()"><div class="dropdown-list-item">
-                              <P class="dropdown-list">Sign Out</P></div></a>
+                  <img src="assets\final-1.png" alt="" class="dropdown-image ">
+                  <p class="font-weight-bold dropdown-name-text">{{ Name | titlecase }}   &nbsp;></p>
+              </div>
+            </a><hr class="dropdown-line">
+
+                <a class="dropdown-item" [routerLink]="['/create']" routerLinkActive="router-link-active"  routerLinkActive="router-link-active" ><div class="dropdown-list-item">
+                    <P class="dropdown-list" >Become A Blogger</P></div></a>
+                <a class="dropdown-item"  ><div class="dropdown-list-item">
+                    <P class="dropdown-list" >Settings</P></div></a>
+                    <a class="dropdown-item" ><div class="dropdown-list-item">
+                        <P class="dropdown-list">Help</P></div></a>
+                        <a class="dropdown-item"  routerLinkActive="router-link-active" (click)="signOut()"><div class="dropdown-list-item">
+                            <P class="dropdown-list">Sign Out</P></div></a>
 
 
-            </div>
+          </div>
+
         </div>
       </div>
     </div>
-    <div class="loginButton"  *ngIf="!loggedin">
-     <a class="loginLink" style="cursor: pointer"  [routerLink]="['/login']" routerLinkActive=""  >LOGIN</a>
-    </div>
-
-    <div class="row">
-      <div class="col-md-2"></div>
-      <div class="col-md-8" style="height: 150px; z-index: 1;">
-        <h1 class="text-left main-title">STOPNC</h1>
-        <br>
-        <p class = "text-left main-slogan">A style for every story</p>
-
-      </div>
-    </div>
-  </div>
-</div>
 </div>
 </div>

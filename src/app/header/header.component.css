@@ -1,57 +1,57 @@
-
-.side-panel{
-  background-color: #F7F6F9;
+.side-panel {
+  background-color: #f7f6f9;
   height: 350px;
+  width: 33%;
+  max-width: 400px;
 }
-.main-panel{
-  background-color: #33AAAE;
+.main-panel {
+  background-color: #33aaae;
   height: 350px;
-
 }
 h1 {
   font-family: Subtract;
 }
 .nav-text {
   font-family: Enhance;
-  font-size: 25px;
+  font-size: 18px;
   color: #ffffff;
 }
-input{
+input {
   background: transparent;
-  border: solid #2D4A86 3px;
+  border: solid #2d4a86 3px;
   border-radius: 25px;
   padding-left: 15px;
   padding-top: 5px;
   font-family: Regular;
   color: #ffffff;
-  font-size: 18px;
-  transform: translateX(-50px);
-
+  font-size: 14px;
 }
 
 ::placeholder {
-  font-size: 18px;
+  font-size: 14px;
   font-family: Regular;
-  color: #2D4A86;
+  color: #2d4a86;
   opacity: 1;
 }
 
 .nortification {
-  height: 40px;
-  width: 40px;
+  height: 35px;
+  width: 35px;
+  position: absolute;
+  right: 15px;
 }
 
 .profile {
   position: absolute;
   right: 10px;
-  height: 50px;
-  width: 50px;
-  transform: translateY(-5px) translateX(58px);
+  height: 40px;
+  width: 40px;
+  transform: translateY(-5px);
 }
 .nav-text-2 {
   font-family: Enhance;
   font-size: 20px;
-  color: #2D4A86;
+  color: #2d4a86;
 }
 .nav-link {
   text-decoration: none;
@@ -59,41 +59,43 @@ input{
 }
 .main-title {
   font-size: 90px;
-  color: #2D4A86;
+  color: #2d4a86;
   font-family: Enhance;
   margin-top: 60px;
   z-index: 2;
 }
 .main-slogan {
-  color: #2D4A86;
+  color: #2d4a86;
   font-family: Enhance;
   font-size: 40px;
   transform: translateY(-40px) translateX(0px);
   z-index: 2;
-
 }
 .loginButton {
   position: absolute;
   right: 25px;
-  padding:10px 25px;
+  padding: 10px 25px;
   margin-top: 10px;
-  background-color: #2D4A86;
+  background-color: #2d4a86;
   border-radius: 25px;
   cursor: pointer;
   z-index: 1;
 }
 .loginLink {
-  color: #F7F6F9;
+  color: #f7f6f9;
   text-decoration: none;
-  font-family: Regular
+  font-family: Regular;
 }
 .dropdown-menu {
-  background-color: #F7F6F9;
-  width: 200px !important;
-  z-index: 10000;
-  position: fixed;
-  left: auto !important;
-  transform: translateX(-60px);
+  background-color: #f7f6f9;
+}
+.dropdown-menu:active {
+  background-color: #f7f6f9;
+  position: absolute;
+}
+.dropdown-menu:focus {
+  background-color: #f7f6f9;
+  position: absolute;
 }
 .main-container {
   padding: 5px 20px 0px 20px;
@@ -109,13 +111,13 @@ input{
 }
 .dropdown-line {
   margin: 0px 0px 5px 0px;
-  border: 1px solid rgba(0,0,0,.12);
+  border: 1px solid rgba(0, 0, 0, 0.12);
   opacity: 0.3;
 }
 .dropdown-name-text {
   font-family: Regular;
   margin: auto;
-  color: #2D4A86;
+  color: #2d4a86;
   font-size: 17px;
 }
 .blogger-button {
@@ -126,13 +128,23 @@ input{
 }
 .dropdown-list {
   font-family: Regular;
-  color: #2D4A86;
+  color: #2d4a86;
   font-size: 15px;
   z-index: auto;
   /* margin: 0px 0px 5px 10px; */
 }
 .dropdown-item {
   cursor: pointer;
+  background-color: inherit;
+}
+.dropdown-item:focus,
+.dropdown-item:hover {
+  background-color: inherit !important;
+}
+a:focus,
+a:hover {
+  color: inherit !important;
+  text-decoration: underline;
 }
 .dropdown-list-item {
   display: flex;
@@ -143,7 +155,13 @@ input{
   width: 30px;
 }
 a {
-  text-decoration: none;
+  text-decoration: none !important;
+}
+select:focus {
+  outline: 0;
+}
+a:active {
+  text-decoration: none !important;
 }
 @media screen and (min-width: 1300px) {
   input {
