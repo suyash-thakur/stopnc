@@ -49,6 +49,8 @@ import { FeedMobileComponent } from './feed/feed-mobile/feed-mobile.component';
 import { SectionMenuComponent } from './desktop/section-menu/section-menu.component';
 import { SectionMenuMobileComponent } from './app-header-mobile/section-menu-mobile/section-menu-mobile.component';
 import { SplashScreenComponent } from './splash-screen/splash-screen.component';
+import { FollowerListComponent } from './desktop/user-profile/follower-list/follower-list.component';
+import { FollowingListComponent } from './desktop/user-profile/following-list/following-list.component';
 
 @NgModule({
   declarations: [
@@ -83,6 +85,8 @@ import { SplashScreenComponent } from './splash-screen/splash-screen.component';
     SectionMenuComponent,
     SectionMenuMobileComponent,
     SplashScreenComponent,
+    FollowerListComponent,
+    FollowingListComponent,
   ],
   imports: [
     BrowserModule,

@@ -35,7 +35,7 @@ export class EditProfileComponent implements OnInit {
     this.http.put('http://localhost:3000/api/user/userUpdate' + this.id, user).subscribe(response => {
       console.log(response);
 
-      this.router.navigate(['/user']);
+      this.router.navigate(['/user/' + this.id]);
 
     });
 

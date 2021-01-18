@@ -34,7 +34,7 @@ const routes: Routes = [
   {path: 'mobile/user', component: UserProfileMobileComponent, pathMatch: 'full'},
   {path: 'mobile/user/profile', component: UserCredentialsComponent, pathMatch: 'full',
   children: [{path: '', component: UserInformationComponent, outlet: 'user-information'}] },
-  {path: 'user/edit', component: EditProfileComponent, pathMatch: 'full', children:
+  {path: 'user/:id/edit', component: EditProfileComponent, pathMatch: 'full', children:
   [{path: '', component: UserInfoComponent, outlet: 'user-info'}]},
   {path: 'mobile/user/edit', component: UserEditMobileComponent, pathMatch: 'full'},
   {path: 'create', component: CreateComponent, pathMatch: 'full'},
