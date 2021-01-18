@@ -18,12 +18,11 @@ export class UserInformationComponent implements OnInit {
   Blogs: Array<any> = [];
   comment: any;
   Useromment: Array<any> = [];
-  userBookmark: any;
+  userBookmark: any = [];
   userId: any;
 
   constructor(public userData: UserDataService, private http: HttpClient, public router: Router, public blogService: BlogService, public authService: AuthenticationService) {
     this.userId = this.authService.id;
-    this.userBookmark = this.authService.userdata.bookmarked;
     console.log(this.userBookmark);
 
     this.getComment(this.userId);
@@ -34,6 +33,8 @@ export class UserInformationComponent implements OnInit {
       this.Blogs = userBlog.Blog;
       console.log(this.Blogs);
     });
+    this.userBookmark = this.authService.userdata.bookmarked;
+
   }
   getComment(id) {
     console.log(id);

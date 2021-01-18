@@ -7,6 +7,8 @@
     <div class="tab-content">
       <div id="home" class="tab-pane fade in active" style="padding: 10px;">
         <br>
+        <div *ngIf="Blogs.length > 0">
+
         <div class="content" *ngFor="let blog of Blogs">
           <div style="flex: 1; background-image: url(../../../../assets/Golbourne-1-1044x1566.jpg); background-size: cover;">
 
@@ -38,13 +40,88 @@
           </div>
 
         </div>
+      </div>
+
+        <div *ngIf="Blogs.length == 0">
+          <div style="display: flex; align-items: center; justify-content: center; margin-top: 40px; margin-bottom: 40px;">
+            <div>
+              <h1 class="info">No Blogs Found</h1>
+            </div>
+          </div>
+        </div>
         <br>
       </div>
       <div id="menu1" class="tab-pane fade ">
-          Responces
+        <div *ngIf="Useromment.length > 0">
+        <div style="display: flex; justify-content: center;" *ngFor="let item of Useromment">
+          <div class="content" style="width: 90%; padding: 10px; display: block !important; margin-top: 20px; cursor: pointer;" (click)="blogClick(item.blog._id)">
+            <div class="blogTitle" style="font-size: 18px;">
+              {{ item.blog.title }}
+            </div>
+            <div class="head" style="font-size: 15px; margin-top: 5px; margin-bottom: 2px;">
+              <b>
+                Comment Added
+            </b>
+            </div>
+            <div class="description" style="margin-top: 5px; padding-top: 10px; margin-left: 25px;  border-left: 2px solid #d3d3d3; margin-bottom: 5px; border-radius: 2px; padding-left: 10px;">
+              {{ item.body }}
+            </div>
+            <div style="font-size: 12px; margin-left: 25px; margin-bottom: 10px;" class="date">{{ item.date | date:'short' }}</div>
+
+          </div>
+
         </div>
-        <div id="menu2" class="tab-pane fade ">
-            Likes
+      </div>
+      <div *ngIf="Useromment.length == 0">
+        <div style="display: flex; align-items: center; justify-content: center; margin-top: 40px; margin-bottom: 40px;">
+          <div>
+            <h1 class="info">No Comments Posted</h1>
+          </div>
+        </div>
+      </div>
+        </div>
+        <div id="menu2" class="tab-pane fade " style="min-height: 90vh; padding: 10px;">
+          <br>
+          <div *ngIf="userBookmark.length > 0">
+          <div class="content" *ngFor="let blog of userBookmark">
+            <div style="flex: 1; background-image: url(../../../../assets/Golbourne-1-1044x1566.jpg); background-size: cover;">
+
+            </div>
+            <div style="flex: 1; padding-left: 5px; padding-bottom: 5px;">
+              <div style="display: flex; justify-content: space-between; ">
+                <div>
+                  <div class="Name">
+                  {{ blog.author }}
+                  </div>
+                </div>
+                <div style="" class="date"> {{ blog.date |  date:'shortDate' }}</div>
+              </div>
+              <div class="blogTitle">{{ blog.authorId.about }}
+              </div>
+              <div class="head">
+                <b>
+                  {{ blog.title }}
+              </b>
+              </div>
+              <div class="description">
+                {{ blog.body | truncate: 180  }}
+              </div>
+              <div  class="ReadNow">
+                <div>
+                READNOW
+                </div>
+              </div>
+            </div>
+            <br>
+          </div>
+          </div>
+          <div *ngIf="userBookmark.length == 0">
+            <div style="display: flex; align-items: center; justify-content: center; margin-top: 40px; margin-bottom: 40px;">
+              <div>
+                <h1 class="info">No Blogs Bookmarked</h1>
+              </div>
+            </div>
+          </div>
           </div>
       </div>
   </div>
