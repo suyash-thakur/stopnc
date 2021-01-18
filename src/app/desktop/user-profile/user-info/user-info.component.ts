@@ -31,6 +31,7 @@ export class UserInfoComponent implements OnInit {
       this.Blogs = userBlog.Blog;
       console.log(this.Blogs);
     });
+
   }
   blogClick(id) {
     this.router.navigate(['/blog', id]);

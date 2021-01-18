@@ -9,14 +9,25 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
   styleUrls: ['./user-credentials.component.css']
 })
 export class UserCredentialsComponent implements OnInit {
-  User: User;
+  User: User = {
+    Name: '',
+  discription: '',
+  about: '',
+  follower: [],
+  following: []
+
+  };
   userId: string;
   Name: string;
 
 
-  constructor(public userData: UserDataService, public authService: AuthenticationService) {
-    this.User = this.userData.User;
-    this.userId = this.authService.id;
+  constructor(public userData: UserDataService, public authService: AuthenticationService, public UserData: UserDataService) {
+
+    if (this.UserData.User !== undefined) {
+      this.User = this.UserData.User;
+      this.Name = this.User.Name;
+
+    }
 
 
 }
@@ -24,19 +35,15 @@ export class UserCredentialsComponent implements OnInit {
 
 
 ngOnInit() {
-  this.authService.getUser(this.userId).subscribe(userdata => {
-    this.User = {
-      Name: userdata.name,
-      discription: userdata.discription,
-      about: userdata.about,
-      follower: userdata.follower,
-      following: userdata.following
-    };
-    this.Name = this.User.Name;
-    this.userData.User = this.User;
-    console.log(this.userData.User);
+  this.UserData.configObservable.subscribe(val => {
+    if (val !== undefined) {
+      this.User = val;
+      this.Name = this.User.Name;
+    }
 
-});
+  });
+  console.log(this.User);
 
 }
+
 }

@@ -134,7 +134,6 @@ export class AppHeaderMobileComponent implements OnInit {
         let data = userData;
         console.log(data);
         this.authService.userdata = userData.User;
-        console.log(this.authService.userdata);
         this.User = {
           Name: userData.User.name,
           discription: userData.User.discription,
@@ -142,9 +141,10 @@ export class AppHeaderMobileComponent implements OnInit {
           follower: userData.User.follower,
           following: userData.User.following
         };
-        this.userData.emitConfig(this.User);
-        this.Name = this.User.Name;
         this.userData.User = this.User;
+        this.userData.emitConfig(this.User);
+        console.log("emit info");
+        this.Name = this.User.Name;
         this.NOtification = data.Notification;
         this.NOtification.forEach(n => {
           if (!n.isRead)

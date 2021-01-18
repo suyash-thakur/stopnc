@@ -22,6 +22,11 @@ export class UserProfileMobileComponent implements OnInit {
   constructor(private router: Router, public authService: AuthenticationService, public UserData: UserDataService) {
     this.loggedin = this.authService.Userlogin;
     this.userId = this.authService.id;
+    if (this.UserData.User !== undefined) {
+      this.User = this.UserData.User;
+      this.Name = this.User.Name;
+
+    }
    }
 
   ngOnInit() {
