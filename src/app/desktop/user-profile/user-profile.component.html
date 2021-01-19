@@ -9,10 +9,10 @@
   <p class="discription">{{ User.discription }}</p><br>
   <div class="follow-container">
     <div class="followers">
-      <a>{{followerNo }} followers</a>
+      <a [routerLink]="[{ outlets: { userinfo: ['followers'] } }]">{{followerNo }} followers</a>
     </div>
     <div class="following">
-      <a class="following-link">{{ followingNo }} following</a>
+      <a class="following-link"  [routerLink]="[{ outlets: { userinfo: ['following'] } }]">{{ followingNo }} following</a>
     </div>
   </div>
 
@@ -20,7 +20,7 @@
 <a class="edit"><div  ><p class="edit-text" [routerLink]="['./edit']" >Edit</p></div></a>
 
 </div>
-<router-outlet name="user-info"></router-outlet>
+<router-outlet name="userinfo"></router-outlet>
 
 
 </div>

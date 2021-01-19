@@ -23,11 +23,13 @@ import { SectionMenuComponent } from './desktop/section-menu/section-menu.compon
 import { SectionMenuMobileComponent } from './app-header-mobile/section-menu-mobile/section-menu-mobile.component';
 import { APIResolver } from './blog.resolver';
 import { FeedResolver } from './feed.resolver';
+import { FollowerListComponent } from './desktop/user-profile/follower-list/follower-list.component';
+import { FollowingListComponent } from './desktop/user-profile/following-list/following-list.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: '', component: HomeComponent},
-  {path: 'user/:id', component: UserProfileComponent, children: [{path: '', component: UserInfoComponent, outlet: 'user-info'}]},
+  { path: 'user/:id', component: UserProfileComponent, children: [{ path: '', component: UserInfoComponent, outlet: 'userinfo' }, {path:'followers', component: FollowerListComponent, outlet: 'userinfo'}, {path:'following', component: FollowingListComponent, outlet: 'userinfo'}]},
   {path: 'login/email', component: EmailLoginComponent, pathMatch: 'full'},
   {path: 'mobile/login', component: LoginMobileComponent, pathMatch: 'full'},
   {path: 'mobile/login/email', component: EmailLoginMobileComponent, pathMatch: 'full'},

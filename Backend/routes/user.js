@@ -94,7 +94,7 @@ router.post("/login",(req, res, next) => {
     });
 });
 router.get("/userInfo:id",checkAuth, (req, res, next) => {
- User.findById(req.params.id).populate('follower').populate('following').populate({path: 'bookmarked', model: 'Post', populate: { path: 'authorId', model: 'user'}}).then(async function(user) {
+ User.findById(req.params.id).populate({path: 'bookmarked', model: 'Post', populate: { path: 'authorId', model: 'user'}}).then(async function(user) {
    if (user) {
      const notification = await Notification.find({recipient: req.params.id}).populate("refId").exec();
      res.status(200).json({User: user, Notification: notification});
@@ -184,5 +184,15 @@ router.get("/getBookmark:id", checkAuth, (req, res, next) => {
     }
   });
 
+});
+router.get("/followers:id", checkAuth, (req, res) => {
+  User.findOne({ _id: req.params.id }, "follower").populate('follower').then(followers => {
+    if (followers) {
+      res.status(200).json({followers: followers});
+
+    }else {
+      res.status(500).json({message: "Error Getting Followers"});
+    }
+  });
 });
 module.exports = router;
