@@ -1,1 +1,39 @@
-<p>following-list works!</p>
+<div class="second-container">
+  <br>
+  <div *ngIf="following.length > 0">
+    <div class="content" *ngFor="let follower of following; let i = index">
+      <div>
+        <img src="../../../../assets/final-1.png">
+      </div>
+      <div style="flex-grow: 1; padding-left: 20px;">
+        <div style="color: #2D4A86; font-size: 25px">
+          {{ follower.name }}
+        </div>
+        <div>
+          {{ follower.about }}
+        </div>
+      </div>
+      <div>
+        <div class="follow-button"  (click)="unfollow(follower._id, i)">
+          <div>
+
+          Remove
+        </div>
+
+        </div>
+      </div>
+</div>
+</div>
+
+<div *ngIf="following.length == 0 ">
+  <div style="display: flex; align-items: center; justify-content: center; margin-top: 40px; margin-bottom: 40px;">
+    <div>
+      <h1 class="info">No Following</h1>
+    </div>
+  </div>
+</div>
+
+<br>
+<br><br>
+<br><br>
+</div>

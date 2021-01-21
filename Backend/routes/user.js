@@ -193,6 +193,16 @@ router.get("/followers:id", checkAuth, (req, res) => {
     }
   });
 });
+router.get("/following:id", checkAuth, (req, res) => {
+  User.findOne({ _id: req.params.id }, "following").populate('following').then(followers => {
+    if (followers) {
+      res.status(200).json({followers: followers});
+
+    }else {
+      res.status(500).json({message: "Error Getting Following"});
+    }
+  });
+});
 
 router.put("/removefollower:id", checkAuth, (req, res, next) => {
   User.findOneAndUpdate({_id: req.params.id}, {$pull: { following: req.body.followerId}}).then(result => {
