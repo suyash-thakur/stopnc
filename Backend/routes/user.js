@@ -144,13 +144,11 @@ router.post("/notficationSeen:id", (req, res, next)=> {
   });
 });
 router.get("/commentUser:id", (req, res, next) => {
-  console.log("User");
 
   Comment.find({'author': req.params.id }).populate('blog', 'title').exec(function(err, comment) {
     if(err) {
       res.status(500).json(err);
     } else {
-      console.log(comment);
       res.status(201).json({
         comment
       });
@@ -195,4 +193,16 @@ router.get("/followers:id", checkAuth, (req, res) => {
     }
   });
 });
+
+router.put("/removefollower:id", checkAuth, (req, res, next) => {
+  User.findOneAndUpdate({_id: req.params.id}, {$pull: { following: req.body.followerId}}).then(result => {
+    User.findOneAndUpdate({_id: req.body.followerId}, {$pull: {follower: req.params.id}}).then(result => {
+      if(result){
+        res.status(200).json({follower: result});
+      } else {
+        res.status(500).json({message: "Error Following This Person"})
+      }
+    })
+  })
+})
 module.exports = router;
