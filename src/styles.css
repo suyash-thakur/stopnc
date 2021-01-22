@@ -33,3 +33,7 @@ textarea:focus,
 input:focus {
   outline: none;
 }
+a:focus,
+a:hover {
+  text-decoration: none !important;
+}
