@@ -1,14 +1,18 @@
 <div class="align">
   <div class="upper-container">
   <div class="image-user">
-    <img src="assets\final-1@2x.png" alt="" class="profile-image">
+    <img [src]="profileImg" alt="" class="profile-image">
     <div class="image-edit">
-    <img src="assets\edit.svg" class="edit-picture">
+    <img src="assets\edit.svg" class="edit-picture" (click)="profileImgChange()">
+    <input #imageInput
+         type="file"
+         accept="image/*"
+         style="display: none">
   </div>
   </div>
   <div class="user-info">
     <h1 class="user-name">Name</h1>
-    <p class="input-text"><input type="text" [(ngModel)]=" name"></p>
+    <p class="input-text"><input type="text" [(ngModel)]="name"></p>
     <h1 class="user-name" style="margin-top: 5px;">Cridential</h1>
     <p class="small-info"><input type="text" [(ngModel)]="cridential" style="width: 500px;"></p>
     <h1 class="user-name" style="margin-top: 5px;">About</h1>

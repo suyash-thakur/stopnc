@@ -26,6 +26,7 @@ export class AuthenticationService {
   private authStatusListener = new Subject<boolean>();
   public userData = new Subject<any>();
   emitConfig(userData) {
+    this.user = userData;
     this.userData.next(userData);
   }
 

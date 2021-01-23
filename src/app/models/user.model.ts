@@ -4,4 +4,5 @@ export interface User {
   about: string;
   follower: any;
   following: any;
+  profileImage: string;
 }

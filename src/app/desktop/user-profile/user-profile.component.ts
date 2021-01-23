@@ -16,7 +16,8 @@ export class UserProfileComponent implements OnInit {
     discription: '',
     about: '',
     follower: [],
-    following: []
+    following: [],
+    profileImage: ''
   };
 
   followerNo: any;
@@ -41,7 +42,8 @@ export class UserProfileComponent implements OnInit {
         discription: userData.User.discription,
         about: userData.User.about,
         follower: userData.User.follower,
-        following: userData.User.following
+        following: userData.User.following,
+        profileImage:  userData.User.profileImage
       };
       this.followerNo = this.User.follower.length;
       this.followingNo = this.User.following.length;

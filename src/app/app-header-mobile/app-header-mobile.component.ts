@@ -139,7 +139,8 @@ export class AppHeaderMobileComponent implements OnInit {
           discription: userData.User.discription,
           about: userData.User.about,
           follower: userData.User.follower,
-          following: userData.User.following
+          following: userData.User.following,
+          profileImage: userData.User.profileImage
         };
         this.userData.User = this.User;
         this.userData.emitConfig(this.User);

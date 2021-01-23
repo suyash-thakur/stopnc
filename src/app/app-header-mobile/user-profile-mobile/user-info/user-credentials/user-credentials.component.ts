@@ -14,7 +14,8 @@ export class UserCredentialsComponent implements OnInit {
   discription: '',
   about: '',
   follower: [],
-  following: []
+    following: [],
+  profileImage: ''
 
   };
   userId: string;

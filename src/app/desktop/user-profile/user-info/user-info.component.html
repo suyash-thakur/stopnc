@@ -44,8 +44,8 @@
           </div>
         </div>
       </div>
-      <div *ngIf="Blogs.length == 0">
-        <div style="display: flex; align-items: center; justify-content: center; margin-top: 40px; margin-bottom: 40px;">
+      <div *ngIf="Blogs.length == 0" style="width: 100%;">
+        <div style="display: flex; align-items: center; justify-content: center; margin-top: 40px; margin-bottom: 40px; width: 100%;">
           <div>
             <h1 class="info">No Blogs To Show</h1>
           </div>
@@ -54,7 +54,7 @@
       </div>
       </div>
       <div id="menu1" class="tab-pane fade ">
-          <div style="display: flex; justify-content: center;" *ngFor="let item of Useromment">
+          <div style="display: flex; justify-content: center;" *ngFor="let item of Useromment" >
             <div class="content" style="width: 50%; display: block !important; margin-top: 50px; cursor: pointer;" (click)="blogClick(item.blog._id)">
               <div class="blogTitle" style="font-size: 23px;">
                 {{ item.blog.title }}
@@ -71,6 +71,13 @@
 
             </div>
 
+          </div>
+          <div *ngIf="Useromment.length == 0" style="width: 100%;">
+            <div style="display: flex; align-items: center; justify-content: center; margin-top: 40px; margin-bottom: 40px;">
+              <div>
+                <h1 class="info">No Responses To Show</h1>
+              </div>
+            </div>
           </div>
           <br>
           <br>
@@ -118,7 +125,7 @@
         <br>
         <br>
         <br>
-        <div *ngIf="Blogs.length == 0">
+        <div *ngIf="Blogs.length == 0" style="width: 100%;">
           <div style="display: flex; align-items: center; justify-content: center; margin-top: 40px; margin-bottom: 40px;">
             <div>
               <h1 class="info">No Blogs To Show</h1>

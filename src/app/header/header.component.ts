@@ -21,6 +21,7 @@ export class HeaderComponent implements OnInit {
   userId: string;
   User: User;
   Name = ' ';
+  ProfileImg = 'https://stopnc.s3.ap-south-1.amazonaws.com/profilepicture/icons8-male-user-100.png';
   NOtification: Array<any>;
   numberNot = 0;
 
@@ -45,18 +46,19 @@ signOut() {
       this.http.get('http://localhost:3000/api/user/userInfo' + this.userId).subscribe((userData:any) => {
         let data  = userData;
         console.log(data);
-        this.authService.userdata = userData.User;
         this.authService.emitConfig(userData.User);
-      console.log(this.authService.userdata);
+      console.log(this.authService.user);
         this.User = {
           Name: userData.User.name,
           discription: userData.User.discription,
           about: userData.User.about,
           follower: userData.User.follower,
-          following: userData.User.following
+          following: userData.User.following,
+          profileImage: userData.User.profileImage
         };
         this.Name = this.User.Name;
         this.userData.User = this.User;
+        this.ProfileImg = userData.User.profileImage;
         this.NOtification = data.Notification;
         this.NOtification.forEach(n => {
           if (!n.isRead)

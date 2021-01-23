@@ -10,7 +10,8 @@ const userSchema = mongoose.Schema({
   about: { type: String },
   follower: [{type: Schema.Types.ObjectId, ref: "User"}],
   following: [{type: Schema.Types.ObjectId, ref: "User"}],
-  bookmarked: [{type: Schema.Types.ObjectId, ref: "Post"}]
+  bookmarked: [{ type: Schema.Types.ObjectId, ref: "Post" }],
+  profileImage: {type: String, default: 'https://stopnc.s3.ap-south-1.amazonaws.com/profilepicture/icons8-male-user-100.png'}
 
 });
 
