@@ -5,12 +5,14 @@ const Notification = require("../Model/Notification");
 const Comment = require("../Model/Comment");
 const Blog  = require("../Model/Posts");
 
+
 const User  = require("../Model/user");
 const checkAuth = require("../middleware/check-auth");
 const { populate } = require("../Model/user");
 
 
 const router = express.Router();
+dotenv.config();
 
 router.put("/bookmark:id", checkAuth, (req, res, next) => {
   User.findOneAndUpdate({_id: req.params.id}, {$push: {bookmarked: req.body.postId}}).then(result => {
@@ -205,14 +207,22 @@ router.get("/following:id", checkAuth, (req, res) => {
 });
 
 router.put("/removefollower:id", checkAuth, (req, res, next) => {
-  User.findOneAndUpdate({_id: req.params.id}, {$pull: { following: req.body.followerId}}).then(result => {
-    User.findOneAndUpdate({_id: req.body.followerId}, {$pull: {follower: req.params.id}}).then(result => {
-      if(result){
-        res.status(200).json({follower: result});
+  User.findOneAndUpdate({ _id: req.params.id }, { $pull: { following: req.body.followerId } }).then(result => {
+    User.findOneAndUpdate({ _id: req.body.followerId }, { $pull: { follower: req.params.id } }).then(result => {
+      if (result) {
+        res.status(200).json({ follower: result });
       } else {
-        res.status(500).json({message: "Error Following This Person"})
+        res.status(500).json({ message: "Error Following This Person" })
       }
     })
   })
-})
+});
+
+router.post('/uploadProfileImage:id', upload.array('image', 1),  async (req, res) => {
+  let id = req.params.id;
+
+  await User.findOneAndUpdate({_id: req.params.id}, {profileImage: 'https://profile-picture-project.s3.ap-south-1.amazonaws.com/' + req.file});
+  res.send({ image: req.file });
+
+ });
 module.exports = router;
