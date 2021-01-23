@@ -24,6 +24,10 @@ export class AuthenticationService {
 
   private token: string;
   private authStatusListener = new Subject<boolean>();
+  public userData = new Subject<any>();
+  emitConfig(userData) {
+    this.userData.next(userData);
+  }
 
   constructor(private http: HttpClient, private router: Router) { }
 
