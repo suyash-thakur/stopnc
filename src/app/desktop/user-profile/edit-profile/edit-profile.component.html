@@ -7,7 +7,7 @@
     <input #imageInput
          type="file"
          accept="image/*"
-         style="display: none">
+         style="display: none" (change)="onImagePicked($event)">
   </div>
   </div>
   <div class="user-info">
@@ -18,14 +18,6 @@
     <h1 class="user-name" style="margin-top: 5px;">About</h1>
     <p class="small-info"><textarea type="text" [(ngModel)]="about" style="width: 800px;" rows=3></textarea>
 
-    <div class="follow-container">
-      <div class="followers">
-        <a>38 followers</a>
-      </div>
-      <div class="following">
-        <a class="following-link">18 following</a>
-      </div>
-    </div>
 
   </div>
   <a class="edit"><div  ><p class="edit-text" (click)="editUser()" >Save</p></div></a>

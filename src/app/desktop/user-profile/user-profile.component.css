@@ -8,6 +8,8 @@
 .profile-image {
   width: 170px;
   border: #2d4a86;
+  border-radius: 50%;
+  border: 2px solid #2d4a86;
 }
 .user-info {
   padding: 10px 10px 0px 20px;

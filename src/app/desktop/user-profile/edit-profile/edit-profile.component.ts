@@ -17,6 +17,10 @@ export class EditProfileComponent implements OnInit {
   about: string;
   id: string;
   profileImg: string;
+  imageObj: any;
+  followerNo: any = [];
+  followingNo: any = [];
+
   // tslint:disable-next-line: no-shadowed-variable
   constructor(public User: UserDataService, public auth: AuthenticationService, private http: HttpClient, private router: Router) {
 
@@ -27,14 +31,18 @@ export class EditProfileComponent implements OnInit {
     this.cridential = this.auth.user.discription;
     this.about = this.auth.user.about;
     this.profileImg = this.auth.user.profileImage;
-    console.log(this.name);
+    this.followerNo = this.auth.user.follower;
+    this.followingNo = this.auth.user.following;
+    console.log(this.auth.user);
 
     this.auth.userData.subscribe(val => {
       this.name = val.name;
       this.cridential = val.discription;
       this.about = val.about;
       this.profileImg = val.profileImage;
-      console.log(this.name);
+      this.followerNo = val.follower.length;
+    this.followingNo = val.following.length;
+      console.log( val.follower);
     });
   }
   editUser() {
@@ -58,4 +66,24 @@ export class EditProfileComponent implements OnInit {
   profileImgChange() {
     this.el.nativeElement.click();
   }
+  onImagePicked(event: Event): void {
+    console.log('clicked');
+    const FILE = (event.target as HTMLInputElement).files[0];
+    this.imageObj = FILE;
+    this.onImageUpload();
+   }
+
+  onImageUpload() {
+    const imageForm = new FormData();
+    console.log('clicked 2');
+
+    imageForm.append('image', this.imageObj);
+    this.auth.imageUpload(imageForm).subscribe((res:any) => {
+      this.profileImg = res.image;
+      this.auth.user.profileImage = this.profileImg;
+      this.auth.emitConfig(this.auth.user);
+      console.log(res.image);
+
+    });
+   }
 }

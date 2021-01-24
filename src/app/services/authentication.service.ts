@@ -190,4 +190,9 @@ unfollow(followerId) {
     console.log(responce);
   });
 }
+imageUpload(imageForm: FormData) {
+  console.log('image uploading');
+  return this.http.post('http://localhost:3000/api/user/uploadProfileImage' + this.id, imageForm);
+ }
+
 }

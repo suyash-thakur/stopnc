@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const Notification = require("../Model/Notification");
 const Comment = require("../Model/Comment");
 const Blog  = require("../Model/Posts");
+const upload = require("../middleware/upload");
 
 
 const User  = require("../Model/user");
@@ -12,7 +13,6 @@ const { populate } = require("../Model/user");
 
 
 const router = express.Router();
-dotenv.config();
 
 router.put("/bookmark:id", checkAuth, (req, res, next) => {
   User.findOneAndUpdate({_id: req.params.id}, {$push: {bookmarked: req.body.postId}}).then(result => {
@@ -106,13 +106,13 @@ router.get("/userInfo:id",checkAuth, (req, res, next) => {
  });
 });
 router.put("/userUpdate:id",checkAuth, (req, res, next) => {
- const user = new User({
-   _id: req.body.id,
-   name: req.body.name,
-   discription: req.body.cridential,
-   about: req.body.about
- });
- User.updateOne({_id: req.params.id}, user).then(result => {
+
+  User.findOneAndUpdate({ _id: req.params.id }, {
+    _id: req.body.id,
+    name: req.body.name,
+    discription: req.body.cridential,
+    about: req.body.about
+  }).then(result => {
    res.status(200).json({ message: "Update successful!" });
  });
 });
@@ -221,8 +221,9 @@ router.put("/removefollower:id", checkAuth, (req, res, next) => {
 router.post('/uploadProfileImage:id', upload.array('image', 1),  async (req, res) => {
   let id = req.params.id;
 
-  await User.findOneAndUpdate({_id: req.params.id}, {profileImage: 'https://profile-picture-project.s3.ap-south-1.amazonaws.com/' + req.file});
-  res.send({ image: req.file });
+  await User.findOneAndUpdate({_id: req.params.id}, {profileImage: 'https://stopnc.s3.ap-south-1.amazonaws.com/profilepicture/' +  req.file});
+  res.status(200).json({ image: 'https://stopnc.s3.ap-south-1.amazonaws.com/profilepicture/'  + req.file});
 
- });
+});
+
 module.exports = router;

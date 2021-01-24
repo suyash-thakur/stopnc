@@ -7,7 +7,8 @@
 }
 .profile-image {
   width: 170px;
-  border: #2d4a86;
+  border-radius: 50%;
+  border: 3px solid #2d4a86;
 }
 .upload {
   width: 170px;

@@ -65,7 +65,11 @@ signOut() {
           this.numberNot = this.numberNot + 1;
         });
         console.log(this.numberNot);
+        this.authService.userData.subscribe(val => {
+          this.Name = val.Name;
+          this.ProfileImg = val.profileImage;
 
+        });
 
       });
     }

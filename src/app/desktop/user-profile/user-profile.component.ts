@@ -21,7 +21,7 @@ export class UserProfileComponent implements OnInit {
   };
 
   followerNo: any;
-  followingNo; any;
+  followingNo: any;
   userId: string;
   Name: string = '';
   Blogs: any;

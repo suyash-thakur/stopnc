@@ -3,6 +3,7 @@ const multer = require('multer');
 const multerS3 = require('multer-s3');
 const dotenv = require('dotenv');
 const path = require('path');
+const mime = require('mime-types')
    dotenv.config();
 
    aws.config.update({
@@ -27,15 +28,14 @@ const upload = multer({
     storage: multerS3({
     acl: 'public-read',
     s3,
-       bucket: 'profile-picture-project',
+       bucket: 'stopnc',
        onError : function(err, next) {
         console.log('error', err);
-        res.render('error');
+         res.json({error: 'error uploading'});
        },
       key: function (req, file, cb) {
-      var id = req.params.id;
-      req.file = id;
-      cb(null, 'profilepicture/' + id);
+        req.file = Date.now() + file.originalname;
+      cb(null, 'profilepicture/' +  Date.now() + file.originalname);
      }
     })
    });

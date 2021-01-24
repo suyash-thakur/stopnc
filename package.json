@@ -39,6 +39,7 @@
     "joi": "^14.3.1",
     "jquery": "^3.5.0",
     "jsonwebtoken": "^8.5.1",
+    "mime-types": "^2.1.28",
     "mongodb": "^3.3.0-beta2",
     "mongoose": "^5.7.5",
     "mongoose-findorcreate": "^3.0.0",
@@ -60,8 +61,8 @@
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.1101.1",
-    "@angular/cli": "~8.0.3",
+    "@angular-devkit/build-angular": "^0.803.24",
+    "@angular/cli": "^8.0.6",
     "@angular/compiler-cli": "~8.0.1",
     "@angular/language-service": "~8.0.1",
     "@types/jasmine": "~3.3.8",
