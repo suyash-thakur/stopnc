@@ -8,9 +8,18 @@ const checkAuth = require("../middleware/check-auth");
 const uploadBlogPicture = require("../middleware/uploadblog");
 const Comment = require("../Model/Comment");
 const router = express.Router();
-
+const aws = require('aws-sdk');
 const app = express();
+const dotenv = require('dotenv');
 
+   dotenv.config();
+
+   aws.config.update({
+    secretAccessKey: process.env.SECRET_ACCESS_KEY,
+    accessKeyId: process.env.ACCESS_KEY_ID,
+    region: 'ap-south-1'
+   });
+   var s3 = new aws.S3();
 router.get("/blogs:id", (req, res, next) => {
   Blog.findById(req.params.id).populate('authorId').then( blog => {
     if(blog) {
@@ -181,4 +190,16 @@ router.post('/uploadBlogImage', uploadBlogPicture.array('image', 7),  async (req
 
 
 });
+router.post('/removeBlogImage',  (req, res) => {
+  var params = {
+    Bucket: 'stopnc',
+    Key: req.body.key
+
+  };
+  s3.deleteObject(params, function(err, data) {
+    if (err) res.status(500).json({error: err});  // error
+    else res.status(200).json({ message: 'deleted' });                // deleted
+  });
+});
+
 module.exports = router;

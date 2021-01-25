@@ -1,5 +1,5 @@
 .header {
-  background-color: #33AAAE;
+  background-color: #33aaae;
   height: 65px;
   display: flex;
   justify-content: space-between;
@@ -8,39 +8,37 @@
 }
 .name {
   font-size: 40px;
-  color: #2D4A86;
+  color: #2d4a86;
   font-family: Enhance;
-
 }
 .submitButton {
-  background-color: #2D4A86;
+  background-color: #2d4a86;
   border-radius: 25px;
   cursor: pointer;
   z-index: 1;
-  padding:5px 25px;
+  padding: 5px 25px;
   margin-top: 15px;
 }
 .submitlink {
-  color: #F7F6F9;
+  color: #f7f6f9;
   text-decoration: none;
   font-family: Regular;
   font-size: 15px;
 }
 .dropdown-menu {
-  background-color: #F7F6F9;
+  background-color: #f7f6f9;
   transform: translateY(-25px);
   font-family: Regular;
   margin: auto;
-  color: #2D4A86;
+  color: #2d4a86;
   font-size: 15px;
 }
 a {
-
   text-decoration: none !important;
 }
 .dropdown-line {
   margin: 0px 0px 5px 0px;
-  border: 1px solid rgba(0,0,0,.12);
+  border: 1px solid rgba(0, 0, 0, 0.12);
   opacity: 0.3;
 }
 .title {
@@ -50,10 +48,7 @@ a {
   width: 100%;
   font-size: 35px;
   outline: none !important;
-  color: #5D5D5D;
-
-
-
+  color: #5d5d5d;
 }
 .body {
   padding-left: 10px;
@@ -62,10 +57,7 @@ a {
   width: 100%;
   font-size: 25px;
   outline: none !important;
-  color: #5D5D5D;
-
-
-
+  color: #5d5d5d;
 }
 .title:focus {
   outline: none !important;
@@ -80,7 +72,10 @@ a {
   padding-left: 10px;
   font-family: Regular;
   font-size: 35px;
-  color: #5D5D5D;
+  color: #5d5d5d;
   margin-bottom: 50px;
-
+}
+.imageBlog {
+}
+.imageBlog:hover {
 }

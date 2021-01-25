@@ -13,7 +13,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CreateComponent implements OnInit {
 
-  public imagesUrl = [];
+  public imagesUrl = ['https://stopnc.s3.ap-south-1.amazonaws.com/blogImage/1611606849682valentines-day-full-font.jpg', 'https://stopnc.s3.ap-south-1.amazonaws.com/blogImage/1611606849682valentines-day-full-font.jpg', 'https://stopnc.s3.ap-south-1.amazonaws.com/blogImage/1611606849682valentines-day-full-font.jpg', 'https://stopnc.s3.ap-south-1.amazonaws.com/blogImage/1611606849682valentines-day-full-font.jpg'];
 
   public url;
   public title: string;
@@ -53,6 +53,14 @@ export class CreateComponent implements OnInit {
 
 
     this.blogservice.saveBlog(this.title, this.body, this.imagesUrl);
+  }
+  onRemovePicture(i) {
+    let key = this.imagesUrl[i];
+    key = 'blogImage/' + key.split('/').pop();
+    console.log(key);
+    this.http.post('http://localhost:3000/api/blog/removeBlogImage', { key: key }).subscribe((val) => {
+      this.imagesUrl.splice(i, 1);
+    });
   }
 
 }

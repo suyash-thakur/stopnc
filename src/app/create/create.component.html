@@ -50,6 +50,12 @@
 <hr>
 <div class="Images" *ngIf="imagesUrl.length > 0">
   Images  <br>
-  <br>
-  <img [src] = "img" *ngFor="let img of imagesUrl" style="height: 200px; padding: 10px;">
+  <div class="row"  >
+    <div class="imageBlog col-md-4 col-sm-12" *ngFor="let img of imagesUrl; let i = index;">
+    <div style="width:fit-content ">
+      <img src="../../assets/cancel.png" style="width: 30px;display: relative; right: 20px; transform: translateX(220px) translateY(0px); z-index: 100; cursor: pointer;" (click)="onRemovePicture(i)">
+    </div>
+    <img [src] = "img"  style="width: 250px; padding: 10px; ">
+  </div>
+</div>
 </div>
