@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-bottom-nav',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BottomNavComponent implements OnInit {
 
-constructor() { }
+constructor(public router: Router) { }
 
 iconColorHome = '#2D4A86';
 iconColorFeed = '#778899';
@@ -28,6 +29,7 @@ homeClicked() {
   this.iconColorHome = '#2D4A86';
   this.iconColorFeed = '#778899';
   this.iconColorExplore = '#778899';
+  this.router.navigate(['/mobile/home']);
 }
 
 feedClicked() {
@@ -38,6 +40,8 @@ feedClicked() {
   this.iconColorHome = '#778899';
   this.iconColorFeed = '#2D4A86';
   this.iconColorExplore = '#778899';
+  this.router.navigate(['/mobile/feed']);
+
 }
 
 exploreClicked() {

@@ -77,10 +77,10 @@
     <div style="flex-grow: 1;" class="main-panel">
       <div style="display: flex; justify-content: space-between; margin-top: 5px; padding-left: 5px; padding-right: 5px;" *ngIf="loggedin">
         <div >
-          <p class="nav-text text-center"><a class="nav-link">HOME</a></p>
+          <p class="nav-text text-center"><a class="nav-link" [routerLink]="['/']" >HOME</a></p>
         </div>
         <div>
-          <p class="nav-text text-center"><a class="nav-link">FEED</a></p>
+          <p class="nav-text text-center"><a class="nav-link" [routerLink]="['/feed']">FEED</a></p>
         </div>
         <div>
           <p class="nav-text text-center"><a class="nav-link">DISCOVER</a></p>
