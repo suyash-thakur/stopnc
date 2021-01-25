@@ -96,8 +96,10 @@ mat-sidenav {
 }
 
 .profile {
-  height: 40px;
-  margin-top: 16px;
+  height: 45px;
+  margin-top: 12px;
+  border-radius: 50%;
+  border: 3px solid #2d4a86;
 }
 .navbar {
   /* transform: translateX(-25px); */

@@ -1,28 +1,25 @@
 .cont {
-  background-color: #F7F6F9;
+  background-color: #f7f6f9;
 }
 .image-edit {
   display: flex;
-  align-items: center;
   padding: 10px 5px 0px 15px;
-
 }
 .text {
   font-family: Regular;
-  color: #5D5D5D;
-  font-size: 20px;
-  margin-left: 80px;
+  color: #5d5d5d;
+  font-size: 18px;
 }
 hr {
-  border: 1px solid #5D5D5D;
+  border: 1px solid #5d5d5d;
   opacity: 0.1;
   margin-top: 10px;
   margin-bottom: 0px;
 }
 .head-text {
   font-family: Regular;
-  color: #2D4A86;
-  font-size: 22px;
+  color: #2d4a86;
+  font-size: 18px;
 }
 p {
   margin-bottom: 3px !important;
@@ -31,8 +28,6 @@ input {
   width: 100%;
   border: none;
   background-color: transparent;
-
-
 }
 textarea {
   width: 100%;
@@ -41,15 +36,13 @@ textarea {
 }
 .text-area {
   font-family: Regular;
-  color: #5D5D5D;
-  font-size: 20px;
-  margin-left: 28px;
+  color: #5d5d5d;
 }
 .edit {
   position: absolute;
   right: 15px;
-  background-color: #2D4A86;
-  color: #F7F6F9;
+  background-color: #2d4a86;
+  color: #f7f6f9;
   font-family: Regular;
   font-size: 18px;
   padding-top: 5px;

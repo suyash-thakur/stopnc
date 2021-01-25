@@ -22,6 +22,7 @@ export class AppHeaderMobileComponent implements OnInit {
   User: User;
   Name = ' ';
   NOtification: Array<any>;
+  profileImg = '';
   numberNot = 0;
   constructor(public authService: AuthenticationService, private router: Router, private http: HttpClient, public userData: UserDataService) {
 
@@ -142,6 +143,7 @@ export class AppHeaderMobileComponent implements OnInit {
           following: userData.User.following,
           profileImage: userData.User.profileImage
         };
+        this.profileImg = this.User.profileImage;
         this.userData.User = this.User;
         this.userData.emitConfig(this.User);
         console.log("emit info");

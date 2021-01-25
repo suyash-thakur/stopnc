@@ -20,6 +20,7 @@ export class UserCredentialsComponent implements OnInit {
   };
   userId: string;
   Name: string;
+  profileImage= ''
 
 
   constructor(public userData: UserDataService, public authService: AuthenticationService, public UserData: UserDataService) {
@@ -27,6 +28,7 @@ export class UserCredentialsComponent implements OnInit {
     if (this.UserData.User !== undefined) {
       this.User = this.UserData.User;
       this.Name = this.User.Name;
+      this.profileImage = this.User.profileImage;
 
     }
 
@@ -40,6 +42,8 @@ ngOnInit() {
     if (val !== undefined) {
       this.User = val;
       this.Name = this.User.Name;
+      this.profileImage = this.User.profileImage;
+
     }
 
   });

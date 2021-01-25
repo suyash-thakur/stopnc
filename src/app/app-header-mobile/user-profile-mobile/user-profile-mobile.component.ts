@@ -18,6 +18,7 @@ export class UserProfileMobileComponent implements OnInit {
   userId: string;
   User: User;
   Name = ' ';
+  profileImg = '';
 
   constructor(private router: Router, public authService: AuthenticationService, public UserData: UserDataService) {
     this.loggedin = this.authService.Userlogin;
@@ -25,6 +26,7 @@ export class UserProfileMobileComponent implements OnInit {
     if (this.UserData.User !== undefined) {
       this.User = this.UserData.User;
       this.Name = this.User.Name;
+      this.profileImg = this.User.profileImage;
 
     }
    }
@@ -32,7 +34,9 @@ export class UserProfileMobileComponent implements OnInit {
   ngOnInit() {
     this.UserData.configObservable.subscribe(val => {
       this.User = val;
-     this.Name = this.User.Name;
+      this.Name = this.User.Name;
+      this.profileImg = this.User.profileImage;
+
     });
   }
   logout() {

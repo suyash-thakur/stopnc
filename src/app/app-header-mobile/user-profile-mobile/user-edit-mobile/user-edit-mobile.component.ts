@@ -14,10 +14,12 @@ export class UserEditMobileComponent implements OnInit {
   cridential: string;
   about: string;
   id: string;
+  profileImage = '';
   constructor(public User: UserDataService, public auth: AuthenticationService, private http: HttpClient, private router: Router) {
     this.name = this.User.User.Name;
     this.cridential = this.User.User.about;
     this.about = this.User.User.discription;
+    this.profileImage = this.User.User.profileImage;
   }
 
   ngOnInit() {

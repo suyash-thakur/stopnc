@@ -5,7 +5,7 @@
       <li><a data-toggle="tab" href="#menu2" class="navigation-tab">Bookmarked</a></li>
     </ul>
     <div class="tab-content">
-      <div id="home" class="tab-pane fade in active" style="padding: 10px;">
+      <div id="home" class="tab-pane fade in active" style="min-height: 90vh; padding: 10px;">
         <br>
         <div *ngIf="Blogs.length > 0">
 
@@ -51,7 +51,7 @@
         </div>
         <br>
       </div>
-      <div id="menu1" class="tab-pane fade ">
+      <div id="menu1" class="tab-pane fade " style="min-height: 90vh; padding: 10px;">
         <div *ngIf="Useromment.length > 0">
         <div style="display: flex; justify-content: center;" *ngFor="let item of Useromment">
           <div class="content" style="width: 90%; padding: 10px; display: block !important; margin-top: 20px; cursor: pointer;" (click)="blogClick(item.blog._id)">

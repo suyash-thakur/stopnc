@@ -33,7 +33,9 @@ export class UserInformationComponent implements OnInit {
       this.Blogs = userBlog.Blog;
       console.log(this.Blogs);
     });
-    this.userBookmark = this.authService.userdata.bookmarked;
+    this.authService.userData.subscribe(val => {
+      this.userBookmark = val.bookmarked;
+    });
 
   }
   getComment(id) {
