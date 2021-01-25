@@ -5,7 +5,7 @@ const User  = require("../Model/user");
 const Notification = require("../Model/Notification");
 const Blog  = require("../Model/Posts");
 const checkAuth = require("../middleware/check-auth");
-
+const uploadBlogPicture = require("../middleware/uploadblog");
 const Comment = require("../Model/Comment");
 const router = express.Router();
 
@@ -56,7 +56,7 @@ router.get("/allBlog", (req, res, next) => {
   });
 });
 
-router.post("/createBlog", checkAuth, async function (req, res)  {
+router.post("/createBlog", checkAuth,  async function (req, res)  {
 
   const blog = new Blog ({
     title: req.body.title,
@@ -176,4 +176,9 @@ router.put("/Commentlike:id", (req, res, next) => {
   });
 });
 
+router.post('/uploadBlogImage', uploadBlogPicture.array('image', 7),  async (req, res) => {
+  res.status(200).json({ image: 'https://stopnc.s3.ap-south-1.amazonaws.com/blogImage/'  + req.file});
+
+
+});
 module.exports = router;

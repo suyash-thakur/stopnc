@@ -48,7 +48,8 @@
   </a>
 </div>
 <hr>
-<div class="Images" *ngIf="isImage">
+<div class="Images" *ngIf="imagesUrl.length > 0">
   Images  <br>
+  <br>
   <img [src] = "img" *ngFor="let img of imagesUrl" style="height: 200px; padding: 10px;">
 </div>
