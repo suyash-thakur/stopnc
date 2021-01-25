@@ -62,12 +62,7 @@ a {
 .title:focus {
   outline: none !important;
 }
-.add {
-  position: fixed;
-  z-index: 100;
-  right: 15px;
-  top: 100px;
-}
+
 .Images {
   padding-left: 10px;
   font-family: Regular;
@@ -75,7 +70,14 @@ a {
   color: #5d5d5d;
   margin-bottom: 50px;
 }
-.imageBlog {
+.add {
+  position: fixed;
+  z-index: 100;
+  right: 15px;
+  top: 100px;
 }
-.imageBlog:hover {
+.add:focus {
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }

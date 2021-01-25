@@ -4,16 +4,63 @@ import { ActivatedRoute, ParamMap } from "@angular/router";
 import { BlogService } from '../services/blog.service';
 import { Blog } from '../models/blog.model';
 import { HttpClient } from '@angular/common/http';
-
+import { trigger, state, style, animate, transition } from '@angular/animations';
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.css',
-]
+  ],
+  animations: [
+    trigger('buttonState', [
+      state('plus', style({
+        transform: 'rotate(0deg)'
+       })),
+      state('cross', style({
+        transform: 'rotate(45deg)'
+       })),
+      transition('plus => cross', animate('100ms ease-in')),
+      transition('cross => plus', animate('100ms ease-out'))
+    ]
+    ),
+    trigger('buttonSubState', [
+      state('plus', style({
+        display: 'none',
+        opacity: 0,
+        top: '100px'
+
+       })),
+      state('cross', style({
+        display: 'inherit',
+        opacity: 1,
+        top: '160px'
+
+       })),
+      transition('plus => cross', animate('100ms ease-out')),
+      transition('cross => plus', animate('100ms ease-in'))
+    ]
+    ),
+    trigger('buttonSubState2', [
+      state('plus', style({
+        display: 'none',
+        opacity: 0,
+        top: '100px'
+
+       })),
+      state('cross', style({
+        display: 'inherit',
+        opacity: 1,
+        top: '220px'
+
+       })),
+      transition('plus => cross', animate('100ms ease-out')),
+      transition('cross => plus', animate('100ms ease-in'))
+    ]
+    ),
+  ]
 })
 export class CreateComponent implements OnInit {
-
-  public imagesUrl = ['https://stopnc.s3.ap-south-1.amazonaws.com/blogImage/1611606849682valentines-day-full-font.jpg', 'https://stopnc.s3.ap-south-1.amazonaws.com/blogImage/1611606849682valentines-day-full-font.jpg', 'https://stopnc.s3.ap-south-1.amazonaws.com/blogImage/1611606849682valentines-day-full-font.jpg', 'https://stopnc.s3.ap-south-1.amazonaws.com/blogImage/1611606849682valentines-day-full-font.jpg'];
+  state: String = 'plus';
+  public imagesUrl = [];
 
   public url;
   public title: string;
@@ -62,5 +109,7 @@ export class CreateComponent implements OnInit {
       this.imagesUrl.splice(i, 1);
     });
   }
-
+  toggleState() {
+    this.state = this.state === 'plus' ? 'cross' : 'plus';
+  }
 }
