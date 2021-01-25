@@ -9,6 +9,7 @@ export class UserDataService {
 
   User: User;
   emitConfig(User) {
+    this.User = User;
     this.configObservable.next(User);
   }
   constructor() { }

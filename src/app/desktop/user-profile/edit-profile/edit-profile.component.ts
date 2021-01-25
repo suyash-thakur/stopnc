@@ -80,8 +80,8 @@ export class EditProfileComponent implements OnInit {
     imageForm.append('image', this.imageObj);
     this.auth.imageUpload(imageForm).subscribe((res:any) => {
       this.profileImg = res.image;
-      this.auth.user.profileImage = this.profileImg;
-      this.auth.emitConfig(this.auth.user);
+      this.User.User.profileImage = this.profileImg;
+      this.User.emitConfig(this.User.User);
       console.log(res.image);
 
     });

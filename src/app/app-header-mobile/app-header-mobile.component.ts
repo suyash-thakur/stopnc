@@ -156,7 +156,11 @@ export class AppHeaderMobileComponent implements OnInit {
         console.log(this.numberNot);
       });
 
+      this.userData.configObservable.subscribe(val => {
+        this.Name = val.Name;
+        this.profileImg = val.profileImage;
 
+      });
 
 
 
