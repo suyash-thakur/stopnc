@@ -1,7 +1,7 @@
 <div style="height: 100px">
 <div class="header">
 <div class="name dropdown">
-    <a href="" class="dropdown-toggle " data-toggle="dropdown">
+    <a href=""  data-toggle="dropdown">
         <img src="../../assets/menuDots.svg">
       </a>
       <div class="dropdown-menu " >
@@ -48,22 +48,28 @@
   </a>
 </div>
 <div style="background-color:white;  position: fixed; z-index: 100; right: 15px; " [@buttonSubState]='state' data-toggle="tooltip" data-placement="Left" title="Add Image">
-  <a ><img src="../../assets/imageIcon.png" width="36px">
+  <a (click)="filePicker.click()"><img src="../../assets/imageIcon.png" width="36px" >
   </a>
 </div>
 <div style=" background-color:white; position: fixed; z-index: 100; right: 15px; "  [@buttonSubState2]='state' data-toggle="tooltip" data-placement="Left" title="Add Video">
-  <a ><img src="../../assets/videoIcon.png" width="36px">
+  <a (click)="filePicker.click()"><img src="../../assets/videoIcon.png" width="36px">
   </a>
 </div>
 <hr>
 <div class="Images" *ngIf="imagesUrl.length > 0">
   Images  <br>
   <div class="row"  >
-    <div class="imageBlog col-md-4 col-sm-12" *ngFor="let img of imagesUrl; let i = index;">
+    <div  *ngFor="let img of imagesUrl; let i = index;">
+      <div class="imageBlog col-md-4 col-sm-12" >
     <div style="width:fit-content ">
-      <img src="../../assets/cancel.png" style="width: 30px;display: relative; right: 20px; transform: translateX(220px) translateY(0px); z-index: 100; cursor: pointer;" (click)="onRemovePicture(i)">
+      <img src="../../assets/cancel.png" style="width: 30px;display: relative; right: 20px; transform: translateX(220px) translateY(0px); z-index: 100; cursor: pointer;" (click)="onRemovePicture(i)"  >
     </div>
-    <img [src] = "img"  style="width: 250px; padding: 10px; ">
+    <img [src] = "img"  style="width: 250px; padding: 10px; " *ngIf="checkIfImg(i)" >
+    <video  height="360" autoplay loop controls *ngIf="!checkIfImg(i)" >
+      <source [src] = "img" type="video/mp4">
+    </video>
+
   </div>
+</div>
 </div>
 </div>

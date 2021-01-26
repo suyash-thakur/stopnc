@@ -15,7 +15,7 @@ const mime = require('mime-types')
    const s3 = new aws.S3();
 
    async function uploadFilter(req, file, cb){
-    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'video/mp4') {
       cb(null, true);
      } else {
       cb(new Error('Wrong file type, only upload JPEG and/or PNG !'),

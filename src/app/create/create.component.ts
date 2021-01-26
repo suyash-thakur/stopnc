@@ -60,7 +60,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 })
 export class CreateComponent implements OnInit {
   state: String = 'plus';
-  public imagesUrl = [];
+  public imagesUrl = ['https://stopnc.s3.ap-south-1.amazonaws.com/blogImage/1611657961727valentines-day-full-font.jpg', 'https://stopnc.s3.ap-south-1.amazonaws.com/blogImage/1611657961727valentines-day-full-font.jpg', 'https://stopnc.s3.ap-south-1.amazonaws.com/blogImage/1611673304902lindaa.dns_20210119_091027.mp4'];
 
   public url;
   public title: string;
@@ -111,5 +111,15 @@ export class CreateComponent implements OnInit {
   }
   toggleState() {
     this.state = this.state === 'plus' ? 'cross' : 'plus';
+  }
+  checkIfImg(i) {
+    let ext = this.imagesUrl[i].split('.').pop();
+    if (ext === 'jpg' || ext === 'png' || ext === 'jpeg') {
+      return true;
+    } else if (ext === 'mp4' || ext === 'webm' || ext === 'ogg') {
+      return false;
+    } else {
+      return undefined;
+    }
   }
 }
