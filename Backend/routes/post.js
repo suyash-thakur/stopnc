@@ -74,33 +74,39 @@ router.post("/createBlog", checkAuth,  async function (req, res)  {
     body: req.body.body,
     authorId: req.body.authorId
   });
+
   blog.save().then( async function (result) {
     let user =  await User.findById(req.body.authorId).populate('follower').exec();
     let blog = result;
-    if(user.follower.length != 0){
+    if (user.follower.length != 0) {
 
 
-    for(const follower of user.follower) {
+      for (const follower of user.follower) {
 
-      let newNotification = new Notification({
-        message: 'posted a new blog',
-        recipient: follower._id,
-        refId: blog._id,
-        type: 'Post',
-      })
-    newNotification.save().then(result => {
-        res.status(201).json({
-          message: "Created a new blog and notification",
-          result: blog
+        let newNotification = new Notification({
+          message: 'posted a new blog',
+          recipient: follower._id,
+          refId: blog._id,
+          type: 'Post',
+        })
+        newNotification.save().then(result => {
+          res.status(201).json({
+            message: "Created a new blog and notification",
+            result: blog
+          });
+        }).catch(err => {
+          res.status(500).json({
+            error: err
+          });
+
         });
-      }).catch(err => {
-        res.status(500).json({
-      error: err
-    });
+      }
 
+    } else {
+      res.status(201).json({
+        message: "Created a new blog",
+        result: blog
       });
-    }
-
     }
 
   }).catch(err => {

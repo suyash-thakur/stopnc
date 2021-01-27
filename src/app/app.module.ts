@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { NgxMasonryModule } from 'ngx-masonry';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -111,7 +111,8 @@ import { FollowingListComponent } from './desktop/user-profile/following-list/fo
     SocialLoginModule,
     RichTextEditorAllModule,
     SliderModule,
-    NgbModule
+    NgbModule,
+    NgxMasonryModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   {provide: AuthServiceConfig, useFactory: getAuthServiceConfigs}],

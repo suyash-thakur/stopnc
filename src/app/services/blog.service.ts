@@ -30,9 +30,7 @@ export class BlogService {
        authorId: this.authService.id
      });
 
-     console.log(Blog);
-     this.http.post('http://localhost:3000/api/blog/createBlog', Blog).subscribe(
-    responce => {
+     this.http.post('http://localhost:3000/api/blog/createBlog', Blog).subscribe( responce => {
     console.log(responce);
     this.router.navigate(['/']);
       }
