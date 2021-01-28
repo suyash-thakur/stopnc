@@ -12,6 +12,14 @@
   max-width: 900px;
   height: 600px;
 }
+.container-2 {
+  background: #ffffff;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.16);
+  margin-top: 100px;
+  max-width: 400px;
+  height: 600px;
+  padding: 15px;
+}
 .masonry-item {
   width: 200px;
 }
@@ -48,6 +56,13 @@
   padding-left: 15px;
   margin-top: 20px;
   margin-bottom: 10px;
+}
+.stick {
+  position: fixed;
+  top: 0;
+  overflow: hidden;
+  z-index: 10;
+  width: 100%;
 }
 .ReadNow {
   display: flex;

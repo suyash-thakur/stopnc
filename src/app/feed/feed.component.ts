@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BlogService } from '../services/blog.service';
 
@@ -8,8 +8,14 @@ import { BlogService } from '../services/blog.service';
   templateUrl: './feed.component.html',
   styleUrls: ['./feed.component.css']
 })
-export class FeedComponent implements OnInit {
-public blogs: any;
+export class FeedComponent implements OnInit, AfterViewInit {
+  @ViewChild('stickyMenu', {static: false}) menuElement: ElementRef;
+
+  public blogs: any;
+  menuPosition: any;
+  sticky: boolean;
+  elementPosition: any;
+
   constructor(public router: Router, private route: ActivatedRoute, public blogServie: BlogService) {
 
     if (window.innerWidth  <= 991 ) {
@@ -22,6 +28,10 @@ public blogs: any;
   ngOnInit() {
     this.route.data.subscribe(data => this.blogs = data);
     console.log(this.blogs);
+
+  }
+  ngAfterViewInit(){
+    this.elementPosition = this.menuElement.nativeElement.offsetTop;
   }
   blogClick(id) {
     this.router.navigate(['/blog', id]);
@@ -35,5 +45,14 @@ public blogs: any;
     } else {
       return undefined;
     }
+  }
+  @HostListener('window:scroll', ['$event'])
+  handleScroll(){
+    const windowScroll = window.pageYOffset;
+      if(windowScroll >= this.elementPosition){
+        this.sticky = true;
+      } else {
+          this.sticky = false;
+      }
   }
 }
