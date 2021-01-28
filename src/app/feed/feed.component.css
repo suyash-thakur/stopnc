@@ -12,6 +12,13 @@
   max-width: 900px;
   height: 600px;
 }
+.content-3 {
+  background: #ffffff;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.16);
+  margin-top: 100px;
+  max-width: 900px;
+  height: 600px;
+}
 .container-2 {
   background: #ffffff;
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.16);
