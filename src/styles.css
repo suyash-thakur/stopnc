@@ -19,7 +19,6 @@ a {
 html,
 body {
   max-width: 100% !important;
-  overflow-x: hidden !important;
 }
 .mat-drawer-inner-container {
   width: 100%;
