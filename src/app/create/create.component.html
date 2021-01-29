@@ -39,6 +39,17 @@
   <textarea rows="2" placeholder="Title" class="title" [(ngModel)]="title"></textarea>
 </div>
 <hr>
+<div style="display: flex;">
+  <div class="categories">
+    Categories
+  </div>
+  <div style=" display: flex; flex-flow: row wrap; margin-left: 20px; width: 100%;">
+    <div class="catTab" *ngFor="let item of categories; let i = index;" [ngClass]="{'catTab': !item.clicked, 'catTabSelected': item.clicked}" (click)="toggleClicked(i)">
+      {{ item.name }}
+    </div>
+  </div>
+</div>
+<hr>
 <div class="textbody">
   <textarea rows="15" placeholder="Body" class="body" [(ngModel)]="body"></textarea>
 </div>

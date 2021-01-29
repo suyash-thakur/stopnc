@@ -81,3 +81,41 @@ a {
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+.categories {
+  font-family: Regular;
+  font-size: 25px;
+  color: #5d5d5d;
+  opacity: 0.9;
+  padding-left: 10px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+.catTab {
+  font-family: Regular;
+  border-radius: 50px;
+  border: 3px solid #2d4a86;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 18px;
+  color: #2d4a86;
+  padding-top: 3px;
+  cursor: pointer;
+  margin-left: 30px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+.catTabSelected {
+  font-family: Regular;
+  border-radius: 50px;
+  border: 3px solid #2d4a86;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 18px;
+  background-color: #2d4a86;
+  color: #f7f6f9;
+  padding-top: 3px;
+  cursor: pointer;
+  margin-left: 30px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}

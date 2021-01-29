@@ -60,13 +60,24 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 })
 export class CreateComponent implements OnInit {
   state: String = 'plus';
-  public imagesUrl = ['https://stopnc.s3.ap-south-1.amazonaws.com/blogImage/1611657961727valentines-day-full-font.jpg', 'https://stopnc.s3.ap-south-1.amazonaws.com/blogImage/1611657961727valentines-day-full-font.jpg', 'https://stopnc.s3.ap-south-1.amazonaws.com/blogImage/1611673304902lindaa.dns_20210119_091027.mp4'];
+  public imagesUrl = [];
 
   public url;
   public title: string;
   public body: string;
   blog: Blog;
   imgObj: any;
+  prevSelected: number;
+  public categories = [
+    { name: 'Casual', clicked: false },
+    { name: 'Formal', clicked: false },
+    { name: 'Date', clicked: false },
+    { name: 'Sports', clicked: false },
+    { name: 'Outdoor', clicked: false },
+    { name: 'Clubbing', clicked: false },
+    { name: 'Travel', clicked: false },
+    { name: 'Accessories', clicked: false }
+  ]
 
   constructor(private blogservice: BlogService, private http: HttpClient) { }
 
@@ -122,4 +133,11 @@ export class CreateComponent implements OnInit {
       return undefined;
     }
   }
-}
+  toggleClicked(i) {
+    if (this.prevSelected !== undefined) {
+      this.categories[this.prevSelected].clicked = !this.categories[this.prevSelected].clicked;
+    }
+    this.categories[i].clicked = !this.categories[i].clicked;
+    this.prevSelected = i;
+  }
+ }
