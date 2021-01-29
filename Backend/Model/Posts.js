@@ -9,7 +9,8 @@ var mongoose = require('mongoose');
     body:   String,
     date: { type: Date, default: Date.now },
     favs:  Number,
-    like: [{type: Schema.Types.ObjectId, ref: 'user'}]
+    like: [{ type: Schema.Types.ObjectId, ref: 'user' }],
+    tag: String
   });
 
   module.exports = mongoose.model('Post', blogSchema);

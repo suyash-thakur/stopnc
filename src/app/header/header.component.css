@@ -90,6 +90,8 @@ input {
 }
 .dropdown-menu {
   background-color: #f7f6f9;
+  font-family: Regular;
+  color: #2d4a86;
 }
 .dropdown-menu:active {
   background-color: #f7f6f9;

@@ -101,8 +101,17 @@
           </a>
 
           <div class="dropdown-menu " style="width: 300px; margin-top: 55px;" aria-labelledby="dropdownMenuButton">
+            <div *ngIf="NOtification.length > 0">
             <a class="dropdown-list" style="padding-left: 10px;" *ngFor="let n of NOtification" (click)="clickEachNotification(n.type, n.refId._id)"><b>{{ n.refId.author }}</b> &nbsp;{{ n.message }} <br>                  <hr class="dropdown-line">
-            </a></div>
+            </a>
+          </div>
+          <div *ngIf="NOtification.length === 0">
+            <div style="text-align: center;">
+              No Notifications
+            </div>
+          </div>
+
+          </div>
         </div>
         <div class="dropdown" >
           <a href="" class=" " data-toggle="dropdown" id="dropdownMenuButton2">

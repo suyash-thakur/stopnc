@@ -72,7 +72,8 @@ router.post("/createBlog", checkAuth,  async function (req, res)  {
     image: req.body.image,
     author: req.body.author,
     body: req.body.body,
-    authorId: req.body.authorId
+    authorId: req.body.authorId,
+    tag: req.body.tag
   });
 
   blog.save().then( async function (result) {

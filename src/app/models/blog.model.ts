@@ -4,4 +4,5 @@ export interface Blog {
   image: any[];
   author: string;
   authorId: string;
+  tag: string;
 }

@@ -110,7 +110,7 @@ export class CreateComponent implements OnInit {
     // console.log(this.imagesUrl);
 
 
-    this.blogservice.saveBlog(this.title, this.body, this.imagesUrl);
+    this.blogservice.saveBlog(this.title, this.body, this.imagesUrl, this.categories[this.prevSelected].name);
   }
   onRemovePicture(i) {
     let key = this.imagesUrl[i];

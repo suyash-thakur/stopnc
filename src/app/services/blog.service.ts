@@ -21,12 +21,13 @@ export class BlogService {
   constructor(private http: HttpClient,
               private router: Router, private userService: UserDataService, private authService: AuthenticationService) { }
 
-   saveBlog(title: string, body: string, image: any[]) {
+   saveBlog(title: string, body: string, image: any[], tag: string) {
      const Blog: Blog = ({
        title: title,
        body: body,
        image: image,
        author: this.userService.User.Name,
+       tag: tag,
        authorId: this.authService.id
      });
 
