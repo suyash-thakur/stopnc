@@ -60,6 +60,7 @@ signOut() {
         this.userData.User = this.User;
         this.ProfileImg = userData.User.profileImage;
         this.NOtification = data.Notification;
+        this.authService.notification = this.NOtification;
         this.NOtification.forEach(n => {
           if (!n.isRead)
           this.numberNot = this.numberNot + 1;

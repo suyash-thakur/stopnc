@@ -25,6 +25,7 @@ import { APIResolver } from './blog.resolver';
 import { FeedResolver } from './feed.resolver';
 import { FollowerListComponent } from './desktop/user-profile/follower-list/follower-list.component';
 import { FollowingListComponent } from './desktop/user-profile/following-list/following-list.component';
+import { NotificationComponent } from './app-header-mobile/notification/notification.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -48,7 +49,8 @@ const routes: Routes = [
   {path: 'feed', component: FeedComponent, resolve: {blogs: FeedResolver}},
   {path: 'mobile/feed', component: FeedMobileComponent, resolve: {blogs: FeedResolver}},
   {path: 'section', component: SectionMenuComponent},
-  {path: 'mobile/section', component: SectionMenuMobileComponent}
+  { path: 'mobile/section', component: SectionMenuMobileComponent },
+  {path: 'mobile/notification', component: NotificationComponent}
 
 ];
 

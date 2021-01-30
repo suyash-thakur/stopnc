@@ -98,7 +98,7 @@ router.post("/login",(req, res, next) => {
 router.get("/userInfo:id",checkAuth, (req, res, next) => {
  User.findById(req.params.id).populate({path: 'bookmarked', model: 'Post', populate: { path: 'authorId', model: 'user'}}).then(async function(user) {
    if (user) {
-     const notification = await Notification.find({recipient: req.params.id}).populate("refId").exec();
+     const notification = await Notification.find({recipient: req.params.id}).populate("originId").exec();
      res.status(200).json({User: user, Notification: notification});
    } else {
      res.status(404).json({ message: "Post not found!" });

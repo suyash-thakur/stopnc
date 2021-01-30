@@ -149,6 +149,7 @@ export class AppHeaderMobileComponent implements OnInit {
         console.log("emit info");
         this.Name = this.User.Name;
         this.NOtification = data.Notification;
+        this.authService.notification = this.NOtification;
         this.NOtification.forEach(n => {
           if (!n.isRead)
             this.numberNot = this.numberNot + 1;

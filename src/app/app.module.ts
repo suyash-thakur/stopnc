@@ -51,6 +51,7 @@ import { SectionMenuMobileComponent } from './app-header-mobile/section-menu-mob
 import { SplashScreenComponent } from './splash-screen/splash-screen.component';
 import { FollowerListComponent } from './desktop/user-profile/follower-list/follower-list.component';
 import { FollowingListComponent } from './desktop/user-profile/following-list/following-list.component';
+import { NotificationComponent } from './app-header-mobile/notification/notification.component';
 
 @NgModule({
   declarations: [
@@ -87,6 +88,7 @@ import { FollowingListComponent } from './desktop/user-profile/following-list/fo
     SplashScreenComponent,
     FollowerListComponent,
     FollowingListComponent,
+    NotificationComponent,
   ],
   imports: [
     BrowserModule,

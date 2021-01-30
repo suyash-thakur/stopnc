@@ -21,7 +21,7 @@ export class AuthenticationService {
   userdata: any;
   follower: any;
   following: any;
-
+  notification: Array<any>;
   private token: string;
   private authStatusListener = new Subject<boolean>();
   public userData = new Subject<any>();

@@ -61,7 +61,7 @@ export class BlogService {
   comment(body, id) {
     const Comment = {
       body: body,
-      postedBy: this.authService.id
+      postedBy: this.authService.id,
 
     };
     console.log(Comment);

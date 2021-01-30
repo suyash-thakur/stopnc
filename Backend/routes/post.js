@@ -89,20 +89,14 @@ router.post("/createBlog", checkAuth,  async function (req, res)  {
           recipient: follower._id,
           refId: blog._id,
           type: 'Post',
+          originId: req.body.authorId
         })
-        newNotification.save().then(result => {
-          res.status(201).json({
-            message: "Created a new blog and notification",
-            result: blog
-          });
-        }).catch(err => {
-          res.status(500).json({
-            error: err
-          });
-
-        });
+        await newNotification.save();
       }
-
+        res.status(201).json({
+          message: "Created a new blog and notification",
+          result: blog
+        });
     } else {
       res.status(201).json({
         message: "Created a new blog",
@@ -143,6 +137,8 @@ router.put("/like:id", (req, res, next) => {
         recipient: req.body.authId,
         refId: req.params.id,
         type: 'Post',
+        originId: req.body.userId
+
       });
       newNotification.save().then( function (resp){
         res.status(201).json({
@@ -171,6 +167,7 @@ router.put("/Commentlike:id", (req, res, next) => {
         recipient: req.body.authId,
         refId: req.body.refId,
         type: 'Post',
+        originId: req.body.userId
       });
       newNotification.save().then( function (resp){
         res.status(201).json({
