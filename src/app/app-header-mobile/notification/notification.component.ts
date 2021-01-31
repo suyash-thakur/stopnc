@@ -1,4 +1,5 @@
 import { Component,  OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 export class NotificationComponent implements OnInit {
 
-  constructor(public authService: AuthenticationService) { }
+  constructor(public authService: AuthenticationService, private router: Router) { }
   isFollowing: boolean = false;
   ngOnInit() {
     console.log(this.authService.notification);
@@ -36,6 +37,12 @@ export class NotificationComponent implements OnInit {
       return true;
     } else {
       return false;
+    }
+  }
+  clickEachNotification(type, id) {
+    console.log(type);
+    if (type === 'Post') {
+    this.router.navigate(['/blog', id]);
     }
   }
 }
