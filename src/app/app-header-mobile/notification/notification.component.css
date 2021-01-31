@@ -1,0 +1,9 @@
+.notification-text {
+  font-family: Regular;
+  color: #2d4a86;
+  padding-left: 10px;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  font-size: 16px;
+}

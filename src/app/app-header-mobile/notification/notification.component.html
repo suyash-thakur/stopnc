@@ -1,6 +1,22 @@
 <div *ngFor="let item of authService.notification">
-<div style="display: flex;">
+<div style="display: flex; padding: 15px; align-items: center;">
     <div>
+      <img [src]="item.originId.profileImage" style="width:40px; border: 3px solid #2d4a86; border-radius: 50%;">
+    </div>
+    <div class="notification-text">
+     <div>
+      {{ item.originId.name  }}  {{ item.message }}
+     </div>
+     <div style="flex-grow: 1;">
+
+     </div>
+     <div *ngIf="item.type === 'Post'">
+      <img [src]="item.refId.image[0]" style="width:40px" *ngIf="checkIfImg(item.refId.image[0])">
+      <video width="40px"  preload="metadata" *ngIf="!checkIfImg(item.refId.image[0])">
+        <source [src]="item.refId.image[0] + '#t=0.5'" type="video/mp4">
+      </video>
+     </div>
     </div>
 </div>
+<hr style="margin-top: 5px; margin-bottom: 5px;">
 </div>

@@ -13,5 +13,14 @@ export class NotificationComponent implements OnInit {
   ngOnInit() {
     console.log(this.authService.notification);
   }
-
+  checkIfImg(url) {
+    let ext = url.split('.').pop();
+    if (ext === 'jpg' || ext === 'png' || ext === 'jpeg') {
+      return true;
+    } else if (ext === 'mp4' || ext === 'webm' || ext === 'ogg') {
+      return false;
+    } else {
+      return undefined;
+    }
+  }
 }
