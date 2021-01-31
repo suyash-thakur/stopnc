@@ -97,11 +97,35 @@
   }
   .ReadNow {
     font-size: 15px;
+    margin-top: 10px !important;
   }
   .description {
     font-size: 15px;
   }
   content {
     font-size: 10px;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .Name {
+    font-size: 20px;
+  }
+  .date {
+    font-size: 18px;
+  }
+  .head {
+    font-size: 18px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+  }
+  .ReadNow {
+    font-size: 18px;
+    margin-top: 10px;
+  }
+  .description {
+    font-size: 18px;
+  }
+  content {
+    font-size: 18px;
   }
 }
