@@ -1,4 +1,4 @@
-<div *ngFor="let item of authService.notification">
+<div *ngFor="let item of authService.notification; let i = index">
 <div style="display: flex; padding: 15px; align-items: center;">
     <div>
       <img [src]="item.originId.profileImage" style="width:40px; border: 3px solid #2d4a86; border-radius: 50%;">
@@ -15,6 +15,27 @@
       <video width="40px"  preload="metadata" *ngIf="!checkIfImg(item.refId.image[0])">
         <source [src]="item.refId.image[0] + '#t=0.5'" type="video/mp4">
       </video>
+     </div>
+     <div *ngIf="item.type === 'User'">
+      <div style=" align-items: center;
+      justify-content: center; display:flex;">
+        <a>
+        <div class="follow-button-sec" (click) = "onUnFollow(item.originId._id)" *ngIf="isFollower(i)">
+          <div>
+
+          Unfollow
+        </div>
+
+        </div>
+        <div class="follow-button" (click) = "onFollow(item.originId._id)" *ngIf="!isFollower(i)">
+          <div>
+
+          Follow
+        </div>
+
+        </div>
+      </a>
+      </div>
      </div>
     </div>
 </div>
