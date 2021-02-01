@@ -25,14 +25,20 @@ export class UserProfileComponent implements OnInit {
   userId: string;
   Name: string = '';
   Blogs: any;
+  isSameUser = false;
 
   constructor(public userData: UserDataService, public authService: AuthenticationService, private http: HttpClient, private route: ActivatedRoute) {
     this.userId =  this.route.snapshot.paramMap.get('id');
     console.log(this.userId);
 
+
   }
 
   ngOnInit() {
+    console.log(this.authService.id);
+    if (this.userId === this.authService.id) {
+      this.isSameUser = true;
+    }
     this.http.get('http://localhost:3000/api/user/userInfo' + this.userId).subscribe((userData:any) => {
       let data  = userData;
       console.log(data);

@@ -14,8 +14,9 @@
     <p class="Title"><b>{{ this.blog.blog.Blog.title }}</b></p>
     <div style="display: flex;">
       <div>
-        <img src="assets\final-1.png" alt="">
+        <img [src]="this.blog.blog.Blog.authorId.profileImage" alt="" style="border-radius: 50%; border: 2px solid #2D4A86; width: 50px;">
       </div>
+      <a [routerLink]="'/user/' +  this.blog.blog.Blog.authorId._id">
       <div style="text-align: left !important; margin-top: auto; margin-bottom: auto;">
         <div class="Name">
           {{ this.blog.blog.Blog.authorId.name }}
@@ -24,6 +25,7 @@
           {{ this.blog.blog.Blog.authorId.about }}
         </div>
       </div>
+    </a>
       <div style=" align-items: center;
       justify-content: center; display:flex;">
         <a>

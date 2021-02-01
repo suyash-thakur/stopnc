@@ -17,7 +17,7 @@
   </div>
 
 </div>
-<a class="edit"><div  ><p class="edit-text" [routerLink]="['./edit']" >Edit</p></div></a>
+<a class="edit" *ngIf="isSameUser"><div  ><p class="edit-text" [routerLink]="['./edit']"  >Edit</p></div></a>
 
 </div>
 <router-outlet name="userinfo"></router-outlet>
