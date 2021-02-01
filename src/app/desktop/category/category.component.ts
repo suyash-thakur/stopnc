@@ -13,11 +13,29 @@ export class CategoryComponent implements OnInit {
   menuPosition: any;
   sticky: boolean;
   elementPosition: any;
-  @ViewChild('stickyMenu', {static: false}) menuElement: ElementRef;
+  @ViewChild('stickyMenu', { static: false }) menuElement: ElementRef;
+  categories = [
+    { src: '../../../assets/casual.png', name: 'CAREFREE CASUAL' },
+    { src: '../../../assets/formal.png', name: 'FANTASTIC FORMAL' }
+  ];
+  selected = {
+    src: '', name: ''
+  }
 
   constructor(public router: Router, private route: ActivatedRoute, public blogServie: BlogService, private http: HttpClient) { }
 
   ngOnInit() {
+    this.route.params.subscribe((params) => {
+      console.log(params);
+      if (params.name === 'Casual') {
+        this.selected = this.categories[0];
+      } else if (params.name === 'Formal') {
+        this.selected = this.categories[1];
+      }
+    });
+
+    console.log(this.selected);
+
     this.route.data.subscribe(data => this.blogs = data);
     console.log(this.blogs);
   }
