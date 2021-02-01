@@ -26,6 +26,8 @@ import { FeedResolver } from './feed.resolver';
 import { FollowerListComponent } from './desktop/user-profile/follower-list/follower-list.component';
 import { FollowingListComponent } from './desktop/user-profile/following-list/following-list.component';
 import { NotificationComponent } from './app-header-mobile/notification/notification.component';
+import { CategoryComponent } from './desktop/category/category.component';
+import { CategoryResolver } from './category.resolver';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -50,7 +52,8 @@ const routes: Routes = [
   {path: 'mobile/feed', component: FeedMobileComponent, resolve: {blogs: FeedResolver}},
   {path: 'section', component: SectionMenuComponent},
   { path: 'mobile/section', component: SectionMenuMobileComponent },
-  {path: 'mobile/notification', component: NotificationComponent}
+  { path: 'mobile/notification', component: NotificationComponent },
+  { path: 'category/:name', component: CategoryComponent,  resolve: {blogs: CategoryResolver}}
 
 ];
 

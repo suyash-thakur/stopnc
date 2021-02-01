@@ -42,6 +42,11 @@ router.get("/userBlog:id", (req, res, next) => {
     });
   }).catch(err => res.status(404).json({ err }));
 });
+router.get("/categories:id", (req, res, next) => {
+  Blog.find({tag: req.params.id}).populate('authorId').then(blog => {
+    res.status(201).json(blog);
+  }).catch(err => res.status(404).json({ err }));
+});
 router.get("/comment:id", (req, res, next) => {
   console.log("comment");
   Comment.find({'blog': req.params.id}).populate('author').exec(function(err, comment) {

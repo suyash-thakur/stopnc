@@ -52,6 +52,7 @@ import { SplashScreenComponent } from './splash-screen/splash-screen.component';
 import { FollowerListComponent } from './desktop/user-profile/follower-list/follower-list.component';
 import { FollowingListComponent } from './desktop/user-profile/following-list/following-list.component';
 import { NotificationComponent } from './app-header-mobile/notification/notification.component';
+import { CategoryComponent } from './desktop/category/category.component';
 
 @NgModule({
   declarations: [
@@ -89,6 +90,7 @@ import { NotificationComponent } from './app-header-mobile/notification/notifica
     FollowerListComponent,
     FollowingListComponent,
     NotificationComponent,
+    CategoryComponent,
   ],
   imports: [
     BrowserModule,
