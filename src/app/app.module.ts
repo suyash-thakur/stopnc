@@ -53,7 +53,8 @@ import { FollowerListComponent } from './desktop/user-profile/follower-list/foll
 import { FollowingListComponent } from './desktop/user-profile/following-list/following-list.component';
 import { NotificationComponent } from './app-header-mobile/notification/notification.component';
 import { CategoryComponent } from './desktop/category/category.component';
-
+import { ExploreComponent } from './desktop/explore/explore.component';
+import { NgMasonryGridModule } from 'ng-masonry-grid';
 @NgModule({
   declarations: [
     AppComponent,
@@ -91,6 +92,7 @@ import { CategoryComponent } from './desktop/category/category.component';
     FollowingListComponent,
     NotificationComponent,
     CategoryComponent,
+    ExploreComponent,
   ],
   imports: [
     BrowserModule,
@@ -116,7 +118,8 @@ import { CategoryComponent } from './desktop/category/category.component';
     RichTextEditorAllModule,
     SliderModule,
     NgbModule,
-    NgxMasonryModule
+    NgxMasonryModule,
+    NgMasonryGridModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   {provide: AuthServiceConfig, useFactory: getAuthServiceConfigs}],

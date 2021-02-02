@@ -28,6 +28,7 @@ import { FollowingListComponent } from './desktop/user-profile/following-list/fo
 import { NotificationComponent } from './app-header-mobile/notification/notification.component';
 import { CategoryComponent } from './desktop/category/category.component';
 import { CategoryResolver } from './category.resolver';
+import { ExploreComponent } from './desktop/explore/explore.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -53,7 +54,8 @@ const routes: Routes = [
   {path: 'section', component: SectionMenuComponent},
   { path: 'mobile/section', component: SectionMenuMobileComponent },
   { path: 'mobile/notification', component: NotificationComponent },
-  { path: 'category/:name', component: CategoryComponent,  resolve: {blogs: CategoryResolver}}
+  { path: 'category/:name', component: CategoryComponent, resolve: { blogs: CategoryResolver } },
+  {path: 'explore', component: ExploreComponent }
 
 ];
 
