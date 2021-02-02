@@ -88,6 +88,11 @@
   z-index: 10;
   width: 100%;
 }
+h1 {
+  font-family: Regular;
+  color: #2d4a86;
+  margin-top: 100px;
+}
 .ReadNow {
   display: flex;
   text-align: center;

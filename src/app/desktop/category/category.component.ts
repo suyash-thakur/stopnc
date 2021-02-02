@@ -16,7 +16,13 @@ export class CategoryComponent implements OnInit {
   @ViewChild('stickyMenu', { static: false }) menuElement: ElementRef;
   categories = [
     { src: '../../../assets/casual.png', name: 'CAREFREE CASUAL' },
-    { src: '../../../assets/formal.png', name: 'FANTASTIC FORMAL' }
+    { src: '../../../assets/formal.png', name: 'FANTASTIC FORMAL' },
+    { src: '../../../assets/date.png', name: 'DAZZLING DATE' },
+    { src: '../../../assets/sports.png', name: 'SASSY SPORTS' },
+    { src: '../../../assets/outdoor.png', name: 'OUTSTANDING OUTDOORS' },
+    { src: '../../../assets/clubbing.png', name: 'CANDID CLUBBING' },
+    { src: '../../../assets/travel.png', name: 'TERRIFIC TRAVEL' },
+    { src: '../../../assets/accessories.png', name: 'ACCESSORIES' }
   ];
   selected = {
     src: '', name: ''
@@ -31,6 +37,18 @@ export class CategoryComponent implements OnInit {
         this.selected = this.categories[0];
       } else if (params.name === 'Formal') {
         this.selected = this.categories[1];
+      } else if (params.name === 'Date') {
+        this.selected = this.categories[2];
+      } else if (params.name === 'Sports') {
+        this.selected = this.categories[3];
+      } else if (params.name === 'Outdoor') {
+        this.selected = this.categories[4];
+      } else if (params.name === 'Clubbing') {
+        this.selected = this.categories[5];
+      } else if (params.name === 'Travel') {
+        this.selected = this.categories[6];
+      }else if (params.name === 'Accessories') {
+        this.selected = this.categories[7];
       }
     });
 
