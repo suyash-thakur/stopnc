@@ -16,10 +16,16 @@
       <div class="tab-content">
           <div id="home" class="tab-pane fade in active">
               <div class="username-text-login">
-                  <span class="text side-text">FIRST NAME</span> <span class="text">LAST NAME</span>
+                  <span class="text email-text">FIRST NAME</span>
                 </div>
                 <div class="input-field">
-                    <span><input type="text" class="name-input" #firstname></span>            <span><input type="text" class="second-input name-input" #lastname></span>
+                    <input type="text" class="email-input" #firstname>
+                  </div>
+                  <div class="username-text-login">
+                    <span class="text email-text">LAST NAME</span>
+                  </div>
+                  <div class="input-field">
+                    <span><input type="text" class="email-input" #lastname></span>
                   </div>
                   <span class="text email-text">EMAIL</span>
                   <div class="input-field">
@@ -51,11 +57,10 @@
         <input type="password" class="email-input" #user_password>
       </div>
       <br>
-      <a (click)="onLogin(user_Email.value, user_password.value)">
-          <div class="signup-button">
+          <div class="signup-button" (click)="onLogin(user_Email.value, user_password.value)">
              LOGIN
            </div>
-         </a>
+
          <br>
           </div>
 
