@@ -27,12 +27,13 @@ export class CategoryComponent implements OnInit {
   selected = {
     src: '', name: ''
   }
-
+  params: any;
   constructor(public router: Router, private route: ActivatedRoute, public blogServie: BlogService, private http: HttpClient) { }
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
       console.log(params);
+      this.params = params.name;
       if (params.name === 'Casual') {
         this.selected = this.categories[0];
       } else if (params.name === 'Formal') {
