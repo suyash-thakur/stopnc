@@ -55,6 +55,7 @@ import { NotificationComponent } from './app-header-mobile/notification/notifica
 import { CategoryComponent } from './desktop/category/category.component';
 import { ExploreComponent } from './desktop/explore/explore.component';
 import { NgMasonryGridModule } from 'ng-masonry-grid';
+import { ExploreMobileComponent } from './app-header-mobile/explore-mobile/explore-mobile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -93,6 +94,7 @@ import { NgMasonryGridModule } from 'ng-masonry-grid';
     NotificationComponent,
     CategoryComponent,
     ExploreComponent,
+    ExploreMobileComponent,
   ],
   imports: [
     BrowserModule,

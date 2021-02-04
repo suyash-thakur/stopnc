@@ -18,27 +18,26 @@ a {
 .icon-text {
   font-family: Regular;
   transform: translateY(-2px);
+  color: #778899;
 }
 
 .icon-image-feed {
   margin-top: 2px;
+  color: #778899 !important;
 }
 
 .icon-text-feed {
   font-family: Regular;
   transform: translateY(-2px) translateX(-3px);
-
 }
 .icon-image-explore {
   margin-top: 2px;
-
 }
 .afterClicked {
-  color: #2D4A86;
+  color: #2d4a86;
   font-size: 18px;
   transform: translateY(-2px);
 }
 .growicon {
   transform: scale(1.15) translateY(2px);
-
 }
