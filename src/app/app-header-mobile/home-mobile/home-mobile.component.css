@@ -37,7 +37,9 @@
 .blogTitle {
   font-family: Regular;
   color: #5d5d5d;
-  font-size: 13px;
+  font-size: 20px;
+  text-align: left;
+  margin-top: 10px;
 }
 .blogText {
   color: #5d5d5d;
@@ -51,7 +53,7 @@
 .ReadNow {
   color: #5d5d5d;
   font-family: Subtract;
-  font-size: 20px;
+  font-size: 25px;
   /* transform: translateX(-20px); */
 }
 .head {
