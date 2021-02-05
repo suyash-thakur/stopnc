@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { AuthData } from '../models/auth-data.model';
 import { JwtHelperService } from '@auth0/angular-jwt';
-
+import { MatSidenav } from '@angular/material';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -13,6 +13,8 @@ const helper = new JwtHelperService();
   providedIn: 'root'
 })
 export class AuthenticationService {
+  private sidenav: MatSidenav;
+
   user: any;
   id: string;
   Userlogin: boolean;
@@ -25,6 +27,7 @@ export class AuthenticationService {
   private token: string;
   private authStatusListener = new Subject<boolean>();
   public userData = new Subject<any>();
+
   emitConfig(userData) {
     this.user = userData;
     this.userData.next(userData);
@@ -193,6 +196,22 @@ unfollow(followerId) {
 imageUpload(imageForm: FormData) {
   console.log('image uploading');
   return this.http.post('http://localhost:3000/api/user/uploadProfileImage' + this.id, imageForm);
- }
+}
+public setSidenav(sidenav: MatSidenav) {
+  this.sidenav = sidenav;
+}
+
+public open() {
+  return this.sidenav.open();
+}
+
+
+public close() {
+  return this.sidenav.close();
+}
+
+public toggle(): void {
+this.sidenav.toggle();
+}
 
 }

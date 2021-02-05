@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatSidenav } from '@angular/material';
 import {Input} from '@angular/core';
@@ -14,7 +14,7 @@ import { UserDataService } from '../services/user-data.service';
   templateUrl: './app-header-mobile.component.html',
   styleUrls: ['./app-header-mobile.component.css']
 })
-export class AppHeaderMobileComponent implements OnInit {
+export class AppHeaderMobileComponent implements OnInit, AfterViewInit {
   userLogin = false;
   authListenerSub: Subscription;
   currentRoute: Router;
@@ -170,6 +170,9 @@ export class AppHeaderMobileComponent implements OnInit {
     }
 
 
+  }
+  ngAfterViewInit(): void {
+    this.authService.setSidenav(this.sidenav);
   }
 }
 

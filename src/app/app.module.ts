@@ -56,6 +56,7 @@ import { CategoryComponent } from './desktop/category/category.component';
 import { ExploreComponent } from './desktop/explore/explore.component';
 import { NgMasonryGridModule } from 'ng-masonry-grid';
 import { ExploreMobileComponent } from './app-header-mobile/explore-mobile/explore-mobile.component';
+import { CategoryMobileComponent } from './app-header-mobile/category-mobile/category-mobile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -95,6 +96,7 @@ import { ExploreMobileComponent } from './app-header-mobile/explore-mobile/explo
     CategoryComponent,
     ExploreComponent,
     ExploreMobileComponent,
+    CategoryMobileComponent,
   ],
   imports: [
     BrowserModule,

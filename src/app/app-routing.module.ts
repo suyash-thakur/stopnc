@@ -30,6 +30,7 @@ import { CategoryComponent } from './desktop/category/category.component';
 import { CategoryResolver } from './category.resolver';
 import { ExploreComponent } from './desktop/explore/explore.component';
 import { ExploreMobileComponent } from './app-header-mobile/explore-mobile/explore-mobile.component';
+import { CategoryMobileComponent } from './app-header-mobile/category-mobile/category-mobile.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -57,7 +58,9 @@ const routes: Routes = [
   { path: 'mobile/notification', component: NotificationComponent },
   { path: 'category/:name', component: CategoryComponent, resolve: { blogs: CategoryResolver } },
   { path: 'explore', component: ExploreComponent },
-  {path: 'mobile/explore', component: ExploreMobileComponent}
+  { path: 'mobile/explore', component: ExploreMobileComponent },
+  { path: 'mobile/category/:name', component: CategoryMobileComponent, resolve: { blogs: CategoryResolver } },
+
 
 ];
 
