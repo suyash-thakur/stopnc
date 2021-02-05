@@ -52,6 +52,8 @@ exploreClicked() {
   this.iconColorHome = '#778899';
   this.iconColorFeed = '#778899';
   this.iconColorExplore = '#2D4A86';
+  this.router.navigate(['/mobile/explore']);
+
 }
 }
 
