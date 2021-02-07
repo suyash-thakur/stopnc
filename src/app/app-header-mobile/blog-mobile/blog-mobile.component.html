@@ -1,15 +1,15 @@
 <div style="background-color: #F3F3F3; width: 100%; padding-top: 10px; padding-left: 10px; padding-right: 10px;">
-  <p class="Title"><b>The Spring Refresh Edit</b></p>
+  <p class="Title"><b>{{ this.blog.blog.Blog.title }}</b></p>
   <div style="display: flex;">
     <div>
-      <img src="assets\final-1.png" alt="">
+      <img [src]="this.blog.blog.Blog.authorId.profileImage" alt="" style="border-radius: 50%; border: 2px solid #2D4A86; width: 50px;">
     </div>
     <div style="text-align: left !important; margin-top: auto; margin-bottom: auto;">
       <div class="Name">
-        Kevin Smith
+        {{ this.blog.blog.Blog.authorId.name }}
       </div>
       <div class="discription">
-        Blogger From NewZeland
+        {{ this.blog.blog.Blog.authorId.about }}
       </div>
     </div>
     <div style="flex-grow: 1;">
@@ -18,10 +18,18 @@
     <div style=" align-items: center;
     justify-content: center; display:flex;">
       <a>
-      <div class="follow-button">
+      <div class="follow-button" (click) = "onFollow()" *ngIf="isFollowing === false">
+        <div>
+          Follow
+
+      </div>
+
+      </div>
+      <div class="follow-button-sec " (click) = "onUnFollow()" *ngIf="isFollowing === true">
         <div>
 
-        Follow
+        Unfollow
+
       </div>
 
       </div>
@@ -34,34 +42,27 @@
       <a (click)="onPreviousClick()">  < </a>
     </div>
     <div>
-    <img [src] = 'slides[currentSlide].src' class="blog-img" >
+    <img [src] = 'slides[currentSlide]' class="blog-img" >
   </div>
   <div class="arrow" style="margin-left: -35px; padding-right: 5px;">
       <a (click)="onNextClick()">  > </a>
   </div>
   </div>
   <div class="content">
-    The new girl in town: Delvaux! Not long ago this Belgium born luxury leather brand opened its doors on 5th Avenue, and I was one of the lucky few to be there, and lunch amongst the prettiest to celebrate!
-
-
-It’s no secret I love bags. Luxury leather handbags are an absolute obsession, and I will never have enough of them. I still remember dreaming of owning one – about 8 years ago – but until the moment I actually had one I could call “mine”, I carried around anything that resembled the real deal. With always an extreme critical eye for detail; I would never leave the house with a bag made of anything else than leather – unless it was a bag meant to be from some sort of fabric other than leather, as in a “trend”, obviously. Quality has ALWAYS played a huge part in what I bought and wore, and especially nowadays, when I have access to the best quality products, I won’t settle for less.. Yet, I like trends, and I do follow them, but always in my own way…
-
-I’m very specific when it comes to what I think looks good and what doesn’t. This is of course just my opinion, and there are countless other options that matter equally as much as mine, but this is how I define my personal style. And you do yours. I do like to think, though, that I can also tell you what looks good on YOU, or what YOU should invest in now, or save up for. One of those things is a “Delvaux bag”.
-
-Delvaux originates from the 1829s and is with that one of the oldest fine leather luxury good houses in the world! And inventor of the handbag, and close to home – for me: from the Kingdom of Belgium. And especially that last part is something I’m proudly supporting. Brands like Delvaux, how have been around for that long, delivering only the finest products, and with a brand new store on Fifth Avenue in New York, need some spotlight!
-
-The new girl in town: Delvaux! Not long ago this Belgium born luxury leather brand opened its doors on 5th Avenue, and I was one of the lucky few to be there, and lunch amongst the prettiest to celebrate!
-
+    {{ this.blog.blog.Blog.body }}
   </div>
   <div>
     <br>
     <div style="display: flex; flex-flow: row; ">
       <div style="display: flex;  justify-content: center; align-items: center;">
         <div>
-        <img src="../../../assets/like.png" style="width: 50px;">
+        <img src="../../../assets/heart.svg" style="width: 40px;"  *ngIf="isLiked" (click)="unlike(this.blog.blog.Blog._id)">
+        <img src="../../../assets/heart2.svg" style="width: 40px;"  *ngIf="!isLiked" (click)="like(this.blog.blog.Blog._id)">
+
       </div>
-      <div  style="font-size: 15px !important; text-align: center; " class="likes">
-        190 Likes
+
+      <div  style="font-size: 15px !important; text-align: center;  margin-left: 5px;" class="likes">
+        {{ this.likes.length }}
       </div>
 
       </div>
@@ -69,10 +70,9 @@ The new girl in town: Delvaux! Not long ago this Belgium born luxury leather bra
 
       </div>
       <div>
-        <img src="../../../assets/bookmark.png" style="width: 40px;">
-      </div>
-      <div>
-        <img src="../../../assets/facebook-black-social-button-circle.png" style="width: 40px;">
+        <img src="../../../assets/bookmark.png" style="width: 40px;" *ngIf="isBookmarked === false" (click)= "bookmark()">
+        <img src="../../../assets/bookmark.svg" style="width: 40px;" *ngIf="isBookmarked === true" (click)= "removebookmark()">
+
       </div>
     </div>
     <br>
@@ -89,30 +89,30 @@ The new girl in town: Delvaux! Not long ago this Belgium born luxury leather bra
       <img src="../../../assets/final-1.png" style="width: 30px;">
     </div>
     <div style="flex-grow: 1;">
-      <textarea type="text" class="input" placeholder="Write a response ..."></textarea>
+      <textarea type="text" class="input" style="font-size: 14px;" placeholder="Write a response ..."></textarea>
     </div>
   </div>
-  <div style="  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.16); background-color: #ffffff; padding-top: 7px; padding-left: 7px;  padding-bottom: 10px;">
+  <div style="  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.16); background-color: #ffffff; padding-top: 7px; padding-left: 7px;  padding-bottom: 10px;" *ngFor="let item of UserComment">
     <div style=" display: flex;">
     <div style="justify-content: center; align-items: center;">
       <img src="../../../assets/final-1.png" style="width: 30px;">
     </div>
     <div style="flex-grow: 1; text-align: left;">
       <div class="Name" style="font-size: 15px !important;">
-        Kevin Smith
+        {{ item.author.name }}
       </div>
       <div style="display: flex;">
-        <div class="discription" style="font-size: 12px !important;">April 10</div>
+        <div class="discription" style="font-size: 12px !important;">{{ item.date| date:'shortDate' }}</div>
         <div style="width: 10px; height: 10px; background-color: #84BEE0; border: none; border-radius: 50%; margin-left: 5px;  transform: translateY(4px);"></div>
-        <div class="discription" style="margin-left: 5px !important; font-size: 12px !important;"> 10 Likes</div>
+        <div class="discription" style="margin-left: 5px !important; font-size: 12px !important;"> {{ item.date| date:'shortDate' }}</div>
       </div>
     </div>
   </div>
 
       <div class="comment">
-        {{ comment   }}
+        {{ item.body   }}
       </div>
-<div style="display: flex; align-items: flex-start;">
+<div style="display: flex; align-items: flex-start;" *ngIf="item.like.indexOf(this.authService.id) > -1" (click)="onCommentLike(item._id, item.author._id)">
       <div style="margin-left: 0px; margin-top: 15px;" class="discription">
         <img src="../../../assets/like.png" style="width: 30px;">
         Like

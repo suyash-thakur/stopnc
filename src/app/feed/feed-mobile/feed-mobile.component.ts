@@ -27,7 +27,7 @@ export class FeedMobileComponent implements OnInit, AfterViewInit {
     this.elementPosition = this.menuElement.nativeElement.offsetTop;
   }
   blogClick(id) {
-    this.router.navigate(['/blog', id]);
+    this.router.navigate(['mobile/blog', id]);
   }
   checkIfImg(url) {
     let ext = url.split('.').pop();

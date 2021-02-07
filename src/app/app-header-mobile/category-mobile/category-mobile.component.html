@@ -1,4 +1,4 @@
-<div style="width: 100%; padding: 20px; background-color: #999cec; display: flex; justify-content: center; align-items: center;">
+<div style="width: 100%; padding: 20px; background-color: #999cec; display: flex; justify-content: center; align-items: center;" [ngStyle]="{ 'background-image': 'url(' + selected.src + ')'}">
   <div>
     <p  class="top-story-head" style="padding-top: 10px;">{{ selected.name }}</p>
 

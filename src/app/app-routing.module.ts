@@ -50,7 +50,7 @@ const routes: Routes = [
   {path: 'blog', component: BlogComponent},
   {path: 'blog/:id', component: BlogComponent, resolve: {blog: APIResolver}},
   {path: 'mobile/blog', component: BlogMobileComponent},
-  {path: 'mobile/blog/:id', component: BlogMobileComponent},
+  {path: 'mobile/blog/:id', component: BlogMobileComponent, resolve: {blog: APIResolver}},
   {path: 'feed', component: FeedComponent, resolve: {blogs: FeedResolver}},
   {path: 'mobile/feed', component: FeedMobileComponent, resolve: {blogs: FeedResolver}},
   {path: 'section', component: SectionMenuComponent},

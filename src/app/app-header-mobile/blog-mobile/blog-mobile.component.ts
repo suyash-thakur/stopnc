@@ -65,6 +65,68 @@ export class BlogMobileComponent implements OnInit {
 
     });
   }
+  like(id) {
+    console.log("Like");
+    const data = {
+      userId: this.authService.id,
+      authId: this.blog.blog.Blog.authorId._id
+    };
+    this.http.put('http://localhost:3000/api/blog/like' + id, data).subscribe((res: Response) => {
+        this.isLiked = !this.isLiked;
+        this.likes.push(this.authService.id);
+
+    });
+
+  }
+  bookmark() {
+    const data = {
+      postId: this.blog.blog.Blog._id
+    };
+
+    this.http.put('http://localhost:3000/api/user/bookmark' + this.authService.id, data).subscribe( res => {
+      this.isBookmarked = true;
+    });
+  }
+  removebookmark() {
+    const data = {
+      postId: this.blog.blog.Blog._id
+    };
+
+    this.http.put('http://localhost:3000/api/user/removebookmark' + this.authService.id, data).subscribe( res => {
+      this.isBookmarked = false;
+    });
+  }
+  unlike(id) {
+
+    const data = {
+      userId: this.authService.id
+    };
+    this.http.put('http://localhost:3000/api/user/unlike' + id, data).subscribe((res: Response) => {
+
+        this.isLiked = !this.isLiked;
+        this.likes.splice(this.likes.indexOf(this.authService.id), 1);
+
+    });
+  }
+  onFollow() {
+    this.isFollowing = true;
+    this.authService.follow(this.blog.blog.Blog.authorId._id);
+  }
+  onUnFollow() {
+    this.isFollowing = false;
+    this.authService.unfollow(this.blog.blog.Blog.authorId._id);
+  }
+  onCommentLike(id, authorId) {
+    const Data  = {
+      authId: authorId,
+      refId: this.blog.blog.Blog._id,
+      userId: this.authService.id
+    };
+    this.http.put('http://localhost:3000/api/blog/Commentlike' + id, Data).subscribe(responce => {
+      console.log(responce);
+    });
+
+  }
   onPreviousClick() {
     const previous = this.currentSlide - 1;
     this.currentSlide = previous < 0 ? this.slides.length - 1 : previous;
