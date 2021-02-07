@@ -2,7 +2,7 @@
     <ul class="nav nav-tabs">
       <li class="active "><a data-toggle="tab" href="#home" class="navigation-tab" style="padding-left: 20px;">Profile</a></li>
       <li ><a data-toggle="tab" href="#menu1" class="navigation-tab">Responses</a></li>
-      <li><a data-toggle="tab" href="#menu2" class="navigation-tab">Bookmarked</a></li>
+      <li *ngIf="isSameUser"><a data-toggle="tab" href="#menu2" class="navigation-tab">Bookmarked</a></li>
     </ul>
     <div class="tab-content">
       <div id="home" class="tab-pane fade in active" style="min-height: 90vh; padding: 10px;">

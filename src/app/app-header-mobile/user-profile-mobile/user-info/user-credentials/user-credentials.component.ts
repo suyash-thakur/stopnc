@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { UserDataService } from 'src/app/services/user-data.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user-credentials',
@@ -11,44 +13,57 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 export class UserCredentialsComponent implements OnInit {
   User: User = {
     Name: '',
-  discription: '',
-  about: '',
-  follower: [],
+    discription: '',
+    about: '',
+    follower: [],
     following: [],
-  profileImage: ''
+    profileImage: ''
 
   };
+  followerNo: any;
+  followingNo: any;
   userId: string;
-  Name: string;
-  profileImage= ''
+  Name = '';
+  Blogs: any;
+  isSameUser = false;
 
 
-  constructor(public userData: UserDataService, public authService: AuthenticationService, public UserData: UserDataService) {
+  constructor(public userData: UserDataService, public authService: AuthenticationService, public UserData: UserDataService, private http: HttpClient, private route: ActivatedRoute) {
 
-    if (this.UserData.User !== undefined) {
-      this.User = this.UserData.User;
-      this.Name = this.User.Name;
-      this.profileImage = this.User.profileImage;
+    this.userId = this.route.snapshot.paramMap.get('id');
+    console.log(this.userId);
 
+
+  }
+
+
+
+  ngOnInit() {
+    console.log(this.authService.id);
+    if (this.userId === this.authService.id) {
+      this.isSameUser = true;
     }
+    this.http.get('http://localhost:3000/api/user/userInfo' + this.userId).subscribe((userData: any) => {
+      const data = userData;
+      console.log(data);
+
+      this.User = {
+        Name: userData.User.name,
+        discription: userData.User.discription,
+        about: userData.User.about,
+        follower: userData.User.follower,
+        following: userData.User.following,
+        profileImage: userData.User.profileImage
+      };
+      this.followerNo = this.User.follower.length;
+      this.followingNo = this.User.following.length;
+      this.authService.follower = this.User.follower;
+      this.authService.following = this.User.following;
 
 
-}
 
 
+    });
 
-ngOnInit() {
-  this.UserData.configObservable.subscribe(val => {
-    if (val !== undefined) {
-      this.User = val;
-      this.Name = this.User.Name;
-      this.profileImage = this.User.profileImage;
-
-    }
-
-  });
-  console.log(this.User);
-
-}
-
+  }
 }

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import {  Component,  HostListener, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BlogService } from 'src/app/services/blog.service';
 
@@ -7,8 +7,7 @@ import { BlogService } from 'src/app/services/blog.service';
   templateUrl: './feed-mobile.component.html',
   styleUrls: ['./feed-mobile.component.css']
 })
-export class FeedMobileComponent implements OnInit, AfterViewInit {
-  @ViewChild('stickyMenu', {static: false}) menuElement: ElementRef;
+export class FeedMobileComponent implements OnInit {
   truncate = 200;
   public blogs: any;
   menuPosition: any;
@@ -23,9 +22,7 @@ export class FeedMobileComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
   }
-  ngAfterViewInit(){
-    this.elementPosition = this.menuElement.nativeElement.offsetTop;
-  }
+
   blogClick(id) {
     this.router.navigate(['mobile/blog', id]);
   }

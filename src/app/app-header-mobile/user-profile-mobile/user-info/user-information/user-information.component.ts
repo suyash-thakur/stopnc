@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserDataService } from 'src/app/services/user-data.service';
 import { User } from 'src/app/models/user.model';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BlogService } from 'src/app/services/blog.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
@@ -20,14 +20,18 @@ export class UserInformationComponent implements OnInit {
   Useromment: Array<any> = [];
   userBookmark: any = [];
   userId: any;
+  isSameUser: boolean;
 
-  constructor(public userData: UserDataService, private http: HttpClient, public router: Router, public blogService: BlogService, public authService: AuthenticationService) {
-    this.userId = this.authService.id;
+  constructor(public userData: UserDataService, private http: HttpClient, public router: Router, private route: ActivatedRoute, public blogService: BlogService, public authService: AuthenticationService) {
+    this.userId =  this.route.snapshot.paramMap.get('id');
 
     this.getComment(this.userId);
   }
 
   ngOnInit() {
+    if (this.userId === this.authService.id) {
+      this.isSameUser = true;
+    }
     this.http.get('http://localhost:3000/api/blog/userBlog' + this.userId).subscribe((userBlog: any) => {
       this.Blogs = userBlog.Blog;
       console.log(this.Blogs);

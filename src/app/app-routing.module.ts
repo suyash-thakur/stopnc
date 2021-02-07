@@ -40,7 +40,7 @@ const routes: Routes = [
   {path: 'mobile/login', component: LoginMobileComponent, pathMatch: 'full'},
   {path: 'mobile/login/email', component: EmailLoginMobileComponent, pathMatch: 'full'},
   {path: 'mobile/user', component: UserProfileMobileComponent, pathMatch: 'full'},
-  {path: 'mobile/user/profile', component: UserCredentialsComponent,
+  {path: 'mobile/user/profile/:id', component: UserCredentialsComponent,
   children: [{path: '', component: UserInformationComponent, outlet: 'userinformation'},{path:'followers', component: FollowerListComponent, outlet: 'userinformation'}, {path:'following', component: FollowingListComponent, outlet: 'userinformation'}] },
   {path: 'user/:id/edit', component: EditProfileComponent, pathMatch: 'full', children:
   [{path: '', component: UserInfoComponent, outlet: 'user-info'}]},
