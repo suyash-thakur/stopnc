@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
@@ -11,12 +11,14 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 export class FollowerListComponent implements OnInit {
   userId: string;
   followers: Array<any> = [];
-  constructor(private http: HttpClient, private route: ActivatedRoute, private authService: AuthenticationService) {
-
+  constructor(private http: HttpClient, private route: ActivatedRoute, private authService: AuthenticationService, private router: Router) {
+    const url = this.router.url.split("/");
+    this.userId = url.slice(-2, -1)[0];
+    console.log(this.userId);
    }
 
   ngOnInit() {
-    this.http.get('http://localhost:3000/api/user/followers' + this.authService.id).subscribe((followers: any) => {
+    this.http.get('http://localhost:3000/api/user/followers' + this.userId).subscribe((followers: any) => {
       this.followers = followers.followers.follower;
       console.log(this.followers);
     });
