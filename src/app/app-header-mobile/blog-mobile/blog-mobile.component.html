@@ -85,11 +85,11 @@
   </div>
   <br>
   <div style="  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.16); background-color: #ffffff; display: flex; padding-top: 7px; padding-left: 7px; margin-bottom: 30px; ">
-    <div style="justify-content: center; align-items: center;">
-      <img src="../../../assets/final-1.png" style="width: 30px;">
+    <div style="justify-content: center; align-items: center; ">
+      <img [src]="ProfileImg" style="width: 30px; border-radius: 50%; border: 2px solid #2D4A86">
     </div>
     <div style="flex-grow: 1;">
-      <textarea type="text" class="input" style="font-size: 14px;" placeholder="Write a response ..."></textarea>
+      <textarea type="text" class="input" style="font-size: 14px; padding-left: 10px;" placeholder="Write a response ..."></textarea>
     </div>
   </div>
   <div style="  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.16); background-color: #ffffff; padding-top: 7px; padding-left: 7px;  padding-bottom: 10px;" *ngFor="let item of UserComment">

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { BlogService } from 'src/app/services/blog.service';
+import { UserDataService } from 'src/app/services/user-data.service';
 
 @Component({
   selector: 'app-blog-mobile',
@@ -29,15 +30,17 @@ export class BlogMobileComponent implements OnInit {
 
   blog: any;
   comment= 'I enjoyed this read, thank you for explaining so clearly. I would argue tho that the gig economy is not so different from the auto industry’s cycle of layoffs as supply and demand fluctuate. There is also evidence that building (buying) market share is a longterm strategy that yields intangable gains. Amazon took over a decade to turn a profit but what it earned in marketshare in that period is price.  ';
+  ProfileImg: any;
 
   constructor(public blogservice: BlogService, public router: Router, private route: ActivatedRoute,
-    private authService: AuthenticationService, private http: HttpClient,) { }
+    private authService: AuthenticationService, private http: HttpClient, public userData: UserDataService) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => this.blog = data);
     this.slides = this.blog.blog.Blog.image;
     this.UserComment = this.blog.blog.Comment;
     this.likes = this.blog.blog.Blog.like;
+    this.ProfileImg = this.userData.User.profileImage;
     if (this.blog.blog.Blog.authorId.follower.indexOf(this.authService.id) > -1) {
       this.isFollowing = true;
     }
@@ -62,6 +65,10 @@ export class BlogMobileComponent implements OnInit {
       this.isBookmarked = false;
     }
 
+
+    });
+    this.userData.configObservable.subscribe(val => {
+      this.ProfileImg = val.profileImage;
 
     });
   }
