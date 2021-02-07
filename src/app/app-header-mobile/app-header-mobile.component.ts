@@ -134,7 +134,7 @@ export class AppHeaderMobileComponent implements OnInit, AfterViewInit {
       this.http.get('http://localhost:3000/api/user/userInfo' + this.userId).subscribe((userData: any) => {
         let data = userData;
         console.log(data);
-        this.authService.userdata = userData.User;
+        this.authService.emitConfig(userData.User);
         this.User = {
           Name: userData.User.name,
           discription: userData.User.discription,

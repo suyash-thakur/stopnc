@@ -23,7 +23,6 @@ export class UserInformationComponent implements OnInit {
 
   constructor(public userData: UserDataService, private http: HttpClient, public router: Router, public blogService: BlogService, public authService: AuthenticationService) {
     this.userId = this.authService.id;
-    console.log(this.userBookmark);
 
     this.getComment(this.userId);
   }
@@ -33,9 +32,11 @@ export class UserInformationComponent implements OnInit {
       this.Blogs = userBlog.Blog;
       console.log(this.Blogs);
     });
-    this.authService.userData.subscribe(val => {
-      this.userBookmark = val.bookmarked;
+    this.authService.userData.subscribe(user => {
+      console.log(user);
+      this.userBookmark = user.bookmarked;
     });
+    console.log(this.userBookmark);
 
   }
   getComment(id) {
