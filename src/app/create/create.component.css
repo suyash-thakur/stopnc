@@ -139,4 +139,11 @@ a {
   .categoryTabs2 {
     display: inherit;
   }
+  .catTabSelected {
+    margin-left: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 13px;
+    margin-right: 10px;
+  }
 }
