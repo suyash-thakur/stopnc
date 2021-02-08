@@ -11,6 +11,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 export class FollowerListComponent implements OnInit {
   userId: string;
   followers: Array<any> = [];
+  isSameUser: boolean = false;
   constructor(private http: HttpClient, private route: ActivatedRoute, private authService: AuthenticationService, private router: Router) {
     const url = this.router.url.split("/");
     this.userId = url.slice(-2, -1)[0];
@@ -18,6 +19,11 @@ export class FollowerListComponent implements OnInit {
    }
 
   ngOnInit() {
+    console.log(this.authService.id)
+
+    if (this.userId === this.authService.id) {
+      this.isSameUser = true;
+    }
     this.http.get('http://localhost:3000/api/user/followers' + this.userId).subscribe((followers: any) => {
       this.followers = followers.followers.follower;
       console.log(this.followers);

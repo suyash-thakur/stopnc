@@ -14,7 +14,7 @@
         </div>
       </div>
       <div>
-        <div class="follow-button" (click)="removeFollower(follower._id, i)" >
+        <div class="follow-button" (click)="removeFollower(follower._id, i)" *ngIf="isSameUser">
           <div>
 
           Remove

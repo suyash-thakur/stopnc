@@ -119,3 +119,24 @@ a {
   margin-bottom: 5px;
   margin-top: 5px;
 }
+.categoryTabs {
+  display: flex;
+}
+.categoryTabs2 {
+  display: none;
+}
+@media screen and (max-width: 700px) {
+  .categoryTabs {
+    display: none;
+  }
+  .catTab {
+    margin-left: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 13px;
+    margin-right: 10px;
+  }
+  .categoryTabs2 {
+    display: inherit;
+  }
+}
