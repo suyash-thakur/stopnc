@@ -11,6 +11,7 @@ export class NotificationComponent implements OnInit {
 
   constructor(public authService: AuthenticationService, private router: Router) { }
   isFollowing: boolean = false;
+  notification = [];
   ngOnInit() {
     console.log(this.authService.notification);
   }
