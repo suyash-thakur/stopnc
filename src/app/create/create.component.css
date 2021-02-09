@@ -146,4 +146,11 @@ a {
     font-size: 13px;
     margin-right: 10px;
   }
+  .name > h1 {
+    font-size: 30px;
+  }
+  .submitButton {
+    font-size: 13px;
+    padding: 5px 20px;
+  }
 }

@@ -27,8 +27,11 @@ isExploreClicked = false;
         console.log(urlString);
         if (event.id === 1) {
           this.newRoute = true;
+        } else {
+          this.newRoute = false;
+
         }
-        if (urlString === '/mobile/user' || urlString === '/mobile/blog' || event.url === '/mobile/user' || urlString === '/mobile/blog' || urlString === '/user/profile') {
+        if (urlString === '/mobile/user' || urlString === '/mobile/blog' || event.url === '/mobile/user' || event.url === '/create' || urlString === '/mobile/blog' || urlString === '/user/profile') {
           this.showCancleRoute = true;
 
         } else {
@@ -76,7 +79,7 @@ exploreClicked() {
 }
   crossClicked() {
     console.log('back clicked');
-    if (!this.newRoute) {
+    if (this.newRoute === false) {
       this.location.back();
     } else {
       this.router.navigate(['/']);
