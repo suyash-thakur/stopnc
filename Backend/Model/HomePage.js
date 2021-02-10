@@ -3,7 +3,10 @@ var Schema = mongoose.Schema;
 
 
 var HomePageSchema = new Schema({
-  blog: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
+  FirstBlog: { type: Schema.Types.ObjectId, ref: 'Post' },
+  SecondBlog: { type: Schema.Types.ObjectId, ref: 'Post' },
+  TopStories: [{ type: Schema.Types.ObjectId, ref: 'Post' }]
+
 });
 
 module.exports = mongoose.model('HomePage', HomePageSchema);

@@ -37,7 +37,9 @@ router.get('/productCount', async (req, res, next) => {
 
 router.post('/homepageInfo', (req, res, next) => {
   const blog = new HomePage({
-    blog: req.body.blog
+    FirstBlog: req.body.blog1,
+    SecondBlog: req.body.blog2,
+    TopStories: req.body.topStories
   });
   blog.save(function (err, blog) {
     if (err) {
@@ -49,8 +51,16 @@ router.post('/homepageInfo', (req, res, next) => {
 });
 
 router.get('/homepageInfo', async (req, res) => {
-  let homepage = (await HomePage.find({}).populate('blog').sort({ _id: -1 }).limit(1))[0];
+  let homepage = (await HomePage.find({}).populate('FirstBlog').populate('SecondBlog').populate('TopStories').sort({ _id: -1 }).limit(1))[0];
   res.status(201).json({ home: homepage });
 });
-
+router.get("/allBlog", (req, res, next) => {
+  Blog.find().populate('authorId', 'name').then ( blog => {
+    if(blog) {
+      res.status(200).json(blog);
+    } else {
+      res.status(404).json("Blog not found");
+    }
+  });
+});
 module.exports = router;
