@@ -10,7 +10,8 @@ var mongoose = require('mongoose');
     date: { type: Date, default: Date.now },
     favs:  Number,
     like: [{ type: Schema.Types.ObjectId, ref: 'user' }],
-    tag: String
+    tag: String,
+    isVerified: {type: Boolean, default: false, required: true}
   });
 
   module.exports = mongoose.model('Post', blogSchema);

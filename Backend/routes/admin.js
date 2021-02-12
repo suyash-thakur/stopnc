@@ -7,6 +7,7 @@ const uploadBlogPicture = require("../middleware/uploadblog");
 const Comment = require("../Model/Comment");
 const Product = require("../Model/Product");
 const HomePage = require("../Model/HomePage");
+const uploadProductImage = require("../middleware/uploadProduct");
 const router = express.Router();
 
 router.get('/countUser', async (req, res, next) => {
@@ -50,6 +51,22 @@ router.post('/homepageInfo', (req, res, next) => {
   });
 });
 
+router.post('/createProduct', (req, res) => {
+  const product = new Product({
+    name: req.body.name,
+    link: req.body.link,
+    description: req.body.description,
+    image: req.body.image
+  });
+  product.save(function (err, prod) {
+    if (err) {
+      res.status(500).json(err);
+    } else {
+      res.status(201).json({ product: prod });
+    }
+  })
+});
+
 router.get('/homepageInfo', async (req, res) => {
   let homepage = (await HomePage.find({}).populate('FirstBlog').populate('SecondBlog').populate('TopStories').sort({ _id: -1 }).limit(1))[0];
   res.status(201).json({ home: homepage });
@@ -63,4 +80,35 @@ router.get("/allBlog", (req, res, next) => {
     }
   });
 });
+
+router.get('/productInfo', (req, res) => {
+  Product.find().then(blog => {
+    if (blog) {
+      res.status(201).json({blog: blog});
+    } else {
+      res.status(501).json({error: "cannot fetch blog"})
+    }
+  })
+});
+
+router.put('/verify:id', (req, res) => {
+  Blog.findOneAndUpdate({ _id: req.params.id }, { isVerified: true }).then(blog => {
+    if (blog) {
+      res.status(201).json({ blog: blog });
+    } else {
+      res.status(501).json({ error: "Error Creating Blog" });
+    }
+  });
+});
+router.post('/deleteProduct:id', (req, res) => {
+  Product.findOneAndRemove({ _id: req.params.id }).then(product => {
+    res.status(200).json({ message: 'Product Deleted' });
+  });
+});
+router.post('/uploadProductImage', uploadProductImage.array('image', 7),  async (req, res) => {
+  res.status(200).json({ image: 'https://stopnc.s3.ap-south-1.amazonaws.com/profilepicture/'  + req.file});
+});
+
+
+
 module.exports = router;
