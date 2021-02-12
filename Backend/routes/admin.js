@@ -102,7 +102,7 @@ router.put('/verify:id', (req, res) => {
 });
 router.post('/deleteProduct:id', (req, res) => {
   Product.findOneAndRemove({ _id: req.params.id }).then(product => {
-    res.status(200).json({ message: 'Product Deleted' });
+    res.status(200).json({ message: 'Product Deleted', product: product });
   });
 });
 router.post('/uploadProductImage', uploadProductImage.array('image', 7),  async (req, res) => {
