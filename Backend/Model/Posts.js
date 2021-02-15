@@ -11,7 +11,8 @@ var mongoose = require('mongoose');
     favs:  Number,
     like: [{ type: Schema.Types.ObjectId, ref: 'user' }],
     tag: String,
-    isVerified: {type: Boolean, default: false, required: true}
+    isVerified: { type: Boolean, default: false, required: true },
+    products: [{type: Schema.Types.ObjectId, ref: 'Product'}]
   });
 
   module.exports = mongoose.model('Post', blogSchema);

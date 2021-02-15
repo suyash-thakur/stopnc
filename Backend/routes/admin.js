@@ -8,6 +8,7 @@ const Comment = require("../Model/Comment");
 const Product = require("../Model/Product");
 const HomePage = require("../Model/HomePage");
 const uploadProductImage = require("../middleware/uploadProduct");
+const Explore = require('../Model/Explore');
 const router = express.Router();
 
 router.get('/countUser', async (req, res, next) => {
@@ -80,6 +81,15 @@ router.get("/allBlog", (req, res, next) => {
     }
   });
 });
+router.get("/unverifiedBlog", (req, res, next) => {
+  Blog.find({isVerified: false}).populate('authorId', 'name').then ( blog => {
+    if(blog) {
+      res.status(200).json(blog);
+    } else {
+      res.status(404).json("Blog not found");
+    }
+  });
+});
 
 router.get('/productInfo', (req, res) => {
   Product.find().then(blog => {
@@ -92,7 +102,7 @@ router.get('/productInfo', (req, res) => {
 });
 
 router.put('/verify:id', (req, res) => {
-  Blog.findOneAndUpdate({ _id: req.params.id }, { isVerified: true }).then(blog => {
+  Blog.findOneAndUpdate({ _id: req.params.id }, { isVerified: true, products: req.body.product }).then(blog => {
     if (blog) {
       res.status(201).json({ blog: blog });
     } else {
@@ -105,8 +115,31 @@ router.post('/deleteProduct:id', (req, res) => {
     res.status(200).json({ message: 'Product Deleted', product: product });
   });
 });
+
 router.post('/uploadProductImage', uploadProductImage.array('image', 7),  async (req, res) => {
   res.status(200).json({ image: 'https://stopnc.s3.ap-south-1.amazonaws.com/profilepicture/'  + req.file});
+});
+
+router.post('/createExplore', (req, res) => {
+  const ExplorePage = new Explore({
+    product: req.body.product,
+    trending: req.body.trending,
+    exclusive: req.body.exclusive
+  });
+  ExplorePage.save(function (err, explore) {
+    if (err) {
+      res.status(500).json({ err });
+    } else {
+      res.status(201).json({ explore: explore });
+    }
+  })
+});
+
+router.get('/explore', async (req, res) => {
+  Explore.find().populate('product').populate('trending').populate('exclusive').then(explore => {
+    res.status(201).json({ explore: explore[0] });
+
+  });
 });
 
 
