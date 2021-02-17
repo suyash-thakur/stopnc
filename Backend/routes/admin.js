@@ -142,6 +142,17 @@ router.get('/explore', async (req, res) => {
   });
 });
 
+router.put('/verifyBlogger:id', (req, res) => {
+  User.findOneAndUpdate({ _id: id }, { isBlogger: true }).then(user => {
+    res.status(201).json({ user: user });
+  });
+});
+
+router.get('/allUser', (req, res) => {
+  User.find({isBlogger: false}).then(user => {
+    res.status(201).json({ users: user });
+  });
+});
 
 
 module.exports = router;

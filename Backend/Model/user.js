@@ -11,7 +11,10 @@ const userSchema = mongoose.Schema({
   follower: [{type: Schema.Types.ObjectId, ref: "User"}],
   following: [{type: Schema.Types.ObjectId, ref: "User"}],
   bookmarked: [{ type: Schema.Types.ObjectId, ref: "Post" }],
-  profileImage: {type: String, default: 'https://stopnc.s3.ap-south-1.amazonaws.com/profilepicture/icons8-male-user-100.png'}
+  profileImage: { type: String, default: 'https://stopnc.s3.ap-south-1.amazonaws.com/profilepicture/icons8-male-user-100.png' },
+  isBlogger: { type: Boolean, default: false, required: true },
+  emailVerified: { type: Boolean, default: false, required: true },
+  isRequestBlogger: { type: Boolean, default: false}
 
 });
 
