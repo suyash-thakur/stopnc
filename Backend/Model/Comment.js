@@ -1,4 +1,6 @@
 var mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
+
 var Schema = mongoose.Schema;
 
 var commentSchema = new Schema({
@@ -9,5 +11,5 @@ var commentSchema = new Schema({
   like: [{type: Schema.Types.ObjectId, ref: 'user'}]
 
 })
-
+commentSchema.plugin(mongoosePaginate);
 module.exports = mongoose.model('Comment', commentSchema);

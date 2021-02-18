@@ -16,7 +16,7 @@ export class FeedResolver implements Resolve<any> {
 
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
     console.log('resolver called');
-    return this.http.get('http://localhost:3000/api/blog/allBlog').pipe(catchError(error   => {
+    return this.http.get('http://localhost:3000/api/blog/allBlog' + 0).pipe(catchError(error   => {
       return EMPTY;
    }), mergeMap(something => {
          if (something) {

@@ -57,6 +57,8 @@ import { ExploreComponent } from './desktop/explore/explore.component';
 import { NgMasonryGridModule } from 'ng-masonry-grid';
 import { ExploreMobileComponent } from './app-header-mobile/explore-mobile/explore-mobile.component';
 import { CategoryMobileComponent } from './app-header-mobile/category-mobile/category-mobile.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 @NgModule({
   declarations: [
     AppComponent,
@@ -123,10 +125,12 @@ import { CategoryMobileComponent } from './app-header-mobile/category-mobile/cat
     SliderModule,
     NgbModule,
     NgxMasonryModule,
-    NgMasonryGridModule
+    NgMasonryGridModule,
+    InfiniteScrollModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   {provide: AuthServiceConfig, useFactory: getAuthServiceConfigs}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+platformBrowserDynamic().bootstrapModule(AppModule);

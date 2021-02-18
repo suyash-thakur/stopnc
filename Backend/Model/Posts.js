@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
   var Schema = mongoose.Schema;
 
   var blogSchema = new Schema({
@@ -14,5 +15,5 @@ var mongoose = require('mongoose');
     isVerified: { type: Boolean, default: false, required: true },
     products: [{type: Schema.Types.ObjectId, ref: 'Product'}]
   });
-
+blogSchema.plugin(mongoosePaginate);
   module.exports = mongoose.model('Post', blogSchema);

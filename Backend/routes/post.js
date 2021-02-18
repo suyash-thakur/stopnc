@@ -11,6 +11,7 @@ const router = express.Router();
 const aws = require('aws-sdk');
 const app = express();
 const dotenv = require('dotenv');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
    dotenv.config();
 
@@ -60,8 +61,15 @@ router.get("/comment:id", (req, res, next) => {
   });
 });
 
-router.get("/allBlog", (req, res, next) => {
-  Blog.find().populate('authorId').then ( blog => {
+router.get("/allBlog:page", (req, res, next) => {
+  var page = req.params.page;
+  var options = {
+    populate: 'authorId',
+    lean: true,
+    limit: 5,
+    offset: page * 5
+  };
+  Blog.paginate({}, options).then ( blog => {
     if(blog) {
       res.status(200).json(blog);
     } else {

@@ -1,11 +1,14 @@
 <div style="background-color: #F9B1A5; width: 100%; margin-top: -25px; text-align: center; padding-right: 10px; overflow: visible; padding-bottom: 50px;">
 <p  class="top-story-head">YOUR FEED</p>
-<div class="" style="justify-content: flex-start; display: flex; overflow: visible;">
+<div class="" style="justify-content: flex-start; display: flex; overflow: visible;" infiniteScroll
+[infiniteScrollDistance]="20"
+[infiniteScrollThrottle]="250"
+(scrolled)="onScroll()">
   <div style="flex: 2; padding-left: 25px;">
-    <div *ngIf="blogs.blogs.length === 0">
+    <div *ngIf="blogs.length === 0">
       <h1>No Blogs To Show</h1>
     </div>
-    <div class="" *ngFor="let item of blogs.blogs; let i = index;" style="width: 100%">
+    <div class="" *ngFor="let item of blogs; let i = index;" style="width: 100%"   >
       <div class="content">
         <div style="flex: 2;  background-size: cover; min-width: 350px;"  >
           <div style=" background-size: cover; background-position: center; border: 3px solid #5d5d5d; width:100%; height:600px" [ngStyle]="{ 'background-image': 'url(' + item.image[0] + ')'}">
