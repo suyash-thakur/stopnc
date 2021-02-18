@@ -22,7 +22,7 @@ const mongoosePaginate = require('mongoose-paginate-v2');
    });
    var s3 = new aws.S3();
 router.get("/blogs:id", (req, res, next) => {
-  Blog.findById(req.params.id).populate('authorId').then( blog => {
+  Blog.findById(req.params.id).limit(5).populate('authorId').then( blog => {
     if(blog) {
       Comment.find({'blog': req.params.id}).populate('author').exec(function(err, comment) {
         if(err) {
@@ -36,6 +36,18 @@ router.get("/blogs:id", (req, res, next) => {
     }
   });
 });
+router.get("/comments:id", (req, res, next) => {
+  Comment.find({'blog': req.params.id}).populate('author').exec(function(err, comment) {
+    if(err) {
+      res.status(500).json(err);
+    } else {
+      res.status(201).json({
+        Comment: comment
+      });
+    }
+  });
+});
+
 router.get("/userBlog:id", (req, res, next) => {
   Blog.find({authorId: req.params.id}).populate('authorId').then(blog => {
     res.status(201).json({
@@ -48,15 +60,20 @@ router.get("/categories:id", (req, res, next) => {
     res.status(201).json(blog);
   }).catch(err => res.status(404).json({ err }));
 });
-router.get("/comment:id", (req, res, next) => {
+router.get("/comment/:id/:page", (req, res, next) => {
+  var page = req.params.page;
+  var options = {
+    populate: 'author',
+    lean: true,
+    limit: 5,
+    offset: page * 5
+  };
   console.log("comment");
-  Comment.find({'blog': req.params.id}).populate('author').exec(function(err, comment) {
-    if(err) {
-      res.status(500).json(err);
+  Comment.paginate({ 'blog': req.params.id }, options).then(comment => {
+    if (comment) {
+      res.status(201).json({ comment: comment });
     } else {
-      res.status(201).json({
-        comment
-      });
+      res.status(501).json({ err: 'error loading comments' });
     }
   });
 });

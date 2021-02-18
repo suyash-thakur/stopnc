@@ -21,7 +21,8 @@ export class BlogComponent implements OnInit {
   isFollowing: boolean = false;
   private sub: any;
   data: any;
-  UserComment: any;
+  UserComment: any = [];
+  commentPage = 1;
   public slides = [
 
   ];
@@ -132,6 +133,18 @@ export class BlogComponent implements OnInit {
       const box = (<HTMLTextAreaElement>document.getElementById('inpC'));
       box.rows = 1;
     }
+  }
+  getComment() {
+    var blogId = this.blog.blog.Blog._id;
+    this.http.get('http://localhost:3000/api/blog/comment/' + blogId + '/' + this.commentPage).subscribe((comment: any) => {
+      console.log(comment.comment.hasNextPage);
+      if (comment.comment.hasNextPage) {
+        this.commentPage = this.commentPage + 1;
+      };
+      if (comment.comment.docs.length > 0) {
+        this.UserComment.push(comment.comment.docs);
+      }
+    });
   }
   onComment() {
     const Comment = {
