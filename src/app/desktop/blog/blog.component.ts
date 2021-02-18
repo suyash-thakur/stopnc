@@ -81,7 +81,7 @@ export class BlogComponent implements OnInit {
   onFocus() {
     this.isFocus = true;
     const box = (<HTMLTextAreaElement>document.getElementById('inpC'));
-    box.rows = 10;
+    box.rows = 5;
   }
   like(id) {
     console.log("Like");

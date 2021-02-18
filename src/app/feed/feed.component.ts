@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AuthenticationService } from '../services/authentication.service';
 import { BlogService } from '../services/blog.service';
 
 
@@ -19,7 +20,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
   hasNextpage: boolean;
   currentPage = 0;
 
-  constructor(public router: Router, private route: ActivatedRoute, public blogServie: BlogService, private http: HttpClient) {
+  constructor(public router: Router, private route: ActivatedRoute, public blogServie: BlogService, private http: HttpClient, public authService: AuthenticationService) {
 
     if (window.innerWidth  <= 991 ) {
       this.router.navigate(['mobile/feed']);
