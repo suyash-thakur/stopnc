@@ -101,7 +101,7 @@
   </div>
   <div style="  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.16); background-color: #ffffff; display: flex; padding-top: 7px; padding-left: 7px;  padding-bottom: 10px;" *ngFor="let item of UserComment">
     <div style="justify-content: center; align-items: center;">
-      <img src="../../../assets/final-1.png" style="width: 50px;">
+      <img [src]="item.author.profileImage" style="width: 50px;">
     </div>
     <div style="flex-grow: 1; text-align: left;">
       <div class="Name">

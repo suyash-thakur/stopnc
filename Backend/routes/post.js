@@ -22,9 +22,9 @@ const mongoosePaginate = require('mongoose-paginate-v2');
    });
    var s3 = new aws.S3();
 router.get("/blogs:id", (req, res, next) => {
-  Blog.findById(req.params.id).limit(5).populate('authorId').then( blog => {
+  Blog.findById(req.params.id).populate('authorId').then( blog => {
     if(blog) {
-      Comment.find({'blog': req.params.id}).populate('author').exec(function(err, comment) {
+      Comment.find({'blog': req.params.id}).limit(5).populate('author').exec(function(err, comment) {
         if(err) {
           res.status(500).json(err);
         } else {
@@ -37,7 +37,7 @@ router.get("/blogs:id", (req, res, next) => {
   });
 });
 router.get("/comments:id", (req, res, next) => {
-  Comment.find({'blog': req.params.id}).populate('author').exec(function(err, comment) {
+  Comment.find({'blog': req.params.id}).limit(5).populate('author').exec(function(err, comment) {
     if(err) {
       res.status(500).json(err);
     } else {
@@ -148,10 +148,11 @@ router.post("/comment:id", (req, res, next) => {
     author: req.body.postedBy,
     blog: req.params.id
   });
-  comment.save().then( result => {
+  comment.save().then( async (result) => {
+    var comment = await result.populate('author').execPopulate();
     res.status(201).json({
       message: "comment Created",
-      result: result
+      result: comment
     });
   }).catch(err => {
     res.status(500).json({

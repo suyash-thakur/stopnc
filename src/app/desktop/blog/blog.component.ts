@@ -137,12 +137,16 @@ export class BlogComponent implements OnInit {
   getComment() {
     var blogId = this.blog.blog.Blog._id;
     this.http.get('http://localhost:3000/api/blog/comment/' + blogId + '/' + this.commentPage).subscribe((comment: any) => {
-      console.log(comment.comment.hasNextPage);
+      console.log(comment.comment.docs);
       if (comment.comment.hasNextPage) {
         this.commentPage = this.commentPage + 1;
       };
       if (comment.comment.docs.length > 0) {
-        this.UserComment.push(comment.comment.docs);
+        comment.comment.docs.forEach(comment => {
+          this.UserComment.push(comment);
+        });
+        console.log(this.UserComment);
+
       }
     });
   }
@@ -154,19 +158,11 @@ export class BlogComponent implements OnInit {
     };
     console.log(Comment);
     this.http.post('http://localhost:3000/api/blog/comment' + this.blog.blog.Blog._id, Comment).subscribe (
-      responce => {
+      (responce:any) => {
         // this.UserComment.push(res.);
-        this.http.get('http://localhost:3000/api/blog/comment' + this.blog.blog.Blog._id).subscribe(
-          responce => {
-            var com: any = responce;
-            this.isFocus = false;
-            this.UserComment = com.comment;
-            console.log(this.UserComment);
-            const box = (<HTMLTextAreaElement>document.getElementById('inpC'));
-            box.rows = 1;
-            this.CommentInput = null;
-          }
-        );
+        this.UserComment.push(responce.result);
+        this.isFocus = false;
+        this.CommentInput = null;
       }
     );
   }
