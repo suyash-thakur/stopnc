@@ -22,6 +22,7 @@ export class BlogComponent implements OnInit {
   private sub: any;
   data: any;
   UserComment: any = [];
+  isNextComment = true;
   commentPage = 1;
   public slides = [
 
@@ -138,14 +139,14 @@ export class BlogComponent implements OnInit {
     var blogId = this.blog.blog.Blog._id;
     this.http.get('http://localhost:3000/api/blog/comment/' + blogId + '/' + this.commentPage).subscribe((comment: any) => {
       console.log(comment.comment.docs);
-      if (comment.comment.hasNextPage) {
-        this.commentPage = this.commentPage + 1;
-      };
+      this.isNextComment = comment.comment.hasNextPage;
+
       if (comment.comment.docs.length > 0) {
         comment.comment.docs.forEach(comment => {
           this.UserComment.push(comment);
+          this.commentPage = this.commentPage + 1;
         });
-        console.log(this.UserComment);
+        console.log(comment.comment);
 
       }
     });
