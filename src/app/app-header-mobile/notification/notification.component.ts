@@ -43,9 +43,9 @@ export class NotificationComponent implements OnInit {
   clickEachNotification(type, id) {
     console.log(type);
     if (type === 'Post') {
-      this.router.navigate(['/blog', id]);
+      this.router.navigate(['mobile/blog', id]);
     } else if (type === 'User') {
-      this.router.navigate(['/user'], id);
+      this.router.navigate(['mobile/user', id]);
     }
   }
 }
