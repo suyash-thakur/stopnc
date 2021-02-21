@@ -91,15 +91,18 @@
       <img [src]="ProfileImg" style="width: 30px; border-radius: 50%; border: 2px solid #2D4A86">
     </div>
     <div style="flex-grow: 1;">
-      <textarea type="text" class="input" style="font-size: 14px; padding-left: 10px;" placeholder="Write a response ..."></textarea>
+      <textarea type="text" class="input" style="font-size: 14px; padding-left: 10px;"  id="inpC" placeholder="Write a response ..." (focus)="onFocus()" (focusout)="onFocusOut()"[(ngModel)]="CommentInput"></textarea> <br>
+      <div style="margin-top: 15px; margin-bottom: 15px; width: fit-content;" class="Subbutton" *ngIf="isFocus" (click)="onComment()">
+        Submit
+      </div>
     </div>
   </div>
   <div style="  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.16); background-color: #ffffff; padding-top: 7px; padding-left: 7px;  padding-bottom: 10px;" *ngFor="let item of UserComment">
     <div style=" display: flex;">
     <div style="justify-content: center; align-items: center;">
-      <img src="../../../assets/final-1.png" style="width: 30px;">
+      <img  [src]="item.author.profileImage" style="width: 30px;">
     </div>
-    <div style="flex-grow: 1; text-align: left;">
+    <div style="flex-grow: 1; text-align: left; padding-left: 5px; padding-right: 5px;">
       <span class="Name" style="font-size: 15px !important;">
         {{ item.author.name }}
       </span>

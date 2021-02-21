@@ -166,4 +166,33 @@ export class BlogMobileComponent implements OnInit {
       }
     });
   }
+  onFocus() {
+    this.isFocus = true;
+    console.log('focus');
+    const box = (<HTMLTextAreaElement>document.getElementById('inpC'));
+    box.rows = 5;
+  }
+  onFocusOut() {
+    if (this.CommentInput == null || this.CommentInput == '') {
+      this.isFocus = false;
+      const box = (<HTMLTextAreaElement>document.getElementById('inpC'));
+      box.rows = 2;
+    }
+  }
+  onComment() {
+    const Comment = {
+      body: this.CommentInput,
+      postedBy: this.authService.id
+
+    };
+    console.log(Comment);
+    this.http.post('http://localhost:3000/api/blog/comment' + this.blog.blog.Blog._id, Comment).subscribe (
+      (responce:any) => {
+        // this.UserComment.push(res.);
+        this.UserComment.push(responce.result);
+        this.isFocus = false;
+        this.CommentInput = null;
+      }
+    );
+  }
 }
