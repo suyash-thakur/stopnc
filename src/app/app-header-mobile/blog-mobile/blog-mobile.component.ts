@@ -26,8 +26,9 @@ export class BlogMobileComponent implements OnInit {
   isFollowing: boolean = false;
   private sub: any;
   data: any;
-  UserComment: any;
-
+  UserComment: any = [];
+  isNextComment = true;
+  commentPage = 1;
   blog: any;
   comment= 'I enjoyed this read, thank you for explaining so clearly. I would argue tho that the gig economy is not so different from the auto industry’s cycle of layoffs as supply and demand fluctuate. There is also evidence that building (buying) market share is a longterm strategy that yields intangable gains. Amazon took over a decade to turn a profit but what it earned in marketshare in that period is price.  ';
   ProfileImg: any;
@@ -68,6 +69,10 @@ export class BlogMobileComponent implements OnInit {
 
     });
     this.userData.configObservable.subscribe(val => {
+      this.ProfileImg = val.profileImage;
+
+    });
+    this.authService.userData.subscribe(val => {
       this.ProfileImg = val.profileImage;
 
     });
@@ -144,5 +149,21 @@ export class BlogMobileComponent implements OnInit {
     const next = this.currentSlide + 1;
     this.currentSlide = next === this.slides.length ? 0 : next;
     console.log("next clicked, new current slide is: ", this.currentSlide);
+  }
+  getComment() {
+    var blogId = this.blog.blog.Blog._id;
+    this.http.get('http://localhost:3000/api/blog/comment/' + blogId + '/' + this.commentPage).subscribe((comment: any) => {
+      console.log(comment.comment.docs);
+      this.isNextComment = comment.comment.hasNextPage;
+
+      if (comment.comment.docs.length > 0) {
+        comment.comment.docs.forEach(comment => {
+          this.UserComment.push(comment);
+          this.commentPage = this.commentPage + 1;
+        });
+        console.log(comment.comment);
+
+      }
+    });
   }
 }

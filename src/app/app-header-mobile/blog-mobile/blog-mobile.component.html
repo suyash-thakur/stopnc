@@ -100,20 +100,16 @@
       <img src="../../../assets/final-1.png" style="width: 30px;">
     </div>
     <div style="flex-grow: 1; text-align: left;">
-      <div class="Name" style="font-size: 15px !important;">
+      <span class="Name" style="font-size: 15px !important;">
         {{ item.author.name }}
-      </div>
-      <div style="display: flex;">
-        <div class="discription" style="font-size: 12px !important;">{{ item.date| date:'shortDate' }}</div>
-        <div style="width: 10px; height: 10px; background-color: #84BEE0; border: none; border-radius: 50%; margin-left: 5px;  transform: translateY(4px);"></div>
-        <div class="discription" style="margin-left: 5px !important; font-size: 12px !important;"> {{ item.date| date:'shortDate' }}</div>
-      </div>
+      </span>
+      <span class="comment">
+        {{ item.body   }}
+      </span>
     </div>
   </div>
 
-      <div class="comment">
-        {{ item.body   }}
-      </div>
+
 <div style="display: flex; align-items: flex-start;" *ngIf="item.like.indexOf(this.authService.id) > -1" (click)="onCommentLike(item._id, item.author._id)">
       <div style="margin-left: 0px; margin-top: 15px;" class="discription">
         <img src="../../../assets/like.png" style="width: 30px;">
@@ -124,7 +120,7 @@
 
   <br>
   <div style="display: flex; align-items: center; justify-content: center;">
-    <div class="button">Show More</div>
+    <div class="button" (click)="getComment()" *ngIf="isNextComment === true">Show More</div>
   </div>
   <br>
   <br>
