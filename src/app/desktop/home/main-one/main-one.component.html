@@ -12,37 +12,32 @@
   </div>
   <div class="space" style="background-color: #e19d9c;">
     <div class="blogContainer1" style=" ">
-
+      <div *ngIf="isFirstLoaded === true">
          <div style="flex-grow: 1; margin-left: 10px; margin-right: 10px;">
           <div style="display: flex; justify-content: flex-start; font-family: Regular;">
-            <div style="font-size: 20px; color: #5D5D5D;">Casual</div><div style="width: 10px; height: 10px; background-color: #E97988; border: none; border-radius: 50%; margin-left: 5px; margin-right: 5px; transform: translateY(7px);"></div><div style="font-size: 20px; color: #5D5D5D;">3/31/2019</div>
+            <div style="font-size: 20px; color: #5D5D5D;">{{ firstBlog.tag }}</div><div style="width: 10px; height: 10px; background-color: #E97988; border: none; border-radius: 50%; margin-left: 5px; margin-right: 5px; transform: translateY(7px);"></div><div style="font-size: 20px; color: #5D5D5D;">{{ firstBlog.date | date:'shortDate' }}</div>
           </div>
           <br>
           <div class="blogTitle">
             <b>
-            My Favorate Way To Wear Jeans This Summer.
+           {{ firstBlog.title }}
           </b>
           </div>
           <br>
           <div class="blogText">
-            {{ blogBody | truncate: 220  }}
+            {{ firstBlog.body | truncate: 220  }}
           </div>
           <div style="display: flex; flex-direction: row;">
-            <div>
-              <img src="../../../../assets/ttt-rebelluxury_1.jpg" alt="" class="blogImageMain">
+            <div *ngFor="let item of firstBlog.image">
+              <img [src]="item" alt="" class="blogImageMain">
             </div>
-            <div>
-              <img src="../../../../assets/Uniqlo-x-J-W-Anderson-5-1044x1566.jpg" alt="" class="blogImageMain">
-            </div>
-            <div>
-              <img src="../../../../assets/Golbourne-1-1044x1566.jpg" alt="" class="blogImageMain">
-            </div>
-            <div class="ReadNow">
+            <div class="ReadNow" (click)="this.blogClick(firstBlog._id)">
               READNOW
             </div>
             </div>
 
          </div>
+        </div>
     </div>
   </div>
 </div>
@@ -59,38 +54,34 @@
       </div>
     </div>
     <div class="space" style="background-color: #7bb0cf;">
+      <div *ngIf="isFirstLoaded === true">
       <div class="blogContainer2" style=" ">
 
            <div style="flex-grow: 1; margin-left: 10px; margin-right: 10px;">
             <div style="display: flex; justify-content: flex-start; font-family: Regular;">
-              <div style="font-size: 20px; color: #5D5D5D;">Casual</div><div style="width: 10px; height: 10px; background-color: #E97988; border: none; border-radius: 50%; margin-left: 5px; margin-right: 5px; transform: translateY(7px);"></div><div style="font-size: 20px; color: #5D5D5D;">3/31/2019</div>
+              <div style="font-size: 20px; color: #5D5D5D;">{{ secondBlog.tag }}</div><div style="width: 10px; height: 10px; background-color: #E97988; border: none; border-radius: 50%; margin-left: 5px; margin-right: 5px; transform: translateY(7px);"></div><div style="font-size: 20px; color: #5D5D5D;">{{ secondBlog.date | date:'shortDate' }}</div>
             </div>
             <br>
             <div class="blogTitle">
               <b>
-              My Favorate Way To Wear Jeans This Summer.
+                {{ secondBlog.title }}
             </b>
             </div>
             <br>
             <div class="blogText">
-              {{ blogBody | truncate: 220  }}
+              {{ secondBlog.body | truncate: 220  }}
             </div>
             <div style="display: flex; flex-direction: row;">
-              <div>
-                <img src="../../../../assets/ttt-rebelluxury_1.jpg" alt="" class="blogImageMain">
+              <div *ngFor="let item of secondBlog.image">
+                <img [src]="item" alt="" class="blogImageMain">
               </div>
-              <div>
-                <img src="../../../../assets/Uniqlo-x-J-W-Anderson-5-1044x1566.jpg" alt="" class="blogImageMain">
-              </div>
-              <div>
-                <img src="../../../../assets/Golbourne-1-1044x1566.jpg" alt="" class="blogImageMain">
-              </div>
-              <div class="ReadNow">
+              <div class="ReadNow" (click)="this.blogClick(secondBlog._id)">
                 READNOW
               </div>
               </div>
            </div>
 
+      </div>
       </div>
     </div>
   </div>
@@ -105,8 +96,9 @@
 
       <div style=" flex-grow: 3; display: flex; justify-content: space-evenly;">
         <div class="story-container">
-          <div style="display: flex;">
-            <div>
+          <div *ngIf="isFirstLoaded === true">
+          <div style="display: flex;" >
+            <div >
               <img src="assets\final-1.png" alt="">
             </div>
             <div style="text-align: left !important;">
@@ -141,13 +133,14 @@
           <div style="display: flex; align-items: center; justify-content: center;">
 
             <div>
-              <img src="assets\Uniqlo-x-J-W-Anderson-5-1044x1566.jpg"  class="image-small">
+              <img [src]="topBlogs[0].image[0]"  class="image-small">
             </div>
           </div>
           <div style="display: flex; justify-content: center;">
             <div class="read">
               READ NOW
             </div>
+          </div>
           </div>
         </div>
         <div class="story-container">
