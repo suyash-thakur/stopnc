@@ -56,7 +56,20 @@ router.get("/userBlog:id", (req, res, next) => {
   }).catch(err => res.status(404).json({ err }));
 });
 router.get("/categories:id", (req, res, next) => {
-  Blog.find({tag: req.params.id}).populate('authorId').then(blog => {
+
+  Blog.find({tag: req.params.id}).limit(5).populate('authorId').then(blog => {
+    res.status(201).json(blog);
+  }).catch(err => res.status(404).json({ err }));
+});
+router.get("/categories/:id/:page", (req, res, next) => {
+  var page = req.params.page;
+  var options = {
+    populate: 'authorId',
+    lean: true,
+    limit: 5,
+    offset: page * 5
+  };
+  Blog.paginate({tag: req.params.id}, options).then(blog => {
     res.status(201).json(blog);
   }).catch(err => res.status(404).json({ err }));
 });

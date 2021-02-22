@@ -9,9 +9,11 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./category.component.css']
 })
 export class CategoryComponent implements OnInit {
-  public blogs: any;
+  public blogs: any = [];
   menuPosition: any;
   sticky: boolean;
+  hasNextpage: boolean;
+  currentPage = 0;
   elementPosition: any;
   @ViewChild('stickyMenu', { static: false }) menuElement: ElementRef;
   categories = [
@@ -73,6 +75,20 @@ export class CategoryComponent implements OnInit {
     } else {
       return undefined;
     }
+  }
+  onScroll() {
+    console.log("scroll");
+    if (this.hasNextpage) {
+      this.http.get('http://localhost:3000/api/blog/categories/'+ this.params + '/' + this.currentPage).subscribe((data: any) => {
+        console.log(data);
+        for (var i = 0; i < data.docs.length; i++) {
+          this.blogs.push(data.docs[i]);
+        }
+        this.currentPage = this.currentPage + 1;
+        this.hasNextpage = data.hasNextPage;
+      });
+    }
+
   }
   @HostListener('window:scroll', ['$event'])
   handleScroll(){

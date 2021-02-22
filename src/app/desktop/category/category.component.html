@@ -11,7 +11,10 @@
         </div>
     </div>
     <div style="background-color: #F9B1A5; width: 100%; margin-top: -25px; text-align: center; padding-right: 10px; overflow: visible; padding-bottom: 50px;">
-      <div class="" style="justify-content: flex-start; display: flex; overflow: visible;">
+      <div class="" style="justify-content: flex-start; display: flex; overflow: visible;" infiniteScroll
+      [infiniteScrollDistance]="2"
+      [infiniteScrollThrottle]="250"
+      (scrolled)="onScroll()">
         <div style="flex: 2; padding-left: 25px;">
           <div *ngIf="blogs.blogs.length === 0 || blogs === undefined">
             <h1>No Blogs To Show</h1>
