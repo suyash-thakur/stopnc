@@ -12,6 +12,8 @@ export class CategoryMobileComponent implements OnInit {
   public blogs: any;
   menuPosition: any;
   params: any;
+  hasNextpage: boolean;
+  currentPage = 0;
   categories = [
     { src: '../../../assets/casual.png', name: 'CAREFREE CASUAL' },
     { src: '../../../assets/formal.png', name: 'FANTASTIC FORMAL' },
@@ -67,5 +69,19 @@ export class CategoryMobileComponent implements OnInit {
     } else {
       return undefined;
     }
+  }
+  onScroll() {
+    console.log("scroll");
+    if (this.hasNextpage) {
+      this.http.get('http://localhost:3000/api/blog/categories/'+ this.params + '/' + this.currentPage).subscribe((data: any) => {
+        console.log(data);
+        for (var i = 0; i < data.docs.length; i++) {
+          this.blogs.push(data.docs[i]);
+        }
+        this.currentPage = this.currentPage + 1;
+        this.hasNextpage = data.hasNextPage;
+      });
+    }
+
   }
 }

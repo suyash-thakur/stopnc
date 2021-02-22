@@ -5,6 +5,10 @@
   </div>
 </div>
 <div style="background-color: #F9B1A5; width: 100%;  text-align: center; padding-left: 10px; padding-right: 10px; padding-bottom: 50px; padding-top: 50px;">
+  <div infiniteScroll
+  [infiniteScrollDistance]="3"
+  [infiniteScrollThrottle]="150"
+  (scrolled)="onScroll()" infiniteScrollContainer=".my-sidenav-content" [fromRoot]="true" >
   <div class="" *ngFor="let item of blogs.blogs; let i = index;" style="width: 100%">
   <div class="content">
     <div style="flex: 1;">
@@ -159,6 +163,7 @@
     </div>
 
 
+  </div>
   </div>
   </div>
   <br>
