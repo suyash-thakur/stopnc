@@ -136,7 +136,7 @@ router.post('/createExplore', (req, res) => {
 });
 
 router.get('/explore', async (req, res) => {
-  Explore.find().populate('product').populate('trending').populate('exclusive').then(explore => {
+  Explore.find().populate('product').populate('trending').populate('exclusive').sort({ _id: -1 }).limit(1).then(explore => {
     res.status(201).json({ explore: explore[0] });
 
   });
