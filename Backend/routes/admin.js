@@ -69,7 +69,7 @@ router.post('/createProduct', (req, res) => {
 });
 
 router.get('/homepageInfo', async (req, res) => {
-  let homepage = (await HomePage.find({}).populate('FirstBlog').populate('SecondBlog').populate({ path: 'TopStories', populate: { path: 'authorId', select: 'about discription'}}).sort({ _id: -1 }).limit(1))[0];
+  let homepage = (await HomePage.find({}).populate('FirstBlog').populate('SecondBlog').populate({ path: 'TopStories', populate: { path: 'authorId', select: 'name about discription profileImage'}}).sort({ _id: -1 }).limit(1))[0];
   res.status(201).json({ home: homepage });
 });
 router.get("/allBlog", (req, res, next) => {
