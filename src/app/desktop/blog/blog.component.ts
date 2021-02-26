@@ -22,6 +22,7 @@ export class BlogComponent implements OnInit {
   private sub: any;
   data: any;
   UserComment: any = [];
+  Products = [];
   isNextComment = true;
   commentPage = 1;
   public slides = [
@@ -41,9 +42,11 @@ export class BlogComponent implements OnInit {
 
   ngOnInit() {
     this.route.data.subscribe(data => this.blog = data);
+    console.log(this.blog);
     this.slides = this.blog.blog.Blog.image;
     this.UserComment = this.blog.blog.Comment;
     this.likes = this.blog.blog.Blog.like;
+    this.Products = this.blog.blog.Blog.products;
     if (this.blog.blog.Blog.authorId.follower.indexOf(this.authService.id) > -1) {
       this.isFollowing = true;
     }
