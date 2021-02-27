@@ -9,7 +9,7 @@ const postRoutes = require("./routes/post");
 const adminRoute = require("./routes/admin");
 
 const app = express();
-
+mongoose.set('useFindAndModify', false);
 mongoose.connect(
   "mongodb://localhost:27017")
 .then(() => {

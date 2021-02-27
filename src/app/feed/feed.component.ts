@@ -19,6 +19,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
   elementPosition: any;
   hasNextpage: boolean;
   currentPage = 0;
+  trendingBlogger = [];
 
   constructor(public router: Router, private route: ActivatedRoute, public blogServie: BlogService, private http: HttpClient, public authService: AuthenticationService) {
 
@@ -36,7 +37,12 @@ export class FeedComponent implements OnInit, AfterViewInit {
       this.hasNextpage = data.blogs.hasNextPage;
       this.currentPage = this.currentPage + 1;
     });
+    this.http.get('http://localhost:3000/api/admin/topBlog').subscribe((blog: any) => {
+      this.trendingBlogger = blog;
+      console.log(blog);
+      console.log('HTTP Called');
 
+    });
   }
   ngAfterViewInit(){
     this.elementPosition = this.menuElement.nativeElement.offsetTop;

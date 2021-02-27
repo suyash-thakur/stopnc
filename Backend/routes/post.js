@@ -22,7 +22,7 @@ const mongoosePaginate = require('mongoose-paginate-v2');
    });
    var s3 = new aws.S3();
 router.get("/blogs:id", (req, res, next) => {
-  Blog.findById(req.params.id).populate('authorId').populate('products').then( blog => {
+  Blog.findOneAndUpdate({ _id: req.params.id }, { $inc: { click: 1 } }, {new: true}).populate('authorId').populate('products').then( blog => {
     if(blog) {
       Comment.find({'blog': req.params.id}).limit(5).populate('author').exec(function(err, comment) {
         if(err) {

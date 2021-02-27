@@ -154,5 +154,38 @@ router.get('/allUser', (req, res) => {
   });
 });
 
+router.get('/topBlog', (req, res) => {
+  // Blog.find({ isVerified: true }).distinct("authorId").sort({ click: "desc" }).populate('authorId').limit(5).then(blog => {
+  //   res.status(200).json(blog);
+  // });
+  Blog.aggregate([{ $match: { 'isVerified': true } },
+  {
+    $group: {
+      _id: '$id',
+      authorId: { "$first": "$authorId" },
+      clicks: {"$sum": "$click"}
+    }
+    },
+    { $sort: { clicks: 1 } },
+
+  {
+    $limit: 5
+  },
+  {
+    $lookup: {
+      from: 'users',
+      localField: 'authorId',
+      foreignField: '_id',
+      as: 'authorId'
+    }
+  },
+  {
+    $unwind: '$authorId',
+
+  }
+  ]).exec().then(blog => {
+    res.status(200).json(blog);
+  });
+});
 
 module.exports = router;

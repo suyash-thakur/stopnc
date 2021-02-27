@@ -88,20 +88,20 @@
     <div class="container-2 " style="" >
       <div class="Name" style="text-align:center; width: 100%">Trending Bloggers</div>
       <hr>
-      <div style="display: flex; flex-direction: column; justify-content: space-between; ">
-      <div style="display: flex; align-items: center;">
+      <div style="display: flex; flex-direction: column; justify-content: space-between; " *ngIf="trendingBlogger.length > 0">
+      <div style="display: flex; align-items: center;" *ngFor="let item of trendingBlogger; let i = index">
         <div class="head" style="padding-left: 0px; padding-right: 10px; font-size: 40px; margin-top: 10px;">
-          1
+          {{ i + 1 }}
         </div>
         <div>
-          <img src="../../assets/final-1.png" style="border-radius: 50%; border: 2px solid #2d4a86">
+          <img [src]="item.authorId.profileImage" style="border-radius: 50%; width:50px; border: 2px solid #2d4a86">
         </div>
         <div style="margin-left: 10px;">
           <div class="Name">
-            Snapshot Winner
+            {{ item.authorId.name }}
             </div>
             <div class="blogTitle" >
-              Fashion Enthusiast | Entrepreneur
+             {{ item.authorId.about }}
             </div>
         </div>
       </div>
