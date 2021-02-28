@@ -81,6 +81,13 @@ export class FeedComponent implements OnInit, AfterViewInit {
     }
 
   }
+  productClick(id) {
+    var win = window.open(this.trendingProduct[id].link, '_blank');
+    win.focus();
+    this.http.put('http://localhost:3000/api/blog/blogClick/' + this.trendingProduct[id]._id, {}).subscribe(responce => {
+      console.log(responce);
+    });
+  }
   @HostListener('window:scroll', ['$event'])
   handleScroll(){
     const windowScroll = window.pageYOffset;
