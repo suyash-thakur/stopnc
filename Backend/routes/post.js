@@ -7,6 +7,7 @@ const Blog  = require("../Model/Posts");
 const checkAuth = require("../middleware/check-auth");
 const uploadBlogPicture = require("../middleware/uploadblog");
 const Comment = require("../Model/Comment");
+const Product = require("../Model/Product");
 const router = express.Router();
 const aws = require('aws-sdk');
 const app = express();
@@ -247,6 +248,12 @@ router.post('/removeBlogImage',  (req, res) => {
   s3.deleteObject(params, function(err, data) {
     if (err) res.status(500).json({error: err});  // error
     else res.status(200).json({ message: 'deleted' });                // deleted
+  });
+});
+
+router.put('/blogClick/:id', (req, res) => {
+  Product.findOneAndUpdate({ _id: req.params.id }, { $inc: { 'click': 1 } }, { new: true }).then(products => {
+    res.status(200).json({ message: 'Product Clicked' });
   });
 });
 

@@ -189,4 +189,9 @@ export class BlogComponent implements OnInit {
     });
 
   }
+  onProductClicked(id) {
+    this.http.put('http://localhost:3000/api/blog/blogClick/' + id, {}).subscribe(responce => {
+      console.log(responce);
+    });
+  }
 }

@@ -139,7 +139,7 @@
 
     <div>
       <img [src]="Products[0].image[0]" style="width: 250px;">
-      <a [href]="Products[2].link" target="blank">
+      <a [href]="Products[0].link" target="blank" (click)="onProductClicked(Products[0]._id)">
       <div class="box">
         SHOP NOW
       </div>
@@ -147,7 +147,7 @@
     </div>
     <div>
       <img [src]="Products[1].image[0]" style="width: 250px;">
-      <a [href]="Products[2].link" target="blank">
+      <a [href]="Products[1].link" target="blank" (click)="onProductClicked(Products[1]._id)">
       <div class="box">
         SHOP NOW
       </div>
@@ -155,7 +155,7 @@
     </div>
     <div>
       <img [src]="Products[2].image[0]" style="width: 250px;">
-      <a [href]="Products[2].link" target="blank">
+      <a [href]="Products[2].link" target="blank" (click)="onProductClicked(Products[2]._id)">
       <div class="box">
         SHOP NOW
       </div>

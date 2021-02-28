@@ -20,6 +20,8 @@ export class FeedComponent implements OnInit, AfterViewInit {
   hasNextpage: boolean;
   currentPage = 0;
   trendingBlogger = [];
+  trendingProduct = [];
+  isProductLoaded = false;
 
   constructor(public router: Router, private route: ActivatedRoute, public blogServie: BlogService, private http: HttpClient, public authService: AuthenticationService) {
 
@@ -42,6 +44,11 @@ export class FeedComponent implements OnInit, AfterViewInit {
       console.log(blog);
       console.log('HTTP Called');
 
+    });
+    this.http.get('http://localhost:3000/api/admin/trendingProduct').subscribe((product:any) => {
+      console.log(product);
+      this.trendingProduct = product;
+      this.isProductLoaded = true;
     });
   }
   ngAfterViewInit(){

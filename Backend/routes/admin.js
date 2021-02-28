@@ -188,4 +188,10 @@ router.get('/topBlog', (req, res) => {
   });
 });
 
+router.get('/trendingProduct', (req, res) => {
+  Product.find({}).sort('-click').limit(3).then(product => {
+    res.status(200).json(product);
+  });
+});
+
 module.exports = router;
