@@ -3,30 +3,30 @@
     <div class="head">CAREFREE CASUAL</div>
     <br>
     <div class="story-container" style="width: 100%; transform: translateY(20px);" >
+      <div *ngIf="isFirstLoaded === true">
       <div style="display: flex; flex-flow: row; justify-content: flex-start; font-family: Regular; ">
-        <div style="font-size: 10px; color: #5D5D5D;">Casual</div><div style="width: 5px; height: 5px; background-color: #E97988; border: none; border-radius: 50%; margin-left: 5px; margin-right: 5px; transform: translateY(3px);"></div><div style="font-size: 10px; color: #5D5D5D;">3/31/2019</div>
+        <div style="font-size: 10px; color: #5D5D5D;">{{ firstBlog.tag }}</div><div style="width: 5px; height: 5px; background-color: #E97988; border: none; border-radius: 50%; margin-left: 5px; margin-right: 5px; transform: translateY(3px);"></div><div style="font-size: 10px; color: #5D5D5D;">{{ firstBlog.date | date:'shortDate' }}</div>
 
       </div>
       <div class="blogTitle">
         <b>
-        My Favorate Way To Wear Jeans This Summer.
+          {{ firstBlog.title }}
       </b>
       </div>
       <div style="display: flex; width: 100%; margin-top:10px;">
-        <div style="flex: 1; background-image: url('../../../../assets/ttt-rebelluxury_1.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover; height: 200px; border: 2px solid #5D5D5D; margin-right: 5px;">
 
-        </div>
-        <div style="flex: 1; background-image: url('../../../../assets/Golbourne-1-1044x1566.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover; height: 200px; border: 2px solid #5D5D5D; margin-left: 5px;">
+          <div  *ngFor="let item of firstBlog.image" style="flex: 1;  background-position: center; background-repeat: no-repeat; background-size: cover; height: 200px; border: 2px solid #5D5D5D; margin-right: 5px;" [ngStyle]="{ 'background-image': 'url(' + item + ')'}">
 
         </div>
       </div>
       <br>
-      <div  class="ReadNow">
+      <div  class="ReadNow" (click)="this.blogClick(firstBlog._id)">
         <div>
         READNOW
         </div>
       </div>
     </div>
+  </div>
   </div>
 </div>
 
@@ -36,24 +36,22 @@
     <br>
     <div class="story-container" style="width: 100%; margin-top: 10px; transform: translateY(20px);" >
       <div style="display: flex; flex-flow: row; justify-content: flex-start; font-family: Regular; ">
-        <div style="font-size: 10px; color: #5D5D5D;">Casual</div><div style="width: 5px; height: 5px; background-color: #E97988; border: none; border-radius: 50%; margin-left: 5px; margin-right: 5px; transform: translateY(3px);"></div><div style="font-size: 10px; color: #5D5D5D;">3/31/2019</div>
+        <div style="font-size: 10px; color: #5D5D5D;">{{ secondBlog.tag }}</div><div style="width: 5px; height: 5px; background-color: #E97988; border: none; border-radius: 50%; margin-left: 5px; margin-right: 5px; transform: translateY(3px);"></div><div style="font-size: 10px; color: #5D5D5D;">{{ secondBlog.date | date:'shortDate' }}</div>
 
       </div>
       <div class="blogTitle">
         <b>
-        My Favorate Way To Wear Jeans This Summer.
+          {{ secondBlog.title }}
       </b>
       </div>
       <div style="display: flex; width: 100%; margin-top:10px;">
-        <div style="flex: 1; background-image: url('../../../../assets/ttt-rebelluxury_1.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover; height: 200px; border: 2px solid #5D5D5D; margin-right: 5px;">
 
-        </div>
-        <div style="flex: 1; background-image: url('../../../../assets/Golbourne-1-1044x1566.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover; height: 200px; border: 2px solid #5D5D5D; margin-left: 5px;">
+        <div  *ngFor="let item of secondBlog.image" style="flex: 1;  background-position: center; background-repeat: no-repeat; background-size: cover; height: 200px; border: 2px solid #5D5D5D; margin-right: 5px;" [ngStyle]="{ 'background-image': 'url(' + item + ')'}">
 
-        </div>
       </div>
+    </div>
       <br>
-      <div  class="ReadNow">
+      <div  class="ReadNow" (click)="this.blogClick(secondBlog._id)">
         <div>
         READNOW
         </div>
@@ -66,20 +64,22 @@
     <div class="head">EDITOR'S PICK</div>
     <br>
     <div class="story-container" style="width: 100%; margin-top: 10px; transform: translateY(20px); " >
-      <div style="display: flex; align-items: center; margin-bottom: 10px; padding-bottom: 5px;" *ngFor="let item of carno">
-        <div style="flex: 2; background-image: url('../../../../assets/Golbourne-1-1044x1566.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover; height: 150px; border: 2px solid #5D5D5D; ">
+      <div *ngIf="isLoading === true;">
+      <div style="display: flex; align-items: center; margin-bottom: 10px; padding-bottom: 5px;" *ngFor="let item of exclusive" (click)="this.blogClick(item._id)">
+          <div style="flex: 2; background-position: center; background-repeat: no-repeat; background-size: cover; height: 150px; border: 2px solid #5D5D5D; " [ngStyle]="{ 'background-image': 'url(' + item.image[0] + ')'}">
 
         </div>
         <div style="flex: 3;">
           <div class="blogTitle" style="margin-left: 5px; font-size: 20px; ">
-            My Favorate Way To Wear Jeans This Summer.
+            {{item.title}}
           </div>
           <div class="discription" style="text-align: left; margin-left: 5px; color: #2d4a86; margin-top: 5px;">
-          by  Suyash Thakur
+          by  {{ item.author }}
           </div>
         </div>
         <hr>
       </div>
+    </div>
     </div>
   </div>
 </div>
@@ -87,50 +87,45 @@
   <div class="head" style=" margin-top: 30px;">TOP STORIES</div>
   <br>
   <div class="scrolling-wrapper">
-    <div class="card" style="margin-left: 10px; margin-right: 10px;" *ngFor="let item of carno">
+    <div class="card" style="margin-left: 10px; margin-right: 10px;" *ngFor="let item of topBlogs">
       <div class="story-container">
-        <div style="display: flex;">
+        <div style="display: flex;" *ngIf="isFirstLoaded === true">
           <div>
-            <img src="assets\final-1.png" alt="" style="width: 50px; height: 50px;">
+            <img [src]="item.authorId.profileImage" alt="" style="width: 50px; height: 50px;">
           </div>
           <div style="text-align: left !important; margin-top: auto; margin-bottom: auto;">
             <div class="Name">
-              Kevin Smith
+              {{ item.authorId.name }}
             </div>
             <div class="discription">
-              Blogger From NewZeland
+              {{ item.authorId.discription }}
             </div>
           </div>
           <div style=" align-items: center;
           justify-content: center; display:flex;">
-            <a>
-            <div class="follow-button">
-              <div>
-
-              Follow
-            </div>
+            <div style="width: 70px; height:50px">
 
             </div>
-          </a>
           </div>
         </div>
         <div  class="header-small">
-          The Denim Game
+          {{ item.title }}
+
         </div>
         <div>
           <div style="display: flex; flex-flow: row; justify-content: flex-start; font-family: Regular; ">
-            <div style="font-size: 10px; color: #5D5D5D;">Casual</div><div style="width: 7px; height: 7px; background-color: #E97988; border: none; border-radius: 50%; margin-left: 5px; margin-right: 5px; transform: translateY(2px);"></div><div style="font-size: 10px; color: #5D5D5D;">3/31/2019</div>
+            <div style="font-size: 10px; color: #5D5D5D;">{{ item.tag }}</div><div style="width: 7px; height: 7px; background-color: #E97988; border: none; border-radius: 50%; margin-left: 5px; margin-right: 5px; transform: translateY(2px);"></div><div style="font-size: 10px; color: #5D5D5D;">3/31/2019</div>
           </div>
       </div>
       <br>
         <div style="display: flex; align-items: center; justify-content: center;">
 
-          <div style="width: 100%; background-image: url('../../../assets/Uniqlo-x-J-W-Anderson-5-1044x1566.jpg'); background-repeat: no-repeat; background-position:center; background-size: cover; height: 400px;">
+          <div style="width: 100%; background-image: url('../../../assets/Uniqlo-x-J-W-Anderson-5-1044x1566.jpg'); background-repeat: no-repeat; background-position:center; background-size: cover; height: 400px;" [ngStyle]="{ 'background-image': 'url(' + item.image[0] + ')'}">
 
           </div>
         </div>
         <div style="display: flex; justify-content: center;">
-          <div class="read">
+          <div class="read" (click)="this.blogClick(item._id)">
             READ NOW
           </div>
         </div>
