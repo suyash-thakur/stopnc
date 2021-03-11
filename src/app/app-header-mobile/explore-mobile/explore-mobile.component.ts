@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -13,7 +14,19 @@ export class ExploreMobileComponent implements OnInit {
     { title: 'item 1' },
 
   ];
-  constructor() { }
+  isLoading = false;
+  products = [];
+  exclusive = [];
+  trending = [];
+  constructor(private http: HttpClient) {
+    this.http.get('http://localhost:3000/api/admin/explore').subscribe((res: any) => {
+      console.log(res);
+      this.products = res.explore.product;
+      this.exclusive = res.explore.exclusive;
+      this.trending = res.explore.trending;
+      this.isLoading = true;
+    });
+  }
 
   ngOnInit() {
   }
