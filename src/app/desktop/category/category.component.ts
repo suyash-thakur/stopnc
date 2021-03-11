@@ -15,6 +15,9 @@ export class CategoryComponent implements OnInit {
   hasNextpage: boolean;
   currentPage = 0;
   elementPosition: any;
+  trending = [];
+  isLoading = false;
+
   @ViewChild('stickyMenu', { static: false }) menuElement: ElementRef;
   categories = [
     { src: '../../../assets/casual.png', name: 'CAREFREE CASUAL' },
@@ -59,6 +62,12 @@ export class CategoryComponent implements OnInit {
 
     this.route.data.subscribe(data => this.blogs = data);
     console.log(this.blogs);
+    this.http.get('http://localhost:3000/api/admin/explore').subscribe((res: any) => {
+      console.log(res);
+
+      this.trending = res.explore.trending;
+      this.isLoading = true;
+    });
   }
   ngAfterViewInit(){
     this.elementPosition = this.menuElement.nativeElement.offsetTop;

@@ -14,6 +14,10 @@ export class CategoryMobileComponent implements OnInit {
   params: any;
   hasNextpage: boolean;
   currentPage = 0;
+  isLoading = false;
+  products = [];
+  exclusive = [];
+  trending = [];
   categories = [
     { src: '../../../assets/casual.png', name: 'CAREFREE CASUAL' },
     { src: '../../../assets/formal.png', name: 'FANTASTIC FORMAL' },
@@ -56,6 +60,13 @@ export class CategoryMobileComponent implements OnInit {
 
     this.route.data.subscribe(data => this.blogs = data);
     console.log(this.blogs);
+
+    this.http.get('http://localhost:3000/api/admin/explore').subscribe((res: any) => {
+      console.log(res);
+
+      this.trending = res.explore.trending;
+      this.isLoading = true;
+    });
   }
   blogClick(id) {
     this.router.navigate(['/blog', id]);

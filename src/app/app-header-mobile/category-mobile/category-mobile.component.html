@@ -77,95 +77,29 @@
 
     </div>
   </div>
-  <div style="justify-content: space-between; display: flex; overflow: visible;  width: 100%; padding: 5px;" >
-    <div class="container-2 " style="margin-top: 40px;   background: #ffffff; padding-left: 5px;" >
-      <div class="Name" style="text-align:center; width: 100%; font-size: 20px; margin-top:10px">Popular On {{params}}</div>
+  <div style="justify-content: center; display: flex; overflow: visible;  width: 100%; padding: 5px;" >
+    <div class="container-2 " style="margin-top: 40px; width:100%;  padding-left: 30px; padding-right: 30px; box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.16); background: #ffffff; padding-left: 5px;" >
+      <div class="Name" style="text-align:center; width: 100%; font-size: 20px; margin-top:10px">Popular</div>
       <hr style="margin-top:10px">
       <div style="display: flex; flex-direction: column; justify-content: space-between; ">
-      <div style="display: flex; align-items: center;">
+      <div style="display: flex; align-items: center;" *ngFor="let item of trending">
         <div class="head" style="padding-left: 0px; padding-right: 10px; font-size: 40px; margin-top: 10px;">
-          <img src="../../../assets/mustard-raven-bodycon-dress-in1913mtodreylw-129-front.png" style="width: 60px;">
+          <img [src]="item.image[0]" style="width: 60px;">
         </div>
 
         <div style="margin-left: 10px;">
           <div class="Name" style="font-size: 15px; text-align:left">
-            25 Bodysuit Outfits That’ll Make You Look (and Feel!) So Chic
+            {{item.title}}
             </div>
             <div class="blogTitle" style="font-size: 15px;">
-             - by snapshot winner
+             - by {{ item.author }}
             </div>
         </div>
       </div>
       <br>
-
-
-
     </div>
-    <div style="display: flex; flex-direction: column; justify-content: space-between; ">
-      <div style="display: flex; align-items: center;">
-        <div class="head" style="padding-left: 0px; padding-right: 10px; font-size: 40px; margin-top: 10px;">
-          <img src="../../../assets/mustard-raven-bodycon-dress-in1913mtodreylw-129-front.png" style="width: 60px;">
-        </div>
-
-        <div style="margin-left: 10px;">
-          <div class="Name" style="font-size: 15px; text-align:left">
-            25 Bodysuit Outfits That’ll Make You Look (and Feel!) So Chic
-            </div>
-            <div class="blogTitle" style="font-size: 15px;">
-             - by snapshot winner
-            </div>
-        </div>
-      </div>
-      <br>
-
-
-
-    </div>
-    <div style="display: flex; flex-direction: column; justify-content: space-between; ">
-      <div style="display: flex; align-items: center;">
-        <div class="head" style="padding-left: 0px; padding-right: 10px; font-size: 40px; margin-top: 10px;">
-          <img src="../../../assets/mustard-raven-bodycon-dress-in1913mtodreylw-129-front.png" style="width: 60px;">
-        </div>
-
-        <div style="margin-left: 10px;">
-          <div class="Name" style="font-size: 15px; text-align:left">
-            25 Bodysuit Outfits That’ll Make You Look (and Feel!) So Chic
-            </div>
-            <div class="blogTitle" style="font-size: 15px;">
-             - by snapshot winner
-            </div>
-        </div>
-      </div>
-      <br>
-
-
-
-    </div>
-    <div style="display: flex; flex-direction: column; justify-content: space-between; ">
-      <div style="display: flex; align-items: center;">
-        <div class="head" style="padding-left: 0px; padding-right: 10px; font-size: 40px; margin-top: 10px;">
-          <img src="../../../assets/mustard-raven-bodycon-dress-in1913mtodreylw-129-front.png" style="width: 60px;">
-        </div>
-
-        <div style="margin-left: 10px;">
-          <div class="Name" style="font-size: 15px; text-align:left">
-            25 Bodysuit Outfits That’ll Make You Look (and Feel!) So Chic
-            </div>
-            <div class="blogTitle" style="font-size: 15px;">
-             - by snapshot winner
-            </div>
-        </div>
-      </div>
-      <br>
-
-
-
-    </div>
-
-
   </div>
   </div>
   </div>
-  <br>
   <br>
 </div>

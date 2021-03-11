@@ -32,6 +32,7 @@ export class ExploreComponent implements OnInit , AfterViewInit{
       this.trending = res.explore.trending;
       this.isLoading = true;
     });
+
   }
 
   ngAfterViewInit(){

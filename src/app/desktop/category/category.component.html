@@ -100,70 +100,24 @@
         position: sticky;
         bottom: 0" #stickyMenu [class.stick] = "sticky">
           <div class="container-2 " style="" >
-            <div class="Name" style="text-align:center; width: 100%">Popular in {{ params }}</div>
+            <div class="Name" style="text-align:center; width: 100%">Popular</div>
             <hr>
-            <div style="display: flex; flex-direction: column; justify-content: space-between; ">
-            <div style="display: flex; align-items: center;">
+            <div style="display: flex; flex-direction: column; justify-content: space-between; " *ngIf="isLoading === true">
+            <div style="display: flex; align-items: center;" *ngFor="let item of trending">
               <div class="head" style="padding-left: 0px; padding-right: 10px; font-size: 40px; margin-top: 10px;">
-                <img src="../../../assets/mustard-raven-bodycon-dress-in1913mtodreylw-129-front.png" style="width: 60px;">
+                <img [src]="item.image[0]" style="width: 60px;">
               </div>
 
               <div style="margin-left: 10px;">
                 <div class="Name" style="font-size: 18px;">
-                  25 Bodysuit Outfits That’ll Make You Look (and Feel!) So Chic
+                  {{item.title}}
                   </div>
                   <div class="blogTitle" style="font-size: 15px;">
-                   - by snapshot winner
+                   - by {{ item.author }}
                   </div>
               </div>
+              <br>
             </div>
-            <br>
-            <div style="display: flex; align-items: center;">
-              <div class="head" style="padding-left: 0px; padding-right: 10px; font-size: 40px; margin-top: 10px;">
-                <img src="../../../assets/mustard-raven-bodycon-dress-in1913mtodreylw-129-front.png" style="width: 60px;">
-              </div>
-
-              <div style="margin-left: 10px;">
-                <div class="Name" style="font-size: 18px;">
-                  25 Bodysuit Outfits That’ll Make You Look (and Feel!) So Chic
-                  </div>
-                  <div class="blogTitle" style="font-size: 15px;">
-                   - by snapshot winner
-                  </div>
-              </div>
-            </div>
-            <br>
-
-            <div style="display: flex; align-items: center;">
-              <div class="head" style="padding-left: 0px; padding-right: 10px; font-size: 40px; margin-top: 10px;">
-                <img src="../../../assets/mustard-raven-bodycon-dress-in1913mtodreylw-129-front.png" style="width: 60px;">
-              </div>
-
-              <div style="margin-left: 10px;">
-                <div class="Name" style="font-size: 18px;">
-                  25 Bodysuit Outfits That’ll Make You Look (and Feel!) So Chic
-                  </div>
-                  <div class="blogTitle" style="font-size: 15px;">
-                   - by snapshot winner
-                  </div>
-              </div>
-            </div>
-            <br>
-            <div style="display: flex; align-items: center;">
-              <div class="head" style="padding-left: 0px; padding-right: 10px; font-size: 40px; margin-top: 10px;">
-                <img src="../../../assets/mustard-raven-bodycon-dress-in1913mtodreylw-129-front.png" style="width: 60px;">
-              </div>
-
-              <div style="margin-left: 10px;">
-                <div class="Name" style="font-size: 18px;">
-                  25 Bodysuit Outfits That’ll Make You Look (and Feel!) So Chic
-                  </div>
-                  <div class="blogTitle" style="font-size: 15px;">
-                   - by snapshot winner
-                  </div>
-              </div>
-            </div>
-            <br>
 
 
           </div>
