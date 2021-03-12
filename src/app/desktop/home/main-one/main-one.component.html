@@ -11,7 +11,11 @@
     </div>
   </div>
   <div class="space" style="background-color: #e19d9c;">
-    <div class="blogContainer1" style=" ">
+    <div class="blogContainer1" style=" " >
+      <div style="flex-grow: 1;">
+        <ngx-skeleton-loader count="10"  *ngIf="isFirstLoaded === false"   [theme]="{ 'min-width': '300px', 'width': '100%' }"></ngx-skeleton-loader>
+
+      </div>
       <div *ngIf="isFirstLoaded === true">
          <div style="flex-grow: 1; margin-left: 10px; margin-right: 10px;">
           <div style="display: flex; justify-content: flex-start; font-family: Regular;">
@@ -54,10 +58,14 @@
       </div>
     </div>
     <div class="space" style="background-color: #7bb0cf;">
-      <div *ngIf="isFirstLoaded === true">
-      <div class="blogContainer2" style=" ">
 
-           <div style="flex-grow: 1; margin-left: 10px; margin-right: 10px;">
+      <div >
+      <div class="blogContainer2" style=" ">
+        <div style="flex-grow: 1;">
+          <ngx-skeleton-loader count="10"  *ngIf="isFirstLoaded === false"   [theme]="{ 'min-width': '300px', 'width': '100%' }"></ngx-skeleton-loader>
+
+        </div>
+           <div style="flex-grow: 1; margin-left: 10px; margin-right: 10px;" *ngIf="isFirstLoaded === true">
             <div style="display: flex; justify-content: flex-start; font-family: Regular;">
               <div style="font-size: 20px; color: #5D5D5D;">{{ secondBlog.tag }}</div><div style="width: 10px; height: 10px; background-color: #E97988; border: none; border-radius: 50%; margin-left: 5px; margin-right: 5px; transform: translateY(7px);"></div><div style="font-size: 20px; color: #5D5D5D;">{{ secondBlog.date | date:'shortDate' }}</div>
             </div>
@@ -96,6 +104,16 @@
 
       <div style=" flex-grow: 3; display: flex; justify-content: space-evenly;">
         <div class="story-container">
+          <div *ngIf="isFirstLoaded === false" >
+            <div style="display: flex">
+                <ngx-skeleton-loader count="1"  appearance="circle"   [theme]="{ 'width': '60px', 'height': '60px' }"></ngx-skeleton-loader> <br>
+              </div>
+              <div style="display: flex">
+                <ngx-skeleton-loader count="13"  *ngIf="isFirstLoaded === false"   [theme]="{ 'min-width': '150px' }"></ngx-skeleton-loader>
+
+              </div>
+
+            </div>
           <div *ngIf="isFirstLoaded === true">
           <div style="display: flex;" >
             <div >
@@ -138,6 +156,16 @@
           </div>
         </div>
         <div class="story-container">
+          <div *ngIf="isFirstLoaded === false" >
+            <div style="display: flex">
+                <ngx-skeleton-loader count="1"  appearance="circle"   [theme]="{ 'width': '60px', 'height': '60px' }"></ngx-skeleton-loader> <br>
+              </div>
+              <div style="display: flex">
+                <ngx-skeleton-loader count="13"  *ngIf="isFirstLoaded === false"   [theme]="{ 'min-width': '150px' }"></ngx-skeleton-loader>
+
+              </div>
+
+            </div>
           <div *ngIf="isFirstLoaded === true">
             <div style="display: flex;" >
               <div >
@@ -180,6 +208,16 @@
             </div>
         </div>
         <div class="story-container">
+          <div *ngIf="isFirstLoaded === false" >
+            <div style="display: flex">
+                <ngx-skeleton-loader count="1"  appearance="circle"   [theme]="{ 'width': '60px', 'height': '60px' }"></ngx-skeleton-loader> <br>
+              </div>
+              <div style="display: flex">
+                <ngx-skeleton-loader count="13"  *ngIf="isFirstLoaded === false"   [theme]="{ 'min-width': '150px' }"></ngx-skeleton-loader>
+
+              </div>
+
+            </div>
           <div *ngIf="isFirstLoaded === true">
             <div style="display: flex;" >
               <div >

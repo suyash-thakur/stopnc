@@ -59,6 +59,7 @@ import { ExploreMobileComponent } from './app-header-mobile/explore-mobile/explo
 import { CategoryMobileComponent } from './app-header-mobile/category-mobile/category-mobile.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 @NgModule({
   declarations: [
     AppComponent,
@@ -126,7 +127,8 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
     NgbModule,
     NgxMasonryModule,
     NgMasonryGridModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    NgxSkeletonLoaderModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   {provide: AuthServiceConfig, useFactory: getAuthServiceConfigs}],

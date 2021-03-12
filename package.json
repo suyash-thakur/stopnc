@@ -56,6 +56,7 @@
     "ngx-infinite-scroll": "^10.0.1",
     "ngx-masonry": "^10.0.6",
     "ngx-quill": "^7.3.1",
+    "ngx-skeleton-loader": "^2.9.1",
     "passport": "^0.4.0",
     "passport-facebook-token": "^3.3.0",
     "passport-google-plus-token": "^2.1.0",
