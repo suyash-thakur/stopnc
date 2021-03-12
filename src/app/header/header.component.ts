@@ -24,7 +24,7 @@ export class HeaderComponent implements OnInit {
   ProfileImg = 'https://stopnc.s3.ap-south-1.amazonaws.com/profilepicture/icons8-male-user-100.png';
   NOtification: Array<any>;
   numberNot = 0;
-
+  isdataLoaded = false;
 
   constructor( public authService: AuthenticationService, public userData: UserDataService, private http: HttpClient,  private router: Router) {
     this.loggedin = this.authService.Userlogin;
@@ -71,7 +71,7 @@ signOut() {
           this.ProfileImg = val.profileImage;
 
         });
-
+        this.isdataLoaded = true;
       });
     }
   }

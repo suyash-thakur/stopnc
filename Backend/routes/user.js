@@ -6,7 +6,7 @@ const Comment = require("../Model/Comment");
 const Blog  = require("../Model/Posts");
 const upload = require("../middleware/upload");
 
-
+var redis = require('redis');
 const User  = require("../Model/user");
 const checkAuth = require("../middleware/check-auth");
 const { populate } = require("../Model/user");

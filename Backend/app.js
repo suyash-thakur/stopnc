@@ -7,7 +7,8 @@ const path = require("path");
 const userRoutes = require("./routes/user");
 const postRoutes = require("./routes/post");
 const adminRoute = require("./routes/admin");
-
+const redisClient = require("./helper/redisClient");
+const elasticClient = require("./helper/elasticClient");
 const app = express();
 mongoose.set('useFindAndModify', false);
 mongoose.connect(
@@ -18,7 +19,6 @@ mongoose.connect(
 .catch(() => {
     console.log("Connection failed!");
 });
-
 
 app.use(bodyParser.json({limit: "50mb"}));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true, parameterLimit:50000}));

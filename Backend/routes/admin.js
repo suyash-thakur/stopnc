@@ -10,6 +10,11 @@ const HomePage = require("../Model/HomePage");
 const uploadProductImage = require("../middleware/uploadProduct");
 const Explore = require('../Model/Explore');
 const router = express.Router();
+const redisClient = require("../helper/redisClient");
+const { promisify } = require('util');
+
+const GET_ASYNC = promisify(redisClient.get).bind(redisClient);
+const SET_ASYNC = promisify(redisClient.set).bind(redisClient);
 
 router.get('/countUser', async (req, res, next) => {
   User.countDocuments({}, function (err, count) {
@@ -69,8 +74,17 @@ router.post('/createProduct', (req, res) => {
 });
 
 router.get('/homepageInfo', async (req, res) => {
-  let homepage = (await HomePage.find({}).populate('FirstBlog').populate('SecondBlog').populate({ path: 'TopStories', populate: { path: 'authorId', select: 'name about discription profileImage'}}).sort({ _id: -1 }).limit(1))[0];
-  res.status(201).json({ home: homepage });
+  const cachedData = await GET_ASYNC('homepageInfo');
+  if (cachedData) {
+    console.log("using cache data");
+    var homepageCache = JSON.parse(cachedData);
+    res.status(201).json({ home: homepageCache });
+
+  } else {
+    let homepage = (await HomePage.find({}).populate('FirstBlog').populate('SecondBlog').populate({ path: 'TopStories', populate: { path: 'authorId', select: 'name about discription profileImage' } }).sort({ _id: -1 }).limit(1))[0];
+    const saveCacheData = await SET_ASYNC('homepageInfo', JSON.stringify(homepage), "EX", 86400);
+    res.status(201).json({ home: homepage });
+  }
 });
 router.get("/allBlog", (req, res, next) => {
   Blog.find().populate('authorId', 'name').then ( blog => {
@@ -136,10 +150,21 @@ router.post('/createExplore', (req, res) => {
 });
 
 router.get('/explore', async (req, res) => {
-  Explore.find().populate('product').populate('trending').populate('exclusive').sort({ _id: -1 }).limit(1).then(explore => {
-    res.status(201).json({ explore: explore[0] });
+  const cachedData = await GET_ASYNC('explore');
+  if (cachedData) {
+    console.log("using cache data");
+    var explorePageCache = JSON.parse(cachedData);
+    res.status(201).json({ explore: explorePageCache });
 
-  });
+
+  }
+  else {
+    let explore = (await Explore.find().populate('product').populate('trending').populate('exclusive').sort({ _id: -1 }).limit(1))[0];
+    const saveCacheData = await SET_ASYNC('explore', JSON.stringify(explore), "EX", 86400);
+    res.status(201).json({ explore: explore });
+  }
+
+
 });
 
 router.put('/verifyBlogger:id', (req, res) => {
@@ -154,38 +179,49 @@ router.get('/allUser', (req, res) => {
   });
 });
 
-router.get('/topBlog', (req, res) => {
+router.get('/topBlog', async (req, res) => {
   // Blog.find({ isVerified: true }).distinct("authorId").sort({ click: "desc" }).populate('authorId').limit(5).then(blog => {
   //   res.status(200).json(blog);
   // });
-  Blog.aggregate([{ $match: { 'isVerified': true } },
-  {
-    $group: {
-      _id: '$id',
-      authorId: { "$first": "$authorId" },
-      clicks: {"$sum": "$click"}
-    }
+  const cachedData = await GET_ASYNC('topBlog');
+  if (cachedData) {
+    console.log("using cache data");
+    var topBlogCache = JSON.parse(cachedData);
+    res.status(201).json(topBlogCache);
+
+
+  } else {
+    var blog = await Blog.aggregate([{ $match: { 'isVerified': true } },
+    {
+      $group: {
+        _id: '$id',
+        authorId: { "$first": "$authorId" },
+        clicks: { "$sum": "$click" }
+      }
     },
     { $sort: { clicks: 1 } },
 
-  {
-    $limit: 5
-  },
-  {
-    $lookup: {
-      from: 'users',
-      localField: 'authorId',
-      foreignField: '_id',
-      as: 'authorId'
+    {
+      $limit: 5
+    },
+    {
+      $lookup: {
+        from: 'users',
+        localField: 'authorId',
+        foreignField: '_id',
+        as: 'authorId'
+      }
+    },
+    {
+      $unwind: '$authorId',
+
     }
-  },
-  {
-    $unwind: '$authorId',
+    ]).exec();
+    const saveCacheData = await SET_ASYNC('topBlog', JSON.stringify(blog), "EX", 86400);
+    res.status(201).json(blog);
 
   }
-  ]).exec().then(blog => {
-    res.status(200).json(blog);
-  });
+
 });
 
 router.get('/trendingProduct', (req, res) => {

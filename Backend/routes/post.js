@@ -12,6 +12,8 @@ const router = express.Router();
 const aws = require('aws-sdk');
 const app = express();
 const dotenv = require('dotenv');
+var redis = require('redis');
+
 const mongoosePaginate = require('mongoose-paginate-v2');
 
    dotenv.config();
