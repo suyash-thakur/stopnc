@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate-v2');
+var mongoosastic = require('mongoosastic');
+
   var Schema = mongoose.Schema;
 
   var blogSchema = new Schema({
@@ -16,5 +18,6 @@ const mongoosePaginate = require('mongoose-paginate-v2');
     products: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
     click: {type: Number, default: 0 }
   });
+blogSchema.plugin(mongoosastic);
 blogSchema.plugin(mongoosePaginate);
   module.exports = mongoose.model('Post', blogSchema);

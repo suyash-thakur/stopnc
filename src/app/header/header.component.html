@@ -86,7 +86,7 @@
           <p class="nav-text text-center"><a class="nav-link" [routerLink]="['/explore']">DISCOVER</a></p>
         </div>
         <div>
-          <input type="text" placeholder="Search...">
+          <input type="text" placeholder="Search..." [(ngModel)]="query" (keydown.enter)="search();false">
         </div>
         <div class='dropdown' *ngIf="isdataLoaded === true">
           <a href="" class=" " id="dropdownMenuButton" data-toggle="dropdown" (click)="notificationClick()">

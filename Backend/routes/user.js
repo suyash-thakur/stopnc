@@ -10,6 +10,7 @@ var redis = require('redis');
 const User  = require("../Model/user");
 const checkAuth = require("../middleware/check-auth");
 const { populate } = require("../Model/user");
+const Posts = require("../Model/Posts");
 
 
 const router = express.Router();
@@ -226,5 +227,26 @@ router.post('/uploadProfileImage:id', upload.array('image', 1),  async (req, res
 
 });
 
+router.get("/searchBlog/:search/:page", (req, res) => {
+  queryString = req.params.search;
+  page = req.params.page;
+  Posts.search({
+    query_string: {
+      query: queryString
+    }
+  },
+  {
+    from: 15*page,
+    size: 15,
+    hydrate: true
+    }, function (err, results) {
+    if (err) {
+      res.status(501).json(err);
+      return;
+    }
+    res.status(200).json(results);
+}
+  )
+})
 
 module.exports = router;

@@ -25,6 +25,7 @@ export class HeaderComponent implements OnInit {
   NOtification: Array<any>;
   numberNot = 0;
   isdataLoaded = false;
+  query: any;
 
   constructor( public authService: AuthenticationService, public userData: UserDataService, private http: HttpClient,  private router: Router) {
     this.loggedin = this.authService.Userlogin;
@@ -93,4 +94,10 @@ clickEachNotification(type, id) {
     this.router.navigate(['/user'], id);
   }
 }
+  search() {
+    console.log(this.query);
+    this.http.get('http://localhost:3000/api/user/searchBlog/' + this.query + '/' + 0).subscribe(res => {
+      console.log(res);
+    });
+  }
 }

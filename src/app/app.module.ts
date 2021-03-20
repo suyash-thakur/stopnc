@@ -60,6 +60,7 @@ import { CategoryMobileComponent } from './app-header-mobile/category-mobile/cat
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { SearchComponent } from './search/search.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -100,6 +101,7 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     ExploreComponent,
     ExploreMobileComponent,
     CategoryMobileComponent,
+    SearchComponent,
   ],
   imports: [
     BrowserModule,
