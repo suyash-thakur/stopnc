@@ -31,6 +31,7 @@ import { CategoryResolver } from './category.resolver';
 import { ExploreComponent } from './desktop/explore/explore.component';
 import { ExploreMobileComponent } from './app-header-mobile/explore-mobile/explore-mobile.component';
 import { CategoryMobileComponent } from './app-header-mobile/category-mobile/category-mobile.component';
+import { SearchComponent } from './search/search.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -48,7 +49,8 @@ const routes: Routes = [
   {path: 'create', component: CreateComponent, pathMatch: 'full'},
   {path: 'mobile/home', component: HomeMobileComponent, pathMatch: 'full'},
   {path: 'blog', component: BlogComponent},
-  {path: 'blog/:id', component: BlogComponent, resolve: {blog: APIResolver}},
+  { path: 'blog/:id', component: BlogComponent, resolve: { blog: APIResolver } },
+  { path: 'search/:query', component: SearchComponent},
   {path: 'mobile/blog', component: BlogMobileComponent},
   {path: 'mobile/blog/:id', component: BlogMobileComponent, resolve: {blog: APIResolver}},
   {path: 'feed', component: FeedComponent, resolve: {blogs: FeedResolver}},

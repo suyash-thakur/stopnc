@@ -235,18 +235,24 @@ router.get("/searchBlog/:search/:page", (req, res) => {
       query: queryString
     }
   },
-  {
-    from: 15*page,
-    size: 15,
-    hydrate: true
-    }, function (err, results) {
-    if (err) {
-      res.status(501).json(err);
-      return;
+    {
+      from: 15 * page,
+      size: 15,
+      hydrate: true
+    }, async function (err, results) {
+      if (err) {
+        res.status(501).json(err);
+        return;
+      }
+      userData = [];
+      for (var i = 0; i < results.hits.hits.length; i++) {
+        var user = await User.find({ _id: results.hits.hits[i].authorId }).select('name profileImage about').exec();
+        userData.push(user);
+      }
+      res.status(200).json({result: results, userData: userData});
     }
-    res.status(200).json(results);
-}
   )
-})
+});
+
 
 module.exports = router;

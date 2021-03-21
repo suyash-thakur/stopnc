@@ -96,8 +96,7 @@ clickEachNotification(type, id) {
 }
   search() {
     console.log(this.query);
-    this.http.get('http://localhost:3000/api/user/searchBlog/' + this.query + '/' + 0).subscribe(res => {
-      console.log(res);
-    });
+    this.router.navigate(['/search', this.query]);
+
   }
 }
