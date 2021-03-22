@@ -7,31 +7,31 @@
     <div class="row" >
       <div class="col-xs-2 col-sm-2 text-center" >
           <a (click)="close('toggle button')"
-            *ngIf="DisplayCategories && SearchInputEmpty && !inputInSecondarySearch">
+            *ngIf="DisplayCategories && SearchInputEmpty && !inputInSecondarySearch && !showResult ">
             <img class="toggle-bar " src="assets\RepeatGrid12.svg">
           </a>
           <a
             (click)="close('toggle button')"
-            *ngIf="!DisplayCategories || inputInSecondarySearch">
+            *ngIf="!DisplayCategories || inputInSecondarySearch || showResult">
             <img class="back-icon " src="assets\Repeat Grid 13.svg">
           </a>
       </div>
-    <div class="col-xs-8 col-sm-9" *ngIf="DisplayCategories && SearchInputEmpty && !inputInSecondarySearch">
+    <div class="col-xs-8 col-sm-9" *ngIf="DisplayCategories && SearchInputEmpty && !inputInSecondarySearch && !showResult">
       <input type="text" class="firstInput" placeholder="Search..."
         (focusin) = "focusoutHandler($event)"
         (focusout) = "focusinHandler($event)"
         (keyup)="onKey($event)"
     >
     </div>
-    <div class="col-xs-2 col-sm-2" *ngIf="DisplayCategories && SearchInputEmpty && !inputInSecondarySearch">
+    <div class="col-xs-2 col-sm-2" *ngIf="DisplayCategories && SearchInputEmpty && !inputInSecondarySearch && !showResult">
       <a *ngIf="userLogin" [routerLink]="['/mobile/user']" (click)="close('toggle button')"><img [src]="profileImg" class="profile"></a>
     </div>
-    <div class="col-sm-10 col-xs-9" *ngIf="!DisplayCategories || inputInSecondarySearch ">
+    <div class="col-sm-10 col-xs-9" *ngIf="!DisplayCategories || inputInSecondarySearch || showResult">
 
       <div class="Searchbar">
        <input type="text" placeholder="Search..."
           (focusin) = "focusoutHandler($event)" (focusout) = "focusinHandler($event)"
-          (keyup)="onKeySecond($event)" class="secondSearchbar"   appCustomAutoFocus #reference>
+          (keyup)="keyUp.next($event)" class="secondSearchbar"   appCustomAutoFocus #reference>
         <a (click)="reference.value=''; inputFocus();">  <img src="assets\RepeatGrid12.svg" alt="" class="cancelSearch" > </a>
       </div>
     </div>
@@ -40,8 +40,119 @@
 <hr>
 
 <p></p>
+<div *ngIf="showResult">
+  <h1 class="Name" style="margin-left: 10px;">{{ searchTearm }}</h1>
+  <hr style=" border-bottom: 2px; border-color: #2d4a86;">
+  <ul class="nav nav-tabs">
+    <li class="active "><a data-toggle="tab" href="#home" class="navigation-tab" style="padding-left: 20px;">Blogs</a>
+    </li>
+    <li><a data-toggle="tab" href="#menu1" class="navigation-tab">Profile</a></li>
+  </ul>
+  <div class="tab-content">
+    <div id="home" class="tab-pane fade in active" style="height: 100%; background-color: #f7f6f9;">
 
-<app-categories *ngIf="DisplayCategories && SearchInputEmpty" ></app-categories>
+      <br>
+      <br>
+      <div style="">
+        <h1 class="info" *ngIf="blogResults.length === 0">No Blogs To Show</h1>
+      </div>
+      <div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="250" (scrolled)="onScroll()"
+        infiniteScrollContainer=".my-sidenav-content" [fromRoot]="true" *ngIf="blogResults.length > 0">
+        <div class="" *ngFor="let item of blogResults; let i = index;" style="width: 100%; padding: 10px">
+          <div class="content">
+            <div style="flex: 1;">
+              <div class="blog-image" [ngStyle]="{ 'background-image': 'url(' + item.image[0] + ')'}">
+              </div>
+              <video class="blog-video" *ngIf="!checkIfImg(item.image[0])">
+                <source [src]="item.image[0]" type="video/mp4" style="object-fit: cover;">
+              </video>
+            </div>
+
+            <div style="flex: 1; padding-left: 5px; padding-bottom: 5px; padding-right: 5px;">
+              <div style="display: flex; justify-content: flex-start; align-items: center; margin-top: 5px;">
+                <div style="">
+                  <img [src]=" userDataArray[i][0].profileImage"
+                    style="width:35px; border-radius: 50%; border: 2px solid #2d4a86;">
+                </div>
+                <div style="margin-left: 5px;">
+                  <div class="Name" style="text-align: left;">
+                    {{ userDataArray[i][0].name }}
+                  </div>
+
+                </div>
+
+                </div>
+                <div class="head">
+                  <b>
+                    {{ item.title }}
+                  </b>
+                </div>
+                <div class="description" style="">
+                  {{ item.body | truncate: 230 }}
+                </div>
+                <br>
+                <div class="ReadNow" (click)="this.blogClick(item._id)">
+                  <div>
+                    READNOW
+                  </div>
+                </div>
+                </div>
+
+                </div>
+                </div>
+
+                </div>
+                </div>
+                <div id="menu1" class="tab-pane fade " style="">
+                  <div class="" style="padding: 10px;">
+                    <div style="justify-content: center; display: flex; overflow: visible;">
+                      <div style="">
+                        <br>
+                        <br>
+                        <h1 class="info" *ngIf="userResult.length === 0">No Profile To Show</h1>
+                      </div>
+                      <div class="" style="justify-content: flex-start; display: flex; overflow: visible;" infiniteScroll
+                        [infiniteScrollDistance]="2" [infiniteScrollThrottle]="250" (scrolled)="onScroll2()"
+                        *ngIf="userResult.length > 0">
+                        <div class="" *ngFor="let item of userResult; let i = index;" style="width: 100%; padding: 10px">
+                          <div class="content" style="min-height: 0px; height: inherit; align-items: center;">
+                            <div (click)="userClick(item._id)">
+                              <img [src]="item.profileImage" style="width: 60px; border-radius: 50%;">
+                            </div>
+                            <div style="flex-grow: 1;">
+                              <div class="Name" style="font-size: 20px;">
+                                {{ item.name }}
+                              </div>
+                              <div class="blogTitle" style="font-size: 15px;">
+                                {{ item.about }}
+
+                              </div>
+                            </div>
+                            <div style="margin-right: 10px;">
+                              <div class="follow-button-sec" (click)="onUnFollow(item._id)" *ngIf="isFollowing(item._id)">
+                                <div>
+
+                                  Following
+                                </div>
+
+                              </div>
+                              <div class="follow-button" (click)="onFollow(item._id)" *ngIf="!isFollowing(item._id)">
+                                <div>
+
+                                  Follow
+                                </div>
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </div>
+                </div>
+                <app-categories *ngIf="DisplayCategories && SearchInputEmpty && !showResult"></app-categories>
   </mat-sidenav>
 
     <mat-sidenav-content class="my-sidenav-content">
@@ -54,7 +165,7 @@
                   <a (click)="sidenav.open()" class="toggle-bar" style="margin-top:5px"><img src="assets\Repeat Grid 11.svg" alt="" ></a>
               </div>
             </div>
-              <div class="head" >
+              <div class="head" style="margin-top: 0px;">
                 <h1 class="text-center tittle">STOPNC</h1>
               </div>
               <div class="navitem navbar">

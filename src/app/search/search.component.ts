@@ -43,6 +43,9 @@ export class SearchComponent implements OnInit {
   blogClick(id) {
     this.router.navigate(['/blog', id]);
   }
+  userClick(id) {
+    this.router.navigate(['/user', id]);
+  }
   checkIfImg(url) {
     let ext = url.split('.').pop();
     if (ext === 'jpg' || ext === 'png' || ext === 'jpeg') {

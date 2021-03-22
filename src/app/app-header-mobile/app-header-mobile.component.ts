@@ -8,7 +8,8 @@ import { AuthenticationService } from '../services/authentication.service';
 import { User } from '../models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { UserDataService } from '../services/user-data.service';
-
+import {Observable, of, Subject} from 'rxjs';
+import {debounceTime, delay, distinctUntilChanged, flatMap, map, tap} from 'rxjs/operators';
 @Component({
   selector: 'app-mobile',
   templateUrl: './app-header-mobile.component.html',
@@ -24,9 +25,50 @@ export class AppHeaderMobileComponent implements OnInit, AfterViewInit {
   NOtification: Array<any>;
   profileImg = '';
   numberNot = 0;
+  userDataArray = [];
+  userResult = [];
+  following = [];
+  page = 1;
+  page2 = 1;
+  blogResults = [];
+  showResult = false;
+  searchTearm: any;
+  scrollMore = true;
+  scrollMore2 = true;
+  public keyUp = new Subject<string>();
+
   constructor(public authService: AuthenticationService, private router: Router, private http: HttpClient, public userData: UserDataService) {
 
     this.userLogin = this.authService.Userlogin;
+    const subscription = this.keyUp.pipe(
+      map((event:any) => (<HTMLInputElement>event.target).value),
+      debounceTime(1000),
+      distinctUntilChanged(),
+      flatMap(search => of(search).pipe(delay(500)))
+    ).subscribe((data: any) => {
+      console.log(data);
+      if (data === "") {
+        this.showResult = false;
+
+      } else {
+        this.searchTearm = data;
+        this.showResult = true;
+        this.http.get('http://localhost:3000/api/user/searchBlog/' + data + '/' + 0).subscribe((res: any) => {
+          console.log(res);
+          this.blogResults = res.result.hits.hits;
+          this.userDataArray = res.userData;
+
+          this.scrollMore = true;
+        });
+        this.http.get('http://localhost:3000/api/user/searchUser/' + data + '/' + 0).subscribe((res: any) => {
+          this.userResult = res.result.hits.hits;
+          console.log( this.userResult);
+
+        });
+
+      }
+
+    });
   }
   reason = '';
   // Checks if Input Tag is in focus
@@ -51,6 +93,7 @@ export class AppHeaderMobileComponent implements OnInit, AfterViewInit {
     this.nameField.nativeElement.focus();
     this.SearchInputEmpty = true;
     this.inputInSecondarySearch = false;
+    this.showResult = false;
   }
 
   close(reason: string) {
@@ -96,16 +139,10 @@ export class AppHeaderMobileComponent implements OnInit, AfterViewInit {
   // Change the value of SearchInputEmpty to false when Input is typed and true When Input is reased
   onKey(event) {
     const inputValue = event.target.value;
-    if (inputValue === '') {
-      this.SearchInputEmpty = true;
-      this.displaySearchbar = false;
-      console.log('SearchInput' + this.SearchInputEmpty);
 
-    } else {
       this.SearchInputEmpty = false;
       this.displaySearchbar = true;
       console.log('SearchInput' + this.SearchInputEmpty);
-    }
   }
   // Change the value of variables when input is passed in second search bar
   onKeySecond(event) {
@@ -174,6 +211,74 @@ export class AppHeaderMobileComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.authService.setSidenav(this.sidenav);
   }
+  checkIfImg(url) {
+    let ext = url.split('.').pop();
+    if (ext === 'jpg' || ext === 'png' || ext === 'jpeg') {
+      return true;
+    } else if (ext === 'mp4' || ext === 'webm' || ext === 'ogg') {
+      return false;
+    } else {
+      return undefined;
+    }
+  }
+  onScroll() {
+    console.log("scroll");
+    if (this.scrollMore2 === true) {
+      this.http.get('http://localhost:3000/api/user/searchUser/' + this.searchTearm + '/' + this.page2).subscribe((res: any) => {
+        console.log(res);
+        if (res.result.hits.hits.length !== 0) {
+            this.blogResults.push(res.result.hits.hits);
+          this.userDataArray.push(res.userData);
+            this.page = this.page + 1;
+          } else {
+            this.scrollMore2 = false;
+          }
+
+          });
+    }
+
+  }
+
+  onScroll2() {
+    console.log("scroll");
+    if (this.scrollMore2 === true) {
+      this.http.get('http://localhost:3000/api/user/searchBlog/' + this.searchTearm + '/' + this.page).subscribe((res: any) => {
+        console.log(res);
+        if (res.result.hits.hits.length !== 0) {
+            this.userResult.push(res.result.hits.hits);
+            this.page2 = this.page2 + 1;
+          } else {
+            this.scrollMore2 = false;
+          }
+
+          });
+    }
+
+  }
+  onFollow(id) {
+    this.authService.follow(id);
+    this.following.push(id);
+  }
+  onUnFollow(id) {
+    this.authService.unfollow(id);
+    this.following.splice(id, 1);
+  }
+  isFollowing(id) : boolean {
+    if (this.following.indexOf(id) > -1) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  blogClick(id) {
+    this.router.navigate(['mobile/blog', id]);
+    this.sidenav.close();
+
+  }
+  userClick(id) {
+    this.router.navigate(['mobile/user', id]);
+  }
+
 }
 
 

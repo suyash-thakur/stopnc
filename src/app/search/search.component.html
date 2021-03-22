@@ -85,10 +85,10 @@
         <br>
         <div class="content-2" style="" *ngFor="let item of userResult">
           <div style="display: flex; align-items: center;">
-            <div>
+            <div (click)="userClick(item._id)">
               <img [src]="item.profileImage" style="width: 100px; border-radius: 50%;">
             </div>
-            <div>
+            <div (click)="userClick(item._id)">
               <div class="Name" style="font-size: 30px;">
                 {{ item.name }}
               </div>
