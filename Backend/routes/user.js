@@ -254,5 +254,27 @@ router.get("/searchBlog/:search/:page", (req, res) => {
   )
 });
 
+router.get("/searchUser/:search/:page", (req, res) => {
+  queryString = req.params.search;
+  page = req.params.page;
+  User.search({
+    query_string: {
+      query: queryString
+    }
+  },
+    {
+      from: 15 * page,
+      size: 15,
+      hydrate: true
+    }, async function (err, results) {
+      if (err) {
+        res.status(501).json(err);
+        return;
+      }
+
+      res.status(200).json({result: results});
+    }
+  )
+});
 
 module.exports = router;

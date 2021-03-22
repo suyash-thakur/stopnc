@@ -17,6 +17,15 @@ a {
   max-width: 900px;
   height: 600px;
 }
+.content-2 {
+  display: flex;
+  background: #ffffff;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.16);
+  margin-top: 20px;
+  max-width: 550px;
+  margin-left: 25px;
+  margin-bottom: 30px;
+}
 .Name {
   color: #2d4a86;
   font-family: Regular;
@@ -138,6 +147,40 @@ a {
   font-size: 25px;
   /* transform: translateX(-20px); */
   margin-top: 20px;
+}
+.follow-button {
+  display: flex;
+  border: 2px solid #2D4A86;
+  padding-left: 25px;
+  padding-right: 25px;
+  border-radius: 30px;
+  color: #2D4A86 !important;
+  font-family: Regular;
+  cursor: pointer !important;
+  margin-left: 25px;
+  font-size: 15px;
+  padding-top: 4px;
+
+
+}
+.follow-button-sec {
+  display: flex;
+  border: 2px solid #2D4A86;
+  padding-left: 25px;
+  padding-right: 25px;
+  border-radius: 30px;
+  color: #ffffff !important;
+  font-family: Regular;
+  cursor: pointer !important;
+  margin-left: 25px;
+  padding-top: 4px;
+  font-size: 15px;
+  background-color: #2D4A86;
+  padding-bottom: 2px;
+}
+
+.follow-button :hover {
+  cursor: pointer !important;
 }
 @media screen and (max-width: 600px) {
   .Name {

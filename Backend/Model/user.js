@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+var mongoosastic = require('mongoosastic');
+
 var Schema = mongoose.Schema;
 
 
@@ -17,7 +19,7 @@ const userSchema = mongoose.Schema({
   isRequestBlogger: { type: Boolean, default: false}
 
 });
-
+userSchema.plugin(mongoosastic);
 const User = mongoose.model('user', userSchema);
 
 

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-search',
@@ -11,10 +12,13 @@ export class SearchComponent implements OnInit {
   search: any;
   blogResults = [];
   userData = [];
+  userResult = [];
+  following = [];
   page = 1;
   scrollMore = true;
 
-  constructor(public router: Router, private route: ActivatedRoute, private http: HttpClient) { }
+  constructor(public router: Router, private route: ActivatedRoute, private http: HttpClient,
+    private authService: AuthenticationService) { }
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
@@ -25,6 +29,14 @@ export class SearchComponent implements OnInit {
         this.userData = res.userData;
         this.scrollMore = true;
       });
+      this.http.get('http://localhost:3000/api/user/searchUser/' + this.search + '/' + 0).subscribe((res: any) => {
+        console.log(res);
+      this.userResult = res.result.hits.hits;
+      });
+    });
+
+    this.authService.userData.subscribe(data => {
+      this.following = data.following;
     });
 
   }
@@ -57,7 +69,21 @@ export class SearchComponent implements OnInit {
           });
     }
 
+  }
+  onFollow(id) {
+    this.authService.follow(id);
+    this.following.push(id);
+  }
+  onUnFollow(id) {
+    this.authService.unfollow(id);
+    this.following.splice(id, 1);
+  }
+  isFollowing(id) : boolean {
+    if (this.following.indexOf(id) > -1) {
+      return true;
+    } else {
+      return false;
     }
-
+  }
 
 }

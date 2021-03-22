@@ -79,21 +79,53 @@
         </div>
       </div>
     </div>
-    <div id="menu1" class="tab-pane fade ">
-      <div style="display: flex; justify-content: center;">
-        <div class="content" style="width: 50%; display: block !important; margin-top: 50px; cursor: pointer;">
-
-          <div style="width: 100%;">
-            <div
-              style="display: flex; align-items: center; justify-content: center; margin-top: 40px; margin-bottom: 40px;">
-              <div>
-                <h1 class="info">No Responses To Show</h1>
+    <div id="menu1" class="tab-pane fade " style="min-height: 500px;">
+      <div style="">
+        <br>
+        <br>
+        <div class="content-2" style="" *ngFor="let item of userResult">
+          <div style="display: flex; align-items: center;">
+            <div>
+              <img [src]="item.profileImage" style="width: 100px; border-radius: 50%;">
+            </div>
+            <div>
+              <div class="Name" style="font-size: 30px;">
+                {{ item.name }}
               </div>
+              <div class="blogTitle" style="font-size: 20px;">
+                {{ item.about }}
+
+              </div>
+
+            </div>
+            <div>
+              <div class="follow-button-sec" (click)="onUnFollow(item._id)" *ngIf="isFollowing(item._id)">
+                <div>
+
+                  Following
+                </div>
+
+              </div>
+              <div class="follow-button" (click)="onFollow(item._id)" *ngIf="!isFollowing(item._id)">
+                <div>
+
+                  Follow
+                </div>
+
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+                  <div style="width: 100%;" *ngIf="userResult.length === 0">
+          <div
+            style="display: flex; align-items: center; justify-content: center; margin-top: 40px; margin-bottom: 40px;">
+            <div>
+              <h1 class="info">No Responses To Show</h1>
             </div>
           </div>
-          <br>
-          <br>
         </div>
-
       </div>
+      <br>
+      <br>
+
     </div>
