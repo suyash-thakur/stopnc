@@ -3,6 +3,10 @@
     <div class="head">CAREFREE CASUAL</div>
     <br>
     <div class="story-container" style="width: 100%; transform: translateY(20px);" >
+      <div style="flex-grow: 1;" *ngIf="isFirstLoaded === false">
+        <ngx-skeleton-loader count="10" [theme]="{  'width': '100%' }"></ngx-skeleton-loader>
+      
+      </div>
       <div *ngIf="isFirstLoaded === true">
       <div style="display: flex; flex-flow: row; justify-content: flex-start; font-family: Regular; ">
         <div style="font-size: 10px; color: #5D5D5D;">{{ firstBlog.tag }}</div><div style="width: 5px; height: 5px; background-color: #E97988; border: none; border-radius: 50%; margin-left: 5px; margin-right: 5px; transform: translateY(3px);"></div><div style="font-size: 10px; color: #5D5D5D;">{{ firstBlog.date | date:'shortDate' }}</div>
@@ -35,7 +39,12 @@
     <div class="head">SPORTY SPICE</div>
     <br>
     <div class="story-container" style="width: 100%; margin-top: 10px; transform: translateY(20px);" >
-      <div style="display: flex; flex-flow: row; justify-content: flex-start; font-family: Regular; ">
+      <div style="flex-grow: 1;" *ngIf="isFirstLoaded === false">
+        <ngx-skeleton-loader count="10" [theme]="{  'width': '100%' }"></ngx-skeleton-loader>
+      
+      </div>
+      <div *ngIf="isFirstLoaded === true">
+        <div style="display: flex; flex-flow: row; justify-content: flex-start; font-family: Regular; ">
         <div style="font-size: 10px; color: #5D5D5D;">{{ secondBlog.tag }}</div><div style="width: 5px; height: 5px; background-color: #E97988; border: none; border-radius: 50%; margin-left: 5px; margin-right: 5px; transform: translateY(3px);"></div><div style="font-size: 10px; color: #5D5D5D;">{{ secondBlog.date | date:'shortDate' }}</div>
 
       </div>
@@ -58,12 +67,17 @@
       </div>
     </div>
   </div>
+  </div>
 </div>
 <div style="display: flex; background-color:   #F9B1A5; justify-content: center;width: 100%; padding-top: 30px; ">
   <div style="width: 100%; text-align: center; padding: 5px; margin-top: 30px;">
     <div class="head">EDITOR'S PICK</div>
     <br>
     <div class="story-container" style="width: 100%; margin-top: 10px; transform: translateY(20px); " >
+      <div style="flex-grow: 1;" *ngIf="isFirstLoaded === false">
+        <ngx-skeleton-loader count="10" [theme]="{  'width': '100%' }"></ngx-skeleton-loader>
+      
+      </div>
       <div *ngIf="isLoading === true;">
       <div style="display: flex; align-items: center; margin-bottom: 10px; padding-bottom: 5px;" *ngFor="let item of exclusive" (click)="this.blogClick(item._id)">
           <div style="flex: 2; background-position: center; background-repeat: no-repeat; background-size: cover; height: 150px; border: 2px solid #5D5D5D; " [ngStyle]="{ 'background-image': 'url(' + item.image[0] + ')'}">
@@ -89,7 +103,34 @@
   <div class="scrolling-wrapper">
     <div class="card" style="margin-left: 10px; margin-right: 10px;" *ngFor="let item of topBlogs">
       <div class="story-container">
-        <div style="display: flex;" *ngIf="isFirstLoaded === true">
+        <div *ngIf="isFirstLoaded === false" style="max-width: 250px">
+          <div style="display: flex">
+            <ngx-skeleton-loader count="1" appearance="circle" [theme]="{ 'width': '60px', 'height': '60px' }">
+            </ngx-skeleton-loader> <br>
+          </div>
+          <div style="display: flex;">
+            <ngx-skeleton-loader count="1" [theme]="{ 'width': '250px' }">
+            </ngx-skeleton-loader>
+          </div>
+          <div style="display: flex;">
+            <ngx-skeleton-loader count="1" [theme]="{ 'width': '250px' }">
+            </ngx-skeleton-loader>
+          </div>
+          <div style="display: flex;">
+            <ngx-skeleton-loader count="1" [theme]="{ 'width': '250px' }">
+            </ngx-skeleton-loader>
+          </div>
+          <div style="display: flex;">
+            <ngx-skeleton-loader count="1" [theme]="{ 'width': '250px' }">
+            </ngx-skeleton-loader>
+          </div>
+          <div style="display: flex;">
+            <ngx-skeleton-loader count="1" [theme]="{ 'width': '250px' }">
+            </ngx-skeleton-loader>
+          </div>
+        </div>
+        <div *ngIf="isFirstLoaded === true">
+          <div style="display: flex;">
           <div>
             <img [src]="item.authorId.profileImage" alt="" style="width: 50px; height: 50px;">
           </div>
@@ -130,6 +171,7 @@
           </div>
         </div>
       </div>
+    </div>
     </div>
 
 
