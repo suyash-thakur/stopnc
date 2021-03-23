@@ -3,12 +3,12 @@
 
   <div style="display:flex; padding: 5px; overflow-x: hidden;">
 
-  <div class="content">
+  <div class="content" style="padding: 10px;">
     <div class="Name" style="">Trending On STOPNC</div>
     <br>
-    <div class="list-item" style="">
-      <div class="" style="text-align: left; margin-top: 15px" *ngFor="let item of trending; let i = index">
-        <div style="display:flex; width: 247px">
+    <div class="list-item">
+      <div class="margin" style="text-align: left; margin-top: 15px" *ngFor="let item of trending; let i = index">
+        <div style="display:flex; width: 247px;">
           <div style="flex: 1;">
             <p class="number" style="margin-top:auto; opacity: 0.4;  margin-top: -15px;">{{ i + 1 }}</p>
           </div>
@@ -34,58 +34,63 @@
     <div class="content" style="margin-top: 40px;">
       <div class="Name" style="">Shop Now</div>
       <br>
-      <div style="display: flex; justify-content: space-between;">
-        <div style="text-align:center;">
+      <div style=" justify-content: space-between;" class="row">
+        <div style="text-align:center; margin-top: 30px; padding-left:0px;" class="col-xs-6 col-sm-6 col-md-4">
           <img [src]="products[0].image" style="width: 130px">
           <div class="Name" style="font-size: 18px; margin-top: 10px; text-align: center !important;">
             {{ products[0].name }}
             </div>
+            <div style="width: 130px; margin: auto;">
             <a [href]="products[0].link " target="blank">
             <div class="shop">
               Shop Now
             </div>
             </a>
+            </div>
         </div>
-        <div style="text-align:center;">
+        <div style="text-align:center; margin-top: 30px; padding-left:0px;" class="col-xs-6 col-sm-6 col-md-4">
           <img [src]="products[1].image" style="width: 130px">
           <div class="Name" style="font-size: 18px; margin-top: 10px; text-align: center !important;">
             {{ products[1].name }}
             </div>
+            <div style="width: 130px; margin: auto;">
             <a [href]="products[1].link " target="blank">
             <div class="shop">
               Shop Now
             </div>
             </a>
+            </div>
         </div>
-
-      </div>
-      <br>
-      <br>
-      <div style="display: flex; justify-content: space-between;">
-        <div style="text-align:center;">
+        <div style="text-align:center; margin-top: 30px; padding-left:0px;" class="col-xs-6 col-sm-6 col-md-4">
           <img [src]="products[2].image" style="width: 130px">
           <div class="Name" style="font-size: 18px; margin-top: 10px; text-align: center !important;">
             {{ products[2].name }}
             </div>
+            <div style="width: 130px; margin: auto;">
             <a [href]="products[2].link " target="blank">
             <div class="shop">
               Shop Now
             </div>
             </a>
+            </div>
         </div>
-        <div style="text-align:center;">
+        <div style="text-align:center; margin-top: 30px; padding-left:0px;" class="col-xs-6 col-sm-6 col-md-4">
           <img [src]="products[3].image" style="width: 130px">
           <div class="Name" style="font-size: 18px; margin-top: 10px; text-align: center !important;">
             {{ products[3].name }}
             </div>
+            <div style="width: 130px; margin: auto;">
             <a [href]="products[3].link " target="blank">
             <div class="shop">
               Shop Now
             </div>
             </a>
+          </div>
         </div>
-
       </div>
+      <br>
+      <br>
+
       </div>
     </div>
     <div style="justify-content: space-between;  overflow: visible;  width: 100%; padding: 5px;" >
