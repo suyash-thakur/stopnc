@@ -3,6 +3,10 @@
     <div class="content">
       <div class="Name" style="margin-left:10px;">Trending On STOPNC</div>
       <br>
+      <div *ngIf="isLoading ===  false">
+        <ngx-skeleton-loader count="10" [theme]="{  'width': '100%' }"></ngx-skeleton-loader>
+
+      </div>
       <div class="" style="display:flex; margin: 0px; flex-wrap: wrap; justify-content:space-between" *ngIf="isLoading === true">
         <div class="" style="text-align: left; margin-top: 15px" *ngFor="let item of trending; let i = index">
           <div style="display:flex;">
@@ -32,6 +36,10 @@
     <div style="flex: 2; padding-left: 25px;">
       <div class="content" >
         <div class="Name" style="margin-left:10px;">Shop Now</div>
+        <div *ngIf="isLoading ===  false">
+          <ngx-skeleton-loader count="10" [theme]="{  'width': '100%' }"></ngx-skeleton-loader>
+
+        </div>
         <div *ngIf="isLoading === true">
         <br>
         <div style="display: flex; justify-content: space-between;">
@@ -119,7 +127,11 @@ bottom: 0" #stickyMenu [class.stick] = "sticky">
   <div class="container-2 " style="" *ngIf="isLoading === true">
     <div class="Name" style="text-align:center; width: 100%">Exclusive Posts</div>
     <hr>
-    <div style="display: flex; flex-direction: column; justify-content: space-between; ">
+    <div *ngIf="isLoading ===  false">
+      <ngx-skeleton-loader count="10" [theme]="{  'width': '100%' }"></ngx-skeleton-loader>
+
+    </div>
+    <div style="display: flex; flex-direction: column; justify-content: space-between; " *ngIf="isLoading ===  true">
     <div style="display: flex; align-items: center;" >
       <div class="head" style="padding-left: 0px; padding-right: 10px; font-size: 40px; margin-top: 10px;">
         <img [src]="exclusive[0].image[0]" style="width: 60px;">

@@ -17,6 +17,12 @@
   color: #2d4a86;
   font-family: Regular;
 }
+h1 {
+  font-family: Regular;
+  color: #2d4a86;
+  margin-top: 30px;
+  margin-bottom: 40px;
+}
 .date {
   font-family: Regular;
   color: #5d5d5d;
