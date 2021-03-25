@@ -146,6 +146,8 @@ autoAuthUser() {
       console.log(this.id);
     } else {
       console.log('error');
+      this.authStatusListener.next(false);
+
     }
 }
 getUser(id: string) {

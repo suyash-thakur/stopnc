@@ -21,6 +21,7 @@ export class UserInformationComponent implements OnInit {
   userBookmark: any = [];
   userId: any;
   isSameUser: boolean;
+  isloading = true;
 
   constructor(public userData: UserDataService, private http: HttpClient, public router: Router, private route: ActivatedRoute, public blogService: BlogService, public authService: AuthenticationService) {
     this.userId =  this.route.snapshot.paramMap.get('id');
@@ -35,6 +36,8 @@ export class UserInformationComponent implements OnInit {
     this.http.get('http://localhost:3000/api/blog/userBlog' + this.userId).subscribe((userBlog: any) => {
       this.Blogs = userBlog.Blog;
       console.log(this.Blogs);
+      this.isloading = false;
+
     });
     this.authService.userData.subscribe(user => {
       console.log(user);

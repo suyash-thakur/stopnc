@@ -24,6 +24,7 @@ export class BlogComponent implements OnInit {
   UserComment: any = [];
   Products = [];
   isNextComment = true;
+  isloggedin = false;
   commentPage = 1;
   public slides = [
 
@@ -41,6 +42,9 @@ export class BlogComponent implements OnInit {
    }
 
   ngOnInit() {
+    if (this.authService.id !== undefined) {
+      this.isloggedin = true;
+    }
     this.route.data.subscribe(data => this.blog = data);
     console.log(this.blog);
     this.slides = this.blog.blog.Blog.image;
@@ -61,18 +65,21 @@ export class BlogComponent implements OnInit {
     const data = {
       postId: this.blog.blog.Blog._id
     };
-    this.http.get('http://localhost:3000/api/user/getBookmark' + this.authService.id).subscribe(res => {
-      const data: any = res;
+    if (this.authService.id !== undefined) {
+      this.http.get('http://localhost:3000/api/user/getBookmark' + this.authService.id).subscribe(res => {
+        const data: any = res;
 
-    this.bookmarkList = data.bookmark.bookmarked;
-    if (this.bookmarkList.indexOf(this.blog.blog.Blog._id) > -1) {
-      this.isBookmarked = true;
-    } else {
-      this.isBookmarked = false;
+      this.bookmarkList = data.bookmark.bookmarked;
+      if (this.bookmarkList.indexOf(this.blog.blog.Blog._id) > -1) {
+        this.isBookmarked = true;
+      } else {
+        this.isBookmarked = false;
+      }
+
+
+      });
     }
 
-
-    });
   }
   onPreviousClick() {
     const previous = this.currentSlide - 1;

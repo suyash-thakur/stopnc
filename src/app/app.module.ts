@@ -33,6 +33,7 @@ import { UserCredentialsComponent } from './app-header-mobile/user-profile-mobil
 import { UserInformationComponent } from './app-header-mobile/user-profile-mobile/user-info/user-information/user-information.component';
 import { EditProfileComponent } from './desktop/user-profile/edit-profile/edit-profile.component';
 import { AuthInterceptor } from './auth-interceptor';
+import { ErrorHTTPInterceptor } from './error-interceptor';
 import { UserEditMobileComponent } from './app-header-mobile/user-profile-mobile/user-edit-mobile/user-edit-mobile.component';
 import {SocialLoginModule, AuthServiceConfig, GoogleLoginProvider} from 'angularx-social-login';
 import { getAuthServiceConfigs } from './socialLoginConfig';
@@ -133,6 +134,7 @@ import { SearchComponent } from './search/search.component';
     NgxSkeletonLoaderModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorHTTPInterceptor, multi: true },
   {provide: AuthServiceConfig, useFactory: getAuthServiceConfigs}],
   bootstrap: [AppComponent]
 })

@@ -158,7 +158,7 @@ router.post("/createBlog", checkAuth,  async function (req, res)  {
 });
 
 
-router.post("/comment:id", (req, res, next) => {
+router.post("/comment:id", checkAuth, (req, res, next) => {
   const comment = new Comment({
     body: req.body.body,
     author: req.body.postedBy,
@@ -176,7 +176,7 @@ router.post("/comment:id", (req, res, next) => {
     });
   });
 });
-router.put("/like:id", (req, res, next) => {
+router.put("/like:id", checkAuth, (req, res, next) => {
   Blog.findOneAndUpdate({_id: req.params.id},{$push: {like: req.body.userId}}).then( function(responce) {
     if (responce){
       let newNotification = new Notification({
@@ -206,7 +206,7 @@ router.put("/like:id", (req, res, next) => {
     });
   });
 });
-router.put("/Commentlike:id", (req, res, next) => {
+router.put("/Commentlike:id", checkAuth, (req, res, next) => {
   Comment.findOneAndUpdate({_id: req.params.id},{$push: {like: req.body.userId}}).then( function(responce) {
     if (responce){
       let newNotification = new Notification({
@@ -236,12 +236,12 @@ router.put("/Commentlike:id", (req, res, next) => {
   });
 });
 
-router.post('/uploadBlogImage', uploadBlogPicture.array('image', 7),  async (req, res) => {
+router.post('/uploadBlogImage', checkAuth, uploadBlogPicture.array('image', 7),  async (req, res) => {
   res.status(200).json({ image: 'https://stopnc.s3.ap-south-1.amazonaws.com/blogImage/'  + req.file});
 
 
 });
-router.post('/removeBlogImage',  (req, res) => {
+router.post('/removeBlogImage', checkAuth, (req, res) => {
   var params = {
     Bucket: 'stopnc',
     Key: req.body.key

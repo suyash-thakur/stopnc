@@ -96,7 +96,7 @@ router.post("/login",(req, res, next) => {
         });
     });
 });
-router.get("/userInfo:id",checkAuth, (req, res, next) => {
+router.get("/userInfo:id", (req, res, next) => {
  User.findById(req.params.id).populate({path: 'bookmarked', model: 'Post', populate: { path: 'authorId', model: 'user'}}).then(async function(user) {
    if (user) {
      const notification = await Notification.find({recipient: req.params.id}).populate("originId").populate('refId').exec();
@@ -160,7 +160,7 @@ router.get("/commentUser:id", (req, res, next) => {
 });
 
 
-router.put("/unlike:id", (req, res, next) => {
+router.put("/unlike:id", checkAuth, (req, res, next) => {
   Blog.findOneAndUpdate({_id: req.params.id},{$pull: {like: req.body.userId}}).then(responce => {
     if (res){
       res.status(201).json({
@@ -175,7 +175,7 @@ router.put("/unlike:id", (req, res, next) => {
 
   });
 });
-router.get("/getBookmark:id", checkAuth, (req, res, next) => {
+router.get("/getBookmark:id", (req, res, next) => {
   User.findOne({_id: req.params.id}, "bookmarked").then (result => {
     if (result) {
       res.status(200).json({bookmark: result});
@@ -186,7 +186,7 @@ router.get("/getBookmark:id", checkAuth, (req, res, next) => {
   });
 
 });
-router.get("/followers:id", checkAuth, (req, res) => {
+router.get("/followers:id", (req, res) => {
   User.findOne({ _id: req.params.id }, "follower").populate('follower').then(followers => {
     if (followers) {
       res.status(200).json({followers: followers});
@@ -196,7 +196,7 @@ router.get("/followers:id", checkAuth, (req, res) => {
     }
   });
 });
-router.get("/following:id", checkAuth, (req, res) => {
+router.get("/following:id", (req, res) => {
   User.findOne({ _id: req.params.id }, "following").populate('following').then(followers => {
     if (followers) {
       res.status(200).json({followers: followers});

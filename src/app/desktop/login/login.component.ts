@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     getScreenSize(event?) {
           this.screenWidth = window.innerWidth;
           if (this.screenWidth <= 920) {
-            this.router.navigate(['/mlogin']);
+            this.router.navigate(['/mobile/login']);
 
           }
     }

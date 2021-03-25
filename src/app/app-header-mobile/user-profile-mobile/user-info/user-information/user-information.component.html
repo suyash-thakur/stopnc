@@ -7,7 +7,7 @@
     <div class="tab-content">
       <div id="home" class="tab-pane fade in active" style="min-height: 90vh; padding: 10px;">
         <br>
-        <div *ngIf="Blogs.length > 0">
+        <div *ngIf="Blogs.length > 0 && isloading === false">
 
         <div class="content" *ngFor="let blog of Blogs">
           <div style="flex: 1; background-image: url(../../../../assets/Golbourne-1-1044x1566.jpg); background-size: cover;">
@@ -52,7 +52,7 @@
         <br>
       </div>
       <div id="menu1" class="tab-pane fade " style="min-height: 90vh; padding: 10px;">
-        <div *ngIf="Useromment.length > 0">
+        <div *ngIf="Useromment.length > 0 && isloading === false">
         <div style="display: flex; justify-content: center;" *ngFor="let item of Useromment">
           <div class="content" style="width: 90%; padding: 10px; display: block !important; margin-top: 20px; cursor: pointer;" (click)="blogClick(item.blog._id)">
             <div class="blogTitle" style="font-size: 18px;">
@@ -82,7 +82,7 @@
         </div>
         <div id="menu2" class="tab-pane fade " style="min-height: 90vh; padding: 10px;">
           <br>
-          <div *ngIf="userBookmark.length > 0">
+          <div *ngIf="userBookmark.length > 0 && isloading === false">
           <div class="content" *ngFor="let blog of userBookmark">
             <div style="flex: 1; background-image: url(../../../../assets/Golbourne-1-1044x1566.jpg); background-size: cover;">
 
