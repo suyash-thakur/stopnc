@@ -26,6 +26,7 @@ export class UserCredentialsComponent implements OnInit {
   Name = '';
   Blogs: any;
   isSameUser = false;
+  isLoading = true;
 
 
   constructor(public userData: UserDataService, public authService: AuthenticationService, public UserData: UserDataService, private http: HttpClient, private route: ActivatedRoute) {
@@ -60,7 +61,7 @@ export class UserCredentialsComponent implements OnInit {
       this.authService.follower = this.User.follower;
       this.authService.following = this.User.following;
 
-
+      this.isLoading = false;
 
 
     });
