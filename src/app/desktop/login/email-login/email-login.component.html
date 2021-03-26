@@ -7,11 +7,20 @@
 
       <div class="signup-container ">
           <h3 class="title">SIGNUP</h3>
+          <span class="text" *ngIf="isEmailValid === false" style="margin-bottom: 10px; color: #ae3733;">Enter Valid Email
+            <br></span>
+          <span class="text" *ngIf="isNameValid === false" style="margin-bottom: 10px; color: #ae3733;">Enter Valid Name
+            <br></span>
+          <span class="text" *ngIf="isPasswordValid === false"
+            style="margin-bottom: 10px; color: #ae3733;  word-wrap: break-word;">Password must contains
+            minimum eight characters, at least one letter and one number
+            <br></span>
           <div class="username-text-login">
             <span class="text side-text">FIRST NAME</span> <span class="text">LAST NAME</span>
           </div>
           <div class="input-field">
-            <span><input type="text" class="name-input" #firstname></span>  <span><input type="text" class="second-input name-input" #lastname></span>
+            <span><input type="text" class="name-input" #firstname pattern=""></span> <span><input type="text"
+                class="second-input name-input" #lastname></span>
           </div>
           <br>
           <span class="text email-text">EMAIL</span>
@@ -46,6 +55,9 @@
       <div class="vertical-line " ></div>
       <div class="login-container ">
           <h3 class="title">LOGIN</h3>
+          <span class="text" *ngIf="authService.wrongCred === true" style="margin-bottom: 10px; color: #ae3733;">Wrong Email Or
+            Password
+            <br></span>
           <span class="text email-text">EMAIL</span>
           <div class="input-field" >
             <input  name="email"  type="email" class="email-input"  required email #loginName>

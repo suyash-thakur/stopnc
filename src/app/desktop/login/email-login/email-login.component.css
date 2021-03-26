@@ -20,7 +20,6 @@
     right: 0;
     margin: auto;
     top: 10%;
-    height: 550px;
 }
 .cancel-icon {
   text-align: right;
@@ -55,6 +54,7 @@
 
   float: left;
   transform: translateY(-20px);
+  max-width: 356px;
 }
 .title {
   font-family: Enhance;

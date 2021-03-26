@@ -24,6 +24,7 @@ export class AuthenticationService {
   follower: any;
   following: any;
   notification: Array<any>;
+  wrongCred = false;
   private token: string;
   private authStatusListener = new Subject<boolean>();
   public userData = new Subject<any>();
@@ -70,6 +71,7 @@ login(email: string, password: string): Promise<any> {
 
         console.log(this.user.exp);
         this.id = this.user.userId;
+        this.wrongCred = false;
         console.log(this.user);
         console.log(this.id);
 
@@ -88,6 +90,7 @@ logout() {
   this.authStatusListener.next(false);
   this.clearAuthData();
   console.log('logout');
+  this.router.navigate(['/login']);
 }
 
 

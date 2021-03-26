@@ -25,19 +25,9 @@ export class LoginMobileComponent implements OnInit {
     .then((userData) => {
        // on success
        // this will return user data from google. What you need is a user token which you will send it to the server
-       this.userInfo = userData;
-       this.authenticationService.googleLogin(this.userInfo.id, this.userInfo.email, this.userInfo.name).then((data) => {
-         console.log(data);
-         this.authListenerSub = this.authenticationService.getauthStatusListener().subscribe(
-          isAuthenticated => {
-          this.loggedin = isAuthenticated;
-          console.log(this.loggedin);
-          if (this.loggedin) {
-            this.authenticationService.Userlogin = true;
-            this.router.navigate(['/']);
-          }
-        });
-       });
+      this.userInfo = userData;
+      this.authenticationService.googleLogin( this.userInfo.id, this.userInfo.email, this.userInfo.name);
+
        });
  }
  public facebookLogin() {
@@ -47,18 +37,8 @@ export class LoginMobileComponent implements OnInit {
           //this will return user data from facebook. What you need is a user token which you will send it to the server
           console.log(userData.email);
           this.userInfo = userData;
-          this.authenticationService.googleLogin(this.userInfo.id, this.userInfo.email, this.userInfo.name).then((data) => {
-            console.log(data);
-            this.authListenerSub = this.authenticationService.getauthStatusListener().subscribe(
-             isAuthenticated => {
-             this.loggedin = isAuthenticated;
-             console.log(this.loggedin);
-             if (this.loggedin) {
-               this.authenticationService.Userlogin = true;
-               this.router.navigate(['/']);
-             }
-           });
-          });
+          this.authenticationService.googleLogin( this.userInfo.id, this.userInfo.email, this.userInfo.name);
+
      }
   );
 }}

@@ -3,11 +3,12 @@ import {HttpEvent, HttpHandler, HttpInterceptor,HttpRequest,HttpResponse,HttpErr
 import {Observable, of, throwError} from "rxjs";
 import {catchError, map} from 'rxjs/operators';
 import { Router } from "@angular/router";
+import { AuthenticationService } from "./services/authentication.service";
 
 @Injectable()
 export class ErrorHTTPInterceptor implements HttpInterceptor {
 
-  constructor(public router: Router) {
+  constructor(public router: Router, public authService: AuthenticationService) {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -18,7 +19,10 @@ export class ErrorHTTPInterceptor implements HttpInterceptor {
         console.error(error);
         if (error.status === 401) {
           this.router.navigate(['/login']);
-      }
+        }
+        if (error.error.message === "Wrong Email") {
+          this.authService.wrongCred = true;
+        }
       return new Observable<HttpEvent<any>>();
       })
     )

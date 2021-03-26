@@ -116,8 +116,8 @@ router.post("/login",(req, res, next) => {
    User.findOne({ email: req.body.email })
     .then(user => {
          if (!user) {
-           return res.status(401).json({
-               message: "Auth failed"
+           return res.status(403).json({
+               message: "Wrong Email"
            });
          }
        fetchedUser = user;
@@ -125,8 +125,8 @@ router.post("/login",(req, res, next) => {
     })
     .then(result => {
       if(!result) {
-          return res.status(401).json({
-              message: "Auth failed"
+          return res.status(403).json({
+              message: "Wrong Email"
           });
       }
     const token = jwt.sign(
@@ -139,8 +139,8 @@ router.post("/login",(req, res, next) => {
      });
     })
     .catch(err => {
-        return res.status(401).json({
-            message: "Auth failed"
+        return res.status(403).json({
+            message: "Error Signing In"
         });
     });
 });
