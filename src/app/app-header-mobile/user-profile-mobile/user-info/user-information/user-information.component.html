@@ -10,10 +10,11 @@
         <div *ngIf="Blogs.length > 0 && isloading === false">
 
         <div class="content" *ngFor="let blog of Blogs">
-          <div style="flex: 1; background-image: url(../../../../assets/Golbourne-1-1044x1566.jpg); background-size: cover;">
+          <div style="flex: 1;  background-size: cover; background-position: center;"
+            [style.background-image]="'url(' + blog.image[0]  + ')'">
 
           </div>
-          <div style="flex: 1; padding-left: 5px; padding-bottom: 5px;">
+          <div style="flex: 1; padding: 10px; ">
             <div style="display: flex; justify-content: space-between; ">
               <div>
                 <div class="Name">
@@ -84,7 +85,7 @@
           <br>
           <div *ngIf="userBookmark.length > 0 && isloading === false">
           <div class="content" *ngFor="let blog of userBookmark">
-            <div style="flex: 1; background-image: url(../../../../assets/Golbourne-1-1044x1566.jpg); background-size: cover;">
+            <div style="flex: 1; background-size: cover;" [style.background-image]="'url(' + blog.image[0]  + ')'">
 
             </div>
             <div style="flex: 1; padding-left: 5px; padding-bottom: 5px;">

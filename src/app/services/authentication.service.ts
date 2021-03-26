@@ -45,9 +45,10 @@ export class AuthenticationService {
       const authData: AuthData = {email, password, name };
       this.http.post('http://localhost:3000/api/user/signup', authData)
     .subscribe(response => {
-        console.log(response);
-    });
+      console.log(response);
       return 'from first'; // return whatever you want not neccessory
+
+    });
   })());
 }
 
@@ -167,12 +168,25 @@ getToken() {
   return this.token;
 }
 
-async googleLogin( id: string, email: string, name: string ) {
+ googleLogin( id: string, email: string, name: string ) {
 
-  await this.createUser(email, id, name);
-  this.login(email, id).then((data) => {
-    console.log('email done' + data);
+  this.http.post('http://localhost:3000/api/user/userEmail', {email:email, password: id, name: name}).subscribe((data:any) => {
+    console.log(data);
+    const token = data.token;
+    this.token = token;
+    console.log(this.token);
+    this.authStatusListener.next(true);
+    this.Userlogin = true;
+    this.user = helper.decodeToken(token);
+    this.saveAuthData(token, this.user.exp);
+
+    console.log(this.user.exp);
+    this.id = this.user.userId;
+    console.log(this.user);
+    console.log(this.id);
+    this.router.navigate(['/']);
   });
+
 }
 
 follow(followerId) {

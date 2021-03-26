@@ -230,4 +230,13 @@ router.get('/trendingProduct', (req, res) => {
   });
 });
 
+router.get('/remove', async (req, res) => {
+  await redisClient.del('explore');
+  await redisClient.del('topBlog');
+
+  await redisClient.del('homepageInfo');
+
+  res.status(201).json({ message: 'Cache cleared' });
+
+})
 module.exports = router;
