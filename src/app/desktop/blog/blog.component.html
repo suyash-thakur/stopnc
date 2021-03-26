@@ -154,7 +154,7 @@
       </div>
       </a>
     </div>
-    <div>
+    <div *ngIf="Products[2] !== undefined">
       <img [src]="Products[2].image[0]" style="width: 250px;">
       <a [href]="Products[2].link" target="blank" (click)="onProductClicked(Products[2]._id)">
       <div class="box">

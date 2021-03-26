@@ -51,6 +51,8 @@ export class BlogComponent implements OnInit {
     this.UserComment = this.blog.blog.Comment;
     this.likes = this.blog.blog.Blog.like;
     this.Products = this.blog.blog.Blog.products;
+    console.log(this.Products);
+
     if (this.blog.blog.Blog.authorId.follower.indexOf(this.authService.id) > -1) {
       this.isFollowing = true;
     }

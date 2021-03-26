@@ -96,7 +96,7 @@ router.get("/allBlog", (req, res, next) => {
   });
 });
 router.get("/unverifiedBlog", (req, res, next) => {
-  Blog.find({isVerified: false}).populate('authorId', 'name').then ( blog => {
+  Blog.find({isVerified: false}).populate('authorId').then ( blog => {
     if(blog) {
       res.status(200).json(blog);
     } else {
