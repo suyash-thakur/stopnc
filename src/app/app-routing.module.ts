@@ -32,6 +32,7 @@ import { ExploreComponent } from './desktop/explore/explore.component';
 import { ExploreMobileComponent } from './app-header-mobile/explore-mobile/explore-mobile.component';
 import { CategoryMobileComponent } from './app-header-mobile/category-mobile/category-mobile.component';
 import { SearchComponent } from './search/search.component';
+import { MessageComponent } from './email-verification/message/message.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -62,6 +63,7 @@ const routes: Routes = [
   { path: 'explore', component: ExploreComponent },
   { path: 'mobile/explore', component: ExploreMobileComponent },
   { path: 'mobile/category/:name', component: CategoryMobileComponent, resolve: { blogs: CategoryResolver } },
+  { path: 'emailVerification', component: MessageComponent  }
 
 
 ];

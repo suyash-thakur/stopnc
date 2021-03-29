@@ -62,6 +62,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { SearchComponent } from './search/search.component';
+import { MessageComponent } from './email-verification/message/message.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -103,6 +104,7 @@ import { SearchComponent } from './search/search.component';
     ExploreMobileComponent,
     CategoryMobileComponent,
     SearchComponent,
+    MessageComponent,
   ],
   imports: [
     BrowserModule,

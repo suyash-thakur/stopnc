@@ -9,7 +9,6 @@ const postRoutes = require("./routes/post");
 const adminRoute = require("./routes/admin");
 const redisClient = require("./helper/redisClient");
 const elasticClient = require("./helper/elasticClient");
-const nev = require('email-verification')(mongoose);
 const app = express();
 mongoose.set('useFindAndModify', false);
 mongoose.connect(
@@ -20,26 +19,7 @@ mongoose.connect(
 .catch(() => {
     console.log("Connection failed!");
 });
-nev.configure({
-  verificationURL: 'http://myawesomewebsite.com/email-verification/${URL}',
-  persistentUserModel: User,
-  tempUserCollection: 'myawesomewebsite_tempusers',
 
-  transportOptions: {
-      service: 'Gmail',
-      auth: {
-          user: 'myawesomeemail@gmail.com',
-          pass: 'mysupersecretpassword'
-      }
-  },
-  verifyMailOptions: {
-      from: 'Do Not Reply <myawesomeemail_do_not_reply@gmail.com>',
-      subject: 'Please confirm account',
-      html: 'Click the following link to confirm your account:</p><p>${URL}</p>',
-      text: 'Please confirm your account by clicking the following link: ${URL}'
-  }
-}, function(error, options){
-});
 
 app.use(bodyParser.json({limit: "50mb"}));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true, parameterLimit:50000}));

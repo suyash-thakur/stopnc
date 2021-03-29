@@ -5,13 +5,21 @@ const Notification = require("../Model/Notification");
 const Comment = require("../Model/Comment");
 const Blog  = require("../Model/Posts");
 const upload = require("../middleware/upload");
-
+const cryptoRandomString = require('crypto-random-string');
 var redis = require('redis');
-const User  = require("../Model/user");
+const User = require("../Model/user");
+const Token = require("../Model/Token");
 const checkAuth = require("../middleware/check-auth");
 const { populate } = require("../Model/user");
 const Posts = require("../Model/Posts");
-
+var nodemailer = require('nodemailer');
+var sgTransport = require('nodemailer-sendgrid-transport');
+var options = {
+  auth: {
+      api_key: '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'
+  }
+}
+var mailer = nodemailer.createTransport(sgTransport(options));
 
 const router = express.Router();
 
@@ -36,30 +44,173 @@ router.put("/removebookmark:id", checkAuth, (req, res, next) => {
 
 });
 
-router.post("/signup", (req, res, next) => {
+router.post("/signup",  (req, res, next) => {
+  User.findOne({ email: req.body.email }, function (err, user) {
 
- bcrypt.hash(req.body.password, 10).then(hash => {
-   const user = new User({
-     name: req.body.name,
-     email: req.body.email,
-     password: hash,
-     discription: '',
-     about: ''
-   });
-   user
-     .save()
-     .then(result => {
-       res.status(201).json({
-         message: "User created!",
-         result: result
-       });
-     })
-     .catch(err => {
-       res.status(500).json({
-         error: err
-       });
-     });
+    if (user) {
+
+      res.status(400).send({ message: "Email Already Exist" });
+    } else {
+      console.log(req.body.email);
+
+      bcrypt.hash(req.body.password, 10).then(hash => {
+        const user = new User({
+          name: req.body.name,
+          email: req.body.email,
+          password: hash,
+          discription: '',
+          about: ''
+        });
+        user
+          .save()
+          .then(async (result) => {
+            const token = new Token({
+              userId: result._id,
+              token: cryptoRandomString({ length: 16 })
+            });
+            var tokenData = await token.save();
+            console.log(tokenData);
+            let email = {
+              from: 'contact.stopnc@gmail.com',
+              to: result.email,
+              subject: 'Email Verification STOPNC',
+              html: `<!DOCTYPE html>
+        <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        </head>
+        <body style="margin:0px; height: 100vh; background-image: url('https://res.cloudinary.com/diroilukd/image/upload/v1616968607/loginbackground_nvzyl9.png'); background-repeat: no-repeat; background-size:cover; width: 100%;">
+            <div  style="padding: 15px; ">
+            <div style="    background-color: #33AAAE;
+            box-shadow: -10px 10px 6px #888;
+            border-radius: 4px;
+            padding-top: 20px;
+            max-width: 700px;
+            width: 100%;
+            text-align: center;
+            bottom: initial;
+            margin: auto;
+            margin-top: 40px;
+            ">
+            <img src="https://res.cloudinary.com/diroilukd/image/upload/v1616969785/STOPNCStyle_Your_Everyday_Life_iwkpfu.png" style="width: 150px;">
+            <br>
+            <div style="color: #fefefe; text-align: center;  padding: 10px; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
+                <h1 >
+                    Let's Confirm Your Email Address !!
+                </h1>
+                <h5>
+                    By clicking the following link, you are conforming your email address
+                </h5>
+                <br>
+                <a href="${'http://localhost:4200/emailVerify/' + tokenData.userId + '/' + tokenData.token}" style="padding-top: 10px; padding-bottom: 15px; padding-left: 20px; padding-right: 20px; background-color: #2D4A86; border-radius: 40px; font-size: 20px; cursor: pointer;">
+                    Confirm Email
+                </a>
+                <br>
+                <br>
+            </div>
+            </div>
+        </div>
+            </body>
+
+        </html>`
+            }
+            mailer.sendMail(email, (err, info) => {
+              if (err) {
+                console.log(err);
+              }
+              console.log(info);
+            });
+            res.status(201).json({
+              message: "User created!",
+              result: result
+            });
+          })
+      });
+    }
+  }).catch(err => {
+  res.status(500).json({
+    error: err
+  });
+});
+});
+
+router.put('/verifyEmail/:id/:token', (req, res) => {
+  Token.findOne({ userId: req.params.id, token: req.params.token }, function (err, token) {
+    if (!token) {
+      res.status(400).json({ message: 'Cannot Verify' });
+    } else {
+      User.findOneAndUpdate({ _id: token.userId }, { emailVerified: true }, function (err, user) {
+        if (user) {
+          const token = jwt.sign(
+            {email: user.email, userId: user._id},
+           'letmein@26', {expiresIn: '365d'}
+         );
+          res.status(200).json({ message: 'Token Verified', token: token });
+        }
+        if (err) {
+          res.status(400).json({ message: 'Cannot Verify' });
+        }
+      });
+    }
+  });
+});
+
+router.post('/resendToken', async (req, res) => {
+  const token = new Token({
+    userId: req.body.userId,
+    token: cryptoRandomString({length: 16})
+  });
+  var tokenData = await token.save();
+  let email = {
+    from: 'contact.stopnc@gmail.com',
+    to: req.body.email,
+    subject: 'Email Verification STOPNC',
+    html: `<!DOCTYPE html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    </head>
+    <body style="margin:0px; height: 100vh; background-image: url('https://res.cloudinary.com/diroilukd/image/upload/v1616968607/loginbackground_nvzyl9.png'); background-repeat: no-repeat; background-size:cover; width: 100%;">
+        <div  style="padding: 15px; ">
+        <div style="    background-color: #33AAAE;
+        box-shadow: -10px 10px 6px #888;
+        border-radius: 4px;
+        padding-top: 20px;
+        max-width: 700px;
+        width: 100%;
+        text-align: center;
+        bottom: initial;
+        margin: auto;
+        margin-top: 40px;
+        ">
+        <img src="https://res.cloudinary.com/diroilukd/image/upload/v1616969785/STOPNCStyle_Your_Everyday_Life_iwkpfu.png" style="width: 150px;">
+        <br>
+        <div style="color: #fefefe; text-align: center;  padding: 10px; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
+            <h1 >
+                Let's Confirm Your Email Address !!
+            </h1>
+            <h5>
+                By clicking the following link, you are conforming your email address
+            </h5>
+            <br>
+            <a href="${'http://localhost:4200/emailVerify/'+ tokenData.userId + '/' + tokenData.token}" style="padding-top: 10px; padding-bottom: 15px; padding-left: 20px; padding-right: 20px; background-color: #2D4A86; border-radius: 40px; font-size: 20px; cursor: pointer;">
+                Confirm Email
+            </a>
+            <br>
+            <br>
+        </div>
+        </div>
+    </div>
+        </body>
+
+    </html>`
+  }
+  mailer.sendMail(email, (err, info) => {
+   if (err) {
+     console.log(err);
+   }
  });
+  res.status(201).json({
+    message: "Token Send",
+  });
 });
 
 router.post('/userEmail', (req, res) => {
@@ -98,7 +249,9 @@ router.post('/userEmail', (req, res) => {
              'letmein@26', {expiresIn: '365d'}
            );
            res.status(200).json({
-               token: token
+             token: token,
+             result: result
+
            });
           })
       });
@@ -109,7 +262,32 @@ router.post('/userEmail', (req, res) => {
   )
 });
 router.post('/socialAuth', (req, res) => {
-
+  bcrypt.hash(req.body.password, 10).then(hash => {
+    const user = new User({
+      name: req.body.name,
+      email: req.body.email,
+      password: hash,
+      discription: '',
+      about: '',
+      emailVerified: true
+    });
+    user
+      .save()
+      .then(result => {
+        const token = jwt.sign(
+          {email: result.email, userId: result._id},
+         'letmein@26', {expiresIn: '365d'}
+       );
+       res.status(200).json({
+           token: token,
+       });
+      })
+      .catch(err => {
+        res.status(500).json({
+          error: err
+        });
+      });
+  });
 });
 router.post("/login",(req, res, next) => {
    let fetchedUser;

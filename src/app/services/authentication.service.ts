@@ -45,10 +45,12 @@ export class AuthenticationService {
       // code here
       const authData: AuthData = {email, password, name };
       this.http.post('http://localhost:3000/api/user/signup', authData)
-    .subscribe(response => {
+    .subscribe((response:any) => {
       console.log(response);
+      localStorage.setItem('isVerfied', 'false');
+      localStorage.setItem('emailVerify', response.result.email);
+      localStorage.setItem('idVerify', response.result._id);
       return 'from first'; // return whatever you want not neccessory
-
     });
   })());
 }
@@ -173,7 +175,7 @@ getToken() {
 
  googleLogin( id: string, email: string, name: string ) {
 
-  this.http.post('http://localhost:3000/api/user/userEmail', {email:email, password: id, name: name}).subscribe((data:any) => {
+  this.http.post('http://localhost:3000/api/user/socialAuth', {email:email, password: id, name: name}).subscribe((data:any) => {
     console.log(data);
     const token = data.token;
     this.token = token;

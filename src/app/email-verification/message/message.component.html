@@ -1,0 +1,26 @@
+<div class="background">
+  <div class="container">
+    <div class="cancel-icon"><a [routerLink]="['/']" routerLinkActive=""><img src="assets\RepeatGrid12.svg" alt=""></a>
+    </div>
+    <h1 class="header">Verify Email</h1>
+    <br>
+    <br>
+    <div class="text">
+      An email was sent to {{ email }}. Conform your email to sign up.
+    </div>
+    <br>
+    <div class="button" *ngIf="!isResend">
+      <a (click)="resend()">
+        <div class="signup-button">
+          Resend
+        </div>
+      </a>
+    </div>
+    <div class="text" *ngIf="isResend" style="color: #fefefe; font-size: 23px;">
+      <br>
+      Email Sent
+    </div>
+    <br>
+    <br>
+  </div>
+</div>
