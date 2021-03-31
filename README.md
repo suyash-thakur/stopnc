@@ -8,8 +8,10 @@ This is a social media blogging platform where user can follow other bloggers to
 2. Install all the dependencies using `npm i` command.
 3. Start the front-end server using `ng serve` command. Front-end will be served at http://localhost:4200
 4. Initialize the database server using mongocli at  http://localhost:27017
-5. Start the back-end server using `node server` command. Back-end will be served at http://localhost:3000
-6. Go to http://localhost:4200 using a web browser
+5. Initialize elasticSearch Client.
+6. Initialize Redis Client.
+7. Start the back-end server using `node server` command. Back-end will be served at http://localhost:3000
+8. Go to http://localhost:4200 using a web browser
 
 ## How to write a blog
 
@@ -17,7 +19,7 @@ This is a social media blogging platform where user can follow other bloggers to
 2. Open the dropdown by clicking on the profile icon at top right of the navigation bar.
 3. Select `become a blogger`
 4. Write your blog using the editor
-5. Upload some relevant images
+5. Upload some relevant images or videos
 6. Click on `save` to publish your blog.
 
 ## How to edit your profile
@@ -33,6 +35,10 @@ This is a social media blogging platform where user can follow other bloggers to
 - A user can bookmark any blog.
 - A user can edit their profile.
 - A user can follow/unfollow other users.
+- A user can search other users and blogs.
+- A user can upload image or video in the blog.
+- A user can sort blog according to the categories.
+
 
 ## Features
 -Notification
@@ -96,10 +102,7 @@ This is a social media blogging platform where user can follow other bloggers to
 
  
 ## Future Features
-- Adding categories to the blog
-- Personalized feed according the the user's interest
-- Adding catching layer to the backend using redis
-- Searching blogs using elastic-search.
+- Personalized feed according the the user's interest.
 
 ## What the app looks like 
 ![Home Page](https://github.com/suyash-thakur/stopnc/blob/master/homepage.png)
