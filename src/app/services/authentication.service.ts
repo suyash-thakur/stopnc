@@ -92,6 +92,7 @@ login(email: string, password: string): Promise<any> {
         if (response.message === 'Token Verified') {
           const token = response.token;
           this.token = token;
+          localStorage.setItem('isVerfied', 'true');
           console.log(this.token);
           this.authStatusListener.next(true);
           this.user = helper.decodeToken(token);

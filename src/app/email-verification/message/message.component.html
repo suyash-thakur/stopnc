@@ -5,8 +5,11 @@
     <h1 class="header">Verify Email</h1>
     <br>
     <br>
-    <div class="text">
+    <div class="text" *ngIf="!isAlreadyVerified">
       An email was sent to {{ email }}. Conform your email to sign up.
+    </div>
+    <div class="text" *ngIf="isAlreadyVerified">
+      Email already verified.
     </div>
     <br>
     <div class="button" *ngIf="!isResend">

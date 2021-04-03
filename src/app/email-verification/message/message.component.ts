@@ -11,6 +11,7 @@ export class MessageComponent implements OnInit {
   email: any = '';
   userId: any;
   isResend = false;
+  isAlreadyVerified = false;
 
   constructor(private http: HttpClient) { }
 
@@ -25,11 +26,16 @@ export class MessageComponent implements OnInit {
 
   }
   resend() {
-    this.http.post('http://localhost:3000/api/user/resendToken', { userId: this.userId, email: this.email }).subscribe((res:any) => {
-      console.log(res);
-      if (res.message === "Token Send") {
-        this.isResend = true;
-      }
-    });
+    let isVerified = localStorage.getItem('isVerfied');
+    if (isVerified === 'false') {
+      this.http.post('http://localhost:3000/api/user/resendToken', { userId: this.userId, email: this.email }).subscribe((res: any) => {
+        console.log(res);
+        if (res.message === "Token Send") {
+          this.isResend = true;
+        }
+      });
+    } else {
+      this.isAlreadyVerified = true;
+    }
   }
 }

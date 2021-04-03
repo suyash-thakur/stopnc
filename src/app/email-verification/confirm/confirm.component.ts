@@ -13,6 +13,7 @@ export class ConfirmComponent implements OnInit {
   email: any = '';
   userId: any;
   token: any;
+  isAlreadyVerified = false;
   constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router,
               private authService: AuthenticationService) { }
 
@@ -26,11 +27,17 @@ export class ConfirmComponent implements OnInit {
     });
   }
   resend() {
-    this.http.post('http://localhost:3000/api/user/resendToken', { userId: this.userId, email: this.email }).subscribe((res: any) => {
-      console.log(res);
-      if (res.message === 'Token Send') {
-        this.isResend = true;
-      }
-    });
+    let isVerified = localStorage.getItem('isVerfied');
+    if (isVerified === 'false') {
+      this.http.post('http://localhost:3000/api/user/resendToken', { userId: this.userId, email: this.email }).subscribe((res: any) => {
+        console.log(res);
+        if (res.message === 'Token Send') {
+          this.isResend = true;
+        }
+      });
+    } else {
+      this.isAlreadyVerified = true;
+    }
+
   }
 }
