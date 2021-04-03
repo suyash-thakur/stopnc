@@ -319,33 +319,34 @@ router.post("/login",(req, res, next) => {
    User.findOne({ email: req.body.email })
     .then(user => {
          if (!user) {
-           return res.status(403).json({
+          return res.status(403).json({
                message: "Wrong Email"
-           });
+            });
+           ;
          }
        fetchedUser = user;
        return bcrypt.compare(req.body.password, user.password);
     })
     .then(result => {
       if(!result) {
-          return res.status(403).json({
+           res.status(403).json({
               message: "Wrong Email"
           });
-      }
-    const token = jwt.sign(
-        {email: fetchedUser.email, userId: fetchedUser._id},
-       'letmein@26', {expiresIn: '365d'}
-     );
-     res.status(200).json({
-         token: token
+      } else {
+        if (fetchedUser !== undefined) {
+          const token = jwt.sign(
+            {email: fetchedUser.email, userId: fetchedUser._id},
+           'letmein@26', {expiresIn: '365d'}
+          );
+          res.status(200).json({
+            token: token
 
-     });
-    })
-    .catch(err => {
-        return res.status(403).json({
-            message: "Error Signing In"
         });
-    });
+        }
+
+      }
+
+    })
 });
 router.get("/userInfo:id", (req, res, next) => {
  User.findById(req.params.id).populate({path: 'bookmarked', model: 'Post', populate: { path: 'authorId', model: 'user'}}).then(async function(user) {

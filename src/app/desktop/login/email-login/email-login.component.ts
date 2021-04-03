@@ -61,14 +61,8 @@ export class EmailLoginComponent implements OnInit {
     console.log( this.emailValidExpe.test(email));
     if (!this.emailValidExpe.test(email)) {
       this.isEmailValid = false;
-      return;
     } else {
       this.isEmailValid = true;
-      return;
-
-    }
-
-    if (this.isEmailValid === true) {
       this.authService.login(email, password);
       this.authListenerSub = this.authService.getauthStatusListener().subscribe(
         isAuthenticated => {
