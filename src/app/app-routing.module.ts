@@ -7,7 +7,6 @@ import { LoginMobileComponent } from './app-header-mobile/login-mobile/login-mob
 import { EmailLoginMobileComponent } from './app-header-mobile/login-mobile/email-login-mobile/email-login-mobile.component';
 import { UserProfileComponent } from './desktop/user-profile/user-profile.component';
 import { UserInfoComponent } from './desktop/user-profile/user-info/user-info.component';
-import { CategoriesComponent } from './app-header-mobile/categories/categories.component';
 import { UserProfileMobileComponent } from './app-header-mobile/user-profile-mobile/user-profile-mobile.component';
 import { UserCredentialsComponent } from './app-header-mobile/user-profile-mobile/user-info/user-credentials/user-credentials.component';
 import { UserInformationComponent } from './app-header-mobile/user-profile-mobile/user-info/user-information/user-information.component';
@@ -33,6 +32,7 @@ import { ExploreMobileComponent } from './app-header-mobile/explore-mobile/explo
 import { CategoryMobileComponent } from './app-header-mobile/category-mobile/category-mobile.component';
 import { SearchComponent } from './search/search.component';
 import { MessageComponent } from './email-verification/message/message.component';
+import { ConfirmComponent } from './email-verification/confirm/confirm.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -63,7 +63,8 @@ const routes: Routes = [
   { path: 'explore', component: ExploreComponent },
   { path: 'mobile/explore', component: ExploreMobileComponent },
   { path: 'mobile/category/:name', component: CategoryMobileComponent, resolve: { blogs: CategoryResolver } },
-  { path: 'emailVerification', component: MessageComponent  }
+  { path: 'emailVerification', component: MessageComponent },
+  { path: 'emailVerify/:userId/:token', component: ConfirmComponent}
 
 
 ];

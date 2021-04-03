@@ -67,6 +67,7 @@ export class CategoryComponent implements OnInit {
 
       this.trending = res.explore.trending;
       this.isLoading = true;
+
     });
   }
   ngAfterViewInit(){

@@ -50,6 +50,7 @@ export class AuthenticationService {
       localStorage.setItem('isVerfied', 'false');
       localStorage.setItem('emailVerify', response.result.email);
       localStorage.setItem('idVerify', response.result._id);
+      this.router.navigate(['/emailVerification']);
       return 'from first'; // return whatever you want not neccessory
     });
   })());
@@ -84,7 +85,30 @@ login(email: string, password: string): Promise<any> {
 
 
 
+  verifyEmail(userId, token) {
+    return Promise.resolve((() => {
+      this.http.put('http://localhost:3000/api/user/verifyEmail/' + userId + '/' + token, {}).subscribe((response: any) => {
+        console.log(response);
+        if (response.message === 'Token Verified') {
+          const token = response.token;
+          this.token = token;
+          console.log(this.token);
+          this.authStatusListener.next(true);
+          this.user = helper.decodeToken(token);
+          this.saveAuthData(token, this.user.exp);
+          this.Userlogin = true;
+          console.log(this.user.exp);
+          this.id = this.user.userId;
+          this.wrongCred = false;
+          console.log(this.user);
+          console.log(this.id);
+          this.router.navigate(['/']);
+        }
+      });
+    })());
 
+
+  }
 
 logout() {
   this.token = null;

@@ -14,9 +14,12 @@ const { populate } = require("../Model/user");
 const Posts = require("../Model/Posts");
 var nodemailer = require('nodemailer');
 var sgTransport = require('nodemailer-sendgrid-transport');
+const dotenv = require('dotenv');
+dotenv.config();
+
 var options = {
   auth: {
-      api_key: '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'
+      api_key: process.env.SENDGRID_TOKEN
   }
 }
 var mailer = nodemailer.createTransport(sgTransport(options));
@@ -144,7 +147,7 @@ router.put('/verifyEmail/:id/:token', (req, res) => {
             {email: user.email, userId: user._id},
            'letmein@26', {expiresIn: '365d'}
          );
-          res.status(200).json({ message: 'Token Verified', token: token });
+          res.status(200).json({ message: 'Token Verified', token: token, user: user });
         }
         if (err) {
           res.status(400).json({ message: 'Cannot Verify' });
@@ -262,32 +265,54 @@ router.post('/userEmail', (req, res) => {
   )
 });
 router.post('/socialAuth', (req, res) => {
-  bcrypt.hash(req.body.password, 10).then(hash => {
-    const user = new User({
-      name: req.body.name,
-      email: req.body.email,
-      password: hash,
-      discription: '',
-      about: '',
-      emailVerified: true
-    });
-    user
-      .save()
-      .then(result => {
-        const token = jwt.sign(
-          {email: result.email, userId: result._id},
-         'letmein@26', {expiresIn: '365d'}
-       );
-       res.status(200).json({
-           token: token,
-       });
-      })
-      .catch(err => {
-        res.status(500).json({
-          error: err
-        });
+  User.findOne({ email: req.body.email }, function (err, user) {
+    if (user) {
+      fetchedUser = user;
+      bcrypt.compare(req.body.password, user.password).then(result => {
+        if(!result) {
+          return res.status(403).json({
+              message: "Wrong Email"
+          });
+      }
+    const token = jwt.sign(
+        {email: fetchedUser.email, userId: fetchedUser._id},
+       'letmein@26', {expiresIn: '365d'}
+     );
+     res.status(200).json({
+         token: token
+
+     });
       });
+    } else {
+      bcrypt.hash(req.body.password, 10).then(hash => {
+        const user = new User({
+          name: req.body.name,
+          email: req.body.email,
+          password: hash,
+          discription: '',
+          about: '',
+          emailVerified: true
+        });
+        user
+          .save()
+          .then(result => {
+            const token = jwt.sign(
+              {email: result.email, userId: result._id},
+             'letmein@26', {expiresIn: '365d'}
+           );
+           res.status(200).json({
+               token: token,
+           });
+          })
+          .catch(err => {
+            res.status(500).json({
+              error: err
+            });
+          });
+      });
+    }
   });
+
 });
 router.post("/login",(req, res, next) => {
    let fetchedUser;

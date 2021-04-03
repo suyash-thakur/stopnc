@@ -5,11 +5,11 @@ var Schema = mongoose.Schema;
 
 
 const userSchema = mongoose.Schema({
-  name: { type: String, require: true },
-  email: { type: String, required: true, unique: true },
+  name: { type: String, require: true, es_indexed:true },
+  email: { type: String, required: true, unique: true, es_indexed:true },
   password: { type: String, required: true },
-  discription: { type: String},
-  about: { type: String },
+  discription: { type: String, es_indexed:true},
+  about: { type: String, es_indexed:true },
   follower: [{type: Schema.Types.ObjectId, ref: "User"}],
   following: [{type: Schema.Types.ObjectId, ref: "User"}],
   bookmarked: [{ type: Schema.Types.ObjectId, ref: "Post" }],

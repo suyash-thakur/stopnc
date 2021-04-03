@@ -63,6 +63,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { SearchComponent } from './search/search.component';
 import { MessageComponent } from './email-verification/message/message.component';
+import { ConfirmComponent } from './email-verification/confirm/confirm.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -105,6 +106,7 @@ import { MessageComponent } from './email-verification/message/message.component
     CategoryMobileComponent,
     SearchComponent,
     MessageComponent,
+    ConfirmComponent,
   ],
   imports: [
     BrowserModule,

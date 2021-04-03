@@ -51,7 +51,6 @@ export class EmailLoginComponent implements OnInit {
       if (this.isEmailValid && this.isNameValid && this.isPasswordValid) {
         const name = firstname + ' ' + lastname;
         this.authService.createUser(email, password, name).then(res => {
-          this.router.navigate(['/emailVerification']);
 
         });
 
