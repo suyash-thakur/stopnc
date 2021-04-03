@@ -15,13 +15,16 @@ export class ErrorHTTPInterceptor implements HttpInterceptor {
 
     return next.handle(req).pipe(
       catchError((error) => {
-        console.log('error is intercept')
-        console.error(error);
+        console.log('error is intercept');
+        console.error(error.error.message);
         if (error.status === 401) {
           this.router.navigate(['/login']);
         }
         if (error.error.message === "Wrong Email") {
           this.authService.wrongCred = true;
+        }
+        if (error.error.message === "Email Already Exist") {
+          this.authService.emailExist = true;
         }
       return new Observable<HttpEvent<any>>();
       })

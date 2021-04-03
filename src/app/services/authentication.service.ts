@@ -25,6 +25,7 @@ export class AuthenticationService {
   following: any;
   notification: Array<any>;
   wrongCred = false;
+  emailExist = false;
   private token: string;
   private authStatusListener = new Subject<boolean>();
   public userData = new Subject<any>();

@@ -495,12 +495,17 @@ router.get("/searchBlog/:search/:page", (req, res) => {
         res.status(501).json(err);
         return;
       }
-      userData = [];
+      var userData = [];
+      var userHits = [];
       for (var i = 0; i < results.hits.hits.length; i++) {
-        var user = await User.find({ _id: results.hits.hits[i].authorId }).select('name profileImage about').exec();
-        userData.push(user);
+        if (results.hits.hits[i] !== undefined && results.hits.hits[i] !== null) {
+          var user = await User.find({ _id: results.hits.hits[i].authorId }).select('name profileImage about').exec();
+          userData.push(user);
+          userHits.push(results.hits.hits[i]);
+        }
+
       }
-      res.status(200).json({result: results, userData: userData});
+      res.status(200).json({result: userHits, userData: userData});
     }
   )
 });
@@ -522,8 +527,15 @@ router.get("/searchUser/:search/:page", (req, res) => {
         res.status(501).json(err);
         return;
       }
+      var userHits = [];
+      for (var i = 0; i < results.hits.hits.length; i++) {
+        if (results.hits.hits[i] !== undefined && results.hits.hits[i] !== null) {
 
-      res.status(200).json({result: results});
+          userHits.push(results.hits.hits[i]);
+        }
+
+      }
+      res.status(200).json({result: userHits});
     }
   )
 });
