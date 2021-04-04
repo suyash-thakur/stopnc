@@ -103,7 +103,7 @@
     <div style="display: flex; padding-left: 30px; padding-right: 30px; padding-bottom: 50px; padding-top: 50px;">
 
       <div style=" flex-grow: 3; display: flex; justify-content: space-evenly;">
-        <div class="story-container">
+        <div class="story-container" style=" flex: 1">
           <div *ngIf="isFirstLoaded === false" >
             <div style="display: flex">
                 <ngx-skeleton-loader count="1"  appearance="circle"   [theme]="{ 'width': '60px', 'height': '60px' }"></ngx-skeleton-loader> <br>
@@ -115,7 +115,7 @@
 
             </div>
           <div *ngIf="isFirstLoaded === true">
-          <div style="display: flex;" >
+          <div style="display: flex; cursor: pointer;" [routerLink]="'/user/' +  topBlogs[0].authorId._id">
             <div >
               <img [src]="topBlogs[0].authorId.profileImage" alt="" style="max-width: 50px; border-radius: 50%;">
             </div>
@@ -148,16 +148,16 @@
               <img [src]="topBlogs[0].image[0]"  class="image-small">
             </div>
           </div>
-          <div style="display: flex; justify-content: center;">
+          <div style="display: flex; justify-content: center; cursor: pointer;">
             <div class="read"  (click)="this.blogClick(topBlogs[0]._id)">
               READ NOW
             </div>
           </div>
           </div>
         </div>
-        <div class="story-container">
+        <div class="story-container" style=" flex: 1">
           <div *ngIf="isFirstLoaded === false" >
-            <div style="display: flex">
+            <div style="display: flex; cursor: pointer;">
                 <ngx-skeleton-loader count="1"  appearance="circle"   [theme]="{ 'width': '60px', 'height': '60px' }"></ngx-skeleton-loader> <br>
               </div>
               <div style="display: flex">
@@ -167,7 +167,7 @@
 
             </div>
           <div *ngIf="isFirstLoaded === true">
-            <div style="display: flex;" >
+            <div style="display: flex; cursor: pointer;" [routerLink]="'/user/' +  topBlogs[1].authorId._id">
               <div >
                 <img [src]="topBlogs[0].authorId.profileImage" alt="" style="max-width: 50px; border-radius: 50%;">
               </div>
@@ -181,7 +181,7 @@
                 </div>
               </div>
               <div style=" align-items: center;
-              justify-content: center; display:flex;">
+              justify-content: center; display:flex; ">
 
               </div>
             </div>
@@ -200,14 +200,14 @@
                 <img [src]="topBlogs[1].image[0]"  class="image-small">
               </div>
             </div>
-            <div style="display: flex; justify-content: center;">
+            <div style="display: flex; justify-content: center; cursor: pointer;">
               <div class="read" (click)="this.blogClick(topBlogs[1]._id)">
                 READ NOW
               </div>
             </div>
             </div>
         </div>
-        <div class="story-container">
+        <div class="story-container" style=" flex: 1">
           <div *ngIf="isFirstLoaded === false" >
             <div style="display: flex">
                 <ngx-skeleton-loader count="1"  appearance="circle"   [theme]="{ 'width': '60px', 'height': '60px' }"></ngx-skeleton-loader> <br>
@@ -219,7 +219,7 @@
 
             </div>
           <div *ngIf="isFirstLoaded === true">
-            <div style="display: flex;" >
+            <div style="display: flex; cursor: pointer;" [routerLink]="'/user/' +  topBlogs[1].authorId._id">
               <div >
                 <img [src]="topBlogs[2].authorId.profileImage" alt="" style="max-width: 50px; border-radius: 50%;">
               </div>
@@ -251,7 +251,7 @@
                 <img [src]="topBlogs[2].image[0]"  class="image-small">
               </div>
             </div>
-            <div style="display: flex; justify-content: center;">
+            <div style="display: flex; justify-content: center; cursor: pointer;">
               <div class="read" (click)="this.blogClick(topBlogs[2]._id)">
                 READ NOW
               </div>
