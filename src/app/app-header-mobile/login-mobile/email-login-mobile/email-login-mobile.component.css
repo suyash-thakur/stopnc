@@ -14,7 +14,7 @@
   box-shadow: -10px 10px 6px #888;
   border-radius: 4px;
   padding-top: 10px;
-  width: 300px;
+  width: 90%;
   position: absolute;
   bottom: initial;
   left: 0;
@@ -84,7 +84,7 @@ input {
   padding-left: 8px;
   font-family: Regular;
   color: #5d5d5d;
-  font-size: 25px;
+  font-size: 18px;
   border: 1px solid #5d5d5d;
   width: 48%;
 }
