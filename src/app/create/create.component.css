@@ -33,6 +33,12 @@
   color: #2d4a86;
   font-size: 15px;
 }
+.error-dialog {
+  background-color: #f7f6f9;
+  color: #2d4a86;
+  position: absolute;
+  bottom: 10px;
+}
 a {
   text-decoration: none !important;
 }

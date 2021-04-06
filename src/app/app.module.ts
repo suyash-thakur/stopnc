@@ -8,7 +8,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppHeaderMobileComponent } from './app-header-mobile/app-header-mobile.component';
 import { MatToolbarModule, MatButtonModule,
   MatSidenavModule, MatIconModule, MatListModule, MatCardModule,
-  MatTabsModule, MatInputModule, MatProgressSpinnerModule } from '@angular/material';
+  MatTabsModule, MatInputModule, MatProgressSpinnerModule, MatDialogModule } from '@angular/material';
 import { MatRadioModule } from '@angular/material/radio';
 import { LayoutModule } from '@angular/cdk/layout';
 import { RouterModule } from '@angular/router';
@@ -37,7 +37,7 @@ import { ErrorHTTPInterceptor } from './error-interceptor';
 import { UserEditMobileComponent } from './app-header-mobile/user-profile-mobile/user-edit-mobile/user-edit-mobile.component';
 import {SocialLoginModule, AuthServiceConfig, GoogleLoginProvider} from 'angularx-social-login';
 import { getAuthServiceConfigs } from './socialLoginConfig';
-import { CreateComponent } from './create/create.component';
+import { CreateComponent, ErrorDialogComponent } from './create/create.component';
 import { RichTextEditorAllModule } from '@syncfusion/ej2-angular-richtexteditor';
 import { SliderModule } from 'angular-image-slider';
 import { MainOneComponent } from './desktop/home/main-one/main-one.component';
@@ -53,7 +53,7 @@ import { SplashScreenComponent } from './splash-screen/splash-screen.component';
 import { FollowerListComponent } from './desktop/user-profile/follower-list/follower-list.component';
 import { FollowingListComponent } from './desktop/user-profile/following-list/following-list.component';
 import { NotificationComponent } from './app-header-mobile/notification/notification.component';
-import { CategoryComponent } from './desktop/category/category.component';
+import { CategoryComponent  } from './desktop/category/category.component';
 import { ExploreComponent } from './desktop/explore/explore.component';
 import { NgMasonryGridModule } from 'ng-masonry-grid';
 import { ExploreMobileComponent } from './app-header-mobile/explore-mobile/explore-mobile.component';
@@ -107,6 +107,7 @@ import { ConfirmComponent } from './email-verification/confirm/confirm.component
     SearchComponent,
     MessageComponent,
     ConfirmComponent,
+    ErrorDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -123,6 +124,7 @@ import { ConfirmComponent } from './email-verification/confirm/confirm.component
     MatIconModule,
     MatListModule,
     MatCardModule,
+    MatDialogModule,
     FormsModule,
     MatTabsModule,
     ReactiveFormsModule,
@@ -137,6 +139,7 @@ import { ConfirmComponent } from './email-verification/confirm/confirm.component
     InfiniteScrollModule,
     NgxSkeletonLoaderModule
   ],
+  entryComponents: [ErrorDialogComponent],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorHTTPInterceptor, multi: true },
   {provide: AuthServiceConfig, useFactory: getAuthServiceConfigs}],

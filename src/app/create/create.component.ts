@@ -1,10 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { ActivatedRoute, ParamMap } from "@angular/router";
 import { BlogService } from '../services/blog.service';
 import { Blog } from '../models/blog.model';
 import { HttpClient } from '@angular/common/http';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
+export interface DialogData {
+  message: 'Blog must have at least 60 words' | 'Blog must have at least 2 images' | 'Blog header must have at least 3 words';
+}
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
@@ -61,7 +65,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 export class CreateComponent implements OnInit {
   state: String = 'plus';
   public imagesUrl = [];
-
+  isWordShort = false;
   public url;
   public title: string;
   public body: string;
@@ -79,7 +83,7 @@ export class CreateComponent implements OnInit {
     { name: 'Accessories', clicked: false }
   ]
 
-  constructor(private blogservice: BlogService, private http: HttpClient) { }
+  constructor(private blogservice: BlogService, private http: HttpClient, public dialog: MatDialog) { }
 
   ngOnInit() {
   }
@@ -103,14 +107,29 @@ export class CreateComponent implements OnInit {
       console.log(link);
     });
 
-   }
+  }
+  openDialog(errorMessage) {
+    this.dialog.open(ErrorDialogComponent, {
+      data: {
+        message: errorMessage,
+        panelClass: 'error-dialog'
+      }
+    });
+  }
+
   onSubmit() {
     // console.log(this.body);
     // console.log(this.title);
     // console.log(this.imagesUrl);
+    var wordCount = this.body.match(/(\w+)/g).length;
+    console.log(wordCount);
+    if (wordCount < 60) {
+      this.isWordShort = true;
+      this.openDialog('Blog must have at least 60 words');
+      return;
+    }
 
-
-    this.blogservice.saveBlog(this.title, this.body, this.imagesUrl, this.categories[this.prevSelected].name);
+    // this.blogservice.saveBlog(this.title, this.body, this.imagesUrl, this.categories[this.prevSelected].name);
   }
   onRemovePicture(i) {
     let key = this.imagesUrl[i];
@@ -141,3 +160,10 @@ export class CreateComponent implements OnInit {
     this.prevSelected = i;
   }
  }
+@Component({
+  selector: 'app-error-body',
+  templateUrl: 'error-dialog.component.html',
+})
+export class ErrorDialogComponent {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+}
