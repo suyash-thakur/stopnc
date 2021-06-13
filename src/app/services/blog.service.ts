@@ -38,7 +38,23 @@ export class BlogService {
     );
 
   }
+  saveDraft(title: string, body: string, image: any[], tag: string) {
+    const Blog: Blog = ({
+      title: title,
+      body: body,
+      image: image,
+      author: this.userService.User.Name,
+      tag: tag,
+      authorId: this.authService.id
+    });
 
+    this.http.post('http://localhost:3000/api/blog/createDraft', Blog).subscribe(responce => {
+      console.log(responce);
+      this.router.navigate(['/draft']);
+    }
+    );
+
+  }
   getBlogs() {
     this.http.get('http://localhost:3000/api/blog/allBlog').subscribe (
       responce => {

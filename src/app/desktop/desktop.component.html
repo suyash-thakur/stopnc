@@ -1,5 +1,5 @@
 <div
-  *ngIf="currentRoute.url !== '/login' && currentRoute.url !== '/login/email' && currentRoute.url !== '/create' && currentRoute.url !== '/emailVerification' && !currentRoute.url.includes('/emailVerify')">
+  *ngIf="currentRoute.url !== '/login' && currentRoute.url !== '/login/email' && !currentRoute.url.includes('/create')  && currentRoute.url !== '/emailVerification' && !currentRoute.url.includes('/emailVerify')">
 <app-header></app-header>
 </div>
 <router-outlet></router-outlet>

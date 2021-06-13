@@ -33,6 +33,7 @@ import { CategoryMobileComponent } from './app-header-mobile/category-mobile/cat
 import { SearchComponent } from './search/search.component';
 import { MessageComponent } from './email-verification/message/message.component';
 import { ConfirmComponent } from './email-verification/confirm/confirm.component';
+import { DraftComponent } from './create/draft/draft.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -47,7 +48,9 @@ const routes: Routes = [
   {path: 'user/:id/edit', component: EditProfileComponent, pathMatch: 'full', children:
   [{path: '', component: UserInfoComponent, outlet: 'user-info'}]},
   {path: 'mobile/user/edit', component: UserEditMobileComponent, pathMatch: 'full'},
-  {path: 'create', component: CreateComponent, pathMatch: 'full'},
+  { path: 'create', component: CreateComponent, pathMatch: 'full' },
+  { path: 'create/:id', component: CreateComponent },
+
   {path: 'mobile/home', component: HomeMobileComponent, pathMatch: 'full'},
   {path: 'blog', component: BlogComponent},
   { path: 'blog/:id', component: BlogComponent, resolve: { blog: APIResolver } },
@@ -64,7 +67,9 @@ const routes: Routes = [
   { path: 'mobile/explore', component: ExploreMobileComponent },
   { path: 'mobile/category/:name', component: CategoryMobileComponent, resolve: { blogs: CategoryResolver } },
   { path: 'emailVerification', component: MessageComponent },
-  { path: 'emailVerify/:userId/:token', component: ConfirmComponent}
+  { path: 'emailVerify/:userId/:token', component: ConfirmComponent },
+  { path: 'draft', component: DraftComponent }
+
 
 
 ];

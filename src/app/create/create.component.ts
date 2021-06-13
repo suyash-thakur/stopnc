@@ -1,13 +1,13 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { ActivatedRoute, ParamMap } from "@angular/router";
+import { ActivatedRoute, ParamMap, Router } from "@angular/router";
 import { BlogService } from '../services/blog.service';
 import { Blog } from '../models/blog.model';
 import { HttpClient } from '@angular/common/http';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 export interface DialogData {
-  message: 'Blog must have at least 60 words' | 'Blog must have at least 2 images' | 'Blog header must have at least 3 words';
+  message: 'Blog must have at least 60 words' | 'Blog must have at least 2 images' | 'Blog header must have at least 3 words' | 'Blog must have a category';
 }
 @Component({
   selector: 'app-create',
@@ -83,9 +83,28 @@ export class CreateComponent implements OnInit {
     { name: 'Accessories', clicked: false }
   ]
 
-  constructor(private blogservice: BlogService, private http: HttpClient, public dialog: MatDialog) { }
+  constructor(private blogservice: BlogService, private http: HttpClient, public dialog: MatDialog, public route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.route.params.subscribe(data => {
+      console.log(data);
+      if (data.id !== undefined) {
+        this.http.get('http://localhost:3000/api/blog/getDraft/' + data.id).subscribe((res: any) => {
+          console.log(res);
+          this.body = res.Blog.body;
+          this.title = res.Blog.title;
+          this.imagesUrl = res.Blog.image;
+          if (res.Blog.tag !== undefined) {
+            this.categories.forEach(item => {
+              if (item.name === res.Blog.tag) {
+                item.clicked = true;
+              }
+            })
+          }
+        });
+      }
+    });
+
   }
 
   onSelectFile(event) { // called each time file input changes
@@ -121,15 +140,25 @@ export class CreateComponent implements OnInit {
     // console.log(this.body);
     // console.log(this.title);
     // console.log(this.imagesUrl);
-    var wordCount = this.body.match(/(\w+)/g).length;
-    console.log(wordCount);
-    if (wordCount < 60) {
-      this.isWordShort = true;
+
+
+    if (this.body.match(/(\w+)/g).length < 60 || this.body === undefined) {
       this.openDialog('Blog must have at least 60 words');
       return;
     }
-
-    // this.blogservice.saveBlog(this.title, this.body, this.imagesUrl, this.categories[this.prevSelected].name);
+    if (this.imagesUrl.length < 2 || this.body === undefined) {
+      this.openDialog('Blog must have at least 2 images');
+      return;
+    }
+    if (this.title.match(/(\w+)/g).length < 3) {
+      this.openDialog('Blog header must have at least 3 words');
+      return;
+    }
+    if (this.prevSelected === undefined) {
+      this.openDialog('Blog must have a category');
+      return;
+    }
+    this.blogservice.saveBlog(this.title, this.body, this.imagesUrl, this.categories[this.prevSelected].name);
   }
   onRemovePicture(i) {
     let key = this.imagesUrl[i];
@@ -141,6 +170,10 @@ export class CreateComponent implements OnInit {
   }
   toggleState() {
     this.state = this.state === 'plus' ? 'cross' : 'plus';
+  }
+  submitDraft() {
+    this.blogservice.saveDraft(this.title, this.body, this.imagesUrl, this.categories[this.prevSelected].name);
+
   }
   checkIfImg(i) {
     let ext = this.imagesUrl[i].split('.').pop();

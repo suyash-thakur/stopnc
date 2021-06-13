@@ -64,6 +64,7 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { SearchComponent } from './search/search.component';
 import { MessageComponent } from './email-verification/message/message.component';
 import { ConfirmComponent } from './email-verification/confirm/confirm.component';
+import { DraftComponent } from './create/draft/draft.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -107,7 +108,8 @@ import { ConfirmComponent } from './email-verification/confirm/confirm.component
     SearchComponent,
     MessageComponent,
     ConfirmComponent,
-    ErrorDialogComponent
+    ErrorDialogComponent,
+    DraftComponent
   ],
   imports: [
     BrowserModule,

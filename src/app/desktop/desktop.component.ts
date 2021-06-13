@@ -12,6 +12,7 @@ export class DesktopComponent implements OnInit {
 
   ngOnInit() {
     this.currentRoute = this.router;
+    console.log(this.currentRoute);
   }
 
 }

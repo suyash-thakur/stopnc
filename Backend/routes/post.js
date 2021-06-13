@@ -39,6 +39,20 @@ router.get("/blogs:id", (req, res, next) => {
     }
   });
 });
+router.get("/getDraft/:id", (req, res, next) => {
+  Blog.findOne({ _id: req.params.id }).then( blog => {
+    if(blog) {
+
+          res.status(201).json({
+            Blog: blog
+          });
+    } else {
+      res.status(501).json({
+        err: 'Error Fetching Data'
+      })
+    }
+  });
+});
 router.get("/comments:id", (req, res, next) => {
   Comment.find({'blog': req.params.id}).limit(5).populate('author').exec(function(err, comment) {
     if(err) {
@@ -111,6 +125,40 @@ router.get("/allBlog:page", (req, res, next) => {
   });
 });
 
+router.post("/createDraft", checkAuth, (req, res) => {
+  const blog = new Blog({
+    title: req.body.title,
+    image: req.body.image,
+    author: req.body.author,
+    body: req.body.body,
+    authorId: req.body.authorId,
+    tag: req.body.tag,
+    isDraft: true,
+  });
+  blog.save().then( async function (result) {
+    let user =  await User.findById(req.body.authorId).populate('follower').exec();
+
+        res.status(201).json({
+          message: "Created a new draft",
+          result: blog
+        });
+
+  }).catch(err => {
+    res.status(500).json({
+      error: err
+    });
+  });
+});
+router.get("/draft:id", checkAuth, (req, res) => {
+  Blog.find({ authorId: req.params.id, isDraft: true })
+    .then((blog) => {
+      res.status(201).json({
+        Blog: blog,
+      });
+    })
+    .catch((err) => res.status(404).json({ err }));
+});
+
 router.post("/createBlog", checkAuth,  async function (req, res)  {
 
   const blog = new Blog ({
@@ -156,7 +204,50 @@ router.post("/createBlog", checkAuth,  async function (req, res)  {
     });
   });
 });
+router.put("/draftPublish:id",checkAuth, (req, res, next) => {
 
+  Blog.findOneAndUpdate({ _id: req.params.id }, {
+    title: req.body.title,
+    image: req.body.image,
+    author: req.body.author,
+    body: req.body.body,
+    authorId: req.body.authorId,
+    tag: req.body.tag,
+    isDraft: false,
+
+  }).then( async result => {
+    let user =  await User.findById(req.body.authorId).populate('follower').exec();
+    let blog = result;
+    if (user.follower.length != 0) {
+
+
+      for (const follower of user.follower) {
+
+        let newNotification = new Notification({
+          message: 'posted a new blog',
+          recipient: follower._id,
+          refId: blog._id,
+          type: 'Post',
+          originId: req.body.authorId
+        })
+        await newNotification.save();
+      }
+        res.status(201).json({
+          message: "Created a new blog and notification",
+          result: blog
+        });
+    } else {
+      res.status(201).json({
+        message: "Created a new blog",
+        result: blog
+      });
+    }
+ }).catch(err => {
+  res.status(500).json({
+    error: err
+  });
+});
+});
 
 router.post("/comment:id", checkAuth, (req, res, next) => {
   const comment = new Comment({
