@@ -55,6 +55,36 @@ export class BlogService {
     );
 
   }
+  publishDraft(id, title: string, body: string, image: any[], tag: string) {
+    const Blog: Blog = ({
+      title: title,
+      body: body,
+      image: image,
+      author: this.userService.User.Name,
+      tag: tag,
+      authorId: this.authService.id
+    });
+    this.http.put('http://localhost:3000/api/blog/draftPublish/' + id, Blog).subscribe(response => {
+      console.log(response);
+      this.router.navigate(['/draft']);
+    });
+  }
+
+  updateDraft(id, title: string, body: string, image: any[], tag: string) {
+    const Blog: Blog = ({
+      title: title,
+      body: body,
+      image: image,
+      author: this.userService.User.Name,
+      tag: tag,
+      authorId: this.authService.id
+    });
+    this.http.put('http://localhost:3000/api/blog/updateDraft/' + id, Blog).subscribe(response => {
+      console.log(response);
+      this.router.navigate(['/draft']);
+    });
+  }
+
   getBlogs() {
     this.http.get('http://localhost:3000/api/blog/allBlog').subscribe (
       responce => {

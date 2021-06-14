@@ -18,7 +18,7 @@
                   <div style="flex: 2;  background-size: cover; min-width: 350px;">
                     <div
                       style=" background-size: cover; background-position: center; border: 3px solid #5d5d5d; width:100%; height:600px"
-                      [ngStyle]="{ 'background-image': 'url(' + item.image[0] + ')'}">
+                      [ngStyle]="{ 'background-image': 'url(' + item.image[0] + ')'}" *ngIf="checkIfImg(item.image[0])">
                     </div>
                     <!-- <img [src] = "item.image[0]" width="100%" height="600px" *ngIf="checkIfImg(item.image[0])"> -->
                     <video width="100%" height="600px" loop controls muted

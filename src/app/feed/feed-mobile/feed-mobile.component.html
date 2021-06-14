@@ -1,4 +1,5 @@
-<div style="background-color: #F9B1A5; width: 100%;  text-align: center; padding-left: 10px; overflow-y: scroll; padding-right: 10px; padding-bottom: 50px;">
+<div
+  style="background-color: #F9B1A5; width: 100%;  text-align: center; padding-left: 10px;  padding-right: 10px; padding-bottom: 50px;">
   <p  class="top-story-head">YOUR FEED</p>
   <div infiniteScroll
   [infiniteScrollDistance]="2"
@@ -7,9 +8,10 @@
   <div class="" *ngFor="let item of blogs; let i = index;" style="width: 100%" >
   <div class="content">
     <div style="flex: 1;">
-      <div class="blog-image" [ngStyle]="{ 'background-image': 'url(' + item.image[0] + ')'}">
+      <div class="blog-image" [ngStyle]="{ 'background-image': 'url(' + item.image[0] + ')'}"
+        *ngIf="checkIfImg(item.image[0])">
           </div>
-      <video  class="blog-video" *ngIf="!checkIfImg(item.image[0])">
+      <video loop controls muted autoplay class="blog-video" *ngIf="!checkIfImg(item.image[0])">
         <source [src] = "item.image[0]" type="video/mp4" style="object-fit: cover;" >
       </video>
     </div>

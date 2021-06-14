@@ -159,6 +159,15 @@ router.get("/draft:id", checkAuth, (req, res) => {
     .catch((err) => res.status(404).json({ err }));
 });
 
+
+
+router.post("/deleteBlog/:id", checkAuth, (req, res) => {
+  Blog.findOneAndRemove({ _id: req.params.id }).then((blog) => {
+    res.status(201).json({
+      blog: Blog,
+    });
+  });
+});
 router.post("/createBlog", checkAuth,  async function (req, res)  {
 
   const blog = new Blog ({
@@ -204,49 +213,72 @@ router.post("/createBlog", checkAuth,  async function (req, res)  {
     });
   });
 });
-router.put("/draftPublish:id",checkAuth, (req, res, next) => {
-
-  Blog.findOneAndUpdate({ _id: req.params.id }, {
-    title: req.body.title,
-    image: req.body.image,
-    author: req.body.author,
-    body: req.body.body,
-    authorId: req.body.authorId,
-    tag: req.body.tag,
-    isDraft: false,
-
-  }).then( async result => {
-    let user =  await User.findById(req.body.authorId).populate('follower').exec();
-    let blog = result;
-    if (user.follower.length != 0) {
-
-
-      for (const follower of user.follower) {
-
-        let newNotification = new Notification({
-          message: 'posted a new blog',
-          recipient: follower._id,
-          refId: blog._id,
-          type: 'Post',
-          originId: req.body.authorId
-        })
-        await newNotification.save();
-      }
+router.put("/draftPublish/:id", checkAuth, (req, res, next) => {
+  Blog.findOneAndUpdate(
+    { _id: req.params.id },
+    {
+      title: req.body.title,
+      image: req.body.image,
+      author: req.body.author,
+      body: req.body.body,
+      authorId: req.body.authorId,
+      tag: req.body.tag,
+      isDraft: false,
+    }
+  )
+    .then(async (result) => {
+      let user = await User.findById(req.body.authorId)
+        .populate("follower")
+        .exec();
+      let blog = result;
+      if (user.follower.length != 0) {
+        for (const follower of user.follower) {
+          let newNotification = new Notification({
+            message: "posted a new blog",
+            recipient: follower._id,
+            refId: blog._id,
+            type: "Post",
+            originId: req.body.authorId,
+          });
+          await newNotification.save();
+        }
         res.status(201).json({
           message: "Created a new blog and notification",
-          result: blog
+          result: blog,
         });
-    } else {
-      res.status(201).json({
-        message: "Created a new blog",
-        result: blog
+      } else {
+        res.status(201).json({
+          message: "Created a new blog",
+          result: blog,
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        error: err,
       });
-    }
- }).catch(err => {
-  res.status(500).json({
-    error: err
-  });
+    });
 });
+
+router.put("/updateDraft/:id", checkAuth, (req, res) => {
+  Blog.findOneAndUpdate(
+    { _id: req.params.id },
+    {
+      title: req.body.title,
+      image: req.body.image,
+      author: req.body.author,
+      body: req.body.body,
+      authorId: req.body.authorId,
+      tag: req.body.tag,
+      isDraft: true,
+    }
+  ).then((blog) => {
+    if (blog) {
+      res.status(200).json({ blog: blog });
+    } else {
+      res.status(501).json({ msg: "Error Updating Draft" });
+    }
+  });
 });
 
 router.post("/comment:id", checkAuth, (req, res, next) => {

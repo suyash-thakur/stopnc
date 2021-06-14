@@ -41,7 +41,7 @@
   padding: 10px;
 }
 .draft-container {
-  display:flex; justify-content: space-between;   flex-wrap: wrap
+  display:flex; justify-content: flex-start;   flex-wrap: wrap
 }
 .Name {
   color: #2d4a86;

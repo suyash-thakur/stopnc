@@ -37,7 +37,7 @@ import { ErrorHTTPInterceptor } from './error-interceptor';
 import { UserEditMobileComponent } from './app-header-mobile/user-profile-mobile/user-edit-mobile/user-edit-mobile.component';
 import {SocialLoginModule, AuthServiceConfig, GoogleLoginProvider} from 'angularx-social-login';
 import { getAuthServiceConfigs } from './socialLoginConfig';
-import { CreateComponent, ErrorDialogComponent } from './create/create.component';
+import { CreateComponent, ErrorDialogComponent, DeleteConfirmComponent } from './create/create.component';
 import { RichTextEditorAllModule } from '@syncfusion/ej2-angular-richtexteditor';
 import { SliderModule } from 'angular-image-slider';
 import { MainOneComponent } from './desktop/home/main-one/main-one.component';
@@ -109,7 +109,8 @@ import { DraftComponent } from './create/draft/draft.component';
     MessageComponent,
     ConfirmComponent,
     ErrorDialogComponent,
-    DraftComponent
+    DraftComponent,
+    DeleteConfirmComponent
   ],
   imports: [
     BrowserModule,
@@ -141,7 +142,7 @@ import { DraftComponent } from './create/draft/draft.component';
     InfiniteScrollModule,
     NgxSkeletonLoaderModule
   ],
-  entryComponents: [ErrorDialogComponent],
+  entryComponents: [ErrorDialogComponent, DeleteConfirmComponent],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorHTTPInterceptor, multi: true },
   {provide: AuthServiceConfig, useFactory: getAuthServiceConfigs}],

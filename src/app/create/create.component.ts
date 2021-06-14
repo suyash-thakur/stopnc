@@ -1,11 +1,11 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { ActivatedRoute, ParamMap, Router } from "@angular/router";
 import { BlogService } from '../services/blog.service';
 import { Blog } from '../models/blog.model';
 import { HttpClient } from '@angular/common/http';
 import { trigger, state, style, animate, transition } from '@angular/animations';
-import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export interface DialogData {
   message: 'Blog must have at least 60 words' | 'Blog must have at least 2 images' | 'Blog header must have at least 3 words' | 'Blog must have a category';
 }
@@ -62,7 +62,7 @@ export interface DialogData {
     ),
   ]
 })
-export class CreateComponent implements OnInit {
+export class CreateComponent implements OnInit, OnDestroy {
   state: String = 'plus';
   public imagesUrl = [];
   isWordShort = false;
@@ -71,6 +71,9 @@ export class CreateComponent implements OnInit {
   public body: string;
   blog: Blog;
   imgObj: any;
+  id: string;
+  isDraft = false;
+  isPrevious = false;
   prevSelected: number;
   public categories = [
     { name: 'Casual', clicked: false },
@@ -83,21 +86,25 @@ export class CreateComponent implements OnInit {
     { name: 'Accessories', clicked: false }
   ]
 
-  constructor(private blogservice: BlogService, private http: HttpClient, public dialog: MatDialog, public route: ActivatedRoute) { }
+  constructor(private blogservice: BlogService, private http: HttpClient, public dialog: MatDialog, public route: ActivatedRoute, public router: Router) { }
 
   ngOnInit() {
     this.route.params.subscribe(data => {
       console.log(data);
       if (data.id !== undefined) {
         this.http.get('http://localhost:3000/api/blog/getDraft/' + data.id).subscribe((res: any) => {
+          this.isPrevious = true;
           console.log(res);
           this.body = res.Blog.body;
           this.title = res.Blog.title;
           this.imagesUrl = res.Blog.image;
+          this.id = res.Blog._id;
+          this.isDraft = res.Blog.isDraft;
           if (res.Blog.tag !== undefined) {
-            this.categories.forEach(item => {
+            this.categories.forEach((item, index) => {
               if (item.name === res.Blog.tag) {
                 item.clicked = true;
+                this.prevSelected = index;
               }
             })
           }
@@ -105,6 +112,12 @@ export class CreateComponent implements OnInit {
       }
     });
 
+  }
+  ngOnDestroy() {
+    console.log('destroyed');
+    if (!this.isDraft && this.body !== undefined) {
+      this.submitDraft();
+    }
   }
 
   onSelectFile(event) { // called each time file input changes
@@ -135,7 +148,13 @@ export class CreateComponent implements OnInit {
       }
     });
   }
-
+  delete() {
+    this.dialog.open(DeleteConfirmComponent, {
+      data: {
+        id: this.id
+      }
+    });
+  }
   onSubmit() {
     // console.log(this.body);
     // console.log(this.title);
@@ -172,9 +191,20 @@ export class CreateComponent implements OnInit {
     this.state = this.state === 'plus' ? 'cross' : 'plus';
   }
   submitDraft() {
-    this.blogservice.saveDraft(this.title, this.body, this.imagesUrl, this.categories[this.prevSelected].name);
+    let categories
+    if (this.categories[this.prevSelected] === undefined || this.prevSelected === undefined) {
+      categories = undefined;
+    } else {
+      categories = this.categories[this.prevSelected];
+
+    }
+    this.blogservice.saveDraft(this.title, this.body, this.imagesUrl, categories);
 
   }
+  updateDraft() {
+    this.blogservice.updateDraft(this.id, this.title, this.body, this.imagesUrl, this.categories[this.prevSelected].name);
+  }
+
   checkIfImg(i) {
     let ext = this.imagesUrl[i].split('.').pop();
     if (ext === 'jpg' || ext === 'png' || ext === 'jpeg') {
@@ -184,6 +214,10 @@ export class CreateComponent implements OnInit {
     } else {
       return undefined;
     }
+  }
+
+  publishDraft() {
+    this.blogservice.publishDraft(this.id, this.title, this.body, this.imagesUrl, this.categories[this.prevSelected].name);
   }
   toggleClicked(i) {
     if (this.prevSelected !== undefined) {
@@ -199,4 +233,24 @@ export class CreateComponent implements OnInit {
 })
 export class ErrorDialogComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+}
+@Component({
+  selector: 'app-error-body',
+  templateUrl: 'delete-confirm.component.html',
+  styleUrls: ['./create.component.css']
+
+})
+export class DeleteConfirmComponent {
+  id: string;
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public blogService: BlogService, public http: HttpClient,
+    public router: Router, public dialogRef: MatDialogRef<DeleteConfirmComponent>) {
+    this.id = this.data.id;
+  }
+  removeBlog() {
+    this.http.post('http://localhost:3000/api/blog/deleteBlog/' + this.id, {}).subscribe((val) => {
+      console.log(val);
+      this.dialogRef.close();
+      this.router.navigate(['/draft']);
+    });
+  }
 }

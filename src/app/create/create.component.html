@@ -6,12 +6,18 @@
         <img src="../../assets/menuDots.svg">
       </a>
       <div class="dropdown-menu " >
-          <a class="dropdown-item" style="color: #2D4A86; padding-left: 5px;" (click)="submitDraft()">
+          <a class="dropdown-item" style="color: #2D4A86; padding-left: 5px;" (click)="submitDraft()" *ngIf="!isDraft">
 
               Save draft
 
-          </a><hr class="dropdown-line">
-          <a class="dropdown-item" style="color: #2D4A86; padding-left: 5px;">
+          </a>
+          <a class="dropdown-item" style="color: #2D4A86; padding-left: 5px;" (click)="updateDraft()" *ngIf="isDraft">
+
+            Update
+
+          </a>
+          <hr class="dropdown-line">
+          <a class="dropdown-item" style="color: #2D4A86; padding-left: 5px;" (click)="delete()">
 
                 Delete
 
@@ -27,11 +33,14 @@
       </div>
 </div>
 <div class="name">
-  <h1>STOPNC</h1>
+  <h1 routerLink="/draft" style="cursor: pointer;">STOPNC</h1>
 </div>
 <div >
-  <div class="submitButton">
-  <a class="submitlink" style="cursor: pointer"  (click)="onSubmit()"  >Submit</a>
+  <div class="submitButton" *ngIf="!isDraft">
+    <a class="submitlink" style="cursor: pointer" (click)="onSubmit()">Publish</a>
+  </div>
+  <div class="submitButton" *ngIf="isDraft">
+    <a class="submitlink" style="cursor: pointer" (click)="publishDraft()">Publish</a>
 </div>
 </div>
 </div>
