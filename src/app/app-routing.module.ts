@@ -34,6 +34,8 @@ import { SearchComponent } from './search/search.component';
 import { MessageComponent } from './email-verification/message/message.component';
 import { ConfirmComponent } from './email-verification/confirm/confirm.component';
 import { DraftComponent } from './create/draft/draft.component';
+import { TermsComponent } from './desktop/login/terms/terms.component';
+import { TermsMobileComponent } from './app-header-mobile/login-mobile/terms-mobile/terms-mobile.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -68,8 +70,9 @@ const routes: Routes = [
   { path: 'mobile/category/:name', component: CategoryMobileComponent, resolve: { blogs: CategoryResolver } },
   { path: 'emailVerification', component: MessageComponent },
   { path: 'emailVerify/:userId/:token', component: ConfirmComponent },
-  { path: 'draft', component: DraftComponent }
-
+  { path: 'draft', component: DraftComponent },
+  { path: 'terms', component: TermsComponent, pathMatch: 'full' },
+  { path: 'mobile/terms', component: TermsMobileComponent, pathMatch: 'full' }
 
 
 ];
