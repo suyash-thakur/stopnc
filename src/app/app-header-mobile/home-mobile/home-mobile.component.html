@@ -5,7 +5,7 @@
     <div class="story-container" style="width: 100%; transform: translateY(20px);" >
       <div style="flex-grow: 1;" *ngIf="isFirstLoaded === false">
         <ngx-skeleton-loader count="10" [theme]="{  'width': '100%' }"></ngx-skeleton-loader>
-      
+
       </div>
       <div *ngIf="isFirstLoaded === true">
       <div style="display: flex; flex-flow: row; justify-content: flex-start; font-family: Regular; ">
@@ -41,7 +41,7 @@
     <div class="story-container" style="width: 100%; margin-top: 10px; transform: translateY(20px);" >
       <div style="flex-grow: 1;" *ngIf="isFirstLoaded === false">
         <ngx-skeleton-loader count="10" [theme]="{  'width': '100%' }"></ngx-skeleton-loader>
-      
+
       </div>
       <div *ngIf="isFirstLoaded === true">
         <div style="display: flex; flex-flow: row; justify-content: flex-start; font-family: Regular; ">
@@ -76,7 +76,7 @@
     <div class="story-container" style="width: 100%; margin-top: 10px; transform: translateY(20px); " >
       <div style="flex-grow: 1;" *ngIf="isFirstLoaded === false">
         <ngx-skeleton-loader count="10" [theme]="{  'width': '100%' }"></ngx-skeleton-loader>
-      
+
       </div>
       <div *ngIf="isLoading === true;">
       <div style="display: flex; align-items: center; margin-bottom: 10px; padding-bottom: 5px;" *ngFor="let item of exclusive" (click)="this.blogClick(item._id)">
@@ -101,9 +101,9 @@
   <div class="head" style=" margin-top: 30px;">TOP STORIES</div>
   <br>
   <div class="scrolling-wrapper">
-    <div class="card" style="margin-left: 10px; margin-right: 10px;" *ngFor="let item of topBlogs">
+    <div class="card" style="margin-left: 10px; margin-right: 10px; width: 300px;" *ngFor="let item of topBlogs">
       <div class="story-container">
-        <div *ngIf="isFirstLoaded === false" style="max-width: 250px">
+        <div *ngIf="isFirstLoaded === false" style="max-width: 300px">
           <div style="display: flex">
             <ngx-skeleton-loader count="1" appearance="circle" [theme]="{ 'width': '60px', 'height': '60px' }">
             </ngx-skeleton-loader> <br>
@@ -150,7 +150,7 @@
           </div>
         </div>
         <div  class="header-small">
-          {{ item.title }}
+          {{ item.title | truncate:25}}
 
         </div>
         <div>

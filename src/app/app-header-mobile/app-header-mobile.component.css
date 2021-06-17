@@ -137,7 +137,13 @@ mat-sidenav {
 }
 .loginLink {
   color: #f7f6f9;
-  text-decoration: none;
+  text-decoration: none !important;
+
+  font-family: Regular;
+}
+.loginLink:hover {
+  color: #f7f6f9;
+  text-decoration: none !important;
   font-family: Regular;
 }
 .container {
