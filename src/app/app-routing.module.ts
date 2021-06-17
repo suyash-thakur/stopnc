@@ -36,6 +36,7 @@ import { ConfirmComponent } from './email-verification/confirm/confirm.component
 import { DraftComponent } from './create/draft/draft.component';
 import { TermsComponent } from './desktop/login/terms/terms.component';
 import { TermsMobileComponent } from './app-header-mobile/login-mobile/terms-mobile/terms-mobile.component';
+import { ForgotPasswordComponent } from './desktop/login/email-login/forgot-password/forgot-password.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -72,7 +73,8 @@ const routes: Routes = [
   { path: 'emailVerify/:userId/:token', component: ConfirmComponent },
   { path: 'draft', component: DraftComponent },
   { path: 'terms', component: TermsComponent, pathMatch: 'full' },
-  { path: 'mobile/terms', component: TermsMobileComponent, pathMatch: 'full' }
+  { path: 'mobile/terms', component: TermsMobileComponent, pathMatch: 'full' },
+  { path: 'forgot-password/:userId/:token', component: ForgotPasswordComponent }
 
 
 ];

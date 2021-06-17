@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { Subscription } from 'rxjs';
 import { Router, RouterModule } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-email-login',
@@ -16,14 +17,17 @@ export class EmailLoginComponent implements OnInit {
   isWrongCred = false;
   isEmailValid = true;
   isNameValid = true;
+  isEmailSent = false;
   isPasswordValid = true;
+  isEmailPresent = false;
+  isEmailFound = true;
  emailValidExpe : RegExp = new RegExp(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/);
   nameValidExpe: RegExp = new RegExp(/^[A-Za-z]+$/);
   passwordValidExpe: RegExp = new RegExp(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/);
 
   ngOnInit() {
   }
-  constructor(public authService: AuthenticationService, private router: Router) {}
+  constructor(public authService: AuthenticationService, private router: Router, private http: HttpClient) { }
 
   onSignup(email: string, password: string, firstname: string, lastname: string) {
     if (email === '' && password === '' && firstname === '') {
@@ -55,8 +59,30 @@ export class EmailLoginComponent implements OnInit {
         });
 
       }
+    }
   }
-}
+  forgotPassword(email: string) {
+    if (!this.emailValidExpe.test(email)) {
+      this.isEmailPresent = true;
+      return;
+    }
+    this.isEmailPresent = false;
+
+    this.http.post('http://localhost:3000/api/user/forgot-password', {
+      email: email
+    }).subscribe((response: any) => {
+      if (response.status === 1) {
+        this.isEmailSent = true;
+        this.isEmailFound = true;
+
+
+      } else if (response.status === 0) {
+        this.isEmailFound = false;
+        this.isEmailSent = false;
+
+      }
+    });
+  }
   onLogin(email: string, password: string) {
     console.log( this.emailValidExpe.test(email));
     if (!this.emailValidExpe.test(email)) {

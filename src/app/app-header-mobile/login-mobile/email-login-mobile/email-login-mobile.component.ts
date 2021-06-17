@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-email-login-mobile',
@@ -16,11 +17,13 @@ export class EmailLoginMobileComponent implements OnInit {
   isEmailValid = true;
   isNameValid = true;
   isPasswordValid = true;
+  isEmailSent = false;
+  isEmailFound = false;
  emailValidExpe : RegExp = new RegExp(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/);
   nameValidExpe: RegExp = new RegExp(/^[A-Za-z]+$/);
   passwordValidExpe: RegExp = new RegExp(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/);
 
-  constructor(public authService: AuthenticationService, public router: Router) { }
+  constructor(public authService: AuthenticationService, public router: Router, public http: HttpClient) { }
 
   ngOnInit() {
   }
@@ -74,7 +77,25 @@ export class EmailLoginMobileComponent implements OnInit {
 
       }
   }
-}
+  }
+  forgotPassword(email: string) {
+    if (!this.emailValidExpe.test(email)) {
+      this.isEmailValid = false;
+      return;
+    }
+    this.http.post('http://localhost:3000/api/user/forgot-password', {
+      email: email
+    }).subscribe((response: any) => {
+      console.log(response);
+
+      if (response.status === 1) {
+        this.isEmailSent = true;
+      } else if (response.status === 0) {
+
+      }
+
+    });
+  }
 
   public scroll(element: any) {
   }

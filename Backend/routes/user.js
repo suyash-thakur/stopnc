@@ -46,7 +46,76 @@ router.put("/removebookmark:id", checkAuth, (req, res, next) => {
   });
 
 });
+router.post("/forgot-password", (req, res, next) => {
+  User.findOne({ email: req.body.email }, async function (err, user) {
+    if (user) {
+      const token = new Token({
+        userId: user._id,
+        token: cryptoRandomString({ length: 16 })
+      });
+      var tokenData = await token.save();
+      let email = {
+        from: 'contact.stopnc@gmail.com',
+        to: user.email,
+        subject: 'Reset Password STOPNC',
+        html: `<!DOCTYPE html>
+  <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  </head>
+  <body style="margin:0px; height: 100vh; background-image: url('https://res.cloudinary.com/diroilukd/image/upload/v1616968607/loginbackground_nvzyl9.png'); background-repeat: no-repeat; background-size:cover; width: 100%;">
+      <div  style="padding: 15px; ">
+      <div style="    background-color: #33AAAE;
+      box-shadow: -10px 10px 6px #888;
+      border-radius: 4px;
+      padding-top: 20px;
+      max-width: 700px;
+      width: 100%;
+      text-align: center;
+      bottom: initial;
+      margin: auto;
+      margin-top: 40px;
+      ">
+      <img src="https://res.cloudinary.com/diroilukd/image/upload/v1616969785/STOPNCStyle_Your_Everyday_Life_iwkpfu.png" style="width: 150px;">
+      <br>
+      <div style="color: #fefefe; text-align: center;  padding: 10px; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
+          <h1 >
+              Reset The Password By Clicking On The Given Link !!
+          </h1>
+          <h5>
+              By clicking the following link, you are conforming your email address
+          </h5>
+          <br>
+          <a href="${'http://localhost:4200/forgot-password/' + tokenData.userId + '/' + tokenData.token}" style="padding-top: 10px; padding-bottom: 15px; padding-left: 20px; padding-right: 20px; background-color: #2D4A86; border-radius: 40px; font-size: 20px; cursor: pointer;">
+              Confirm Email
+          </a>
+          <br>
+          <br>
+      </div>
+      </div>
+  </div>
+      </body>
 
+  </html>`
+      }
+      mailer.sendMail(email, (err, info) => {
+        if (err) {
+          console.log(err);
+        }
+        console.log(info);
+      });
+      res.status(201).json({
+        status: 1,
+        message: "Email Sent",
+        result: user
+      });
+    } else {
+      res.status(200).json({
+        status: 0,
+        message: "User Not Found"
+      })
+    }
+  });
+});
 router.post("/signup",  (req, res, next) => {
   User.findOne({ email: req.body.email }, function (err, user) {
 
@@ -136,6 +205,26 @@ router.post("/signup",  (req, res, next) => {
 });
 });
 
+router.put('/updatePassword/:id', (req, res) => {
+  bcrypt.hash(req.body.password, 10).then(hash => {
+    User.findOneAndUpdate({ _id: req.params.id }, { password: hash }, function (err, user) {
+      if (err) {
+        res.status(500).json({message: 'Error Updating Password'});
+      } else {
+        res.status(201).json({ message: 'Password Updated' });
+      }
+    });
+  });
+});
+router.get('/checkEmail/:id/:token', (req, res) => {
+  Token.findOne({ userId: req.params.id, token: req.params.token }, function (err, token) {
+    if (!token) {
+      res.status(200).json({status:0, message: 'Token Expired'});
+    } else {
+      res.status(200).json({status:1, message: 'Token Valid'})
+    }
+  });
+});
 router.put('/verifyEmail/:id/:token', (req, res) => {
   Token.findOne({ userId: req.params.id, token: req.params.token }, function (err, token) {
     if (!token) {

@@ -9,12 +9,14 @@
           <h3 class="title">SIGNUP</h3>
           <span class="text" *ngIf="isEmailValid === false" style="margin-bottom: 10px; color: #ae3733;">Enter Valid Email
             <br></span>
+
           <span class="text" *ngIf="isNameValid === false" style="margin-bottom: 10px; color: #ae3733;">Enter Valid Name
             <br></span>
           <span class="text" *ngIf="isPasswordValid === false"
             style="margin-bottom: 10px; color: #ae3733;  word-wrap: break-word;">Password must contains
             minimum eight characters, at least one letter and one number
             <br></span>
+
             <span class="text" *ngIf="authService.emailExist === true"
               style="margin-bottom: 10px; color: #ae3733;  word-wrap: break-word;">Email Already Exist
               <br></span>
@@ -61,6 +63,14 @@
           <span class="text" *ngIf="authService.wrongCred === true" style="margin-bottom: 10px; color: #ae3733;">Wrong Email Or
             Password
             <br></span>
+            <span class="text" *ngIf="isEmailFound === false" style="margin-bottom: 10px; color: #ae3733;">No Account Found With
+              This Email
+              <br></span>
+            <span class="text" *ngIf="isEmailPresent === true" style="margin-bottom: 10px; color: #ae3733;">Enter Email To Proceed
+              <br></span>
+            <span class="text" *ngIf="isEmailSent === true" style="margin-bottom: 10px; color: #ae3733;">Email Was Sent To Reset The
+              Password
+              <br></span>
           <span class="text email-text">EMAIL</span>
           <div class="input-field" >
             <input  name="email"  type="email" class="email-input"  required email #loginName>
@@ -73,7 +83,7 @@
           </div>
           <br>
           <div>
-            <a class="text forgot" >Forgot Password ?</a>
+            <a class="text forgot" (click)="forgotPassword(loginName.value)">Forgot Password ?</a>
           </div>
           <br>
           <div class="button">

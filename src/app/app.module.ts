@@ -67,6 +67,7 @@ import { ConfirmComponent } from './email-verification/confirm/confirm.component
 import { DraftComponent } from './create/draft/draft.component';
 import { TermsComponent } from './desktop/login/terms/terms.component';
 import { TermsMobileComponent } from './app-header-mobile/login-mobile/terms-mobile/terms-mobile.component';
+import { ForgotPasswordComponent } from './desktop/login/email-login/forgot-password/forgot-password.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -114,7 +115,8 @@ import { TermsMobileComponent } from './app-header-mobile/login-mobile/terms-mob
     DraftComponent,
     DeleteConfirmComponent,
     TermsComponent,
-    TermsMobileComponent
+    TermsMobileComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,
