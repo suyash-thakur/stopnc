@@ -74,6 +74,7 @@ export class CreateComponent implements OnInit, OnDestroy {
   id: string;
   isDraft = false;
   isPrevious = false;
+  isUploading = false;
   prevSelected: number;
   public categories = [
     { name: 'Casual', clicked: false },
@@ -129,12 +130,15 @@ export class CreateComponent implements OnInit, OnDestroy {
       }
   }
   onImageUpload() {
+    this.isUploading = true;
     const imageForm = new FormData();
     console.log('clicked 2');
 
     imageForm.append('image', this.imgObj);
     this.http.post('http://localhost:3000/api/blog/uploadBlogImage', imageForm).subscribe((val: any) => {
       let link = val.image;
+      this.isUploading = false;
+
       this.imagesUrl.push(link);
       console.log(link);
     });
@@ -195,7 +199,7 @@ export class CreateComponent implements OnInit, OnDestroy {
     if (this.categories[this.prevSelected] === undefined || this.prevSelected === undefined) {
       categories = undefined;
     } else {
-      categories = this.categories[this.prevSelected];
+      categories = this.categories[this.prevSelected].name;
 
     }
     this.blogservice.saveDraft(this.title, this.body, this.imagesUrl, categories);

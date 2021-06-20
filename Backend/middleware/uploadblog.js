@@ -3,7 +3,9 @@ const multer = require('multer');
 const multerS3 = require('multer-s3');
 const dotenv = require('dotenv');
 const path = require('path');
-const mime = require('mime-types')
+const mime = require("mime-types");
+const randomstring = require("randomstring");
+
    dotenv.config();
 
    aws.config.update({
@@ -34,8 +36,11 @@ const uploadBlog = multer({
          res.json({error: 'error uploading'});
        },
       key: function (req, file, cb) {
-        req.file = Date.now() + file.originalname;
-      cb(null, 'blogImage/' +  Date.now() + file.originalname);
+        req.file = Date.now() + file.originalname.replace(/[()]/g, "");
+        cb(
+          null,
+          "blogImage/" + Date.now() + file.originalname.replace(/[()]/g, "")
+        );
      }
     })
    });

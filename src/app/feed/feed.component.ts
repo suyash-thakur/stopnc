@@ -3,7 +3,7 @@ import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild }
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
 import { BlogService } from '../services/blog.service';
-
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-feed',
@@ -23,7 +23,9 @@ export class FeedComponent implements OnInit, AfterViewInit {
   trendingProduct = [];
   isProductLoaded = false;
 
-  constructor(public router: Router, private route: ActivatedRoute, public blogServie: BlogService, private http: HttpClient, public authService: AuthenticationService) {
+  constructor(public router: Router, private route: ActivatedRoute,
+    public blogServie: BlogService, private http: HttpClient,
+    public authService: AuthenticationService, public DomSanitizer: DomSanitizer) {
 
     if (window.innerWidth  <= 991 ) {
       this.router.navigate(['mobile/feed']);
@@ -56,6 +58,11 @@ export class FeedComponent implements OnInit, AfterViewInit {
   }
   blogClick(id) {
     this.router.navigate(['/blog', id]);
+  }
+  sanitize(url) {
+    const style = `background-image: url(${url})`;
+    // sanitize the style expression
+    return this.DomSanitizer.bypassSecurityTrustStyle(style);
   }
   checkIfImg(url) {
     let ext = url.split('.').pop();

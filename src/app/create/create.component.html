@@ -1,4 +1,4 @@
-<div style="overflow-x: hidden;">
+<div style="overflow-x: hidden; background-color:#f7f6f9">
 <div style="height: 100px">
 <div class="header">
 <div class="name dropdown">
@@ -87,9 +87,10 @@
   </a>
 </div>
 <hr>
-<div class="Images" *ngIf="imagesUrl.length > 0">
+<div class="Images" *ngIf="imagesUrl.length > 0 || isUploading">
   Images  <br>
   <div class="row"  >
+
     <div  *ngFor="let img of imagesUrl; let i = index;">
       <div class="imageBlog col-md-4 col-sm-12" >
     <div style="width:fit-content ">
@@ -100,6 +101,13 @@
       <source [src] = "img" type="video/mp4">
     </video>
 
+  </div>
+  </div>
+  <div *ngIf="isUploading">
+    <div class="spinner" style="transform:translateY(-30px); margin-left: 25px;">
+      <div class="bounce1"></div>
+      <div class="bounce2"></div>
+      <div class="bounce3"></div>
   </div>
 </div>
 </div>

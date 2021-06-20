@@ -14,6 +14,7 @@ const { populate } = require("../Model/user");
 const Posts = require("../Model/Posts");
 var nodemailer = require('nodemailer');
 var sgTransport = require('nodemailer-sendgrid-transport');
+const { addSubscriber } = require("../helper/mailchimp");
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -138,14 +139,15 @@ router.post("/signup",  (req, res, next) => {
           .then(async (result) => {
             const token = new Token({
               userId: result._id,
-              token: cryptoRandomString({ length: 16 })
+              token: cryptoRandomString({ length: 16 }),
             });
             var tokenData = await token.save();
+
             console.log(tokenData);
             let email = {
-              from: 'contact.stopnc@gmail.com',
+              from: "contact.stopnc@gmail.com",
               to: result.email,
-              subject: 'Email Verification STOPNC',
+              subject: "Email Verification STOPNC",
               html: `<!DOCTYPE html>
         <head>
             <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -173,7 +175,12 @@ router.post("/signup",  (req, res, next) => {
                     By clicking the following link, you are conforming your email address
                 </h5>
                 <br>
-                <a href="${'http://localhost:4200/emailVerify/' + tokenData.userId + '/' + tokenData.token}" style="padding-top: 10px; padding-bottom: 15px; padding-left: 20px; padding-right: 20px; background-color: #2D4A86; border-radius: 40px; font-size: 20px; cursor: pointer;">
+                <a href="${
+                  "http://localhost:4200/emailVerify/" +
+                  tokenData.userId +
+                  "/" +
+                  tokenData.token
+                }" style="padding-top: 10px; padding-bottom: 15px; padding-left: 20px; padding-right: 20px; background-color: #2D4A86; border-radius: 40px; font-size: 20px; cursor: pointer;">
                     Confirm Email
                 </a>
                 <br>
@@ -183,8 +190,14 @@ router.post("/signup",  (req, res, next) => {
         </div>
             </body>
 
-        </html>`
-            }
+        </html>`,
+            };
+            console.log(result.email);
+            await addSubscriber(result.email, {
+              name: result.name
+
+            }, true);
+
             mailer.sendMail(email, (err, info) => {
               if (err) {
                 console.log(err);
@@ -193,7 +206,7 @@ router.post("/signup",  (req, res, next) => {
             });
             res.status(201).json({
               message: "User created!",
-              result: result
+              result: result,
             });
           })
       });
@@ -354,48 +367,56 @@ router.post('/userEmail', (req, res) => {
   )
 });
 router.post('/socialAuth', (req, res) => {
-  User.findOne({ email: req.body.email }, function (err, user) {
+  User.findOne({ email: req.body.email }, async function (err, user) {
     if (user) {
       fetchedUser = user;
-      bcrypt.compare(req.body.password, user.password).then(result => {
-        if(!result) {
+      console.log(fetchedUser);
+      bcrypt.compare(req.body.email, user.password).then((result) => {
+        if (!result) {
           return res.status(403).json({
-              message: "Wrong Email"
+            message: "Wrong Password",
           });
-      }
-    const token = jwt.sign(
-        {email: fetchedUser.email, userId: fetchedUser._id},
-       'letmein@26', {expiresIn: '365d'}
-     );
-     res.status(200).json({
-         token: token
-
-     });
+        }
+        const token = jwt.sign(
+          { email: fetchedUser.email, userId: fetchedUser._id },
+          "letmein@26",
+          { expiresIn: "365d" }
+        );
+        res.status(200).json({
+          token: token,
+        });
       });
     } else {
-      bcrypt.hash(req.body.password, 10).then(hash => {
+      console.log(req.body.email);
+      await addSubscriber((req.body.email).toString(), {
+        name: req.body.name
+
+      }, true);
+
+      bcrypt.hash(req.body.email, 10).then((hash) => {
         const user = new User({
           name: req.body.name,
           email: req.body.email,
           password: hash,
-          discription: '',
-          about: '',
-          emailVerified: true
+          discription: "",
+          about: "",
+          emailVerified: true,
         });
         user
           .save()
-          .then(result => {
+          .then((result) => {
             const token = jwt.sign(
-              {email: result.email, userId: result._id},
-             'letmein@26', {expiresIn: '365d'}
-           );
-           res.status(200).json({
-               token: token,
-           });
+              { email: result.email, userId: result._id },
+              "letmein@26",
+              { expiresIn: "365d" }
+            );
+            res.status(200).json({
+              token: token,
+            });
           })
-          .catch(err => {
+          .catch((err) => {
             res.status(500).json({
-              error: err
+              error: err,
             });
           });
       });
