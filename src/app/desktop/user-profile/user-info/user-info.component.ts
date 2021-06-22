@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -17,13 +17,16 @@ export class UserInfoComponent implements OnInit {
   Useromment: Array<any> = [];
   userBookmark: any;
   isSameUser = false;
-
+  screensize = 0;
+  videoHeigh = 0;
   constructor(public authService: AuthenticationService, private http: HttpClient, public router: Router, public blogService: BlogService, private route: ActivatedRoute) {
 
     this.userId =  this.route.snapshot.paramMap.get('id');
+    if (window.innerWidth > 1500) {
 
+    }
     this.getComment(this.userId);
-
+    this.screensize = window.innerWidth;
     this.http.get('http://localhost:3000/api/blog/userBlog' + this.userId).subscribe((userBlog: any) => {
       this.Blogs = userBlog.Blog;
       console.log(this.Blogs);
@@ -41,6 +44,16 @@ export class UserInfoComponent implements OnInit {
       this.isSameUser = true;
     }
 
+  }
+  checkIfImg(url) {
+    let ext = url.split('.').pop();
+    if (ext === 'jpg' || ext === 'png' || ext === 'jpeg') {
+      return true;
+    } else if (ext === 'mp4' || ext === 'webm' || ext === 'ogg') {
+      return false;
+    } else {
+      return undefined;
+    }
   }
   blogClick(id) {
     this.router.navigate(['/blog', id]);

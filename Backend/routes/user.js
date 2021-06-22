@@ -371,21 +371,23 @@ router.post('/socialAuth', (req, res) => {
     if (user) {
       fetchedUser = user;
       console.log(fetchedUser);
-      bcrypt.compare(req.body.email, user.password).then((result) => {
-        if (!result) {
-          return res.status(403).json({
-            message: "Wrong Password",
+      bcrypt
+        .compare(req.body.email + "password123", user.password)
+        .then((result) => {
+          if (!result) {
+            return res.status(403).json({
+              message: "Wrong Password",
+            });
+          }
+          const token = jwt.sign(
+            { email: fetchedUser.email, userId: fetchedUser._id },
+            "letmein@26",
+            { expiresIn: "365d" }
+          );
+          res.status(200).json({
+            token: token,
           });
-        }
-        const token = jwt.sign(
-          { email: fetchedUser.email, userId: fetchedUser._id },
-          "letmein@26",
-          { expiresIn: "365d" }
-        );
-        res.status(200).json({
-          token: token,
         });
-      });
     } else {
       console.log(req.body.email);
       await addSubscriber((req.body.email).toString(), {
@@ -393,7 +395,7 @@ router.post('/socialAuth', (req, res) => {
 
       }, true);
 
-      bcrypt.hash(req.body.email, 10).then((hash) => {
+      bcrypt.hash(req.body.email + "password123", 10).then((hash) => {
         const user = new User({
           name: req.body.name,
           email: req.body.email,

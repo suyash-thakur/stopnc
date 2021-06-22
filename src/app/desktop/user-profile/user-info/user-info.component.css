@@ -56,8 +56,11 @@ a {
   font-family: Regular;
   font-size: 30px;
   color: #f7f6f9;
+  cursor: pointer;
 }
-
+.tab-pane {
+  height: 100%;
+}
 .top-story-head {
   color: #ffffff;
   font-family: Enhance;

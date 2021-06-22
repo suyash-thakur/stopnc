@@ -4,7 +4,11 @@
       <a (click)="onPreviousClick()">  < </a>
     </div>
     <div>
-    <img [src] = 'slides[currentSlide]' class="blog-img" >
+    <img [src]='slides[currentSlide]' class="blog-img" *ngIf="checkIfImg(slides[currentSlide])">
+    <video width="100%" class="blog-img" loop controls muted
+      style="border-radius: 1px; object-fit: cover; overflow: hidden; " *ngIf="!checkIfImg(slides[currentSlide])">
+      <source [src]="slides[currentSlide]" type="video/mp4" style="object-fit: cover;">
+    </video>
   </div>
   <div class="arrow" style="margin-left: -35px;">
       <a (click)="onNextClick()">  > </a>
@@ -14,7 +18,8 @@
     <p class="Title"><b>{{ this.blog.blog.Blog.title }}</b></p>
     <div style="display: flex;">
       <div>
-        <img [src]="this.blog.blog.Blog.authorId.profileImage" alt="" style="border-radius: 50%; border: 2px solid #2D4A86; width: 50px;">
+        <img [src]="this.blog.blog.Blog.authorId.profileImage" alt=""
+          style="border-radius: 50%; border: 2px solid #2D4A86; width: 50px;">
       </div>
       <a [routerLink]="'/user/' +  this.blog.blog.Blog.authorId._id">
       <div style="text-align: left !important; margin-top: auto; margin-bottom: auto;">

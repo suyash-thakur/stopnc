@@ -8,17 +8,18 @@
 
       </div>
       <div class="" style="display:flex; margin: 0px; flex-wrap: wrap; justify-content:space-between" *ngIf="isLoading === true">
-        <div class="" style="text-align: left; margin-top: 15px" *ngFor="let item of trending; let i = index">
+        <div class="" style="text-align: left; margin-top: 15px; cursor:pointer;" *ngFor="let item of trending; let i = index">
           <div style="display:flex;">
             <div>
               <p class="number" style="margin-top:auto; opacity: 0.4; margin-right:5px; margin-top: -15px;">{{ i + 1 }}</p>
             </div>
             <div >
-              <div  [ngStyle]="{ 'background-image': 'url(' + item.image[0] + ')'}" style="width: 239px; height: 239px;    background-repeat: no-repeat;
+              <div [ngStyle]="{ 'background-image': 'url(' + item.image[0] + ')'}"
+                style="width: 250px; height: 250px;    background-repeat: no-repeat;
               background-size: cover; background-position: center; border: 2px solid #5d5d5d;">
 
               </div>
-              <div class="Name" style="font-size: 18px; max-width: 235px; margin-top: 10px;">
+              <div class="Name" style="font-size: 18px; max-width: 250px; margin-top: 10px;">
                {{ item.title }}
                 </div>
                 <div class="blogTitle" style="font-size: 15px;">
@@ -132,7 +133,7 @@ bottom: 0" #stickyMenu [class.stick] = "sticky">
 
     </div>
     <div style="display: flex; flex-direction: column; justify-content: space-between; " *ngIf="isLoading ===  true">
-    <div style="display: flex; align-items: center;" >
+    <div style="display: flex; align-items: center; cursor: pointer;">
       <div class="head" style="padding-left: 0px; padding-right: 10px; font-size: 40px; margin-top: 10px;">
         <img [src]="exclusive[0].image[0]" style="width: 60px;">
       </div>

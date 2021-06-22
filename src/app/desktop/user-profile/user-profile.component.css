@@ -61,7 +61,6 @@ a:hover {
 .align {
   transform: translateY(-25px);
   height: auto;
-  z-index: -1;
   position: absolute;
   width: 100%;
 }

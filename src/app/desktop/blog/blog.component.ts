@@ -83,6 +83,16 @@ export class BlogComponent implements OnInit {
     }
 
   }
+  checkIfImg(url) {
+    let ext = url.split('.').pop();
+    if (ext === 'jpg' || ext === 'png' || ext === 'jpeg') {
+      return true;
+    } else if (ext === 'mp4' || ext === 'webm' || ext === 'ogg') {
+      return false;
+    } else {
+      return undefined;
+    }
+  }
   onPreviousClick() {
     const previous = this.currentSlide - 1;
     this.currentSlide = previous < 0 ? this.slides.length - 1 : previous;
