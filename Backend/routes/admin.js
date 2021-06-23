@@ -11,6 +11,7 @@ const uploadProductImage = require("../middleware/uploadProduct");
 const Explore = require('../Model/Explore');
 const router = express.Router();
 const redisClient = require("../helper/redisClient");
+const elasticClient = require("../helper/elasticClient");
 const { promisify } = require('util');
 
 const GET_ASYNC = promisify(redisClient.get).bind(redisClient);

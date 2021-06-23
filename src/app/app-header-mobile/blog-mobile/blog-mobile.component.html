@@ -137,26 +137,32 @@
     </div>
     <div class="card">
       <div>
-        <img src="../../../assets/2ddd988b-3d17-4816-bede-8bb4753be7691537518619839-Harpa-Women-Mustard-Striped-Top-3111537518619649-1.png" style="width: 250px;">
+        <img [src]="Products[0].image[0]" style="width: 250px;">
+        <a [href]="Products[0].link" target="blank" (click)="onProductClicked(Products[0]._id)">
         <div class="box">
           SHOP NOW
         </div>
+        </a>
       </div>
     </div>
     <div class="card">
       <div>
-        <img src="../../../assets/7ae37508-f332-43c4-a4b2-1aa5ad5e20b81531291274305-RIGO-Maroon-and-Black-Bodycon-Dress-6821531291272258-1.png" style="width: 250px;">
-        <div class="box">
-          SHOP NOW
-        </div>
+        <img [src]="Products[1].image[0]" style="width: 250px;">
+        <a [href]="Products[1].link" target="blank" (click)="onProductClicked(Products[1]._id)">
+          <div class="box">
+            SHOP NOW
+          </div>
+          </a>
       </div>
     </div>
     <div class="card">
       <div>
-        <img src="../../../assets/mustard-raven-bodycon-dress-in1913mtodreylw-129-front.png" style="width: 250px;">
-        <div class="box">
-          SHOP NOW
-        </div>
+        <img [src]="Products[2].image[0]" style="width: 250px;">
+        <a [href]="Products[2].link" target="blank" (click)="onProductClicked(Products[2]._id)">
+          <div class="box">
+            SHOP NOW
+          </div>
+          </a>
       </div>
     </div>
     <div class="card"></div>

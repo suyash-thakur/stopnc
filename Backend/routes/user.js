@@ -622,7 +622,46 @@ router.get("/searchBlog/:search/:page", (req, res) => {
     }
   )
 });
+router.post("/recommendation", (req, res) => {
+  Posts.search({
 
+    more_like_this: {
+      fields: [
+        "title", "body", "author"
+      ],
+      //searchKeyword is a string variable for searching
+      like:[{"_id":req.body.id}],
+      min_term_freq: 1,
+      min_doc_freq: 3,
+      max_query_terms: 20
+    }
+  }, {hydrate: true,  from: 0,
+    size: 7,
+  }, async function  (err, results) {
+    if (err) {
+      res.status(501).json(err);
+      return;
+    }
+    var blogData = [];
+    var userData = [];
+
+    for (var i = 0; i < results.hits.hits.length; i++) {
+
+      if (results.hits.hits[i] !== undefined && results.hits.hits[i] !== null && blogData.length < 3) {
+        var user = await User.find({ _id: results.hits.hits[i].authorId }).select('name profileImage about').exec();
+        userData.push(user);
+
+        blogData.push(results.hits.hits[i]);
+      }
+    }
+
+
+    res.status(200).json({result: blogData, userData: userData});
+
+    }
+
+  );
+});
 router.get("/searchUser/:search/:page", (req, res) => {
   queryString = req.params.search;
   page = req.params.page;

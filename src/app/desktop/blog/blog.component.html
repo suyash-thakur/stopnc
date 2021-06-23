@@ -173,152 +173,184 @@
 <div style="width: 100%; background-color: #A2CABE; text-align: center; margin-top: -30px; padding-top: 50px;">
   <p class="header" style="color: #ffffff;"><b>READ MORE</b></p>
 
-  <div style="display: flex; padding-left: 10%; padding-right: 10%; padding-bottom: 150px; padding-top: 50px;">
-    <div  class="arrowShop" >
-      <p> <  </p>
-    </div>
+  <div style="display: flex; padding-left: 30px; padding-right: 30px; padding-bottom: 50px; padding-top: 50px;">
+
     <div style=" flex-grow: 3; display: flex; justify-content: space-evenly;">
-      <div class="story-container">
-        <div style="display: flex;">
-          <div>
-            <img src="assets\final-1.png" alt="">
+      <div class="story-container" style=" flex: 1">
+        <div *ngIf="isRecLoad === false">
+          <div style="display: flex">
+            <ngx-skeleton-loader count="1" appearance="circle" [theme]="{ 'width': '60px', 'height': '60px' }">
+            </ngx-skeleton-loader> <br>
+          </div>
+          <div style="display: flex">
+            <ngx-skeleton-loader count="13" *ngIf="isRecLoad === false" [theme]="{ 'min-width': '150px' }">
+            </ngx-skeleton-loader>
+      
+          </div>
+      
+        </div>
+        <div *ngIf="isRecLoad === true">
+          <div style="display: flex; cursor: pointer;" [routerLink]="'/user/' +  recommendedUser[0][0]._id">
+            <div>
+              <img [src]="recommendedUser[0][0].profileImage" alt="" style="max-width: 50px; border-radius: 50%;">
           </div>
           <div style="text-align: left !important;">
             <div class="Name">
-              Kevin Smith
+            {{ recommendedUser[0][0].name }}
             </div>
             <div class="discription">
-              Blogger From NewZeland
+              {{ recommendedUser[0][0].discription }}
+
             </div>
           </div>
           <div style=" align-items: center;
           justify-content: center; display:flex;">
-            <a>
-            <div class="follow-button">
-              <div>
 
-              Follow
-            </div>
-
-            </div>
-          </a>
           </div>
         </div>
         <div  class="header-small">
-          The Denim Game
+          {{ recommendedBlog[0].title }}
+
         </div>
         <div>
-          <div style="display: flex; flex-flow: row; justify-content: flex-start; font-family: Regular; margin-left: 15px;">
-            <div style="font-size: 10px; color: #5D5D5D;">Casual</div><div style="width: 7px; height: 7px; background-color: #E97988; border: none; border-radius: 50%; margin-left: 5px; margin-right: 5px; transform: translateY(2px);"></div><div style="font-size: 10px; color: #5D5D5D;">3/31/2019</div>
+          <div style="display: flex; flex-flow: row; justify-content: flex-start; font-family: Regular;  margin-left: 15px; ">
+            <div style="font-size: 13px; color: #5D5D5D;">{{ recommendedBlog[0].tag }}</div>
+            <div
+              style="width: 7px; height: 7px; background-color: #E97988; border: none; border-radius: 50%; margin-left: 5px; margin-right: 5px; transform: translateY(4px);">
+            </div>
+            <div style="font-size: 13px; color: #5D5D5D;">{{ recommendedBlog[0].date | date:'shortDate' }}</div>
           </div>
       </div>
         <div style="display: flex; align-items: center; justify-content: center;">
 
           <div>
-            <img src="assets\Uniqlo-x-J-W-Anderson-5-1044x1566.jpg"  class="image-small" >
+            <img [src]="recommendedBlog[0].image[0]" class="image-small">
           </div>
         </div>
-        <div style="display: flex; justify-content: center;">
-          <div class="read">
+        <div style="display: flex; justify-content: center; cursor: pointer;">
+          <div class="read" (click)="this.blogClick(recommendedBlog[0]._id)">
             READ NOW
           </div>
         </div>
+        </div>
       </div>
-      <div class="story-container">
-        <div style="display: flex;">
-          <div>
-            <img src="assets\final-1.png" alt="">
+      <div class="story-container" style=" flex: 1">
+        <div *ngIf="isRecLoad === false">
+          <div style="display: flex; cursor: pointer;">
+            <ngx-skeleton-loader count="1" appearance="circle" [theme]="{ 'width': '60px', 'height': '60px' }">
+            </ngx-skeleton-loader> <br>
+          </div>
+          <div style="display: flex">
+            <ngx-skeleton-loader count="13" *ngIf="isRecLoad === false" [theme]="{ 'min-width': '150px' }">
+            </ngx-skeleton-loader>
+      
+          </div>
+      
+        </div>
+        <div *ngIf="isRecLoad === true">
+          <div style="display: flex; cursor: pointer;" [routerLink]="'/user/' +  recommendedUser[1][0]._id">
+            <div>
+              <img [src]="recommendedUser[1][0].profileImage" alt="" style="max-width: 50px; border-radius: 50%;">
           </div>
           <div style="text-align: left !important;">
             <div class="Name">
-              Kevin Smith
+            {{ recommendedUser[1][0].name }}
             </div>
             <div class="discription">
-              Blogger From NewZeland
+              {{ recommendedUser[1][0].discription }}
+
             </div>
           </div>
           <div style=" align-items: center;
           justify-content: center; display:flex;">
-            <a>
-            <div class="follow-button">
-              <div>
 
-              Follow
-            </div>
-
-            </div>
-          </a>
           </div>
         </div>
-        <div  class="header-small">
-          The Denim Game
-        </div>
-        <div>
-          <div style="display: flex; flex-flow: row; justify-content: flex-start; font-family: Regular; margin-left: 15px;">
-            <div style="font-size: 10px; color: #5D5D5D;">Casual</div><div style="width: 7px; height: 7px; background-color: #E97988; border: none; border-radius: 50%; margin-left: 5px; margin-right: 5px; transform: translateY(2px);"></div><div style="font-size: 10px; color: #5D5D5D;">3/31/2019</div>
+            <div class="header-small">
+              {{ recommendedBlog[1].title }}
+            
+            </div>
+            <div>
+            <div style="display: flex; flex-flow: row; justify-content: flex-start; font-family: Regular;  margin-left: 15px;">
+              <div style="font-size: 13px; color: #5D5D5D;">{{ recommendedBlog[1].tag }}</div>
+              <div
+                style="width: 7px; height: 7px; background-color: #E97988; border: none; border-radius: 50%; margin-left: 5px; margin-right: 5px; transform: translateY(4px);">
+              </div>
+              <div style="font-size: 13px; color: #5D5D5D;">{{ recommendedBlog[1].date | date:'shortDate' }}</div>
+            </div>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: center;">
+
+            <div>
+              <img [src]="recommendedBlog[1].image[0]" class="image-small">
+              </div>
+              </div>
+          <div style="display: flex; justify-content: center; cursor: pointer;">
+            <div class="read" (click)="this.blogClick(recommendedBlog[1]._id)">
+              READ NOW
+            </div>
+          </div>
           </div>
       </div>
-        <div style="display: flex; align-items: center; justify-content: center;">
-
-          <div>
-            <img src="assets\Uniqlo-x-J-W-Anderson-5-1044x1566.jpg"  class="image-small">
+      <div class="story-container" style=" flex: 1">
+        <div *ngIf="isRecLoad === false">
+          <div style="display: flex">
+            <ngx-skeleton-loader count="1" appearance="circle" [theme]="{ 'width': '60px', 'height': '60px' }">
+            </ngx-skeleton-loader> <br>
           </div>
-        </div>
-        <div style="display: flex; justify-content: center;">
-          <div class="read">
-            READ NOW
+          <div style="display: flex">
+            <ngx-skeleton-loader count="13" *ngIf="isRecLoad === false" [theme]="{ 'min-width': '150px' }">
+            </ngx-skeleton-loader>
+      
           </div>
+      
         </div>
-      </div>
-      <div class="story-container">
-        <div style="display: flex;">
-          <div>
-            <img src="assets\final-1.png" alt="">
+        <div *ngIf="isRecLoad === true">
+          <div style="display: flex; cursor: pointer;" [routerLink]="'/user/' +  recommendedUser[2][0]._id">
+            <div>
+              <img [src]="recommendedUser[2][0].profileImage" alt="" style="max-width: 50px; border-radius: 50%;">
           </div>
           <div style="text-align: left !important;">
             <div class="Name">
-              Kevin Smith
+            {{ recommendedUser[2][0].name }}
             </div>
             <div class="discription">
-              Blogger From NewZeland
+              {{ recommendedUser[2][0].discription }}
+
             </div>
           </div>
           <div style=" align-items: center;
           justify-content: center; display:flex;">
-            <a>
-            <div class="follow-button">
-              <div>
 
-              Follow
+          </div>
+        </div>
+            <div class="header-small">
+              {{ recommendedBlog[2].title }}
+            
             </div>
+            <div>
+              <div style="display: flex; flex-flow: row; justify-content: flex-start; font-family: Regular; margin-left: 15px;">
+              <div style="font-size: 13px; color: #5D5D5D;">{{ recommendedBlog[2].tag }}</div>
+              <div
+                style="width: 7px; height: 7px; background-color: #E97988; border: none; border-radius: 50%; margin-left: 5px; margin-right: 5px; transform: translateY(4px);">
+              </div>
+              <div style="font-size: 13px; color: #5D5D5D;">{{ recommendedBlog[2].date | date:'shortDate' }}</div>
+              </div>
+              </div>
+              <div style="display: flex; align-items: center; justify-content: center;">
 
+            <div>
+              <img [src]="recommendedBlog[2].image[0]" class="image-small">
+              </div>
+              </div>
+          <div style="display: flex; justify-content: center; cursor: pointer;">
+            <div class="read" (click)="this.blogClick(recommendedBlog[2]._id)">
+              READ NOW
             </div>
-          </a>
           </div>
-        </div>
-        <div  class="header-small">
-          The Denim Game
-        </div>
-        <div>
-          <div style="display: flex; flex-flow: row; justify-content: flex-start; font-family: Regular; margin-left: 15px;">
-            <div style="font-size: 10px; color: #5D5D5D;">Casual</div><div style="width: 7px; height: 7px; background-color: #E97988; border: none; border-radius: 50%; margin-left: 5px; margin-right: 5px; transform: translateY(2px);"></div><div style="font-size: 10px; color: #5D5D5D;">3/31/2019</div>
           </div>
-      </div>
-        <div style="display: flex; align-items: center; justify-content: center;">
-
-          <div>
-            <img src="assets\Uniqlo-x-J-W-Anderson-5-1044x1566.jpg"  class="image-small">
           </div>
-        </div>
-        <div style="display: flex; justify-content: center;">
-          <div class="read">
-            READ NOW
-          </div>
-        </div>
-      </div>
     </div>
-    <div  class="arrowShop" >
-      <p> >  </p>
-    </div>
+
   </div>
 </div>

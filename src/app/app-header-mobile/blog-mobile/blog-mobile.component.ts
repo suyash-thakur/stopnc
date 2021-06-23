@@ -27,6 +27,8 @@ export class BlogMobileComponent implements OnInit {
   private sub: any;
   data: any;
   UserComment: any = [];
+  Products = [];
+
   isNextComment = true;
   commentPage = 1;
   blog: any;
@@ -42,6 +44,8 @@ export class BlogMobileComponent implements OnInit {
     this.UserComment = this.blog.blog.Comment;
     this.likes = this.blog.blog.Blog.like;
     this.ProfileImg = this.userData.User.profileImage;
+    this.Products = this.blog.blog.Blog.products;
+
     if (this.blog.blog.Blog.authorId.follower.indexOf(this.authService.id) > -1) {
       this.isFollowing = true;
     }
@@ -178,6 +182,11 @@ export class BlogMobileComponent implements OnInit {
       const box = (<HTMLTextAreaElement>document.getElementById('inpC'));
       box.rows = 2;
     }
+  }
+  onProductClicked(id) {
+    this.http.put('http://localhost:3000/api/blog/blogClick/' + id, {}).subscribe(responce => {
+      console.log(responce);
+    });
   }
   onComment() {
     const Comment = {

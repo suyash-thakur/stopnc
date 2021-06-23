@@ -43,7 +43,7 @@ export class UserInformationComponent implements OnInit {
       console.log(user);
       this.userBookmark = user.bookmarked;
     });
-    console.log(this.userBookmark);
+    console.log("Bookmarks", this.userBookmark);
 
   }
   getComment(id) {

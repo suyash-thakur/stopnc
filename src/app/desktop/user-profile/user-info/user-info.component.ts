@@ -21,28 +21,36 @@ export class UserInfoComponent implements OnInit {
   videoHeigh = 0;
   constructor(public authService: AuthenticationService, private http: HttpClient, public router: Router, public blogService: BlogService, private route: ActivatedRoute) {
 
-    this.userId =  this.route.snapshot.paramMap.get('id');
+
     if (window.innerWidth > 1500) {
 
     }
-    this.getComment(this.userId);
-    this.screensize = window.innerWidth;
-    this.http.get('http://localhost:3000/api/blog/userBlog' + this.userId).subscribe((userBlog: any) => {
-      this.Blogs = userBlog.Blog;
-      console.log(this.Blogs);
-    });
-    this.authService.userData.subscribe(user => {
-      console.log(user);
-      this.userBookmark = user.bookmarked;
-    });
-    console.log(this.userBookmark);
+
 
   }
 
   ngOnInit() {
-    if (this.userId === this.authService.id) {
-      this.isSameUser = true;
-    }
+    this.route.params.subscribe(params => {
+      this.userId = params['id'];
+      if (this.userId === this.authService.id) {
+        this.isSameUser = true;
+        this.userBookmark = this.authService.user.bookmarked;
+
+      }
+      this.getComment(this.userId);
+      this.screensize = window.innerWidth;
+      this.http.get('http://localhost:3000/api/blog/userBlog' + this.userId).subscribe((userBlog: any) => {
+        this.Blogs = userBlog.Blog;
+        console.log(this.Blogs);
+      });
+      this.authService.userData.subscribe(user => {
+        console.log(user);
+        this.userBookmark = user.bookmarked;
+        console.log("Bookmarks", this.userBookmark);
+
+      });
+    });
+
 
   }
   checkIfImg(url) {

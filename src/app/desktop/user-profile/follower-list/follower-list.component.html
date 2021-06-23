@@ -3,9 +3,10 @@
   <div *ngIf="followers.length > 0">
     <div class="content" *ngFor="let follower of followers; let i = index">
       <div>
-        <img src="../../../../assets/final-1.png">
+        <img [src]="follower.profileImage" style="width: 50px; border-radius: 50%; border: 2px solid #2D4A86;">
+
       </div>
-      <div style="flex-grow: 1; padding-left: 20px;">
+      <div style="flex-grow: 1; padding-left: 20px;" [routerLink]="'/user/' +  follower._id">
         <div style="color: #2D4A86; font-size: 25px">
           {{ follower.name }}
         </div>

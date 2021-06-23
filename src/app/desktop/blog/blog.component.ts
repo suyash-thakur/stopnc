@@ -13,16 +13,19 @@ export class BlogComponent implements OnInit {
   public currentSlide = 0;
   id: number;
   isFocus: boolean;
-  isLiked: boolean = false;
+  isLiked = false;
   likes: Array<any>;
   CommentInput: any;
   isBookmarked: any = false;
   bookmarkList = [];
-  isFollowing: boolean = false;
+  isFollowing = false;
   private sub: any;
   data: any;
   UserComment: any = [];
   Products = [];
+  recommendedBlog = [];
+  recommendedUser = [];
+  isRecLoad = false;
   isNextComment = true;
   isloggedin = false;
   commentPage = 1;
@@ -71,8 +74,8 @@ export class BlogComponent implements OnInit {
       this.http.get('http://localhost:3000/api/user/getBookmark' + this.authService.id).subscribe(res => {
         const data: any = res;
 
-      this.bookmarkList = data.bookmark.bookmarked;
-      if (this.bookmarkList.indexOf(this.blog.blog.Blog._id) > -1) {
+        this.bookmarkList = data.bookmark.bookmarked;
+        if (this.bookmarkList.indexOf(this.blog.blog.Blog._id) > -1) {
         this.isBookmarked = true;
       } else {
         this.isBookmarked = false;
@@ -81,10 +84,21 @@ export class BlogComponent implements OnInit {
 
       });
     }
+    this.http.post('http://localhost:3000/api/user/recommendation', { id: this.blog.blog.Blog._id }).subscribe((res: any) => {
+      this.recommendedBlog = res.result;
+      this.recommendedUser = res.userData;
+      console.log('Recommendation', this.recommendedUser[0][0]);
 
+      this.isRecLoad = true;
+
+
+    });
+  }
+  blogClick(id) {
+    this.router.navigate(['/blog', id]);
   }
   checkIfImg(url) {
-    let ext = url.split('.').pop();
+    const ext = url.split('.').pop();
     if (ext === 'jpg' || ext === 'png' || ext === 'jpeg') {
       return true;
     } else if (ext === 'mp4' || ext === 'webm' || ext === 'ogg') {
@@ -104,11 +118,11 @@ export class BlogComponent implements OnInit {
   }
   onFocus() {
     this.isFocus = true;
-    const box = (<HTMLTextAreaElement>document.getElementById('inpC'));
+    const box = (document.getElementById('inpC') as HTMLTextAreaElement);
     box.rows = 5;
   }
   like(id) {
-    console.log("Like");
+    console.log('Like');
     const data = {
       userId: this.authService.id,
       authId: this.blog.blog.Blog.authorId._id
@@ -151,14 +165,14 @@ export class BlogComponent implements OnInit {
     });
   }
   onFocusOut() {
-    if (this.CommentInput == null || this.CommentInput == '') {
+    if (this.CommentInput == null || this.CommentInput === '') {
       this.isFocus = false;
-      const box = (<HTMLTextAreaElement>document.getElementById('inpC'));
+      const box = (document.getElementById('inpC') as HTMLTextAreaElement);
       box.rows = 1;
     }
   }
   getComment() {
-    var blogId = this.blog.blog.Blog._id;
+    const blogId = this.blog.blog.Blog._id;
     this.http.get('http://localhost:3000/api/blog/comment/' + blogId + '/' + this.commentPage).subscribe((comment: any) => {
       console.log(comment.comment.docs);
       this.isNextComment = comment.comment.hasNextPage;
@@ -181,7 +195,7 @@ export class BlogComponent implements OnInit {
     };
     console.log(Comment);
     this.http.post('http://localhost:3000/api/blog/comment' + this.blog.blog.Blog._id, Comment).subscribe (
-      (responce:any) => {
+      (responce: any) => {
         // this.UserComment.push(res.);
         this.UserComment.push(responce.result);
         this.isFocus = false;
