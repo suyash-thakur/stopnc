@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { BlogService } from 'src/app/services/blog.service';
@@ -10,7 +10,7 @@ import { UserDataService } from 'src/app/services/user-data.service';
   templateUrl: './blog-mobile.component.html',
   styleUrls: ['./blog-mobile.component.css']
 })
-export class BlogMobileComponent implements OnInit {
+export class BlogMobileComponent implements OnInit, OnDestroy {
   public currentSlide = 0;
   public slides = [
     {src : '../../../assets/Golbourne-1-1044x1566.jpg'},
@@ -25,11 +25,15 @@ export class BlogMobileComponent implements OnInit {
   bookmarkList = [];
   isFollowing: boolean = false;
   private sub: any;
+  recommendedBlog = [];
+  recommendedUser = [];
+  isRecLoad = false;
   data: any;
   UserComment: any = [];
   Products = [];
 
   isNextComment = true;
+  isLoading = false;
   commentPage = 1;
   blog: any;
   comment= 'I enjoyed this read, thank you for explaining so clearly. I would argue tho that the gig economy is not so different from the auto industry’s cycle of layoffs as supply and demand fluctuate. There is also evidence that building (buying) market share is a longterm strategy that yields intangable gains. Amazon took over a decade to turn a profit but what it earned in marketshare in that period is price.  ';
@@ -39,47 +43,66 @@ export class BlogMobileComponent implements OnInit {
     private authService: AuthenticationService, private http: HttpClient, public userData: UserDataService) { }
 
   ngOnInit() {
-    this.route.data.subscribe(data => this.blog = data);
-    this.slides = this.blog.blog.Blog.image;
-    this.UserComment = this.blog.blog.Comment;
-    this.likes = this.blog.blog.Blog.like;
-    this.ProfileImg = this.userData.User.profileImage;
-    this.Products = this.blog.blog.Blog.products;
+    this.route.data.subscribe((data) => {
+      this.isRecLoad = false;
 
-    if (this.blog.blog.Blog.authorId.follower.indexOf(this.authService.id) > -1) {
-      this.isFollowing = true;
-    }
-    if (this.likes.indexOf(this.authService.id) > -1) {
-      this.isLiked = true;
-    }
-    // console.log(this.authService.userdata);
-    // if (this.authService.userdata.bookmarked.indexOf(this.blog.blog.Blog._id) > -1) {
-    //   this.isBookmarked = true;
-    //   console.log(this.isBookmarked);
-    // }
-    const data = {
-      postId: this.blog.blog.Blog._id
-    };
-    this.http.get('http://localhost:3000/api/user/getBookmark' + this.authService.id).subscribe(res => {
-      const data: any = res;
 
-    this.bookmarkList = data.bookmark.bookmarked;
-    if (this.bookmarkList.indexOf(this.blog.blog.Blog._id) > -1) {
-      this.isBookmarked = true;
-    } else {
-      this.isBookmarked = false;
-    }
+      this.blog = data;
+      console.log(data);
+      this.slides = this.blog.blog.Blog.image;
+      this.UserComment = this.blog.blog.Comment;
+      this.likes = this.blog.blog.Blog.like;
+      this.ProfileImg = this.userData.User.profileImage;
+      this.Products = this.blog.blog.Blog.products;
+      this.userData.configObservable.subscribe(val => {
+        this.ProfileImg = val.profileImage;
 
+      });
+      this.authService.userData.subscribe(val => {
+        this.ProfileImg = val.profileImage;
+
+      });
+      if (this.blog.blog.Blog.authorId.follower.indexOf(this.authService.id) > -1) {
+        this.isFollowing = true;
+      }
+      if (this.likes.indexOf(this.authService.id) > -1) {
+        this.isLiked = true;
+      }
+      // console.log(this.authService.userdata);
+      // if (this.authService.userdata.bookmarked.indexOf(this.blog.blog.Blog._id) > -1) {
+      //   this.isBookmarked = true;
+      //   console.log(this.isBookmarked);
+      // }
+
+      this.http.get('http://localhost:3000/api/user/getBookmark' + this.authService.id).subscribe(res => {
+        const data: any = res;
+
+        this.bookmarkList = data.bookmark.bookmarked;
+        if (this.bookmarkList.indexOf(this.blog.blog.Blog._id) > -1) {
+          this.isBookmarked = true;
+        } else {
+          this.isBookmarked = false;
+        }
+
+
+      });
+      this.http.post('http://localhost:3000/api/user/recommendation', { id: this.blog.blog.Blog._id }).subscribe((res: any) => {
+        this.recommendedBlog = res.result;
+        this.recommendedUser = res.userData;
+        console.log('Recommendation', this.recommendedUser[0][0]);
+
+        this.isRecLoad = true;
+
+
+      });
+      this.isLoading = true;
 
     });
-    this.userData.configObservable.subscribe(val => {
-      this.ProfileImg = val.profileImage;
 
-    });
-    this.authService.userData.subscribe(val => {
-      this.ProfileImg = val.profileImage;
-
-    });
+  }
+  ngOnDestroy() {
+    this.isRecLoad = false;
+    this.isLoading = false;
   }
   like(id) {
     console.log("Like");
@@ -93,6 +116,16 @@ export class BlogMobileComponent implements OnInit {
 
     });
 
+  }
+  checkIfImg(url) {
+    let ext = url.split('.').pop();
+    if (ext === 'jpg' || ext === 'png' || ext === 'jpeg') {
+      return true;
+    } else if (ext === 'mp4' || ext === 'webm' || ext === 'ogg') {
+      return false;
+    } else {
+      return undefined;
+    }
   }
   bookmark() {
     const data = {
@@ -176,6 +209,10 @@ export class BlogMobileComponent implements OnInit {
     const box = (<HTMLTextAreaElement>document.getElementById('inpC'));
     box.rows = 5;
   }
+
+  blogClick(id) {
+    this.router.navigate(['mobile/blog', id]);
+  }
   onFocusOut() {
     if (this.CommentInput == null || this.CommentInput == '') {
       this.isFocus = false;
@@ -204,4 +241,5 @@ export class BlogMobileComponent implements OnInit {
       }
     );
   }
+
 }
