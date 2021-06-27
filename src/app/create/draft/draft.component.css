@@ -59,6 +59,7 @@
   .draft-container {
     justify-content: center;
     flex-direction: column;
+    align-items: center;
  }
  .content{
   min-width: 300px !important;

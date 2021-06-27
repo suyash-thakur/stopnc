@@ -47,7 +47,7 @@
         {{ item.body | truncate: 200  }}
       </div>
       <br>
-      <div  class="ReadNow">
+      <div class="ReadNow" (click)="blogClick(item._id)">
         <div>
         READNOW
         </div>

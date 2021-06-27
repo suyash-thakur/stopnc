@@ -66,6 +66,9 @@ export class UserInfoComponent implements OnInit {
   blogClick(id) {
     this.router.navigate(['/blog', id]);
   }
+  blogClickEdit(id) {
+    this.router.navigate(['/create', id]);
+  }
   getComment(id) {
     console.log(id);
     this.http.get('http://localhost:3000/api/user/commentUser' + id).subscribe((comment: any) => {

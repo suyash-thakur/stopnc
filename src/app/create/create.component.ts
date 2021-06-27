@@ -73,6 +73,7 @@ export class CreateComponent implements OnInit, OnDestroy {
   imgObj: any;
   id: string;
   isDraft = false;
+  isNew = true;
   isPrevious = false;
   isUploading = false;
   prevSelected: number;
@@ -93,6 +94,7 @@ export class CreateComponent implements OnInit, OnDestroy {
     this.route.params.subscribe(data => {
       console.log(data);
       if (data.id !== undefined) {
+        this.isNew = false;
         this.http.get('http://localhost:3000/api/blog/getDraft/' + data.id).subscribe((res: any) => {
           this.isPrevious = true;
           console.log(res);
@@ -116,7 +118,7 @@ export class CreateComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy() {
     console.log('destroyed');
-    if (!this.isDraft && this.body !== undefined) {
+    if (this.isNew && this.body !== undefined) {
       this.submitDraft();
     }
   }

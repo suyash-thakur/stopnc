@@ -1,3 +1,4 @@
+<div>
 <div style="background-color: #F3F3F3; width: 100%; padding-top: 10px; padding-left: 10px; padding-right: 10px;">
   <p class="Title"><b>{{ this.blog.blog.Blog.title }}</b></p>
   <div style="display: flex;">
@@ -44,9 +45,13 @@
       <a (click)="onPreviousClick()">  < </a>
     </div>
     <div>
-    <img [src] = 'slides[currentSlide]' class="blog-img" >
+    <img [src]='slides[currentSlide]' class="blog-img" *ngIf="checkIfImg(slides[currentSlide])">
+    <video width="100%" class="blog-img" loop controls muted
+      style="border-radius: 1px; object-fit: cover; overflow: hidden; " *ngIf="!checkIfImg(slides[currentSlide])">
+      <source [src]="slides[currentSlide]" type="video/mp4" style="object-fit: cover;">
+    </video>
   </div>
-  <div class="arrow" style="margin-left: -35px; padding-right: 5px;">
+  <div class="arrow" style="margin-left: -35px;">
       <a (click)="onNextClick()">  > </a>
   </div>
   </div>
@@ -130,8 +135,8 @@
 
 </div>
 <div style="  background-color: #F9B1A5; text-align: center;   padding-top: 30px;">
-  <div class="head">SHOP THE STYLE</div>
-  <div class="scrolling-wrapper">
+  <div class="head" *ngIf="Products.length > 0">SHOP THE STYLE</div>
+  <div class="scrolling-wrapper" *ngIf="Products.length > 0">
     <div class="card">
 
     </div>
@@ -176,197 +181,92 @@
 <div style=" margin-top: -130px; background-color: #A2CABE; text-align: center;   padding-top: 30px;">
   <div class="head" style="margin-top: 40px; margin-bottom: 30px;">READ MORE</div>
   <div class="scrolling-wrapper">
-    <div class="card">
+    <div class="card" style="margin-left: 10px; margin-right: 10px; width: 300px;"
+      *ngFor="let item of recommendedBlog; let i = index">
       <div class="story-container">
-        <div style="display: flex;">
-          <div>
-            <img src="assets\final-1.png" alt="" style="width: 50px; height: 50px;">
+        <div *ngIf="isRecLoad === false" style="max-width: 300px">
+          <div style="display: flex">
+            <ngx-skeleton-loader count="1" appearance="circle" [theme]="{ 'width': '60px', 'height': '60px' }">
+            </ngx-skeleton-loader> <br>
           </div>
-          <div style="text-align: left !important;">
+          <div style="display: flex;">
+            <ngx-skeleton-loader count="1" [theme]="{ 'width': '250px' }">
+            </ngx-skeleton-loader>
+          </div>
+          <div style="display: flex;">
+            <ngx-skeleton-loader count="1" [theme]="{ 'width': '250px' }">
+            </ngx-skeleton-loader>
+          </div>
+          <div style="display: flex;">
+            <ngx-skeleton-loader count="1" [theme]="{ 'width': '250px' }">
+            </ngx-skeleton-loader>
+          </div>
+          <div style="display: flex;">
+            <ngx-skeleton-loader count="1" [theme]="{ 'width': '250px' }">
+            </ngx-skeleton-loader>
+          </div>
+          <div style="display: flex;">
+            <ngx-skeleton-loader count="1" [theme]="{ 'width': '250px' }">
+            </ngx-skeleton-loader>
+          </div>
+        </div>
+        <div *ngIf="isRecLoad === true">
+          <div style="display: flex;">
+            <div>
+            <img [src]="recommendedUser[i][0].profileImage" alt="" style="width: 50px; height: 50px;">
+            </div>
+          <div style="text-align: left !important; margin-top: auto; margin-bottom: auto;">
             <div class="Name">
-              Kevin Smith
-            </div>
-            <div class="discription">
-              Blogger From NewZeland
-            </div>
-          </div>
-          <div style=" align-items: center;
-          justify-content: center; display:flex;">
-            <a>
-            <div class="follow-button">
-              <div>
-
-              Follow
-            </div>
+              {{ recommendedUser[i][0].name }}
+              </div>
+              <div class="discription">
+              {{ recommendedUser[i][0].discription }}
+              </div>
+              </div>
+              <div
+                style=" align-items: center;
+                                                                                                                                                                                                                                          justify-content: center; display:flex;">
+            <div style="width: 70px; height:50px">
 
             </div>
-          </a>
           </div>
-        </div>
-        <div  class="header-small">
-          The Denim Game
-        </div>
-        <div>
-          <div style="display: flex; flex-flow: row; justify-content: flex-start; font-family: Regular; margin-left: 15px;">
-            <div style="font-size: 10px; color: #5D5D5D;">Casual</div><div style="width: 7px; height: 7px; background-color: #E97988; border: none; border-radius: 50%; margin-left: 5px; margin-right: 5px; transform: translateY(2px);"></div><div style="font-size: 10px; color: #5D5D5D;">3/31/2019</div>
           </div>
-      </div>
-        <div style="display: flex; align-items: center; justify-content: center;">
+          <div class="header-small">
+            {{ item.title | truncate:25}}
 
+          </div>
           <div>
-            <img src="assets\Uniqlo-x-J-W-Anderson-5-1044x1566.jpg"  class="image-small">
+          <div style="display: flex; flex-flow: row; justify-content: flex-start; font-family: Regular; ">
+            <div style="font-size: 10px; color: #5D5D5D;">{{ item.tag }}</div>
+            <div
+              style="width: 7px; height: 7px; background-color: #E97988; border: none; border-radius: 50%; margin-left: 5px; margin-right: 5px; transform: translateY(2px);">
+            </div>
+            <div style="font-size: 10px; color: #5D5D5D;">3/31/2019</div>
+            </div>
+            </div>
+      <br>
+      <div style="display: flex; align-items: center; justify-content: center;">
+
+          <div
+            style="width: 100%; background-image: url('../../../assets/Uniqlo-x-J-W-Anderson-5-1044x1566.jpg'); background-repeat: no-repeat; background-position:center; background-size: cover; height: 400px;"
+            [ngStyle]="{ 'background-image': 'url(' + item.image[0] + ')'}">
+
           </div>
         </div>
         <div style="display: flex; justify-content: center;">
-          <div class="read">
+          <div class="read" (click)="this.blogClick(item._id)">
             READ NOW
           </div>
         </div>
       </div>
+      </div>
     </div>
-    <div class="card"><div class="story-container">
-      <div style="display: flex;">
-        <div>
-          <img src="assets\final-1.png" alt="" style="width: 50px; height: 50px;">
-        </div>
-        <div style="text-align: left !important;">
-          <div class="Name">
-            Kevin Smith
-          </div>
-          <div class="discription">
-            Blogger From NewZeland
-          </div>
-        </div>
-        <div style=" align-items: center;
-        justify-content: center; display:flex;">
-          <a>
-          <div class="follow-button">
-            <div>
 
-            Follow
-          </div>
-
-          </div>
-        </a>
-        </div>
-      </div>
-      <div  class="header-small">
-        The Denim Game
-      </div>
-      <div>
-        <div style="display: flex; flex-flow: row; justify-content: flex-start; font-family: Regular; margin-left: 15px;">
-          <div style="font-size: 10px; color: #5D5D5D;">Casual</div><div style="width: 7px; height: 7px; background-color: #E97988; border: none; border-radius: 50%; margin-left: 5px; margin-right: 5px; transform: translateY(2px);"></div><div style="font-size: 10px; color: #5D5D5D;">3/31/2019</div>
-        </div>
-    </div>
-      <div style="display: flex; align-items: center; justify-content: center;">
-
-        <div>
-          <img src="assets\Uniqlo-x-J-W-Anderson-5-1044x1566.jpg"  class="image-small">
-        </div>
-      </div>
-      <div style="display: flex; justify-content: center;">
-        <div class="read">
-          READ NOW
-        </div>
-      </div>
-    </div></div>
-    <div class="card"><div class="story-container">
-        <div style="display: flex;">
-          <div>
-            <img src="assets\final-1.png" alt="" style="width: 50px; height: 50px;">
-          </div>
-          <div style="text-align: left !important;">
-            <div class="Name">
-              Kevin Smith
-            </div>
-            <div class="discription">
-              Blogger From NewZeland
-            </div>
-          </div>
-          <div style=" align-items: center;
-          justify-content: center; display:flex;">
-            <a>
-            <div class="follow-button">
-              <div>
-
-              Follow
-            </div>
-
-            </div>
-          </a>
-          </div>
-        </div>
-        <div  class="header-small">
-          The Denim Game
-        </div>
-        <div>
-          <div style="display: flex; flex-flow: row; justify-content: flex-start; font-family: Regular; margin-left: 15px;">
-            <div style="font-size: 10px; color: #5D5D5D;">Casual</div><div style="width: 7px; height: 7px; background-color: #E97988; border: none; border-radius: 50%; margin-left: 5px; margin-right: 5px; transform: translateY(2px);"></div><div style="font-size: 10px; color: #5D5D5D;">3/31/2019</div>
-          </div>
-      </div>
-        <div style="display: flex; align-items: center; justify-content: center;">
-
-          <div>
-            <img src="assets\Uniqlo-x-J-W-Anderson-5-1044x1566.jpg"  class="image-small">
-          </div>
-        </div>
-        <div style="display: flex; justify-content: center;">
-          <div class="read">
-            READ NOW
-          </div>
-        </div>
-      </div></div>
-    <div class="card"></div>
-    <div class="card"><div class="story-container">
-      <div style="display: flex;">
-        <div>
-          <img src="assets\final-1.png" alt="" style="width: 50px; height: 50px;">
-        </div>
-        <div style="text-align: left !important;">
-          <div class="Name">
-            Kevin Smith
-          </div>
-          <div class="discription">
-            Blogger From NewZeland
-          </div>
-        </div>
-        <div style=" align-items: center;
-        justify-content: center; display:flex;">
-          <a>
-          <div class="follow-button">
-            <div>
-
-            Follow
-          </div>
-
-          </div>
-        </a>
-        </div>
-      </div>
-      <div  class="header-small">
-        The Denim Game
-      </div>
-      <div>
-        <div style="display: flex; flex-flow: row; justify-content: flex-start; font-family: Regular; margin-left: 15px;">
-          <div style="font-size: 10px; color: #5D5D5D;">Casual</div><div style="width: 7px; height: 7px; background-color: #E97988; border: none; border-radius: 50%; margin-left: 5px; margin-right: 5px; transform: translateY(2px);"></div><div style="font-size: 10px; color: #5D5D5D;">3/31/2019</div>
-        </div>
-    </div>
-      <div style="display: flex; align-items: center; justify-content: center;">
-
-        <div>
-          <img src="assets\Uniqlo-x-J-W-Anderson-5-1044x1566.jpg"  class="image-small">
-        </div>
-      </div>
-      <div style="display: flex; justify-content: center;">
-        <div class="read">
-          READ NOW
-        </div>
-      </div>
-    </div></div>
 
   </div>
   <br>
 <br>
 <br>
 <br>
+</div>
 </div>

@@ -10,9 +10,13 @@
         <div *ngIf="Blogs.length > 0 && isloading === false">
 
         <div class="content" *ngFor="let blog of Blogs">
-          <div style="flex: 1;  background-size: cover; background-position: center;"
-            [style.background-image]="'url(' + blog.image[0]  + ')'">
-
+          <div style="flex: 1;">
+            <div class="blog-image" [ngStyle]="{ 'background-image': 'url(' + blog.image[0] + ')'}"
+              *ngIf="checkIfImg(blog.image[0])">
+            </div>
+            <video loop controls muted class="blog-video" *ngIf="!checkIfImg(blog.image[0])">
+              <source [src]="blog.image[0]" type="video/mp4" style="object-fit: cover;">
+            </video>
           </div>
           <div style="flex: 1; padding: 10px; ">
             <div style="display: flex; justify-content: space-between; ">
@@ -33,9 +37,9 @@
             <div class="description">
               {{ blog.body | truncate: 180  }}
             </div>
-            <div  class="ReadNow">
+            <div class="Edit">
               <div>
-              READNOW
+              EDIT
               </div>
             </div>
           </div>

@@ -60,6 +60,33 @@ a {
 
   /* transform: translateX(-20px); */
 }
+.Edit {
+  margin-top: 10px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  color: #5d5d5d;
+  font-family: Regular;
+
+  /* transform: translateX(-20px); */
+}
+.blog-image {
+  background-size: cover;
+  background-position: center;
+  border: 3px solid #5d5d5d;
+  width: 100%;
+  height: 400px;
+}
+.blog-video {
+  border-radius: 1px;
+  object-fit: cover;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  border: 3px solid #5d5d5d;
+
+}
 .top-story-head {
   color: #ffffff;
   font-family: Enhance;

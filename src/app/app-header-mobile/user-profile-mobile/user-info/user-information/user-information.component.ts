@@ -45,6 +45,17 @@ export class UserInformationComponent implements OnInit {
     });
     console.log("Bookmarks", this.userBookmark);
 
+
+  }
+  checkIfImg(url) {
+    let ext = url.split('.').pop();
+    if (ext === 'jpg' || ext === 'png' || ext === 'jpeg') {
+      return true;
+    } else if (ext === 'mp4' || ext === 'webm' || ext === 'ogg') {
+      return false;
+    } else {
+      return undefined;
+    }
   }
   getComment(id) {
     console.log(id);

@@ -11,7 +11,7 @@
       <div class="blog-image" [ngStyle]="{ 'background-image': 'url(' + item.image[0] + ')'}"
         *ngIf="checkIfImg(item.image[0])">
           </div>
-      <video loop controls muted autoplay class="blog-video" *ngIf="!checkIfImg(item.image[0])">
+      <video loop controls muted class="blog-video" *ngIf="!checkIfImg(item.image[0])">
         <source [src] = "item.image[0]" type="video/mp4" style="object-fit: cover;" >
       </video>
     </div>
@@ -38,7 +38,7 @@
         {{ item.body | truncate: 230  }}
       </div>
       <br>
-      <div  class="ReadNow" (click)="this.blogClick(item._id)">
+      <div class="ReadNow" (click)="blogClick(item._id)">
         <div>
         READNOW
         </div>

@@ -69,7 +69,7 @@ export class CategoryMobileComponent implements OnInit {
     });
   }
   blogClick(id) {
-    this.router.navigate(['/blog', id]);
+    this.router.navigate(['/mobile/blog', id]);
   }
   checkIfImg(url) {
     let ext = url.split('.').pop();
@@ -81,6 +81,7 @@ export class CategoryMobileComponent implements OnInit {
       return undefined;
     }
   }
+
   onScroll() {
     console.log("scroll");
     if (this.hasNextpage) {
@@ -95,4 +96,5 @@ export class CategoryMobileComponent implements OnInit {
     }
 
   }
+
 }

@@ -1,4 +1,4 @@
-<div style="background-color: #f7f6f9; min-height: 90vh;">
+<div style="background-color: #f7f6f9; min-height: 90vh; overflow-y:auto; padding-bottom: 40px;">
 <div *ngFor="let item of authService.notification; let i = index">
 <div style="display: flex; padding: 15px; align-items: center;" (click)="clickEachNotification(item.type, item.refId._id)">
     <div>

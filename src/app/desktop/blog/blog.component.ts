@@ -48,13 +48,12 @@ export class BlogComponent implements OnInit {
     if (this.authService.id !== undefined) {
       this.isloggedin = true;
     }
-    this.route.data.subscribe(data => this.blog = data);
-    console.log(this.blog);
-    this.slides = this.blog.blog.Blog.image;
-    this.UserComment = this.blog.blog.Comment;
-    this.likes = this.blog.blog.Blog.like;
-    this.Products = this.blog.blog.Blog.products;
-    console.log(this.Products);
+    this.route.data.subscribe((data) => {
+      this.blog = data;
+      this.slides = this.blog.blog.Blog.image;
+      this.UserComment = this.blog.blog.Comment;
+      this.likes = this.blog.blog.Blog.like;
+      this.Products = this.blog.blog.Blog.products;
 
     if (this.blog.blog.Blog.authorId.follower.indexOf(this.authService.id) > -1) {
       this.isFollowing = true;
@@ -62,37 +61,41 @@ export class BlogComponent implements OnInit {
     if (this.likes.indexOf(this.authService.id) > -1) {
       this.isLiked = true;
     }
+
+      if (this.authService.id !== undefined) {
+        this.http.get('http://localhost:3000/api/user/getBookmark' + this.authService.id).subscribe(res => {
+          const data: any = res;
+
+          this.bookmarkList = data.bookmark.bookmarked;
+          if (this.bookmarkList.indexOf(this.blog.blog.Blog._id) > -1) {
+            this.isBookmarked = true;
+          } else {
+            this.isBookmarked = false;
+          }
+
+
+        });
+      }
+      this.http.post('http://localhost:3000/api/user/recommendation', { id: this.blog.blog.Blog._id }).subscribe((res: any) => {
+        this.recommendedBlog = res.result;
+        this.recommendedUser = res.userData;
+        console.log('Recommendation', this.recommendedUser[0][0]);
+
+        this.isRecLoad = true;
+
+
+      });
+    });
+    console.log(this.blog);
+
+    console.log(this.Products);
+
     // console.log(this.authService.userdata);
     // if (this.authService.userdata.bookmarked.indexOf(this.blog.blog.Blog._id) > -1) {
     //   this.isBookmarked = true;
     //   console.log(this.isBookmarked);
     // }
-    const data = {
-      postId: this.blog.blog.Blog._id
-    };
-    if (this.authService.id !== undefined) {
-      this.http.get('http://localhost:3000/api/user/getBookmark' + this.authService.id).subscribe(res => {
-        const data: any = res;
 
-        this.bookmarkList = data.bookmark.bookmarked;
-        if (this.bookmarkList.indexOf(this.blog.blog.Blog._id) > -1) {
-        this.isBookmarked = true;
-      } else {
-        this.isBookmarked = false;
-      }
-
-
-      });
-    }
-    this.http.post('http://localhost:3000/api/user/recommendation', { id: this.blog.blog.Blog._id }).subscribe((res: any) => {
-      this.recommendedBlog = res.result;
-      this.recommendedUser = res.userData;
-      console.log('Recommendation', this.recommendedUser[0][0]);
-
-      this.isRecLoad = true;
-
-
-    });
   }
   blogClick(id) {
     this.router.navigate(['/blog', id]);

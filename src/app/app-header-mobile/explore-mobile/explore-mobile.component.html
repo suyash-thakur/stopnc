@@ -12,7 +12,7 @@
     </div>
     <div class="list-item" *ngIf="isLoading ===  true">
       <div class="margin" style="text-align: left; margin-top: 15px" *ngFor="let item of trending; let i = index">
-        <div style="display:flex; width: 247px;">
+        <div style="display:flex; width: 247px; cursor: pointer;" (click)="blogClick(item._id)">
           <div style="flex: 1;">
             <p class="number" style="margin-top:auto; opacity: 0.4;  margin-top: -15px;">{{ i + 1 }}</p>
           </div>
@@ -50,6 +50,7 @@
             </div>
             <div style="width: 130px; margin: auto;">
             <a [href]="products[0].link " target="blank">
+
             <div class="shop">
               Shop Now
             </div>
@@ -111,7 +112,7 @@
     </div>
     <div *ngIf="isLoading ===  true">
     <div style="display: flex; flex-direction: column; justify-content: space-between; " *ngFor="let item of exclusive">
-    <div style="display: flex; align-items: center;">
+    <div style="display: flex; align-items: center; cursor:pointer" (click)="blogClick(item._id)">
       <div class="head" style="padding-left: 0px; padding-right: 10px; font-size: 40px; margin-top: 10px; ">
         <img [src]="item.image[0]" style="width: 60px;">
       </div>

@@ -173,9 +173,9 @@
 <div style="width: 100%; background-color: #A2CABE; text-align: center; margin-top: -30px; padding-top: 50px;">
   <p class="header" style="color: #ffffff;"><b>READ MORE</b></p>
 
-  <div style="display: flex; padding-left: 30px; padding-right: 30px; padding-bottom: 50px; padding-top: 50px;">
+  <div style="display: flex;  padding-bottom: 50px; padding-top: 50px; padding-left: 10%; padding-right: 10%;">
 
-    <div style=" flex-grow: 3; display: flex; justify-content: space-evenly;">
+    <div style=" flex-grow: 3; display: flex; justify-content: space-between; ">
       <div class="story-container" style=" flex: 1">
         <div *ngIf="isRecLoad === false">
           <div style="display: flex">
@@ -185,9 +185,9 @@
           <div style="display: flex">
             <ngx-skeleton-loader count="13" *ngIf="isRecLoad === false" [theme]="{ 'min-width': '150px' }">
             </ngx-skeleton-loader>
-      
+
           </div>
-      
+
         </div>
         <div *ngIf="isRecLoad === true">
           <div style="display: flex; cursor: pointer;" [routerLink]="'/user/' +  recommendedUser[0][0]._id">
@@ -243,9 +243,9 @@
           <div style="display: flex">
             <ngx-skeleton-loader count="13" *ngIf="isRecLoad === false" [theme]="{ 'min-width': '150px' }">
             </ngx-skeleton-loader>
-      
+
           </div>
-      
+
         </div>
         <div *ngIf="isRecLoad === true">
           <div style="display: flex; cursor: pointer;" [routerLink]="'/user/' +  recommendedUser[1][0]._id">
@@ -268,7 +268,7 @@
         </div>
             <div class="header-small">
               {{ recommendedBlog[1].title }}
-            
+
             </div>
             <div>
             <div style="display: flex; flex-flow: row; justify-content: flex-start; font-family: Regular;  margin-left: 15px;">
@@ -301,9 +301,9 @@
           <div style="display: flex">
             <ngx-skeleton-loader count="13" *ngIf="isRecLoad === false" [theme]="{ 'min-width': '150px' }">
             </ngx-skeleton-loader>
-      
+
           </div>
-      
+
         </div>
         <div *ngIf="isRecLoad === true">
           <div style="display: flex; cursor: pointer;" [routerLink]="'/user/' +  recommendedUser[2][0]._id">
@@ -326,7 +326,7 @@
         </div>
             <div class="header-small">
               {{ recommendedBlog[2].title }}
-            
+
             </div>
             <div>
               <div style="display: flex; flex-flow: row; justify-content: flex-start; font-family: Regular; margin-left: 15px;">
