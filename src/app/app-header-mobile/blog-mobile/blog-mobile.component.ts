@@ -35,6 +35,8 @@ export class BlogMobileComponent implements OnInit, OnDestroy {
   isNextComment = true;
   isLoading = false;
   commentPage = 1;
+  isloggedin = false;
+
   blog: any;
   comment= 'I enjoyed this read, thank you for explaining so clearly. I would argue tho that the gig economy is not so different from the auto industry’s cycle of layoffs as supply and demand fluctuate. There is also evidence that building (buying) market share is a longterm strategy that yields intangable gains. Amazon took over a decade to turn a profit but what it earned in marketshare in that period is price.  ';
   ProfileImg: any;
@@ -43,6 +45,9 @@ export class BlogMobileComponent implements OnInit, OnDestroy {
     private authService: AuthenticationService, private http: HttpClient, public userData: UserDataService) { }
 
   ngOnInit() {
+    if (this.authService.id !== undefined) {
+      this.isloggedin = true;
+    }
     this.route.data.subscribe((data) => {
       this.isRecLoad = false;
 
@@ -52,7 +57,6 @@ export class BlogMobileComponent implements OnInit, OnDestroy {
       this.slides = this.blog.blog.Blog.image;
       this.UserComment = this.blog.blog.Comment;
       this.likes = this.blog.blog.Blog.like;
-      this.ProfileImg = this.userData.User.profileImage;
       this.Products = this.blog.blog.Blog.products;
       this.userData.configObservable.subscribe(val => {
         this.ProfileImg = val.profileImage;
@@ -74,18 +78,22 @@ export class BlogMobileComponent implements OnInit, OnDestroy {
       //   console.log(this.isBookmarked);
       // }
 
-      this.http.get('http://localhost:3000/api/user/getBookmark' + this.authService.id).subscribe(res => {
-        const data: any = res;
+      if (this.authService.id !== undefined) {
+        this.ProfileImg = this.userData.User.profileImage;
 
-        this.bookmarkList = data.bookmark.bookmarked;
-        if (this.bookmarkList.indexOf(this.blog.blog.Blog._id) > -1) {
-          this.isBookmarked = true;
-        } else {
-          this.isBookmarked = false;
-        }
+        this.http.get('http://localhost:3000/api/user/getBookmark' + this.authService.id).subscribe(res => {
+          const data: any = res;
+
+          this.bookmarkList = data.bookmark.bookmarked;
+          if (this.bookmarkList.indexOf(this.blog.blog.Blog._id) > -1) {
+            this.isBookmarked = true;
+          } else {
+            this.isBookmarked = false;
+          }
 
 
-      });
+        });
+      }
       this.http.post('http://localhost:3000/api/user/recommendation', { id: this.blog.blog.Blog._id }).subscribe((res: any) => {
         this.recommendedBlog = res.result;
         this.recommendedUser = res.userData;
