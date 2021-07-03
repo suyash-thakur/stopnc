@@ -56,9 +56,9 @@ router.post("/forgot-password", (req, res, next) => {
       });
       var tokenData = await token.save();
       let email = {
-        from: 'contact.stopnc@gmail.com',
+        from: "contact@stopnc.com",
         to: user.email,
-        subject: 'Reset Password STOPNC',
+        subject: "Reset Password STOPNC",
         html: `<!DOCTYPE html>
   <head>
       <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -86,7 +86,12 @@ router.post("/forgot-password", (req, res, next) => {
               By clicking the following link, you are conforming your email address
           </h5>
           <br>
-          <a href="${'http://localhost:4200/forgot-password/' + tokenData.userId + '/' + tokenData.token}" style="padding-top: 10px; padding-bottom: 15px; padding-left: 20px; padding-right: 20px; background-color: #2D4A86; border-radius: 40px; font-size: 20px; cursor: pointer;">
+          <a href="${
+            "http://localhost:4200/forgot-password/" +
+            tokenData.userId +
+            "/" +
+            tokenData.token
+          }" style="padding-top: 10px; padding-bottom: 15px; padding-left: 20px; padding-right: 20px; background-color: #2D4A86; border-radius: 40px; font-size: 20px; cursor: pointer;">
               Confirm Email
           </a>
           <br>
@@ -96,8 +101,8 @@ router.post("/forgot-password", (req, res, next) => {
   </div>
       </body>
 
-  </html>`
-      }
+  </html>`,
+      };
       mailer.sendMail(email, (err, info) => {
         if (err) {
           console.log(err);
@@ -145,7 +150,7 @@ router.post("/signup",  (req, res, next) => {
 
             console.log(tokenData);
             let email = {
-              from: "contact.stopnc@gmail.com",
+              from: "contact@stopnc.com",
               to: result.email,
               subject: "Email Verification STOPNC",
               html: `<!DOCTYPE html>
@@ -266,9 +271,9 @@ router.post('/resendToken', async (req, res) => {
   });
   var tokenData = await token.save();
   let email = {
-    from: 'contact.stopnc@gmail.com',
+    from: "contact@stopnc.com",
     to: req.body.email,
-    subject: 'Email Verification STOPNC',
+    subject: "Email Verification STOPNC",
     html: `<!DOCTYPE html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -296,7 +301,12 @@ router.post('/resendToken', async (req, res) => {
                 By clicking the following link, you are conforming your email address
             </h5>
             <br>
-            <a href="${'http://localhost:4200/emailVerify/'+ tokenData.userId + '/' + tokenData.token}" style="padding-top: 10px; padding-bottom: 15px; padding-left: 20px; padding-right: 20px; background-color: #2D4A86; border-radius: 40px; font-size: 20px; cursor: pointer;">
+            <a href="${
+              "http://localhost:4200/emailVerify/" +
+              tokenData.userId +
+              "/" +
+              tokenData.token
+            }" style="padding-top: 10px; padding-bottom: 15px; padding-left: 20px; padding-right: 20px; background-color: #2D4A86; border-radius: 40px; font-size: 20px; cursor: pointer;">
                 Confirm Email
             </a>
             <br>
@@ -306,8 +316,8 @@ router.post('/resendToken', async (req, res) => {
     </div>
         </body>
 
-    </html>`
-  }
+    </html>`,
+  };
   mailer.sendMail(email, (err, info) => {
    if (err) {
      console.log(err);
