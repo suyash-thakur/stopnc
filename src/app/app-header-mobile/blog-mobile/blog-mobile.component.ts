@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { BlogService } from 'src/app/services/blog.service';
 import { UserDataService } from 'src/app/services/user-data.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-blog-mobile',
@@ -81,7 +82,7 @@ export class BlogMobileComponent implements OnInit, OnDestroy {
       if (this.authService.id !== undefined) {
         this.ProfileImg = this.userData.User.profileImage;
 
-        this.http.get('http://localhost:3000/api/user/getBookmark' + this.authService.id).subscribe(res => {
+        this.http.get(environment.backendLink + 'api/user/getBookmark' + this.authService.id).subscribe(res => {
           const data: any = res;
 
           this.bookmarkList = data.bookmark.bookmarked;
@@ -94,7 +95,7 @@ export class BlogMobileComponent implements OnInit, OnDestroy {
 
         });
       }
-      this.http.post('http://localhost:3000/api/user/recommendation', { id: this.blog.blog.Blog._id }).subscribe((res: any) => {
+      this.http.post(environment.backendLink + 'api/user/recommendation', { id: this.blog.blog.Blog._id }).subscribe((res: any) => {
         this.recommendedBlog = res.result;
         this.recommendedUser = res.userData;
         console.log('Recommendation', this.recommendedUser[0][0]);
@@ -118,7 +119,7 @@ export class BlogMobileComponent implements OnInit, OnDestroy {
       userId: this.authService.id,
       authId: this.blog.blog.Blog.authorId._id
     };
-    this.http.put('http://localhost:3000/api/blog/like' + id, data).subscribe((res: Response) => {
+    this.http.put(environment.backendLink + 'api/blog/like' + id, data).subscribe((res: Response) => {
         this.isLiked = !this.isLiked;
         this.likes.push(this.authService.id);
 
@@ -140,7 +141,7 @@ export class BlogMobileComponent implements OnInit, OnDestroy {
       postId: this.blog.blog.Blog._id
     };
 
-    this.http.put('http://localhost:3000/api/user/bookmark' + this.authService.id, data).subscribe( res => {
+    this.http.put(environment.backendLink + 'api/user/bookmark' + this.authService.id, data).subscribe(res => {
       this.isBookmarked = true;
     });
   }
@@ -149,7 +150,7 @@ export class BlogMobileComponent implements OnInit, OnDestroy {
       postId: this.blog.blog.Blog._id
     };
 
-    this.http.put('http://localhost:3000/api/user/removebookmark' + this.authService.id, data).subscribe( res => {
+    this.http.put(environment.backendLink + 'api/user/removebookmark' + this.authService.id, data).subscribe(res => {
       this.isBookmarked = false;
     });
   }
@@ -158,7 +159,7 @@ export class BlogMobileComponent implements OnInit, OnDestroy {
     const data = {
       userId: this.authService.id
     };
-    this.http.put('http://localhost:3000/api/user/unlike' + id, data).subscribe((res: Response) => {
+    this.http.put(environment.backendLink + 'api/user/unlike' + id, data).subscribe((res: Response) => {
 
         this.isLiked = !this.isLiked;
         this.likes.splice(this.likes.indexOf(this.authService.id), 1);
@@ -179,7 +180,7 @@ export class BlogMobileComponent implements OnInit, OnDestroy {
       refId: this.blog.blog.Blog._id,
       userId: this.authService.id
     };
-    this.http.put('http://localhost:3000/api/blog/Commentlike' + id, Data).subscribe(responce => {
+    this.http.put(environment.backendLink + 'api/blog/Commentlike' + id, Data).subscribe(responce => {
       console.log(responce);
     });
 
@@ -197,7 +198,7 @@ export class BlogMobileComponent implements OnInit, OnDestroy {
   }
   getComment() {
     var blogId = this.blog.blog.Blog._id;
-    this.http.get('http://localhost:3000/api/blog/comment/' + blogId + '/' + this.commentPage).subscribe((comment: any) => {
+    this.http.get(environment.backendLink + 'api/blog/comment/' + blogId + '/' + this.commentPage).subscribe((comment: any) => {
       console.log(comment.comment.docs);
       this.isNextComment = comment.comment.hasNextPage;
 
@@ -229,7 +230,7 @@ export class BlogMobileComponent implements OnInit, OnDestroy {
     }
   }
   onProductClicked(id) {
-    this.http.put('http://localhost:3000/api/blog/blogClick/' + id, {}).subscribe(responce => {
+    this.http.put(environment.backendLink + 'api/blog/blogClick/' + id, {}).subscribe(responce => {
       console.log(responce);
     });
   }
@@ -240,7 +241,7 @@ export class BlogMobileComponent implements OnInit, OnDestroy {
 
     };
     console.log(Comment);
-    this.http.post('http://localhost:3000/api/blog/comment' + this.blog.blog.Blog._id, Comment).subscribe (
+    this.http.post(environment.backendLink + 'api/blog/comment' + this.blog.blog.Blog._id, Comment).subscribe(
       (responce:any) => {
         // this.UserComment.push(res.);
         this.UserComment.push(responce.result);

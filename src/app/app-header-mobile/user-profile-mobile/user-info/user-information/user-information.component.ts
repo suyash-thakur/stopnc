@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BlogService } from 'src/app/services/blog.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-user-information',
@@ -33,7 +34,7 @@ export class UserInformationComponent implements OnInit {
     if (this.userId === this.authService.id) {
       this.isSameUser = true;
     }
-    this.http.get('http://localhost:3000/api/blog/userBlog' + this.userId).subscribe((userBlog: any) => {
+    this.http.get(environment.backendLink + 'api/blog/userBlog' + this.userId).subscribe((userBlog: any) => {
       this.Blogs = userBlog.Blog;
       console.log(this.Blogs);
       this.isloading = false;
@@ -59,7 +60,7 @@ export class UserInformationComponent implements OnInit {
   }
   getComment(id) {
     console.log(id);
-    this.http.get('http://localhost:3000/api/user/commentUser' + id).subscribe((comment: any) => {
+    this.http.get(environment.backendLink + 'api/user/commentUser' + id).subscribe((comment: any) => {
       this.Useromment = comment.comment;
       console.log(this.Useromment);
   });

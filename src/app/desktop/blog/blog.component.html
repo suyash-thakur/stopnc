@@ -138,7 +138,8 @@
   <br>
 
 </div>
-<div style="width: 100%; background-color: #F9B1A5; padding-top: 30px; text-align: center;" *ngIf="this.blog.blog.Blog.isVerified === true">
+<div style="width: 100%; background-color: #F9B1A5; padding-top: 30px; text-align: center; padding-bottom:25px;"
+  *ngIf="this.blog.blog.Blog.isVerified === true">
   <p class="header" style="color: #ffffff;"><b>SHOP THE STYLE</b></p>
 
   <div style="display: flex; justify-content: space-between; padding-left: 10%; padding-right: 10%;">
@@ -170,7 +171,8 @@
 
   </div>
 </div>
-<div style="width: 100%; background-color: #A2CABE; text-align: center; margin-top: -30px; padding-top: 50px;">
+<div style="width: 100%; background-color: #A2CABE; text-align: center; margin-top: -30px; padding-top: 50px;"
+  *ngIf="show">
   <p class="header" style="color: #ffffff;"><b>READ MORE</b></p>
 
   <div style="display: flex;  padding-bottom: 50px; padding-top: 50px; padding-left: 10%; padding-right: 10%;">
@@ -189,7 +191,7 @@
           </div>
 
         </div>
-        <div *ngIf="isRecLoad === true">
+        <div *ngIf="isRecLoad === true ">
           <div style="display: flex; cursor: pointer;" [routerLink]="'/user/' +  recommendedUser[0][0]._id">
             <div>
               <img [src]="recommendedUser[0][0].profileImage" alt="" style="max-width: 50px; border-radius: 50%;">

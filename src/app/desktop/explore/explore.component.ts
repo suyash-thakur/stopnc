@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, HostListener } from '@angular/core';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-explore',
@@ -25,7 +26,7 @@ export class ExploreComponent implements OnInit , AfterViewInit{
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    this.http.get('http://localhost:3000/api/admin/explore').subscribe((res: any) => {
+    this.http.get(environment.backendLink + 'api/admin/explore').subscribe((res: any) => {
       console.log(res);
       this.products = res.explore.product;
       this.exclusive = res.explore.exclusive;

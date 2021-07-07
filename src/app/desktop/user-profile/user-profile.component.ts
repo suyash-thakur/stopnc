@@ -4,6 +4,7 @@ import { User } from 'src/app/models/user.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-user-profile',
@@ -35,7 +36,7 @@ export class UserProfileComponent implements OnInit {
       if (this.userId === this.authService.id) {
         this.isSameUser = true;
       }
-      this.http.get('http://localhost:3000/api/user/userInfo' + this.userId).subscribe((userData: any) => {
+      this.http.get(environment.backendLink + 'api/user/userInfo' + this.userId).subscribe((userData: any) => {
         let data = userData;
         console.log(data);
 

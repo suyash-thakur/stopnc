@@ -6,6 +6,7 @@ import { Blog } from '../models/blog.model';
 import { HttpClient } from '@angular/common/http';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { environment } from 'src/environments/environment';
 export interface DialogData {
   message: 'Blog must have at least 60 words' | 'Blog must have at least 2 images' | 'Blog header must have at least 3 words' | 'Blog must have a category';
 }
@@ -189,7 +190,7 @@ export class CreateComponent implements OnInit, OnDestroy {
     let key = this.imagesUrl[i];
     key = 'blogImage/' + key.split('/').pop();
     console.log(key);
-    this.http.post('http://localhost:3000/api/blog/removeBlogImage', { key: key }).subscribe((val) => {
+    this.http.post(environment.backendLink + 'api/blog/removeBlogImage', { key: key }).subscribe((val) => {
       this.imagesUrl.splice(i, 1);
     });
   }
@@ -253,7 +254,7 @@ export class DeleteConfirmComponent {
     this.id = this.data.id;
   }
   removeBlog() {
-    this.http.post('http://localhost:3000/api/blog/deleteBlog/' + this.id, {}).subscribe((val) => {
+    this.http.post(environment.backendLink + 'api/blog/deleteBlog/' + this.id, {}).subscribe((val) => {
       console.log(val);
       this.dialogRef.close();
       this.router.navigate(['/draft']);

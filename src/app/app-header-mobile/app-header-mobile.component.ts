@@ -10,6 +10,7 @@ import { HttpClient } from '@angular/common/http';
 import { UserDataService } from '../services/user-data.service';
 import {Observable, of, Subject} from 'rxjs';
 import {debounceTime, delay, distinctUntilChanged, flatMap, map, tap} from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-mobile',
   templateUrl: './app-header-mobile.component.html',
@@ -53,14 +54,14 @@ export class AppHeaderMobileComponent implements OnInit, AfterViewInit {
       } else {
         this.searchTearm = data;
         this.showResult = true;
-        this.http.get('http://localhost:3000/api/user/searchBlog/' + data + '/' + 0).subscribe((res: any) => {
+        this.http.get(environment.backendLink + 'api/user/searchBlog/' + data + '/' + 0).subscribe((res: any) => {
           console.log(res);
           this.blogResults = res.result.hits.hits;
           this.userDataArray = res.userData;
 
           this.scrollMore = true;
         });
-        this.http.get('http://localhost:3000/api/user/searchUser/' + data + '/' + 0).subscribe((res: any) => {
+        this.http.get(environment.backendLink + 'api/user/searchUser/' + data + '/' + 0).subscribe((res: any) => {
           this.userResult = res.result.hits.hits;
           console.log( this.userResult);
 
@@ -168,7 +169,7 @@ export class AppHeaderMobileComponent implements OnInit, AfterViewInit {
     console.log(this.userId);
 
     if (this.userLogin) {
-      this.http.get('http://localhost:3000/api/user/userInfo' + this.userId).subscribe((userData: any) => {
+      this.http.get(environment.backendLink + 'api/user/userInfo' + this.userId).subscribe((userData: any) => {
         let data = userData;
         console.log(data);
         this.authService.emitConfig(userData.User);
@@ -224,7 +225,7 @@ export class AppHeaderMobileComponent implements OnInit, AfterViewInit {
   onScroll() {
     console.log("scroll");
     if (this.scrollMore2 === true) {
-      this.http.get('http://localhost:3000/api/user/searchUser/' + this.searchTearm + '/' + this.page2).subscribe((res: any) => {
+      this.http.get(environment.backendLink + 'api/user/searchUser/' + this.searchTearm + '/' + this.page2).subscribe((res: any) => {
         console.log(res);
         if (res.result.hits.hits.length !== 0) {
             this.blogResults.push(res.result.hits.hits);
@@ -242,7 +243,7 @@ export class AppHeaderMobileComponent implements OnInit, AfterViewInit {
   onScroll2() {
     console.log("scroll");
     if (this.scrollMore2 === true) {
-      this.http.get('http://localhost:3000/api/user/searchBlog/' + this.searchTearm + '/' + this.page).subscribe((res: any) => {
+      this.http.get(environment.backendLink + 'api/user/searchBlog/' + this.searchTearm + '/' + this.page).subscribe((res: any) => {
         console.log(res);
         if (res.result.hits.hits.length !== 0) {
             this.userResult.push(res.result.hits.hits);

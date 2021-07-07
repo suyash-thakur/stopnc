@@ -3,6 +3,7 @@ import { UserDataService } from 'src/app/services/user-data.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-user-edit-mobile',
@@ -37,7 +38,7 @@ export class UserEditMobileComponent implements OnInit {
       cridential: this.cridential,
       about: this.about
     };
-    this.http.put('http://localhost:3000/api/user/userUpdate' + this.id, user).subscribe(response => {
+    this.http.put(environment.backendLink + 'api/user/userUpdate' + this.id, user).subscribe(response => {
       console.log(response);
 
       this.router.navigate(['/mobile/user']);

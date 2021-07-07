@@ -3,6 +3,7 @@ import { BlogService } from 'src/app/services/blog.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-blog',
@@ -29,6 +30,7 @@ export class BlogComponent implements OnInit {
   isNextComment = true;
   isloggedin = false;
   commentPage = 1;
+  show = true;
   public slides = [
 
   ];
@@ -63,7 +65,7 @@ export class BlogComponent implements OnInit {
     }
 
       if (this.authService.id !== undefined) {
-        this.http.get('http://localhost:3000/api/user/getBookmark' + this.authService.id).subscribe(res => {
+        this.http.get(environment.backendLink + 'api/user/getBookmark' + this.authService.id).subscribe(res => {
           const data: any = res;
 
           this.bookmarkList = data.bookmark.bookmarked;
@@ -76,10 +78,15 @@ export class BlogComponent implements OnInit {
 
         });
       }
-      this.http.post('http://localhost:3000/api/user/recommendation', { id: this.blog.blog.Blog._id }).subscribe((res: any) => {
+      this.http.post(environment.backendLink + 'api/user/recommendation', { id: this.blog.blog.Blog._id }).subscribe((res: any) => {
         this.recommendedBlog = res.result;
         this.recommendedUser = res.userData;
-        console.log('Recommendation', this.recommendedUser[0][0]);
+        console.log(this.recommendedBlog);
+        if (this.recommendedUser.length > 0) {
+          console.log('Recommendation', this.recommendedUser[0][0]);
+        } else {
+          this.show = false;
+        }
 
         this.isRecLoad = true;
 
@@ -130,7 +137,7 @@ export class BlogComponent implements OnInit {
       userId: this.authService.id,
       authId: this.blog.blog.Blog.authorId._id
     };
-    this.http.put('http://localhost:3000/api/blog/like' + id, data).subscribe((res: Response) => {
+    this.http.put(environment.backendLink + 'api/blog/like' + id, data).subscribe((res: Response) => {
         this.isLiked = !this.isLiked;
         this.likes.push(this.authService.id);
 
@@ -142,7 +149,7 @@ export class BlogComponent implements OnInit {
       postId: this.blog.blog.Blog._id
     };
 
-    this.http.put('http://localhost:3000/api/user/bookmark' + this.authService.id, data).subscribe( res => {
+    this.http.put(environment.backendLink + 'api/user/bookmark' + this.authService.id, data).subscribe(res => {
       this.isBookmarked = true;
     });
   }
@@ -151,7 +158,7 @@ export class BlogComponent implements OnInit {
       postId: this.blog.blog.Blog._id
     };
 
-    this.http.put('http://localhost:3000/api/user/removebookmark' + this.authService.id, data).subscribe( res => {
+    this.http.put(environment.backendLink + 'api/user/removebookmark' + this.authService.id, data).subscribe(res => {
       this.isBookmarked = false;
     });
   }
@@ -160,7 +167,7 @@ export class BlogComponent implements OnInit {
     const data = {
       userId: this.authService.id
     };
-    this.http.put('http://localhost:3000/api/user/unlike' + id, data).subscribe((res: Response) => {
+    this.http.put(environment.backendLink + 'api/user/unlike' + id, data).subscribe((res: Response) => {
 
         this.isLiked = !this.isLiked;
         this.likes.splice(this.likes.indexOf(this.authService.id), 1);
@@ -176,7 +183,7 @@ export class BlogComponent implements OnInit {
   }
   getComment() {
     const blogId = this.blog.blog.Blog._id;
-    this.http.get('http://localhost:3000/api/blog/comment/' + blogId + '/' + this.commentPage).subscribe((comment: any) => {
+    this.http.get(environment.backendLink + 'api/blog/comment/' + blogId + '/' + this.commentPage).subscribe((comment: any) => {
       console.log(comment.comment.docs);
       this.isNextComment = comment.comment.hasNextPage;
 
@@ -197,7 +204,7 @@ export class BlogComponent implements OnInit {
 
     };
     console.log(Comment);
-    this.http.post('http://localhost:3000/api/blog/comment' + this.blog.blog.Blog._id, Comment).subscribe (
+    this.http.post(environment.backendLink + 'api/blog/comment' + this.blog.blog.Blog._id, Comment).subscribe(
       (responce: any) => {
         // this.UserComment.push(res.);
         this.UserComment.push(responce.result);
@@ -220,13 +227,13 @@ export class BlogComponent implements OnInit {
       refId: this.blog.blog.Blog._id,
       userId: this.authService.id
     };
-    this.http.put('http://localhost:3000/api/blog/Commentlike' + id, Data).subscribe(responce => {
+    this.http.put(environment.backendLink + 'api/blog/Commentlike' + id, Data).subscribe(responce => {
       console.log(responce);
     });
 
   }
   onProductClicked(id) {
-    this.http.put('http://localhost:3000/api/blog/blogClick/' + id, {}).subscribe(responce => {
+    this.http.put(environment.backendLink + 'api/blog/blogClick/' + id, {}).subscribe(responce => {
       console.log(responce);
     });
   }

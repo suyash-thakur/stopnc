@@ -6,7 +6,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { MatSidenav } from '@angular/material';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
-
+import { environment } from '../../environments/environment';
 const helper = new JwtHelperService();
 
 @Injectable({
@@ -45,7 +45,7 @@ export class AuthenticationService {
     return Promise.resolve((() => {
       // code here
       const authData: AuthData = {email, password, name };
-      this.http.post('http://localhost:3000/api/user/signup', authData)
+      this.http.post(environment.backendLink + 'api/user/signup', authData)
     .subscribe((response:any) => {
       console.log(response);
       localStorage.setItem('isVerfied', 'false');
@@ -62,7 +62,7 @@ login(email: string, password: string): Promise<any> {
     return Promise.resolve((() => {
       // code here
       const authData = {email, password};
-      this.http.post<{token: string; expiresIn: number}>('http://localhost:3000/api/user/login', authData)
+      this.http.post<{ token: string; expiresIn: number }>(environment.backendLink + 'api/user/login', authData)
       .subscribe(response => {
         console.log(response);
 
@@ -88,7 +88,7 @@ login(email: string, password: string): Promise<any> {
 
   verifyEmail(userId, token) {
     return Promise.resolve((() => {
-      this.http.put('http://localhost:3000/api/user/verifyEmail/' + userId + '/' + token, {}).subscribe((response: any) => {
+      this.http.put(environment.backendLink + 'api/user/verifyEmail/' + userId + '/' + token, {}).subscribe((response: any) => {
         console.log(response);
         if (response.message === 'Token Verified') {
           const token = response.token;
@@ -191,7 +191,7 @@ getUser(id: string) {
     follower: any;
     following: any;
 
-  }>('http://localhost:3000/api/user/userInfo' + id);
+  }>('api/user/userInfo' + id);
 }
 
 
@@ -201,7 +201,7 @@ getToken() {
 
  googleLogin( id: string, email: string, name: string ) {
 
-  this.http.post('http://localhost:3000/api/user/socialAuth', {email:email, password: id, name: name}).subscribe((data:any) => {
+   this.http.post(environment.backendLink + 'api/user/socialAuth', { email: email, password: id, name: name }).subscribe((data: any) => {
     console.log(data);
     const token = data.token;
     this.token = token;
@@ -226,7 +226,7 @@ follow(followerId) {
   };
   console.log(followerId);
   console.log(Id);
-  this.http.put('http://localhost:3000/api/user/follow' + followerId, Id).subscribe (responce => {
+  this.http.put(environment.backendLink + 'api/user/follow' + followerId, Id).subscribe(responce => {
     console.log(responce);
   });
 }
@@ -236,13 +236,13 @@ unfollow(followerId) {
   };
   console.log(followerId);
   console.log(Id);
-  this.http.put('http://localhost:3000/api/user/unfollow' + followerId, Id).subscribe (responce => {
+  this.http.put(environment.backendLink + 'api/user/unfollow' + followerId, Id).subscribe(responce => {
     console.log(responce);
   });
 }
 imageUpload(imageForm: FormData) {
   console.log('image uploading');
-  return this.http.post('http://localhost:3000/api/user/uploadProfileImage' + this.id, imageForm);
+  return this.http.post(environment.backendLink + 'api/user/uploadProfileImage' + this.id, imageForm);
 }
 public setSidenav(sidenav: MatSidenav) {
   this.sidenav = sidenav;

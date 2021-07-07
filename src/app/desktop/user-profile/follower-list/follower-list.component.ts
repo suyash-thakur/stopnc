@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-follower-list',
@@ -24,7 +25,7 @@ export class FollowerListComponent implements OnInit {
     if (this.userId === this.authService.id) {
       this.isSameUser = true;
     }
-    this.http.get('http://localhost:3000/api/user/followers' + this.userId).subscribe((followers: any) => {
+    this.http.get(environment.backendLink + 'api/user/followers' + this.userId).subscribe((followers: any) => {
       this.followers = followers.followers.follower;
       console.log(this.followers);
     });
@@ -33,7 +34,7 @@ export class FollowerListComponent implements OnInit {
     const Id = {
       followerId: this.authService.id
     };
-    this.http.put('http://localhost:3000/api/user/removefollower' + id, Id).subscribe ((responce:any) => {
+    this.http.put(environment.backendLink + 'api/user/removefollower' + id, Id).subscribe((responce: any) => {
       this.followers.splice(i, 1);
 
   });

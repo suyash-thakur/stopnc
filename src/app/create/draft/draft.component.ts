@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-draft',
@@ -13,7 +14,7 @@ export class DraftComponent implements OnInit {
   constructor(public router: Router, public http: HttpClient, public auth: AuthenticationService) { }
 
   ngOnInit() {
-    this.http.get('http://localhost:3000/api/blog/draft' + this.auth.id).subscribe((res: any) => {
+    this.http.get(environment.backendLink + 'api/blog/draft' + this.auth.id).subscribe((res: any) => {
       console.log(res);
       this.drafts = res.Blog;
     });

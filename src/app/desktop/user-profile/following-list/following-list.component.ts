@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-following-list',
@@ -22,7 +23,7 @@ export class FollowingListComponent implements OnInit {
     if (this.userId === this.authService.id) {
       this.isSameUser = true;
     }
-    this.http.get('http://localhost:3000/api/user/following' + this.userId).subscribe((followers: any) => {
+    this.http.get(environment.backendLink + 'api/user/following' + this.userId).subscribe((followers: any) => {
       this.following = followers.followers.following;
       console.log(this.following);
     });
@@ -33,7 +34,7 @@ export class FollowingListComponent implements OnInit {
     };
     console.log(followerId);
     console.log(Id);
-    this.http.put('http://localhost:3000/api/user/unfollow' + followerId, Id).subscribe (responce => {
+    this.http.put(environment.backendLink + 'api/user/unfollow' + followerId, Id).subscribe(responce => {
           this.following.splice(index, 1);
     });
   }

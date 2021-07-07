@@ -2,6 +2,7 @@ import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular
 import { Router, ActivatedRoute } from '@angular/router';
 import { BlogService } from 'src/app/services/blog.service';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-category',
@@ -62,7 +63,7 @@ export class CategoryComponent implements OnInit {
 
     this.route.data.subscribe(data => this.blogs = data);
     console.log(this.blogs);
-    this.http.get('http://localhost:3000/api/admin/explore').subscribe((res: any) => {
+    this.http.get(environment.backendLink + 'api/admin/explore').subscribe((res: any) => {
       console.log(res);
 
       this.trending = res.explore.trending;
@@ -89,7 +90,7 @@ export class CategoryComponent implements OnInit {
   onScroll() {
     console.log("scroll");
     if (this.hasNextpage) {
-      this.http.get('http://localhost:3000/api/blog/categories/'+ this.params + '/' + this.currentPage).subscribe((data: any) => {
+      this.http.get(environment.backendLink + 'api/blog/categories/' + this.params + '/' + this.currentPage).subscribe((data: any) => {
         console.log(data);
         for (var i = 0; i < data.docs.length; i++) {
           this.blogs.push(data.docs[i]);

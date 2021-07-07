@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-explore-mobile',
@@ -20,7 +21,7 @@ export class ExploreMobileComponent implements OnInit {
   exclusive = [];
   trending = [];
   constructor(private http: HttpClient, private router: Router) {
-    this.http.get('http://localhost:3000/api/admin/explore').subscribe((res: any) => {
+    this.http.get(environment.backendLink + 'api/admin/explore').subscribe((res: any) => {
       console.log(res);
       this.products = res.explore.product;
       this.exclusive = res.explore.exclusive;

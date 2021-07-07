@@ -3,6 +3,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-email-login-mobile',
@@ -83,7 +84,7 @@ export class EmailLoginMobileComponent implements OnInit {
       this.isEmailValid = false;
       return;
     }
-    this.http.post('http://localhost:3000/api/user/forgot-password', {
+    this.http.post(environment.backendLink + 'api/user/forgot-password', {
       email: email
     }).subscribe((response: any) => {
       console.log(response);

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-forgot-password',
@@ -26,7 +27,7 @@ export class ForgotPasswordComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.userId = params.userId;
       this.token = params.token;
-      this.http.get('http://localhost:3000/api/user/checkEmail/' + this.userId + '/' + this.token).subscribe((res: any) => {
+      this.http.get(environment.backendLink + 'api/user/checkEmail/' + this.userId + '/' + this.token).subscribe((res: any) => {
         console.log(res);
         if (res.status === 0) {
           this.isChecked = true;
@@ -50,7 +51,7 @@ export class ForgotPasswordComponent implements OnInit {
 
       return;
     }
-    this.http.put('http://localhost:3000/api/user/updatePassword/' + this.userId, {
+    this.http.put(environment.backendLink + 'api/user/updatePassword/' + this.userId, {
       password: password
     }).subscribe((res) => {
       console.log(res);

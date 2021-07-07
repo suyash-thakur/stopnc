@@ -4,6 +4,7 @@ import { AuthenticationService } from '../../../services/authentication.service'
 import { Subscription } from 'rxjs';
 import { Router, RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-email-login',
@@ -68,7 +69,7 @@ export class EmailLoginComponent implements OnInit {
     }
     this.isEmailPresent = false;
 
-    this.http.post('http://localhost:3000/api/user/forgot-password', {
+    this.http.post(environment.backendLink + 'api/user/forgot-password', {
       email: email
     }).subscribe((response: any) => {
       if (response.status === 1) {

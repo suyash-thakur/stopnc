@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
 import { BlogService } from '../services/blog.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-feed',
@@ -41,13 +42,13 @@ export class FeedComponent implements OnInit, AfterViewInit {
       this.hasNextpage = data.blogs.hasNextPage;
       this.currentPage = this.currentPage + 1;
     });
-    this.http.get('http://localhost:3000/api/admin/topBlog').subscribe((blog: any) => {
+    this.http.get(environment.backendLink + 'api/admin/topBlog').subscribe((blog: any) => {
       this.trendingBlogger = blog;
       console.log(blog);
       console.log('HTTP Called');
 
     });
-    this.http.get('http://localhost:3000/api/admin/trendingProduct').subscribe((product:any) => {
+    this.http.get(environment.backendLink + 'api/admin/trendingProduct').subscribe((product: any) => {
       console.log(product);
       this.trendingProduct = product;
       this.isProductLoaded = true;
@@ -77,7 +78,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
   onScroll() {
     console.log("scroll");
     if (this.hasNextpage) {
-      this.http.get('http://localhost:3000/api/blog/allBlog' + this.currentPage).subscribe((data: any) => {
+      this.http.get(environment.backendLink + 'api/blog/allBlog' + this.currentPage).subscribe((data: any) => {
         console.log(data);
         for (var i = 0; i < data.docs.length; i++) {
           this.blogs.push(data.docs[i]);
@@ -91,7 +92,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
   productClick(id) {
     var win = window.open(this.trendingProduct[id].link, '_blank');
     win.focus();
-    this.http.put('http://localhost:3000/api/blog/blogClick/' + this.trendingProduct[id]._id, {}).subscribe(responce => {
+    this.http.put(environment.backendLink + 'api/blog/blogClick/' + this.trendingProduct[id]._id, {}).subscribe(responce => {
       console.log(responce);
     });
   }

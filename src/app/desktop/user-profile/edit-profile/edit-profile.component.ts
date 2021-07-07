@@ -4,6 +4,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import {  HttpClient } from '@angular/common/http';
 import { User } from 'src/app/models/user.model';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-edit-profile',
@@ -54,7 +55,7 @@ export class EditProfileComponent implements OnInit {
       about: this.about,
       profileImg: this.profileImg
     };
-    this.http.put('http://localhost:3000/api/user/userUpdate' + this.auth.id, user).subscribe(response => {
+    this.http.put(environment.backendLink + 'api/user/userUpdate' + this.auth.id, user).subscribe(response => {
       console.log(response);
 
       this.router.navigate(['/user/' + this.auth.id]);

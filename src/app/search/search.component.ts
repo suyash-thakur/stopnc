@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-search',
@@ -23,13 +24,13 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.search = params.query;
-      this.http.get('http://localhost:3000/api/user/searchBlog/' + this.search + '/' + 0).subscribe((res: any) => {
+      this.http.get(environment.backendLink + 'api/user/searchBlog/' + this.search + '/' + 0).subscribe((res: any) => {
         console.log(res);
         this.blogResults = res.result;
         this.userData = res.userData;
         this.scrollMore = true;
       });
-      this.http.get('http://localhost:3000/api/user/searchUser/' + this.search + '/' + 0).subscribe((res: any) => {
+      this.http.get(environment.backendLink + 'api/user/searchUser/' + this.search + '/' + 0).subscribe((res: any) => {
         console.log(res);
       this.userResult = res.result;
       });
@@ -59,7 +60,7 @@ export class SearchComponent implements OnInit {
   onScroll() {
     console.log("scroll");
     if (this.scrollMore === true) {
-      this.http.get('http://localhost:3000/api/user/searchBlog/' + this.search + '/' + this.page).subscribe((res: any) => {
+      this.http.get(environment.backendLink + 'api/user/searchBlog/' + this.search + '/' + this.page).subscribe((res: any) => {
         console.log(res);
         if (res.result.length !== 0) {
             this.blogResults.push(res.result);

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { VirtualTimeScheduler, Observable } from 'rxjs';
 import { AuthenticationService } from './authentication.service';
 import { UserDataService } from './user-data.service';
+import { environment } from '../../environments/environment';
 
 
 @Injectable({
@@ -31,7 +32,7 @@ export class BlogService {
        authorId: this.authService.id
      });
 
-     this.http.post('http://localhost:3000/api/blog/createBlog', Blog).subscribe( responce => {
+     this.http.post(environment.backendLink + 'api/blog/createBlog', Blog).subscribe(responce => {
     console.log(responce);
     this.router.navigate(['/']);
       }
@@ -48,7 +49,7 @@ export class BlogService {
       authorId: this.authService.id
     });
 
-    this.http.post('http://localhost:3000/api/blog/createDraft', Blog).subscribe(responce => {
+    this.http.post(environment.backendLink + 'api/blog/createDraft', Blog).subscribe(responce => {
       console.log(responce);
       this.router.navigate(['/draft']);
     }
@@ -64,7 +65,7 @@ export class BlogService {
       tag: tag,
       authorId: this.authService.id
     });
-    this.http.put('http://localhost:3000/api/blog/draftPublish/' + id, Blog).subscribe(response => {
+    this.http.put(environment.backendLink + 'api/blog/draftPublish/' + id, Blog).subscribe(response => {
       console.log(response);
       this.router.navigate(['/draft']);
     });
@@ -79,14 +80,14 @@ export class BlogService {
       tag: tag,
       authorId: this.authService.id
     });
-    this.http.put('http://localhost:3000/api/blog/updateDraft/' + id, Blog).subscribe(response => {
+    this.http.put(environment.backendLink + 'api/blog/updateDraft/' + id, Blog).subscribe(response => {
       console.log(response);
       this.router.navigate(['/draft']);
     });
   }
 
   getBlogs() {
-    this.http.get('http://localhost:3000/api/blog/allBlog').subscribe (
+    this.http.get(environment.backendLink + 'api/blog/allBlog').subscribe(
       responce => {
         this.selectBlog = responce;
         console.log(this.selectBlog);
@@ -96,7 +97,7 @@ export class BlogService {
   }
 
   getOneBlog( id: any) {
-    this.http.get('http://localhost:3000/api/blog/blogs' +  id).subscribe (
+    this.http.get(environment.backendLink + 'api/blog/blogs' + id).subscribe(
       responce => {
         this.currentBlog = responce;
         return responce;
@@ -111,7 +112,7 @@ export class BlogService {
 
     };
     console.log(Comment);
-    this.http.post('http://localhost:3000/api/blog/comment' + id, Comment).subscribe (
+    this.http.post(environment.backendLink + 'api/blog/comment' + id, Comment).subscribe(
       responce => {
         console.log(responce);
         return responce;

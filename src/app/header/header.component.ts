@@ -6,6 +6,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { User } from '../models/user.model';
 import { UserDataService } from '../services/user-data.service';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 
 @Component({
@@ -44,7 +45,7 @@ signOut() {
 
   ngOnInit() {
     if (this.loggedin) {
-      this.http.get('http://localhost:3000/api/user/userInfo' + this.userId).subscribe((userData:any) => {
+      this.http.get(environment.backendLink + 'api/user/userInfo' + this.userId).subscribe((userData: any) => {
         let data  = userData;
         console.log(data);
         this.authService.emitConfig(userData.User);
@@ -78,7 +79,7 @@ signOut() {
   }
 notificationClick(){
   if(this.numberNot != 0){
-    this.http.post('http://localhost:3000/api/user/notficationSeen' + this.authService.id, null).subscribe(result => {
+    this.http.post(environment.backendLink + 'api/user/notficationSeen' + this.authService.id, null).subscribe(result => {
       console.log(result);
       this.numberNot = 0;
     });

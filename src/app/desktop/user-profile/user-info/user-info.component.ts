@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { BlogService } from 'src/app/services/blog.service';
 import { ActivatedRoute } from '@angular/router';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-user-info',
@@ -39,7 +40,7 @@ export class UserInfoComponent implements OnInit {
       }
       this.getComment(this.userId);
       this.screensize = window.innerWidth;
-      this.http.get('http://localhost:3000/api/blog/userBlog' + this.userId).subscribe((userBlog: any) => {
+      this.http.get(environment.backendLink + 'api/blog/userBlog' + this.userId).subscribe((userBlog: any) => {
         this.Blogs = userBlog.Blog;
         console.log(this.Blogs);
       });
@@ -71,7 +72,7 @@ export class UserInfoComponent implements OnInit {
   }
   getComment(id) {
     console.log(id);
-    this.http.get('http://localhost:3000/api/user/commentUser' + id).subscribe((comment: any) => {
+    this.http.get(environment.backendLink + 'api/user/commentUser' + id).subscribe((comment: any) => {
       this.Useromment = comment.comment;
       console.log(this.Useromment);
   });

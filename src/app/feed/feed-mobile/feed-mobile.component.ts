@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import {  Component,  HostListener, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BlogService } from 'src/app/services/blog.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-feed-mobile',
@@ -45,7 +46,7 @@ export class FeedMobileComponent implements OnInit {
   onScroll() {
     console.log("scroll");
     if (this.hasNextpage) {
-      this.http.get('http://localhost:3000/api/blog/allBlog' + this.currentPage).subscribe((data: any) => {
+      this.http.get(environment.backendLink + 'api/blog/allBlog' + this.currentPage).subscribe((data: any) => {
         console.log(data);
         for (var i = 0; i < data.docs.length; i++) {
           this.blogs.push(data.docs[i]);

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-confirm',
@@ -29,7 +30,7 @@ export class ConfirmComponent implements OnInit {
   resend() {
     let isVerified = localStorage.getItem('isVerfied');
     if (isVerified === 'false') {
-      this.http.post('http://localhost:3000/api/user/resendToken', { userId: this.userId, email: this.email }).subscribe((res: any) => {
+      this.http.post(environment.backendLink + 'api/user/resendToken', { userId: this.userId, email: this.email }).subscribe((res: any) => {
         console.log(res);
         if (res.message === 'Token Send') {
           this.isResend = true;
