@@ -193,3 +193,17 @@ a {
 textarea:focus, input:focus{
   outline: none;
 }
+@media screen and (max-width: 1200px) {
+  .blog-img {
+    z-index: 1 !important;
+    width: 450px;
+
+  }
+  .Title {
+  font-size:25px;
+  }
+  .content {
+    font-size:19px;
+
+  }
+}

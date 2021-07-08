@@ -43,7 +43,11 @@ export class BlogMobileComponent implements OnInit, OnDestroy {
   ProfileImg: any;
 
   constructor(public blogservice: BlogService, public router: Router, private route: ActivatedRoute,
-    private authService: AuthenticationService, private http: HttpClient, public userData: UserDataService) { }
+    private authService: AuthenticationService, private http: HttpClient, public userData: UserDataService) {
+    if (window.innerWidth > 991) {
+      this.router.navigate(['blog/' + route.snapshot.params.id]);
+    }
+  }
 
   ngOnInit() {
     if (this.authService.id !== undefined) {

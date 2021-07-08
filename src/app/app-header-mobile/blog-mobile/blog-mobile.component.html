@@ -134,7 +134,8 @@
   <br>
 
 </div>
-<div style="  background-color: #F9B1A5; text-align: center;   padding-top: 30px;">
+<div style="  background-color: #F9B1A5; text-align: center;   padding-top: 30px;"
+  *ngIf="this.blog.blog.Blog.isVerified === true">
   <div class="head" *ngIf="Products.length > 0">SHOP THE STYLE</div>
   <div class="scrolling-wrapper" *ngIf="Products.length > 0">
     <div class="card">
@@ -178,7 +179,8 @@
 <br>
 <br>
 </div>
-<div style=" margin-top: -130px; background-color: #A2CABE; text-align: center;   padding-top: 30px;">
+<div style=" margin-top: -130px; background-color: #A2CABE; text-align: center;   padding-top: 30px;"
+  *ngIf="recommendedBlog.length > 2">
   <div class="head" style="margin-top: 40px; margin-bottom: 30px;">READ MORE</div>
   <div class="scrolling-wrapper">
     <div class="card" style="margin-left: 10px; margin-right: 10px; width: 300px;"
@@ -247,11 +249,16 @@
       <br>
       <div style="display: flex; align-items: center; justify-content: center;">
 
-          <div
-            style="width: 100%; background-image: url('../../../assets/Uniqlo-x-J-W-Anderson-5-1044x1566.jpg'); background-repeat: no-repeat; background-position:center; background-size: cover; height: 400px;"
-            [ngStyle]="{ 'background-image': 'url(' + item.image[0] + ')'}">
 
+          <div
+            style="width: 100%;  background-repeat: no-repeat; background-position:center; background-size: cover; height: 400px;"
+            [ngStyle]="{ 'background-image': 'url(' + item.image[0] + ')'}" *ngIf="checkIfImg(item.image[0])">
           </div>
+          <video loop controls muted
+            style="width: 100%;  background-repeat: no-repeat; background-position:center; background-size: cover; height: 400px;"
+            *ngIf="!checkIfImg(item.image[0])">
+            <source [src]="item.image[0]" type="video/mp4" style="object-fit: cover;">
+          </video>
         </div>
         <div style="display: flex; justify-content: center;">
           <div class="read" (click)="this.blogClick(item._id)">

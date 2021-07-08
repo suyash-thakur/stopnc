@@ -39,7 +39,7 @@ export class BlogComponent implements OnInit {
     private authService: AuthenticationService, private http: HttpClient,) {
 
     if (window.innerWidth  <= 991 ) {
-      this.router.navigate(['mobile/blog']);
+      this.router.navigate(['mobile/blog/' + route.snapshot.params.id]);
     }
   //  this.route.data.subscribe(() => {
 
