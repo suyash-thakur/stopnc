@@ -24,7 +24,7 @@ export class FeedMobileComponent implements OnInit {
       this.hasNextpage = data.blogs.hasNextPage;
       this.currentPage = this.currentPage + 1;
     });
-    console.log(this.blogs);
+    // console.log(this.blogs);
    }
 
   ngOnInit() {
@@ -44,10 +44,10 @@ export class FeedMobileComponent implements OnInit {
     }
   }
   onScroll() {
-    console.log("scroll");
+    // console.log("scroll");
     if (this.hasNextpage) {
       this.http.get(environment.backendLink + 'api/blog/allBlog' + this.currentPage).subscribe((data: any) => {
-        console.log(data);
+        // console.log(data);
         for (var i = 0; i < data.docs.length; i++) {
           this.blogs.push(data.docs[i]);
         }
@@ -59,6 +59,6 @@ export class FeedMobileComponent implements OnInit {
   }
   @HostListener('window:scroll', ['$event'])
   handleScroll(event){
-    console.log("scroll");
+    // console.log("scroll");
   }
 }

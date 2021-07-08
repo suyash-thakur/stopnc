@@ -15,7 +15,7 @@ export class DraftComponent implements OnInit {
 
   ngOnInit() {
     this.http.get(environment.backendLink + 'api/blog/draft' + this.auth.id).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       this.drafts = res.Blog;
     });
   }

@@ -42,12 +42,12 @@ export class UserInfoComponent implements OnInit {
       this.screensize = window.innerWidth;
       this.http.get(environment.backendLink + 'api/blog/userBlog' + this.userId).subscribe((userBlog: any) => {
         this.Blogs = userBlog.Blog;
-        console.log(this.Blogs);
+        // console.log(this.Blogs);
       });
       this.authService.userData.subscribe(user => {
-        console.log(user);
+        // console.log(user);
         this.userBookmark = user.bookmarked;
-        console.log("Bookmarks", this.userBookmark);
+        // console.log("Bookmarks", this.userBookmark);
 
       });
     });
@@ -71,10 +71,10 @@ export class UserInfoComponent implements OnInit {
     this.router.navigate(['/create', id]);
   }
   getComment(id) {
-    console.log(id);
+    // console.log(id);
     this.http.get(environment.backendLink + 'api/user/commentUser' + id).subscribe((comment: any) => {
       this.Useromment = comment.comment;
-      console.log(this.Useromment);
+      // console.log(this.Useromment);
   });
   }
 }

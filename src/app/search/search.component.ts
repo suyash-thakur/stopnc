@@ -25,13 +25,13 @@ export class SearchComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.search = params.query;
       this.http.get(environment.backendLink + 'api/user/searchBlog/' + this.search + '/' + 0).subscribe((res: any) => {
-        console.log(res);
+        // console.log(res);
         this.blogResults = res.result;
         this.userData = res.userData;
         this.scrollMore = true;
       });
       this.http.get(environment.backendLink + 'api/user/searchUser/' + this.search + '/' + 0).subscribe((res: any) => {
-        console.log(res);
+        // console.log(res);
       this.userResult = res.result;
       });
     });
@@ -58,10 +58,10 @@ export class SearchComponent implements OnInit {
     }
   }
   onScroll() {
-    console.log("scroll");
+    // console.log("scroll");
     if (this.scrollMore === true) {
       this.http.get(environment.backendLink + 'api/user/searchBlog/' + this.search + '/' + this.page).subscribe((res: any) => {
-        console.log(res);
+        // console.log(res);
         if (res.result.length !== 0) {
             this.blogResults.push(res.result);
             this.userData.push(res.userData);

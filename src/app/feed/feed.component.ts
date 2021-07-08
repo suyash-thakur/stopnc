@@ -38,18 +38,18 @@ export class FeedComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.route.data.subscribe((data) => {
       this.blogs = data.blogs.docs;
-      console.log(data);
+      // console.log(data);
       this.hasNextpage = data.blogs.hasNextPage;
       this.currentPage = this.currentPage + 1;
     });
     this.http.get(environment.backendLink + 'api/admin/topBlog').subscribe((blog: any) => {
       this.trendingBlogger = blog;
-      console.log(blog);
-      console.log('HTTP Called');
+      // console.log(blog);
+      // console.log('HTTP Called');
 
     });
     this.http.get(environment.backendLink + 'api/admin/trendingProduct').subscribe((product: any) => {
-      console.log(product);
+      // console.log(product);
       this.trendingProduct = product;
       this.isProductLoaded = true;
     });
@@ -76,10 +76,10 @@ export class FeedComponent implements OnInit, AfterViewInit {
     }
   }
   onScroll() {
-    console.log("scroll");
+    // console.log("scroll");
     if (this.hasNextpage) {
       this.http.get(environment.backendLink + 'api/blog/allBlog' + this.currentPage).subscribe((data: any) => {
-        console.log(data);
+        // console.log(data);
         for (var i = 0; i < data.docs.length; i++) {
           this.blogs.push(data.docs[i]);
         }
@@ -93,7 +93,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
     var win = window.open(this.trendingProduct[id].link, '_blank');
     win.focus();
     this.http.put(environment.backendLink + 'api/blog/blogClick/' + this.trendingProduct[id]._id, {}).subscribe(responce => {
-      console.log(responce);
+      // console.log(responce);
     });
   }
   @HostListener('window:scroll', ['$event'])

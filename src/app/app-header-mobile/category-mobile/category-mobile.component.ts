@@ -37,7 +37,7 @@ export class CategoryMobileComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
-      console.log(params);
+      // console.log(params);
       this.params = params.name;
       if (params.name === 'Casual') {
         this.selected = this.categories[0];
@@ -57,13 +57,13 @@ export class CategoryMobileComponent implements OnInit {
         this.selected = this.categories[7];
       }
     });
-    console.log(this.selected);
+    // console.log(this.selected);
 
     this.route.data.subscribe(data => this.blogs = data);
-    console.log(this.blogs);
+    // console.log(this.blogs);
 
     this.http.get(environment.backendLink + 'api/admin/explore').subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
 
       this.trending = res.explore.trending;
       this.isLoading = true;
@@ -84,10 +84,10 @@ export class CategoryMobileComponent implements OnInit {
   }
 
   onScroll() {
-    console.log("scroll");
+    // console.log("scroll");
     if (this.hasNextpage) {
       this.http.get(environment.backendLink + 'api/blog/categories/' + this.params + '/' + this.currentPage).subscribe((data: any) => {
-        console.log(data);
+        // console.log(data);
         for (var i = 0; i < data.docs.length; i++) {
           this.blogs.push(data.docs[i]);
         }

@@ -31,14 +31,14 @@ export class UserProfileComponent implements OnInit {
   constructor(public userData: UserDataService, public authService: AuthenticationService, private http: HttpClient, private route: ActivatedRoute) {
     this.route.params.subscribe(params => {
       this.userId = params['id'];
-      console.log(this.userId);
-      console.log(this.authService.id);
+      // console.log(this.userId);
+      // console.log(this.authService.id);
       if (this.userId === this.authService.id) {
         this.isSameUser = true;
       }
       this.http.get(environment.backendLink + 'api/user/userInfo' + this.userId).subscribe((userData: any) => {
         let data = userData;
-        console.log(data);
+        // console.log(data);
 
         this.User = {
           Name: userData.User.name,

@@ -93,12 +93,12 @@ export class CreateComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.route.params.subscribe(data => {
-      console.log(data);
+      // console.log(data);
       if (data.id !== undefined) {
         this.isNew = false;
         this.http.get('http://localhost:3000/api/blog/getDraft/' + data.id).subscribe((res: any) => {
           this.isPrevious = true;
-          console.log(res);
+          // console.log(res);
           this.body = res.Blog.body;
           this.title = res.Blog.title;
           this.imagesUrl = res.Blog.image;
@@ -118,7 +118,7 @@ export class CreateComponent implements OnInit, OnDestroy {
 
   }
   ngOnDestroy() {
-    console.log('destroyed');
+    // console.log('destroyed');
     if (this.isNew && this.body !== undefined) {
       this.submitDraft();
     }
@@ -135,7 +135,7 @@ export class CreateComponent implements OnInit, OnDestroy {
   onImageUpload() {
     this.isUploading = true;
     const imageForm = new FormData();
-    console.log('clicked 2');
+    // console.log('clicked 2');
 
     imageForm.append('image', this.imgObj);
     this.http.post('http://localhost:3000/api/blog/uploadBlogImage', imageForm).subscribe((val: any) => {
@@ -143,7 +143,7 @@ export class CreateComponent implements OnInit, OnDestroy {
       this.isUploading = false;
 
       this.imagesUrl.push(link);
-      console.log(link);
+      // console.log(link);
     });
 
   }
@@ -163,9 +163,9 @@ export class CreateComponent implements OnInit, OnDestroy {
     });
   }
   onSubmit() {
-    // console.log(this.body);
-    // console.log(this.title);
-    // console.log(this.imagesUrl);
+    // // console.log(this.body);
+    // // console.log(this.title);
+    // // console.log(this.imagesUrl);
 
 
     if (this.body.match(/(\w+)/g).length < 60 || this.body === undefined) {
@@ -189,7 +189,7 @@ export class CreateComponent implements OnInit, OnDestroy {
   onRemovePicture(i) {
     let key = this.imagesUrl[i];
     key = 'blogImage/' + key.split('/').pop();
-    console.log(key);
+    // console.log(key);
     this.http.post(environment.backendLink + 'api/blog/removeBlogImage', { key: key }).subscribe((val) => {
       this.imagesUrl.splice(i, 1);
     });
@@ -255,7 +255,7 @@ export class DeleteConfirmComponent {
   }
   removeBlog() {
     this.http.post(environment.backendLink + 'api/blog/deleteBlog/' + this.id, {}).subscribe((val) => {
-      console.log(val);
+      // console.log(val);
       this.dialogRef.close();
       this.router.navigate(['/draft']);
     });

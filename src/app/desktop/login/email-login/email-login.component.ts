@@ -85,7 +85,7 @@ export class EmailLoginComponent implements OnInit {
     });
   }
   onLogin(email: string, password: string) {
-    console.log( this.emailValidExpe.test(email));
+    // console.log( this.emailValidExpe.test(email));
     if (!this.emailValidExpe.test(email)) {
       this.isEmailValid = false;
     } else {
@@ -94,7 +94,7 @@ export class EmailLoginComponent implements OnInit {
       this.authListenerSub = this.authService.getauthStatusListener().subscribe(
         isAuthenticated => {
           this.loggedin = isAuthenticated;
-          console.log(this.loggedin);
+          // console.log(this.loggedin);
           if (this.loggedin) {
             this.authService.Userlogin = true;
             this.router.navigate(['/']);

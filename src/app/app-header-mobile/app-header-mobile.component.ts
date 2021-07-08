@@ -47,7 +47,7 @@ export class AppHeaderMobileComponent implements OnInit, AfterViewInit {
       distinctUntilChanged(),
       flatMap(search => of(search).pipe(delay(500)))
     ).subscribe((data: any) => {
-      console.log(data);
+      // console.log(data);
       if (data === "") {
         this.showResult = false;
 
@@ -55,7 +55,7 @@ export class AppHeaderMobileComponent implements OnInit, AfterViewInit {
         this.searchTearm = data;
         this.showResult = true;
         this.http.get(environment.backendLink + 'api/user/searchBlog/' + data + '/' + 0).subscribe((res: any) => {
-          console.log(res);
+          // console.log(res);
           this.blogResults = res.result.hits.hits;
           this.userDataArray = res.userData;
 
@@ -63,7 +63,7 @@ export class AppHeaderMobileComponent implements OnInit, AfterViewInit {
         });
         this.http.get(environment.backendLink + 'api/user/searchUser/' + data + '/' + 0).subscribe((res: any) => {
           this.userResult = res.result.hits.hits;
-          console.log( this.userResult);
+          // console.log( this.userResult);
 
         });
 
@@ -106,9 +106,9 @@ export class AppHeaderMobileComponent implements OnInit, AfterViewInit {
 
     this.SearchInputEmpty = val;
     this.DisplayCategories = val;
-    console.log('parent Component');
-    console.log(this.DisplayCategories);
-    console.log(this.SearchInputEmpty);
+    // console.log('parent Component');
+    // console.log(this.DisplayCategories);
+    // console.log(this.SearchInputEmpty);
 
 
 
@@ -126,15 +126,15 @@ export class AppHeaderMobileComponent implements OnInit, AfterViewInit {
   // Change value of DisplayCategories value to false when Input tag is in focus
   focusoutHandler(event) {
     this.DisplayCategories = false;
-    console.log('Focus In');
-    console.log('Display' + this.DisplayCategories);
+    // console.log('Focus In');
+    // console.log('Display' + this.DisplayCategories);
   }
 
   // Change value of DisplayCategories value to true when Input tag is out of focus
   private focusinHandler(event) {
     this.DisplayCategories = true;
-    console.log('Focus Out');
-    console.log('Display' + this.DisplayCategories);
+    // console.log('Focus Out');
+    // console.log('Display' + this.DisplayCategories);
   }
 
   // Change the value of SearchInputEmpty to false when Input is typed and true When Input is reased
@@ -143,7 +143,7 @@ export class AppHeaderMobileComponent implements OnInit, AfterViewInit {
 
       this.SearchInputEmpty = false;
       this.displaySearchbar = true;
-      console.log('SearchInput' + this.SearchInputEmpty);
+      // console.log('SearchInput' + this.SearchInputEmpty);
   }
   // Change the value of variables when input is passed in second search bar
   onKeySecond(event) {
@@ -151,14 +151,14 @@ export class AppHeaderMobileComponent implements OnInit, AfterViewInit {
     if (inputValue === '') {
       this.SearchInputEmpty = true;
       this.inputInSecondarySearch = false;
-      console.log('SearchInput' + this.SearchInputEmpty);
-      console.log('secondarysearch' + this.inputInSecondarySearch);
+      // console.log('SearchInput' + this.SearchInputEmpty);
+      // console.log('secondarysearch' + this.inputInSecondarySearch);
 
     } else {
       this.inputInSecondarySearch = true;
       this.SearchInputEmpty = false;
-      console.log('SearchInput' + this.SearchInputEmpty);
-      console.log('secondarysearch' + this.inputInSecondarySearch);
+      // console.log('SearchInput' + this.SearchInputEmpty);
+      // console.log('secondarysearch' + this.inputInSecondarySearch);
 
     }
   }
@@ -166,12 +166,12 @@ export class AppHeaderMobileComponent implements OnInit, AfterViewInit {
     this.currentRoute = this.router;
     this.userLogin = this.authService.Userlogin;
     this.userId = this.authService.id;
-    console.log(this.userId);
+    // console.log(this.userId);
 
     if (this.userLogin) {
       this.http.get(environment.backendLink + 'api/user/userInfo' + this.userId).subscribe((userData: any) => {
         let data = userData;
-        console.log(data);
+        // console.log(data);
         this.authService.emitConfig(userData.User);
         this.User = {
           Name: userData.User.name,
@@ -184,7 +184,7 @@ export class AppHeaderMobileComponent implements OnInit, AfterViewInit {
         this.profileImg = this.User.profileImage;
         this.userData.User = this.User;
         this.userData.emitConfig(this.User);
-        console.log("emit info");
+        // console.log("emit info");
         this.Name = this.User.Name;
         this.NOtification = data.Notification;
         this.authService.notification = this.NOtification;
@@ -192,7 +192,7 @@ export class AppHeaderMobileComponent implements OnInit, AfterViewInit {
           if (!n.isRead)
             this.numberNot = this.numberNot + 1;
         });
-        console.log(this.numberNot);
+        // console.log(this.numberNot);
       });
 
       this.userData.configObservable.subscribe(val => {
@@ -223,10 +223,10 @@ export class AppHeaderMobileComponent implements OnInit, AfterViewInit {
     }
   }
   onScroll() {
-    console.log("scroll");
+    // console.log("scroll");
     if (this.scrollMore2 === true) {
       this.http.get(environment.backendLink + 'api/user/searchUser/' + this.searchTearm + '/' + this.page2).subscribe((res: any) => {
-        console.log(res);
+        // console.log(res);
         if (res.result.hits.hits.length !== 0) {
             this.blogResults.push(res.result.hits.hits);
           this.userDataArray.push(res.userData);
@@ -241,10 +241,10 @@ export class AppHeaderMobileComponent implements OnInit, AfterViewInit {
   }
 
   onScroll2() {
-    console.log("scroll");
+    // console.log("scroll");
     if (this.scrollMore2 === true) {
       this.http.get(environment.backendLink + 'api/user/searchBlog/' + this.searchTearm + '/' + this.page).subscribe((res: any) => {
-        console.log(res);
+        // console.log(res);
         if (res.result.hits.hits.length !== 0) {
             this.userResult.push(res.result.hits.hits);
             this.page2 = this.page2 + 1;

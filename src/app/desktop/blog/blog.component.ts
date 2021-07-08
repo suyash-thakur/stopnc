@@ -81,9 +81,9 @@ export class BlogComponent implements OnInit {
       this.http.post(environment.backendLink + 'api/user/recommendation', { id: this.blog.blog.Blog._id }).subscribe((res: any) => {
         this.recommendedBlog = res.result;
         this.recommendedUser = res.userData;
-        console.log(this.recommendedBlog);
-        if (this.recommendedUser.length > 0) {
-          console.log('Recommendation', this.recommendedUser[0][0]);
+        // console.log(this.recommendedBlog);
+        if (this.recommendedUser.length > 2) {
+          // // console.log('Recommendation', this.recommendedUser[0][0]);
         } else {
           this.show = false;
         }
@@ -93,14 +93,14 @@ export class BlogComponent implements OnInit {
 
       });
     });
-    console.log(this.blog);
+    // // console.log(this.blog);
 
-    console.log(this.Products);
+    // // console.log(this.Products);
 
-    // console.log(this.authService.userdata);
+    // // console.log(this.authService.userdata);
     // if (this.authService.userdata.bookmarked.indexOf(this.blog.blog.Blog._id) > -1) {
     //   this.isBookmarked = true;
-    //   console.log(this.isBookmarked);
+    //   // console.log(this.isBookmarked);
     // }
 
   }
@@ -132,7 +132,7 @@ export class BlogComponent implements OnInit {
     box.rows = 5;
   }
   like(id) {
-    console.log('Like');
+    // console.log('Like');
     const data = {
       userId: this.authService.id,
       authId: this.blog.blog.Blog.authorId._id
@@ -184,7 +184,7 @@ export class BlogComponent implements OnInit {
   getComment() {
     const blogId = this.blog.blog.Blog._id;
     this.http.get(environment.backendLink + 'api/blog/comment/' + blogId + '/' + this.commentPage).subscribe((comment: any) => {
-      console.log(comment.comment.docs);
+      // console.log(comment.comment.docs);
       this.isNextComment = comment.comment.hasNextPage;
 
       if (comment.comment.docs.length > 0) {
@@ -192,7 +192,7 @@ export class BlogComponent implements OnInit {
           this.UserComment.push(comment);
           this.commentPage = this.commentPage + 1;
         });
-        console.log(comment.comment);
+        // console.log(comment.comment);
 
       }
     });
@@ -203,7 +203,7 @@ export class BlogComponent implements OnInit {
       postedBy: this.authService.id
 
     };
-    console.log(Comment);
+    // // console.log(Comment);
     this.http.post(environment.backendLink + 'api/blog/comment' + this.blog.blog.Blog._id, Comment).subscribe(
       (responce: any) => {
         // this.UserComment.push(res.);
@@ -228,13 +228,13 @@ export class BlogComponent implements OnInit {
       userId: this.authService.id
     };
     this.http.put(environment.backendLink + 'api/blog/Commentlike' + id, Data).subscribe(responce => {
-      console.log(responce);
+      // console.log(responce);
     });
 
   }
   onProductClicked(id) {
     this.http.put(environment.backendLink + 'api/blog/blogClick/' + id, {}).subscribe(responce => {
-      console.log(responce);
+      // console.log(responce);
     });
   }
 }

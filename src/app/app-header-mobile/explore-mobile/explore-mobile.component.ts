@@ -22,7 +22,7 @@ export class ExploreMobileComponent implements OnInit {
   trending = [];
   constructor(private http: HttpClient, private router: Router) {
     this.http.get(environment.backendLink + 'api/admin/explore').subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       this.products = res.explore.product;
       this.exclusive = res.explore.exclusive;
       this.trending = res.explore.trending;

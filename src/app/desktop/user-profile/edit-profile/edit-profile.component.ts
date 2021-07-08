@@ -34,7 +34,7 @@ export class EditProfileComponent implements OnInit {
     this.profileImg = this.auth.user.profileImage;
     this.followerNo = this.auth.user.follower;
     this.followingNo = this.auth.user.following;
-    console.log(this.auth.user);
+    // console.log(this.auth.user);
 
     this.auth.userData.subscribe(val => {
       this.name = val.name;
@@ -43,11 +43,11 @@ export class EditProfileComponent implements OnInit {
       this.profileImg = val.profileImage;
       this.followerNo = val.follower.length;
     this.followingNo = val.following.length;
-      console.log( val.follower);
+      // console.log( val.follower);
     });
   }
   editUser() {
-    console.log(this.auth.id);
+    // console.log(this.auth.id);
     const user = {
       id: this.auth.id,
       name: this.name,
@@ -56,7 +56,7 @@ export class EditProfileComponent implements OnInit {
       profileImg: this.profileImg
     };
     this.http.put(environment.backendLink + 'api/user/userUpdate' + this.auth.id, user).subscribe(response => {
-      console.log(response);
+      // console.log(response);
 
       this.router.navigate(['/user/' + this.auth.id]);
 
@@ -68,7 +68,7 @@ export class EditProfileComponent implements OnInit {
     this.el.nativeElement.click();
   }
   onImagePicked(event: Event): void {
-    console.log('clicked');
+    // console.log('clicked');
     const FILE = (event.target as HTMLInputElement).files[0];
     this.imageObj = FILE;
     this.onImageUpload();
@@ -76,14 +76,14 @@ export class EditProfileComponent implements OnInit {
 
   onImageUpload() {
     const imageForm = new FormData();
-    console.log('clicked 2');
+    // console.log('clicked 2');
 
     imageForm.append('image', this.imageObj);
     this.auth.imageUpload(imageForm).subscribe((res:any) => {
       this.profileImg = res.image;
       this.User.User.profileImage = this.profileImg;
       this.User.emitConfig(this.User.User);
-      console.log(res.image);
+      // console.log(res.image);
 
     });
    }

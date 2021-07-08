@@ -39,7 +39,7 @@ export class UserEditMobileComponent implements OnInit {
       about: this.about
     };
     this.http.put(environment.backendLink + 'api/user/userUpdate' + this.id, user).subscribe(response => {
-      console.log(response);
+      // console.log(response);
 
       this.router.navigate(['/mobile/user']);
 
@@ -49,21 +49,21 @@ export class UserEditMobileComponent implements OnInit {
     this.el.nativeElement.click();
   }
   onImagePicked(event: Event): void {
-    console.log('clicked');
+    // console.log('clicked');
     const FILE = (event.target as HTMLInputElement).files[0];
     this.imageObj = FILE;
     this.onImageUpload();
    }
   onImageUpload() {
     const imageForm = new FormData();
-    console.log('clicked 2');
+    // console.log('clicked 2');
 
     imageForm.append('image', this.imageObj);
     this.auth.imageUpload(imageForm).subscribe((res:any) => {
       this.profileImage = res.image;
       this.auth.user.profileImage = this.profileImage;
       this.User.emitConfig(this.auth.user);
-      console.log(res.image);
+      // console.log(res.image);
 
     });
    }

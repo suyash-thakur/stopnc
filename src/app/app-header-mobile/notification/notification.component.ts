@@ -13,7 +13,7 @@ export class NotificationComponent implements OnInit {
   isFollowing: boolean = false;
   notification = [];
   ngOnInit() {
-    console.log(this.authService.notification);
+    // console.log(this.authService.notification);
   }
   checkIfImg(url) {
     let ext = url.split('.').pop();
@@ -41,7 +41,7 @@ export class NotificationComponent implements OnInit {
     }
   }
   clickEachNotification(type, id) {
-    console.log(type);
+    // console.log(type);
     if (type === 'Post') {
       this.router.navigate(['mobile/blog', id]);
     } else if (type === 'User') {

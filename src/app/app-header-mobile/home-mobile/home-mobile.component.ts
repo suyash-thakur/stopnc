@@ -23,14 +23,14 @@ export class HomeMobileComponent implements OnInit {
 
   ngOnInit() {
     this.http.get(environment.backendLink + 'api/admin/homepageInfo').subscribe((data: any) => {
-      console.log(data);
+      // console.log(data);
       this.firstBlog = data.home.FirstBlog;
       this.secondBlog = data.home.SecondBlog;
       this.topBlogs = data.home.TopStories;
       this.isFirstLoaded = true;
     });
     this.http.get(environment.backendLink + 'api/admin/explore').subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       this.exclusive = res.explore.exclusive;
 
       this.isLoading = true;

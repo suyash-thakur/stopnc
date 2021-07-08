@@ -16,18 +16,18 @@ export class FollowerListComponent implements OnInit {
   constructor(private http: HttpClient, private route: ActivatedRoute, private authService: AuthenticationService, private router: Router) {
     const url = this.router.url.split("/");
     this.userId = url.slice(-2, -1)[0];
-    console.log(this.userId);
+    // console.log(this.userId);
    }
 
   ngOnInit() {
-    console.log(this.authService.id)
+    // console.log(this.authService.id)
 
     if (this.userId === this.authService.id) {
       this.isSameUser = true;
     }
     this.http.get(environment.backendLink + 'api/user/followers' + this.userId).subscribe((followers: any) => {
       this.followers = followers.followers.follower;
-      console.log(this.followers);
+      // console.log(this.followers);
     });
   }
   removeFollower(id, i) {

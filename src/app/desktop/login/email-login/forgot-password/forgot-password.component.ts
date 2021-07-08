@@ -28,7 +28,7 @@ export class ForgotPasswordComponent implements OnInit {
       this.userId = params.userId;
       this.token = params.token;
       this.http.get(environment.backendLink + 'api/user/checkEmail/' + this.userId + '/' + this.token).subscribe((res: any) => {
-        console.log(res);
+        // console.log(res);
         if (res.status === 0) {
           this.isChecked = true;
         } else if (res.status === 1) {
@@ -39,7 +39,7 @@ export class ForgotPasswordComponent implements OnInit {
     });
   }
   updatePassword(password, confirmPassword) {
-    console.log(password, confirmPassword);
+    // console.log(password, confirmPassword);
     if (!this.passwordValidExpe.test(password)) {
       this.isPasswordValid = false;
       this.errMsg = 'Password must contains minimum eight characters, at least one letter and one number';
@@ -54,7 +54,7 @@ export class ForgotPasswordComponent implements OnInit {
     this.http.put(environment.backendLink + 'api/user/updatePassword/' + this.userId, {
       password: password
     }).subscribe((res) => {
-      console.log(res);
+      // console.log(res);
       this.isPasswordUpdated = true;
     });
   }

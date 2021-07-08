@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, HostListener } from '@angular/core';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -23,11 +24,11 @@ export class ExploreComponent implements OnInit , AfterViewInit{
   exclusive = [];
   trending = [];
   @ViewChild('stickyMenu', { static: false }) menuElement: ElementRef;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit() {
     this.http.get(environment.backendLink + 'api/admin/explore').subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       this.products = res.explore.product;
       this.exclusive = res.explore.exclusive;
       this.trending = res.explore.trending;
@@ -35,7 +36,9 @@ export class ExploreComponent implements OnInit , AfterViewInit{
     });
 
   }
-
+  blogClick(id) {
+    this.router.navigate(['/blog', id]);
+  }
   ngAfterViewInit(){
     this.elementPosition = this.menuElement.nativeElement.offsetTop;
   }

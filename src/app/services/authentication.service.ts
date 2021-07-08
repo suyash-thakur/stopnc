@@ -47,7 +47,7 @@ export class AuthenticationService {
       const authData: AuthData = {email, password, name };
       this.http.post(environment.backendLink + 'api/user/signup', authData)
     .subscribe((response:any) => {
-      console.log(response);
+      // console.log(response);
       localStorage.setItem('isVerfied', 'false');
       localStorage.setItem('emailVerify', response.result.email);
       localStorage.setItem('idVerify', response.result._id);
@@ -64,20 +64,20 @@ login(email: string, password: string): Promise<any> {
       const authData = {email, password};
       this.http.post<{ token: string; expiresIn: number }>(environment.backendLink + 'api/user/login', authData)
       .subscribe(response => {
-        console.log(response);
+        // console.log(response);
 
         const token = response.token;
         this.token = token;
-        console.log(this.token);
+        // console.log(this.token);
         this.authStatusListener.next(true);
         this.user = helper.decodeToken(token);
         this.saveAuthData(token, this.user.exp);
 
-        console.log(this.user.exp);
+        // console.log(this.user.exp);
         this.id = this.user.userId;
         this.wrongCred = false;
-        console.log(this.user);
-        console.log(this.id);
+        // console.log(this.user);
+        // console.log(this.id);
 
       });
       return 'from second'; // return whatever you want not neccessory
@@ -89,21 +89,21 @@ login(email: string, password: string): Promise<any> {
   verifyEmail(userId, token) {
     return Promise.resolve((() => {
       this.http.put(environment.backendLink + 'api/user/verifyEmail/' + userId + '/' + token, {}).subscribe((response: any) => {
-        console.log(response);
+        // console.log(response);
         if (response.message === 'Token Verified') {
           const token = response.token;
           this.token = token;
           localStorage.setItem('isVerfied', 'true');
-          console.log(this.token);
+          // console.log(this.token);
           this.authStatusListener.next(true);
           this.user = helper.decodeToken(token);
           this.saveAuthData(token, this.user.exp);
           this.Userlogin = true;
-          console.log(this.user.exp);
+          // console.log(this.user.exp);
           this.id = this.user.userId;
           this.wrongCred = false;
-          console.log(this.user);
-          console.log(this.id);
+          // console.log(this.user);
+          // console.log(this.id);
           this.router.navigate(['/']);
         }
       });
@@ -117,7 +117,7 @@ logout() {
   this.Userlogin = false;
   this.authStatusListener.next(false);
   this.clearAuthData();
-  console.log('logout');
+  // console.log('logout');
   this.router.navigate(['/login']);
 }
 
@@ -140,7 +140,7 @@ private getAuthData() {
     const token = localStorage.getItem('token');
     const expirationDate = localStorage.getItem('expiration');
     if (!token || !expirationDate) {
-      console.log('error!');
+      // console.log('error!');
 
       return;
     }
@@ -156,7 +156,7 @@ private getAuthData() {
 autoAuthUser() {
     const authInformation = this.getAuthData();
     if (!authInformation) {
-      console.log('error');
+      // console.log('error');
 
       return;
     }
@@ -164,8 +164,8 @@ autoAuthUser() {
     const datenow = now.getTime();
     const date = Number(authInformation.expirationDate) * 1000;
     const expiresIn = date - now.getTime();
-    console.log(date);
-    console.log(datenow);
+    // console.log(date);
+    // console.log(datenow);
 
 
     if (expiresIn > 0) {
@@ -175,9 +175,9 @@ autoAuthUser() {
       this.id = this.user.userId;
 
       this.authStatusListener.next(true);
-      console.log(this.id);
+      // console.log(this.id);
     } else {
-      console.log('error');
+      // console.log('error');
       this.authStatusListener.next(false);
 
     }
@@ -202,19 +202,19 @@ getToken() {
  googleLogin( id: string, email: string, name: string ) {
 
    this.http.post(environment.backendLink + 'api/user/socialAuth', { email: email, password: id, name: name }).subscribe((data: any) => {
-    console.log(data);
+    // console.log(data);
     const token = data.token;
     this.token = token;
-    console.log(this.token);
+    // console.log(this.token);
     this.authStatusListener.next(true);
     this.Userlogin = true;
     this.user = helper.decodeToken(token);
     this.saveAuthData(token, this.user.exp);
 
-    console.log(this.user.exp);
+    // console.log(this.user.exp);
     this.id = this.user.userId;
-    console.log(this.user);
-    console.log(this.id);
+    // console.log(this.user);
+    // console.log(this.id);
     this.router.navigate(['/']);
   });
 
@@ -224,24 +224,24 @@ follow(followerId) {
   const Id = {
     followerId: this.id
   };
-  console.log(followerId);
-  console.log(Id);
+  // console.log(followerId);
+  // console.log(Id);
   this.http.put(environment.backendLink + 'api/user/follow' + followerId, Id).subscribe(responce => {
-    console.log(responce);
+    // console.log(responce);
   });
 }
 unfollow(followerId) {
   const Id = {
     followerId: this.id
   };
-  console.log(followerId);
-  console.log(Id);
+  // console.log(followerId);
+  // console.log(Id);
   this.http.put(environment.backendLink + 'api/user/unfollow' + followerId, Id).subscribe(responce => {
-    console.log(responce);
+    // console.log(responce);
   });
 }
 imageUpload(imageForm: FormData) {
-  console.log('image uploading');
+  // console.log('image uploading');
   return this.http.post(environment.backendLink + 'api/user/uploadProfileImage' + this.id, imageForm);
 }
 public setSidenav(sidenav: MatSidenav) {

@@ -36,7 +36,7 @@ export class HeaderComponent implements OnInit {
 
 user() {
 
-    console.log('user');
+    // console.log('user');
   }
 
 signOut() {
@@ -47,9 +47,9 @@ signOut() {
     if (this.loggedin) {
       this.http.get(environment.backendLink + 'api/user/userInfo' + this.userId).subscribe((userData: any) => {
         let data  = userData;
-        console.log(data);
+        // console.log(data);
         this.authService.emitConfig(userData.User);
-      console.log(this.authService.user);
+      // console.log(this.authService.user);
         this.User = {
           Name: userData.User.name,
           discription: userData.User.discription,
@@ -67,7 +67,7 @@ signOut() {
           if (!n.isRead)
           this.numberNot = this.numberNot + 1;
         });
-        console.log(this.numberNot);
+        // console.log(this.numberNot);
         this.authService.userData.subscribe(val => {
           this.Name = val.Name;
           this.ProfileImg = val.profileImage;
@@ -80,7 +80,7 @@ signOut() {
 notificationClick(){
   if(this.numberNot != 0){
     this.http.post(environment.backendLink + 'api/user/notficationSeen' + this.authService.id, null).subscribe(result => {
-      console.log(result);
+      // console.log(result);
       this.numberNot = 0;
     });
 
@@ -88,7 +88,7 @@ notificationClick(){
 
 }
 clickEachNotification(type, id) {
-  console.log(type);
+  // console.log(type);
   if (type === 'Post') {
   this.router.navigate(['/blog', id]);
   } else if (type === 'User') {
@@ -96,7 +96,7 @@ clickEachNotification(type, id) {
   }
 }
   search() {
-    console.log(this.query);
+    // console.log(this.query);
     this.router.navigate(['/search', this.query]);
 
   }

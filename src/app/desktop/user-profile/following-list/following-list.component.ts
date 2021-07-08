@@ -16,7 +16,7 @@ export class FollowingListComponent implements OnInit {
   constructor(private http: HttpClient, private route: ActivatedRoute, private authService: AuthenticationService, private router: Router) {
     const url = this.router.url.split("/");
     this.userId = url.slice(-2, -1)[0];
-    console.log(this.userId);
+    // console.log(this.userId);
   }
 
   ngOnInit() {
@@ -25,15 +25,15 @@ export class FollowingListComponent implements OnInit {
     }
     this.http.get(environment.backendLink + 'api/user/following' + this.userId).subscribe((followers: any) => {
       this.following = followers.followers.following;
-      console.log(this.following);
+      // console.log(this.following);
     });
   }
   unfollow(followerId, index) {
     const Id = {
       followerId: this.authService.id
     };
-    console.log(followerId);
-    console.log(Id);
+    // console.log(followerId);
+    // console.log(Id);
     this.http.put(environment.backendLink + 'api/user/unfollow' + followerId, Id).subscribe(responce => {
           this.following.splice(index, 1);
     });

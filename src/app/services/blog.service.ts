@@ -33,7 +33,7 @@ export class BlogService {
      });
 
      this.http.post(environment.backendLink + 'api/blog/createBlog', Blog).subscribe(responce => {
-    console.log(responce);
+    // console.log(responce);
     this.router.navigate(['/']);
       }
     );
@@ -50,7 +50,7 @@ export class BlogService {
     });
 
     this.http.post(environment.backendLink + 'api/blog/createDraft', Blog).subscribe(responce => {
-      console.log(responce);
+      // console.log(responce);
       this.router.navigate(['/draft']);
     }
     );
@@ -66,7 +66,7 @@ export class BlogService {
       authorId: this.authService.id
     });
     this.http.put(environment.backendLink + 'api/blog/draftPublish/' + id, Blog).subscribe(response => {
-      console.log(response);
+      // console.log(response);
       this.router.navigate(['/draft']);
     });
   }
@@ -81,7 +81,7 @@ export class BlogService {
       authorId: this.authService.id
     });
     this.http.put(environment.backendLink + 'api/blog/updateDraft/' + id, Blog).subscribe(response => {
-      console.log(response);
+      // console.log(response);
       this.router.navigate(['/draft']);
     });
   }
@@ -90,7 +90,7 @@ export class BlogService {
     this.http.get(environment.backendLink + 'api/blog/allBlog').subscribe(
       responce => {
         this.selectBlog = responce;
-        console.log(this.selectBlog);
+        // console.log(this.selectBlog);
 
       }
     );
@@ -111,10 +111,10 @@ export class BlogService {
       postedBy: this.authService.id,
 
     };
-    console.log(Comment);
+    // console.log(Comment);
     this.http.post(environment.backendLink + 'api/blog/comment' + id, Comment).subscribe(
       responce => {
-        console.log(responce);
+        // console.log(responce);
         return responce;
       }
     );

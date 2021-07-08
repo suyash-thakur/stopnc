@@ -20,11 +20,11 @@ isExploreClicked = false;
   ngOnInit() {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
-        console.log(event);
+        // console.log(event);
         var url = event.url.split('/');
         url = url.slice(-3, -1);
         var urlString = '/' + url[0] + '/' + url[1];
-        console.log(urlString);
+        // console.log(urlString);
         if (event.id === 1) {
           this.newRoute = true;
         } else {
@@ -78,7 +78,7 @@ exploreClicked() {
 
 }
   crossClicked() {
-    console.log('back clicked');
+    // console.log('back clicked');
     if (this.newRoute === false) {
       this.location.back();
     } else {

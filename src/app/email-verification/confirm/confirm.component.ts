@@ -31,7 +31,7 @@ export class ConfirmComponent implements OnInit {
     let isVerified = localStorage.getItem('isVerfied');
     if (isVerified === 'false') {
       this.http.post(environment.backendLink + 'api/user/resendToken', { userId: this.userId, email: this.email }).subscribe((res: any) => {
-        console.log(res);
+        // console.log(res);
         if (res.message === 'Token Send') {
           this.isResend = true;
         }

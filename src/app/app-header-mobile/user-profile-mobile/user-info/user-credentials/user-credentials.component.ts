@@ -33,7 +33,7 @@ export class UserCredentialsComponent implements OnInit {
   constructor(public userData: UserDataService, public authService: AuthenticationService, public UserData: UserDataService, private http: HttpClient, private route: ActivatedRoute) {
 
     this.userId = this.route.snapshot.paramMap.get('id');
-    console.log(this.userId);
+    // console.log(this.userId);
 
 
   }
@@ -41,13 +41,13 @@ export class UserCredentialsComponent implements OnInit {
 
 
   ngOnInit() {
-    console.log(this.authService.id);
+    // console.log(this.authService.id);
     if (this.userId === this.authService.id) {
       this.isSameUser = true;
     }
     this.http.get(environment.backendLink + 'api/user/userInfo' + this.userId).subscribe((userData: any) => {
       const data = userData;
-      console.log(data);
+      // console.log(data);
 
       this.User = {
         Name: userData.User.name,

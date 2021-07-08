@@ -15,10 +15,10 @@ export class AppComponent implements OnInit {
 
   // Assigns value of current screen size in innerwidth variable when component is generated
   ngOnInit() {
-    console.log('auth');
+    // console.log('auth');
     this.authservice.autoAuthUser();
     this.innerWidth = window.innerWidth;
-    console.log('Screen Size: ' + this.innerWidth);
+    // console.log('Screen Size: ' + this.innerWidth);
 
   }
     // Assigns value of current screen size in innerwidth variable whenever the screen is resized

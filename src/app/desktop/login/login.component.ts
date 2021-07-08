@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/']);
     }
     public  signinWithGoogle() {
-      console.log('google');
+      // console.log('google');
       const socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
       this.socialAuthService.signIn(socialPlatformProvider)
       .then((userData) => {
@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
     this.socialAuthService.signIn(socialPlatformProvider).then(
       (userData) => {
             //this will return user data from facebook. What you need is a user token which you will send it to the server
-            console.log(userData.email);
+            // console.log(userData.email);
             this.userInfo = userData;
             this.authenticationService.googleLogin( this.userInfo.id, this.userInfo.email, this.userInfo.name);
 

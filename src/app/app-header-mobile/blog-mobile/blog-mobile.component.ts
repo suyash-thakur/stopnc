@@ -54,7 +54,6 @@ export class BlogMobileComponent implements OnInit, OnDestroy {
 
 
       this.blog = data;
-      console.log(data);
       this.slides = this.blog.blog.Blog.image;
       this.UserComment = this.blog.blog.Comment;
       this.likes = this.blog.blog.Blog.like;
@@ -73,10 +72,10 @@ export class BlogMobileComponent implements OnInit, OnDestroy {
       if (this.likes.indexOf(this.authService.id) > -1) {
         this.isLiked = true;
       }
-      // console.log(this.authService.userdata);
+      // // console.log(this.authService.userdata);
       // if (this.authService.userdata.bookmarked.indexOf(this.blog.blog.Blog._id) > -1) {
       //   this.isBookmarked = true;
-      //   console.log(this.isBookmarked);
+      //   // console.log(this.isBookmarked);
       // }
 
       if (this.authService.id !== undefined) {
@@ -98,7 +97,7 @@ export class BlogMobileComponent implements OnInit, OnDestroy {
       this.http.post(environment.backendLink + 'api/user/recommendation', { id: this.blog.blog.Blog._id }).subscribe((res: any) => {
         this.recommendedBlog = res.result;
         this.recommendedUser = res.userData;
-        console.log('Recommendation', this.recommendedUser[0][0]);
+        // // console.log('Recommendation', this.recommendedUser[0][0]);
 
         this.isRecLoad = true;
 
@@ -114,7 +113,7 @@ export class BlogMobileComponent implements OnInit, OnDestroy {
     this.isLoading = false;
   }
   like(id) {
-    console.log("Like");
+    // // console.log("Like");
     const data = {
       userId: this.authService.id,
       authId: this.blog.blog.Blog.authorId._id
@@ -181,25 +180,25 @@ export class BlogMobileComponent implements OnInit, OnDestroy {
       userId: this.authService.id
     };
     this.http.put(environment.backendLink + 'api/blog/Commentlike' + id, Data).subscribe(responce => {
-      console.log(responce);
+      // // console.log(responce);
     });
 
   }
   onPreviousClick() {
     const previous = this.currentSlide - 1;
     this.currentSlide = previous < 0 ? this.slides.length - 1 : previous;
-    console.log("previous clicked, new current slide is: ", this.currentSlide);
+    // // console.log("previous clicked, new current slide is: ", this.currentSlide);
   }
 
   onNextClick() {
     const next = this.currentSlide + 1;
     this.currentSlide = next === this.slides.length ? 0 : next;
-    console.log("next clicked, new current slide is: ", this.currentSlide);
+    // // console.log("next clicked, new current slide is: ", this.currentSlide);
   }
   getComment() {
     var blogId = this.blog.blog.Blog._id;
     this.http.get(environment.backendLink + 'api/blog/comment/' + blogId + '/' + this.commentPage).subscribe((comment: any) => {
-      console.log(comment.comment.docs);
+      // console.log(comment.comment.docs);
       this.isNextComment = comment.comment.hasNextPage;
 
       if (comment.comment.docs.length > 0) {
@@ -207,14 +206,14 @@ export class BlogMobileComponent implements OnInit, OnDestroy {
           this.UserComment.push(comment);
           this.commentPage = this.commentPage + 1;
         });
-        console.log(comment.comment);
+        // console.log(comment.comment);
 
       }
     });
   }
   onFocus() {
     this.isFocus = true;
-    console.log('focus');
+    // console.log('focus');
     const box = (<HTMLTextAreaElement>document.getElementById('inpC'));
     box.rows = 5;
   }
@@ -231,7 +230,7 @@ export class BlogMobileComponent implements OnInit, OnDestroy {
   }
   onProductClicked(id) {
     this.http.put(environment.backendLink + 'api/blog/blogClick/' + id, {}).subscribe(responce => {
-      console.log(responce);
+      // console.log(responce);
     });
   }
   onComment() {
@@ -240,7 +239,7 @@ export class BlogMobileComponent implements OnInit, OnDestroy {
       postedBy: this.authService.id
 
     };
-    console.log(Comment);
+    // console.log(Comment);
     this.http.post(environment.backendLink + 'api/blog/comment' + this.blog.blog.Blog._id, Comment).subscribe(
       (responce:any) => {
         // this.UserComment.push(res.);
