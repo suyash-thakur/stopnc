@@ -4,7 +4,7 @@
     (keydown.escape)="close('escape')"
    disableClose [autoFocus]="false" >
 
-    <div class="row" >
+    <div class="row" style="justify-content:center;">
       <div class="col-xs-2 col-sm-2 text-center" >
           <a (click)="close('toggle button')"
             *ngIf="DisplayCategories && SearchInputEmpty && !inputInSecondarySearch && !showResult ">
@@ -16,7 +16,8 @@
             <img class="back-icon " src="assets\Repeat Grid 13.svg">
           </a>
       </div>
-    <div class="col-xs-8 col-sm-9" *ngIf="DisplayCategories && SearchInputEmpty && !inputInSecondarySearch && !showResult">
+    <div class="col-xs-8 col-sm-9" *ngIf="DisplayCategories && SearchInputEmpty && !inputInSecondarySearch && !showResult"
+      style="max-width:500px !important;">
       <input type="text" class="firstInput" placeholder="Search..."
         (focusin) = "focusoutHandler($event)"
         (focusout) = "focusinHandler($event)"
@@ -26,7 +27,8 @@
     <div class="col-xs-2 col-sm-2" *ngIf="DisplayCategories && SearchInputEmpty && !inputInSecondarySearch && !showResult">
       <a *ngIf="userLogin" [routerLink]="['/mobile/user']" (click)="close('toggle button')"><img [src]="profileImg" class="profile"></a>
     </div>
-    <div class="col-sm-10 col-xs-9" *ngIf="!DisplayCategories || inputInSecondarySearch || showResult">
+    <div class="col-sm-10 col-xs-9" *ngIf="!DisplayCategories || inputInSecondarySearch || showResult"
+      style="max-width:600px !important; flex-grow: 1 !important;">
 
       <div class="Searchbar">
        <input type="text" placeholder="Search..."

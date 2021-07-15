@@ -43,6 +43,7 @@ import { SliderModule } from 'angular-image-slider';
 import { MainOneComponent } from './desktop/home/main-one/main-one.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { TruncatePipe } from './pipes/truncate';
+import { SafeHtmlPipe } from './pipes/sanitize';
 import { BlogComponent } from './desktop/blog/blog.component';
 import { BlogMobileComponent } from './app-header-mobile/blog-mobile/blog-mobile.component';
 import { FeedComponent } from './feed/feed.component';
@@ -94,6 +95,7 @@ import { ForgotPasswordComponent } from './desktop/login/email-login/forgot-pass
     CreateComponent,
     MainOneComponent,
     TruncatePipe,
+    SafeHtmlPipe,
     BlogComponent,
     BlogMobileComponent,
     FeedComponent,

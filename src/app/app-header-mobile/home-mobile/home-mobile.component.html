@@ -1,4 +1,6 @@
-<div style="display: flex; background-color: #e19d9c; justify-content: center;width: 100%; padding-top: 30px; ">
+<div>
+  <div
+    style="display: flex; background-color: #e19d9c; justify-content: center;width: 100%; padding-top: 30px; padding-left: 1%; padding-right: 1%;">
   <div style="width: 100%; text-align: center; padding: 5px">
     <div class="head">CAREFREE CASUAL</div>
     <br>
@@ -19,7 +21,9 @@
       </div>
       <div style="display: flex; width: 100%; margin-top:10px;">
 
-          <div  *ngFor="let item of firstBlog.image" style="flex: 1;  background-position: center; background-repeat: no-repeat; background-size: cover; height: 200px; border: 2px solid #5D5D5D; margin-right: 5px;" [ngStyle]="{ 'background-image': 'url(' + item + ')'}">
+          <div *ngFor="let item of firstBlog.image"
+            style="flex: 1;  background-position: center; background-repeat: no-repeat; background-size: cover; height: 200px; border: 2px solid #5D5D5D; margin-right: 5px;"
+            [ngStyle]="{ 'background-image': 'url(' + item + ')'}" class="blog-img">
 
         </div>
       </div>
@@ -34,7 +38,8 @@
   </div>
 </div>
 
-<div style="display: flex; background-color:  #52ACE0; justify-content: center;width: 100%; padding-top: 30px; ">
+<div
+  style="display: flex; background-color:  #52ACE0; justify-content: center;width: 100%; padding-top: 30px; padding-left: 1%; padding-right: 1%;">
   <div style="width: 100%; text-align: center; padding: 5px; margin-top: 30px;">
     <div class="head">SPORTY SPICE</div>
     <br>
@@ -55,7 +60,9 @@
       </div>
       <div style="display: flex; width: 100%; margin-top:10px;">
 
-        <div  *ngFor="let item of secondBlog.image" style="flex: 1;  background-position: center; background-repeat: no-repeat; background-size: cover; height: 200px; border: 2px solid #5D5D5D; margin-right: 5px;" [ngStyle]="{ 'background-image': 'url(' + item + ')'}">
+        <div *ngFor="let item of secondBlog.image"
+          style="flex: 1;  background-position: center; background-repeat: no-repeat; background-size: cover; height: 200px; border: 2px solid #5D5D5D; margin-right: 5px;"
+          [ngStyle]="{ 'background-image': 'url(' + item + ')'}" class="blog-img">
 
       </div>
     </div>
@@ -69,7 +76,8 @@
   </div>
   </div>
 </div>
-<div style="display: flex; background-color:   #F9B1A5; justify-content: center;width: 100%; padding-top: 30px; ">
+<div
+  style="display: flex; background-color:   #F9B1A5; justify-content: center;width: 100%; padding-top: 30px; padding-left: 1%; padding-right: 1%; ">
   <div style="width: 100%; text-align: center; padding: 5px; margin-top: 30px;">
     <div class="head">EDITOR'S PICK</div>
     <br>
@@ -80,12 +88,17 @@
       </div>
       <div *ngIf="isLoading === true;">
       <div style="display: flex; align-items: center; margin-bottom: 10px; padding-bottom: 5px;" *ngFor="let item of exclusive" (click)="this.blogClick(item._id)">
-          <div style="flex: 2; background-position: center; background-repeat: no-repeat; background-size: cover; height: 150px; border: 2px solid #5D5D5D; " [ngStyle]="{ 'background-image': 'url(' + item.image[0] + ')'}">
+          <div
+            style="flex: 2; background-position: center; background-repeat: no-repeat; background-size: cover; height: 150px; border: 2px solid #5D5D5D; "
+            [ngStyle]="{ 'background-image': 'url(' + item.image[0] + ')'}" class="editor-blog">
 
         </div>
         <div style="flex: 3;">
           <div class="blogTitle" style="margin-left: 5px; font-size: 20px; ">
             {{item.title}}
+          </div>
+          <div class="discription" style="margin-left: 5px; font-size: 18px; text-align: left; opacity: 0.8;" *ngIf="isTablet">
+            {{item.body | truncate:100}}
           </div>
           <div class="discription" style="text-align: left; margin-left: 5px; color: #2d4a86; margin-top: 5px;">
           by  {{ item.author }}
@@ -161,7 +174,9 @@
       <br>
         <div style="display: flex; align-items: center; justify-content: center;">
 
-          <div style="width: 100%; background-image: url('../../../assets/Uniqlo-x-J-W-Anderson-5-1044x1566.jpg'); background-repeat: no-repeat; background-position:center; background-size: cover; height: 400px;" [ngStyle]="{ 'background-image': 'url(' + item.image[0] + ')'}">
+          <div
+            style="width: 100%;  background-repeat: no-repeat; background-position:center; background-size: cover; height: 400px;"
+            [ngStyle]="{ 'background-image': 'url(' + item.image[0] + ')'}">
 
           </div>
         </div>
@@ -181,4 +196,4 @@
 <br>
 <br>
 </div>
-
+</div>

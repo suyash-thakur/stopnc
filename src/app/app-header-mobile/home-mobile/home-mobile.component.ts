@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class HomeMobileComponent implements OnInit {
   carno = [1, 2, 3, 4]
+  // tslint:disable-next-line:max-line-length
   blogBody = 'If you guys have been following me for a while, you know jeans are one of my favorite things to wear. I’m always on the search for the perfect-fitting pair of jeans, and I’ve got a few go-to trust-worthy brands. Additional Text to be truncated. If you guys have been following me for a while, you know jeans are one of my favorite things to wear. I’m always on the search for the perfect-fitting pair of jeans, and I’ve got a few go-to trust-worthy brands. Additional Text to be truncated'
   firstBlog: any;
   secondBlog: any;
@@ -17,9 +18,13 @@ export class HomeMobileComponent implements OnInit {
   isFirstLoaded = false;
   exclusive = [];
   isLoading = false;
+  isTablet = false;
 
-
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {
+    if (window.innerWidth > 600) {
+      this.isTablet = true;
+    }
+  }
 
   ngOnInit() {
     this.http.get(environment.backendLink + 'api/admin/homepageInfo').subscribe((data: any) => {

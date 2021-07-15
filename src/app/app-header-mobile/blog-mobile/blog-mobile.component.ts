@@ -19,12 +19,12 @@ export class BlogMobileComponent implements OnInit, OnDestroy {
   ];
   id: number;
   isFocus: boolean;
-  isLiked: boolean = false;
+  isLiked = false;
   likes: Array<any>;
   CommentInput: any;
   isBookmarked: any = false;
   bookmarkList = [];
-  isFollowing: boolean = false;
+  isFollowing = false;
   private sub: any;
   recommendedBlog = [];
   recommendedUser = [];
@@ -39,10 +39,12 @@ export class BlogMobileComponent implements OnInit, OnDestroy {
   isloggedin = false;
 
   blog: any;
-  comment= 'I enjoyed this read, thank you for explaining so clearly. I would argue tho that the gig economy is not so different from the auto industry’s cycle of layoffs as supply and demand fluctuate. There is also evidence that building (buying) market share is a longterm strategy that yields intangable gains. Amazon took over a decade to turn a profit but what it earned in marketshare in that period is price.  ';
+  // tslint:disable-next-line: max-line-length
+  comment = 'I enjoyed this read, thank you for explaining so clearly. I would argue tho that the gig economy is not so different from the auto industry’s cycle of layoffs as supply and demand fluctuate. There is also evidence that building (buying) market share is a longterm strategy that yields intangable gains. Amazon took over a decade to turn a profit but what it earned in marketshare in that period is price.  ';
   ProfileImg: any;
 
   constructor(public blogservice: BlogService, public router: Router, private route: ActivatedRoute,
+    // tslint:disable-next-line: align
     private authService: AuthenticationService, private http: HttpClient, public userData: UserDataService) {
     if (window.innerWidth > 991) {
       this.router.navigate(['blog/' + route.snapshot.params.id]);
@@ -86,6 +88,7 @@ export class BlogMobileComponent implements OnInit, OnDestroy {
         this.ProfileImg = this.userData.User.profileImage;
 
         this.http.get(environment.backendLink + 'api/user/getBookmark' + this.authService.id).subscribe(res => {
+          // tslint:disable-next-line: no-shadowed-variable
           const data: any = res;
 
           this.bookmarkList = data.bookmark.bookmarked;
@@ -130,7 +133,7 @@ export class BlogMobileComponent implements OnInit, OnDestroy {
 
   }
   checkIfImg(url) {
-    let ext = url.split('.').pop();
+    const ext = url.split('.').pop();
     if (ext === 'jpg' || ext === 'png' || ext === 'jpeg') {
       return true;
     } else if (ext === 'mp4' || ext === 'webm' || ext === 'ogg') {
@@ -200,12 +203,13 @@ export class BlogMobileComponent implements OnInit, OnDestroy {
     // // console.log("next clicked, new current slide is: ", this.currentSlide);
   }
   getComment() {
-    var blogId = this.blog.blog.Blog._id;
+    const blogId = this.blog.blog.Blog._id;
     this.http.get(environment.backendLink + 'api/blog/comment/' + blogId + '/' + this.commentPage).subscribe((comment: any) => {
       // console.log(comment.comment.docs);
       this.isNextComment = comment.comment.hasNextPage;
 
       if (comment.comment.docs.length > 0) {
+        // tslint:disable-next-line: no-shadowed-variable
         comment.comment.docs.forEach(comment => {
           this.UserComment.push(comment);
           this.commentPage = this.commentPage + 1;
@@ -218,7 +222,7 @@ export class BlogMobileComponent implements OnInit, OnDestroy {
   onFocus() {
     this.isFocus = true;
     // console.log('focus');
-    const box = (<HTMLTextAreaElement>document.getElementById('inpC'));
+    const box = (document.getElementById('inpC') as HTMLTextAreaElement);
     box.rows = 5;
   }
 
@@ -226,9 +230,9 @@ export class BlogMobileComponent implements OnInit, OnDestroy {
     this.router.navigate(['mobile/blog', id]);
   }
   onFocusOut() {
-    if (this.CommentInput == null || this.CommentInput == '') {
+    if (this.CommentInput == null || this.CommentInput === '') {
       this.isFocus = false;
-      const box = (<HTMLTextAreaElement>document.getElementById('inpC'));
+      const box = (document.getElementById('inpC') as HTMLTextAreaElement);
       box.rows = 2;
     }
   }
@@ -245,7 +249,7 @@ export class BlogMobileComponent implements OnInit, OnDestroy {
     };
     // console.log(Comment);
     this.http.post(environment.backendLink + 'api/blog/comment' + this.blog.blog.Blog._id, Comment).subscribe(
-      (responce:any) => {
+      (responce: any) => {
         // this.UserComment.push(res.);
         this.UserComment.push(responce.result);
         this.isFocus = false;

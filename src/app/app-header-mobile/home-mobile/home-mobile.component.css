@@ -95,6 +95,8 @@
   padding-top: 5px;
   padding-right: 5px;
   padding-left: 5px;
+  max-width: 750px;
+  margin: auto;
 }
 .follow-button {
   display: flex;
@@ -128,4 +130,16 @@
 .image-small {
   width: 100%;
   height: auto;
+}
+@media screen and (min-width: 630px) {
+  .story-container{
+    min-height: 350px;
+  }
+  .blog-img {
+    height: 250px !important;
+  }
+  .editor-blog {
+    height: 200px !important;
+
+  }
 }

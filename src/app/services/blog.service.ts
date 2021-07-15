@@ -12,15 +12,15 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class BlogService {
-  getComment(userId: string) {
-    throw new Error("Method not implemented.");
-  }
-  selectBlog: any;
-  currentBlog: any;
-  Useromment: any;
 
   constructor(private http: HttpClient,
               private router: Router, private userService: UserDataService, private authService: AuthenticationService) { }
+  selectBlog: any;
+  currentBlog: any;
+  Useromment: any;
+  getComment(userId: string) {
+    throw new Error('Method not implemented.');
+  }
 
    saveBlog(title: string, body: string, image: any[], tag: string) {
      const Blog: Blog = ({
