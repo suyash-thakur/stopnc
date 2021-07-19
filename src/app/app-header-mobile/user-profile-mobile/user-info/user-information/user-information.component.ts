@@ -23,10 +23,17 @@ export class UserInformationComponent implements OnInit {
   userId: any;
   isSameUser: boolean;
   isloading = true;
+  isLarge = false;
+  isExtraLarge = 0;
 
   constructor(public userData: UserDataService, private http: HttpClient, public router: Router, private route: ActivatedRoute, public blogService: BlogService, public authService: AuthenticationService) {
-    this.userId =  this.route.snapshot.paramMap.get('id');
-
+    this.userId = this.route.snapshot.paramMap.get('id');
+    this.isExtraLarge = window.innerWidth;
+    if (window.innerWidth > 360) {
+      this.isLarge = true;
+    } else {
+      this.isLarge = false;
+    }
     this.getComment(this.userId);
   }
 

@@ -34,8 +34,14 @@
                 {{ blog.title }}
             </b>
             </div>
-            <div class="description">
-              {{ blog.body | truncate: 180  }}
+            <div class="description" *ngIf="!isLarge">
+              {{ blog.body | truncate: 210 }}
+            </div>
+            <div class="description" *ngIf="isLarge && isExtraLarge < 500">
+              {{ blog.body | truncate: 260 }}
+            </div>
+            <div class="description" *ngIf="isExtraLarge > 500">
+              {{ blog.body | truncate: 400 }}
             </div>
             <div class="Edit">
               <div>
@@ -108,8 +114,14 @@
                   {{ blog.title }}
               </b>
               </div>
-              <div class="description">
+              <div class="description" *ngIf="!isLarge">
                 {{ blog.body | truncate: 180  }}
+              </div>
+              <div class="description" *ngIf="isLarge">
+                {{ blog.body | truncate: 230 }}
+              </div>
+              <div class="description" *ngIf="isExtraLarge">
+                {{ blog.body | truncate: 400 }}
               </div>
               <div  class="ReadNow">
                 <div>
