@@ -15,6 +15,7 @@
   border-radius: 4px;
   padding-top: 10px;
   width: 90%;
+  max-width: 650px;
   position: absolute;
   bottom: initial;
   left: 0;

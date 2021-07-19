@@ -127,3 +127,56 @@ hr {
 a {
   text-decoration: none;
 }
+@media screen and (min-width: 630px) {
+  .container{
+    width: 600px;
+
+  }
+  .cross-image {
+    width: 40px;
+  }
+  .editor-blog {
+    height: 200px !important;
+
+  }
+  .header {
+    font-size: 50px;
+  }
+  .button-text-facebook {
+    font-size: 25px;
+
+  }
+  .button-text-google {
+    font-size: 20px;
+  }
+  .social-icon-google {
+    height: 35px;
+  }
+  .login-buttons{
+    height: 60px;
+  }
+  .google-button {
+    display: flex;
+    align-items:center;
+    justify-content: center;
+  }
+  .button-text-email {
+    font-size: 20px;
+    margin-right: 25px;
+
+  }
+  .email-button {
+    display: flex;
+    justify-content: center;
+    align-items:center;
+  }
+  .social-icon-email {
+    height:25px;
+  }
+  .terms {
+    font-size: 16px;
+  }
+  .header {
+    margin-bottom:80px;
+  }
+}
