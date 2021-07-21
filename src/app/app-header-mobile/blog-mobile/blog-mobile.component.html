@@ -44,14 +44,18 @@
     <div class="arrow" style="margin-right: -35px; padding-left: 5px;">
       <a (click)="onPreviousClick()">  < </a>
     </div>
-    <div>
-    <img [src]='slides[currentSlide]' class="blog-img" *ngIf="checkIfImg(slides[currentSlide])">
-    <video width="100%" class="blog-img" loop controls muted
-      style="border-radius: 1px; object-fit: cover; overflow: hidden; " *ngIf="!checkIfImg(slides[currentSlide])">
+    <div style="flex-grow: 1;">
+      <div class="blog-image" [ngStyle]="{'background-image': 'url(' + slides[currentSlide] + ')'}"
+        *ngIf="checkIfImg(slides[currentSlide]) && isTablet">
+      </div>
+      <img [src]='slides[currentSlide]' class="blog-img" *ngIf="checkIfImg(slides[currentSlide]) && !isTablet">
+      <video width="100%" class="blog-img" loop controls
+        style="border-radius: 1px; object-fit: cover; overflow: hidden; max-height: 500px; "
+        *ngIf="!checkIfImg(slides[currentSlide])">
       <source [src]="slides[currentSlide]" type="video/mp4" style="object-fit: cover;">
     </video>
   </div>
-  <div class="arrow" style="margin-left: -35px;">
+  <div class="arrow" style="margin-left: -35px; padding-right: 5px;">
       <a (click)="onNextClick()">  > </a>
   </div>
   </div>

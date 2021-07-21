@@ -16,7 +16,13 @@
   font-size: 15px;
   margin-left: 15px;
 }
-
+.blog-image {
+  background-size: cover;
+  background-position: center;
+  border: 3px solid #5d5d5d;
+  width: 98vw;
+  height: 400px;
+}
 .follow-button {
   display: flex;
   border: 2px solid #2d4a86;

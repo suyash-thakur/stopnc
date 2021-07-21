@@ -34,8 +34,11 @@
           {{ item.title }}
       </b>
       </div>
-      <div class="description" style="">
+      <div class="description" style="" *ngIf="!isTablet">
         {{ item.body | truncate: 230  }}
+      </div>
+      <div class="description" style="" *ngIf="isTablet">
+        {{ item.body | truncate: 260 }}
       </div>
       <br>
       <div class="ReadNow" (click)="blogClick(item._id)">

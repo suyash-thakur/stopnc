@@ -76,3 +76,15 @@
   font-size: 30px;
   padding-top: 30px;
 }
+@media screen and (min-width: 630px) {
+  .description {
+    font-size: 19px;
+
+  }
+  .Name {
+    font-size: 19px;
+  }
+  .head {
+    font-size: 20px;
+  }
+}

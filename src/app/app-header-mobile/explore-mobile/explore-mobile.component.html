@@ -43,7 +43,7 @@
 
       </div>
       <div style=" justify-content: space-between;" class="row" *ngIf="isLoading ===  true">
-        <div style="text-align:center; margin-top: 30px; padding-left:0px;" class="col-xs-6 col-sm-6 col-md-4">
+        <div style="text-align:center; margin-top: 30px; padding-left:0px;" class="col-xs-6 col-sm-6 col-md-6">
           <img [src]="products[0].image" class="product-image">
           <div class="Name" style="font-size: 18px; margin-top: 10px; text-align: center !important;">
             {{ products[0].name }}
@@ -57,7 +57,7 @@
             </a>
             </div>
         </div>
-        <div style="text-align:center; margin-top: 30px; padding-left:0px;" class="col-xs-6 col-sm-6 col-md-4">
+        <div style="text-align:center; margin-top: 30px; padding-left:0px;" class="col-xs-6 col-sm-6 col-md-6">
           <img [src]="products[1].image" class="product-image">
           <div class="Name" style="font-size: 18px; margin-top: 10px; text-align: center !important;">
             {{ products[1].name }}
@@ -70,7 +70,7 @@
             </a>
             </div>
         </div>
-        <div style="text-align:center; margin-top: 30px; padding-left:0px;" class="col-xs-6 col-sm-6 col-md-4">
+        <div style="text-align:center; margin-top: 30px; padding-left:0px;" class="col-xs-6 col-sm-6 col-md-6">
           <img [src]="products[2].image" class="product-image">
           <div class="Name" style="font-size: 18px; margin-top: 10px; text-align: center !important;">
             {{ products[2].name }}
@@ -83,7 +83,7 @@
             </a>
             </div>
         </div>
-        <div style="text-align:center; margin-top: 30px; padding-left:0px;" class="col-xs-6 col-sm-6 col-md-4">
+        <div style="text-align:center; margin-top: 30px; padding-left:0px;" class="col-xs-6 col-sm-6 col-md-6">
           <img [src]="products[3].image" class="product-image">
           <div class="Name" style="font-size: 18px; margin-top: 10px; text-align: center !important;">
             {{ products[3].name }}
@@ -121,7 +121,7 @@
         <div class="Name exp-name" style="font-size: 15px; text-align:left">
           {{item.title}}
           </div>
-          <div class="Name exp-body" style="font-size: 15px; text-align:left">
+          <div class="Name exp-body" style="font-size: 15px; text-align:left" *ngIf="isTablet">
             {{item.body | truncate: 150}}
           </div>
           <div class="blogTitle" style="font-size: 15px;">

@@ -20,7 +20,11 @@ export class ExploreMobileComponent implements OnInit {
   products = [];
   exclusive = [];
   trending = [];
+  isTablet = false;
   constructor(private http: HttpClient, private router: Router) {
+    if (window.innerWidth > 600) {
+      this.isTablet = true;
+    }
     this.http.get(environment.backendLink + 'api/admin/explore').subscribe((res: any) => {
       // console.log(res);
       this.products = res.explore.product;

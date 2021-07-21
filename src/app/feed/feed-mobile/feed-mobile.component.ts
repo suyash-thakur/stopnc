@@ -17,8 +17,11 @@ export class FeedMobileComponent implements OnInit {
   elementPosition: any;
   hasNextpage: boolean;
   currentPage = 0;
-
+  isTablet = false;
   constructor(public router: Router, private route: ActivatedRoute, public blogServie: BlogService, private http: HttpClient) {
+    if (window.innerWidth > 600) {
+      this.isTablet = true;
+    }
     this.route.data.subscribe((data) => {
       this.blogs = data.blogs.docs;
       this.hasNextpage = data.blogs.hasNextPage;

@@ -110,3 +110,11 @@
 
 
 }
+@media screen and (min-width: 630px) {
+  .content {
+    padding: 50px !important;
+  }
+  .product-image {
+    width: 250px;
+  }
+}
