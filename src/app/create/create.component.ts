@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { environment } from 'src/environments/environment';
+
 export interface DialogData {
   message: 'Blog must have at least 60 words' | 'Blog must have at least 2 images' | 'Blog header must have at least 3 words' | 'Blog must have a category';
 }
@@ -96,7 +97,7 @@ export class CreateComponent implements OnInit, OnDestroy {
       // console.log(data);
       if (data.id !== undefined) {
         this.isNew = false;
-        this.http.get('http://localhost:3000/api/blog/getDraft/' + data.id).subscribe((res: any) => {
+        this.http.get(environment.backendLink + 'api/blog/getDraft/' + data.id).subscribe((res: any) => {
           this.isPrevious = true;
           // console.log(res);
           this.body = res.Blog.body;
@@ -138,7 +139,7 @@ export class CreateComponent implements OnInit, OnDestroy {
     // console.log('clicked 2');
 
     imageForm.append('image', this.imgObj);
-    this.http.post('http://localhost:3000/api/blog/uploadBlogImage', imageForm).subscribe((val: any) => {
+    this.http.post(environment.backendLink + 'api/blog/uploadBlogImage', imageForm).subscribe((val: any) => {
       let link = val.image;
       this.isUploading = false;
 
@@ -184,6 +185,7 @@ export class CreateComponent implements OnInit, OnDestroy {
       this.openDialog('Blog must have a category');
       return;
     }
+    this.isNew = false;
     this.blogservice.saveBlog(this.title, this.body, this.imagesUrl, this.categories[this.prevSelected].name);
   }
   onRemovePicture(i) {
