@@ -3,7 +3,7 @@ import { UserDataService } from 'src/app/services/user-data.service';
 import { User } from 'src/app/models/user.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -24,20 +24,24 @@ export class UserProfileComponent implements OnInit {
   followerNo: any;
   followingNo: any;
   userId: string;
-  Name: string = '';
+  Name = '';
   Blogs: any;
   isSameUser = false;
 
-  constructor(public userData: UserDataService, public authService: AuthenticationService, private http: HttpClient, private route: ActivatedRoute) {
+  constructor(public userData: UserDataService, public authService: AuthenticationService,
+    private http: HttpClient, private route: ActivatedRoute, public router: Router) {
+    if (window.innerWidth <= 991) {
+      this.router.navigate(['mobile/user/profile/' + route.snapshot.params.id]);
+    }
     this.route.params.subscribe(params => {
-      this.userId = params['id'];
+      this.userId = params.id;
       // console.log(this.userId);
       // console.log(this.authService.id);
       if (this.userId === this.authService.id) {
         this.isSameUser = true;
       }
       this.http.get(environment.backendLink + 'api/user/userInfo' + this.userId).subscribe((userData: any) => {
-        let data = userData;
+        const data = userData;
         // console.log(data);
 
         this.User = {

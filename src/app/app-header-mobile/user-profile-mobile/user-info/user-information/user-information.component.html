@@ -117,10 +117,10 @@
               <div class="description" *ngIf="!isLarge">
                 {{ blog.body | truncate: 180  }}
               </div>
-              <div class="description" *ngIf="isLarge">
+              <div class="description" *ngIf="isLarge && isExtraLarge < 500">
                 {{ blog.body | truncate: 230 }}
               </div>
-              <div class="description" *ngIf="isExtraLarge">
+              <div class="description" *ngIf="isExtraLarge > 500">
                 {{ blog.body | truncate: 400 }}
               </div>
               <div  class="ReadNow">
